@@ -9,7 +9,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //Hi
-        //Test
+
+        //Here is Splash
     }
 }
