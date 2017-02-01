@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SplashActivity" />
-        <activity android:name=".alarm.AlarmActivity"></activity>
+        <activity android:name=".alarm.AlarmActivity" />
+        <activity android:name=".Login.MainLoginActivity"></activity>
     </application>
 
 </manifest>
