@@ -25,7 +25,10 @@
         <activity
             android:name=".Login.LoginSelectActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Login.FindPwdActivity"
+        <activity
+            android:name=".Login.FindPwdActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Login.SignActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
