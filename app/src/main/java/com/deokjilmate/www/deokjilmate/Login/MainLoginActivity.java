@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
@@ -39,6 +38,6 @@ public class MainLoginActivity extends AppCompatActivity {
     @OnClick(R.id.MainLogin_sign)
     public void SignEvent()
     {
-        Toast.makeText(this, "sign", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), SignActivity.class));
     }
 }
