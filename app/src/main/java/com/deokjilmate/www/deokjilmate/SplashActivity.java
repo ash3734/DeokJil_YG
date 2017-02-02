@@ -1,7 +1,11 @@
 package com.deokjilmate.www.deokjilmate;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+
+import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -10,6 +14,16 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //Here is Splash
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run()
+            {
+                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                finish();
+            }
+        }, 5000);
     }
+    //누구나 다 아는 그런 스플래쉬
 }
