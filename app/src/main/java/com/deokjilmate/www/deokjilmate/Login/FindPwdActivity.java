@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 //여긴 비번 찾는 페이지
 public class FindPwdActivity extends AppCompatActivity {
 
+
     @BindView(R.id.FindPwd_toobarImg)
     ImageView toobarImage;
     @Override
