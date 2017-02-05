@@ -11,8 +11,16 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -23,6 +31,7 @@ import butterknife.OnClick;
 public class LoginSelectActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
+    TwitterAuthClient twitterAuthClient;
 
     @BindView(R.id.LoginSelect_topImage)
     ImageView toobarImage;
@@ -55,9 +64,19 @@ public class LoginSelectActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
+                {
 
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
             }
-
             @Override
             public void onCancel() {
 
@@ -73,6 +92,19 @@ public class LoginSelectActivity extends AppCompatActivity {
     @OnClick(R.id.LoginSelect_twitter)
     public void LoginTwitter()//트위터 로그인 버튼
     {
+        twitterAuthClient = new TwitterAuthClient();
+        twitterAuthClient.authorize(LoginSelectActivity.this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+
+            @Override
+            public void success(Result<TwitterSession> result) {
+
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+
+            }
+        });
 
     }
     @OnClick(R.id.LoginSelect_google)
