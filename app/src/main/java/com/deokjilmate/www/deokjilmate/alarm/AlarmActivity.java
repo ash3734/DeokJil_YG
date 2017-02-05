@@ -1,12 +1,15 @@
 package com.deokjilmate.www.deokjilmate.alarm;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.Switch;
@@ -50,6 +53,8 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     MainView view;
     ActionBar actionBar;
 
+    Button alarm_today_info;
+
 
 
 
@@ -57,7 +62,39 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_alarm);
+
+        alarm_today_info = (Button)findViewById(R.id.alarm_today_info);
+        alarm_today_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // 제목셋팅
+                //alertDialogBuilder.setTitle("프로그램 종료");
+
+                // AlertDialog 셋팅
+                alertDialogBuilder
+                        .setMessage("프로그램을 종료할 것입니까?")
+                        .setCancelable(false)
+                        .setNeutralButton("확인",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        // 다이얼로그를 취소한다
+                                        dialog.cancel();
+                                    }
+                                });
+
+
+                // 다이얼로그 생성
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+            }
+        });
 
         actionBar = getSupportActionBar();
 
@@ -234,7 +271,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         Log.i("myTag", String.valueOf(name));
         Log.i("myTag", String.valueOf(notice));
 
-        retrofit2.Call<RegisterResult> requestRegister = service.requestRegister(new GetObject(m_id,sname,name,notice));
+        retrofit2.Call<RegisterResult> requestRegister = service.requestRegister(new NoticeObject(m_id,sname,name,notice));
         requestRegister.enqueue(new Callback<RegisterResult>() {
             @Override
             public void onResponse(retrofit2.Call<RegisterResult> call, Response<RegisterResult> response) {
