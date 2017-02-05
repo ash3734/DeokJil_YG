@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.deokjilmate.www.deokjilmate">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +31,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Login.SignActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2f160620708ff1ba8a44940d7808bec5d334c9b6" />
     </application>
 
 </manifest>
