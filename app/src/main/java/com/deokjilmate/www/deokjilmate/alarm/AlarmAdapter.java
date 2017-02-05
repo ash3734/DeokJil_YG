@@ -59,7 +59,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         View v = convertView;
         if(v==null){
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_parent,parent,false);
+            v = inflater.inflate(R.layout.alarm_parent,parent,false);
             viewHolder.singerTextView = (TextView)v.findViewById(R.id.alram_textview_singer);
             v.setTag(viewHolder);
 
@@ -81,7 +81,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
 //////
 
         viewHolder.singerTextView.setText(getGroup(groupPosition));
-
+ 
         return v;
     }
 
