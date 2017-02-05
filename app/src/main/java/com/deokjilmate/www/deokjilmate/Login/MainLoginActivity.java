@@ -7,10 +7,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 
 public class MainLoginActivity extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
         Glide.with(this).load(R.drawable.output).into(logoImage);
+
     }
 
     //첫 화면에서 로그인 버튼 눌렀을 때
