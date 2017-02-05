@@ -15,7 +15,9 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
@@ -27,6 +29,8 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
+
 //여기는 로그인 방법 결정하는 곳(구글, 페북, 트위터, 커스텀)
 public class LoginSelectActivity extends AppCompatActivity {
 
@@ -36,6 +40,8 @@ public class LoginSelectActivity extends AppCompatActivity {
     @BindView(R.id.LoginSelect_topImage)
     ImageView toobarImage;
 
+    private static final String TWITTER_KEY = "RWkVc71OOHGbQZY3p8k4dtCCt ";
+    private static final String TWITTER_SECRET = "7DlJCOKaC1fmvqYdJAkequAPFdstuhqxZINWErmYvv4MDFUveh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,9 @@ public class LoginSelectActivity extends AppCompatActivity {
 
     //toolbar = (Toolbar)findViewById(R.id.)
         Glide.with(this).load(R.drawable.meta).into(toobarImage);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
+
     }
 
     @OnClick(R.id.LoginSelect_findPwd)
@@ -97,6 +106,7 @@ public class LoginSelectActivity extends AppCompatActivity {
 
             @Override
             public void success(Result<TwitterSession> result) {
+                TwitterSession session = result.data;
 
             }
 
