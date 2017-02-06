@@ -62,7 +62,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm);
+        setContentView(R.layout.alarm_activity);
 
         alarm_today_info = (Button)findViewById(R.id.alarm_today_info);
         alarm_today_info.setOnClickListener(new View.OnClickListener() {
