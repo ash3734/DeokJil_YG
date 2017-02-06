@@ -34,6 +34,10 @@ import io.fabric.sdk.android.Fabric;
 //여기는 로그인 방법 결정하는 곳(구글, 페북, 트위터, 커스텀)
 public class LoginSelectActivity extends AppCompatActivity {
 
+
+//    private static final int RC_SIGN_IN = 9001;
+//    private GoogleApiClient mGoogleApiClient;
+
     private CallbackManager callbackManager;
     TwitterAuthClient twitterAuthClient;
 
@@ -55,6 +59,8 @@ public class LoginSelectActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.meta).into(toobarImage);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, (GoogleApiClient.OnConnectionFailedListener) this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
 
     }
 
@@ -120,6 +126,29 @@ public class LoginSelectActivity extends AppCompatActivity {
     @OnClick(R.id.LoginSelect_google)
     public void LoginGoogle()//구글 로그인 버튼
     {
-
+//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+//        if (opr.isDone()) {
+//            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+//            // and the GoogleSignInResult will be available instantly.
+//            GoogleSignInResult result = opr.get();
+//        } else {
+//            // If the user has not previously signed in on this device or the sign-in has expired,
+//            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+//            // single sign-on will occur in this branch.
+//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                @Override
+//                public void onResult(GoogleSignInResult googleSignInResult) {
+//                    handleSignInResult(googleSignInResult);
+//                }
+//            });
+//        }
     }
+//    private void handleSignInResult(GoogleSignInResult result) {
+//        if (result.isSuccess()) {
+//            // Signed in successfully, show authenticated UI.
+//            GoogleSignInAccount acct = result.getSignInAccount();
+//        } else {
+//            // Signed out, show unauthenticated UI.
+//        }
+//    }
 }
