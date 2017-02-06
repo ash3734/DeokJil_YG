@@ -81,7 +81,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
 //////
 
         viewHolder.singerTextView.setText(getGroup(groupPosition));
- 
+
         return v;
     }
 
