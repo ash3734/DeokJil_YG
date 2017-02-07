@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -57,27 +56,27 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View v = convertView;
-        if(v==null){
-            viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_parent,parent,false);
-            viewHolder.singerTextView = (TextView)v.findViewById(R.id.alram_textview_singer);
-            v.setTag(viewHolder);
-
-        }
-        else{
-            viewHolder = (ViewHolder)v.getTag();
-        }
-/////
-        ImageView view = (ImageView)v.findViewById(R.id.alarm_arrow);
-        TextView textView = (TextView)v.findViewById(R.id.alram_textview_singer);
-
-        if(isExpanded){
-            view.setImageResource(R.drawable.alarm_arrow_down);
-            textView.setTextColor(0xFFFF7D8F);
-        }else{
-            view.setImageResource(R.drawable.alarm_arrow);
-            textView.setTextColor(0xFF000000);
-        }
+//        if(v==null){
+//            viewHolder = new ViewHolder();
+//            v = inflater.inflate(R.layout.list_parent,parent,false);
+//            viewHolder.singerTextView = (TextView)v.findViewById(R.id.alram_textview_singer);
+//            v.setTag(viewHolder);
+//
+//        }
+//        else{
+//            viewHolder = (ViewHolder)v.getTag();
+//        }
+///////
+//        ImageView view = (ImageView)v.findViewById(R.id.alarm_arrow);
+//        TextView textView = (TextView)v.findViewById(R.id.alram_textview_singer);
+//
+//        if(isExpanded){
+//            view.setImageResource(R.drawable.alarm_arrow_down);
+//            textView.setTextColor(0xFFFF7D8F);
+//        }else{
+//            view.setImageResource(R.drawable.alarm_arrow);
+//            textView.setTextColor(0xFF000000);
+//        }
 //////
 
         viewHolder.singerTextView.setText(getGroup(groupPosition));
