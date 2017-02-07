@@ -2,5 +2,5 @@
     <string name="app_name">DeokJilMate</string>
     <string name="server_client_id">338630845157-b8spfi004o8svalvf3k0c0d6nviu2uor.apps.googleusercontent.com</string>
     <string name="facebook_app_id">728378137330576</string>
-
+    <string name="title_activity_setting">SettingActivity</string>
 </resources>

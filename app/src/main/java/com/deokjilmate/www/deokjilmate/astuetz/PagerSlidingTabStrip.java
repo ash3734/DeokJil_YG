@@ -28,6 +28,8 @@ import java.util.Locale;
 
 /**
  * Created by ash on 2017-02-02.
+ * 탭이 고정되는 유아이를 위한 오픈소스 클래스
+ * https://github.com/kmshack/Android-ParallaxHeaderViewPager
  */
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {
