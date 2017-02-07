@@ -38,6 +38,7 @@
             android:name=".Login.SignActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".home.HomeActivity"></activity>
+        <activity android:name=".Setting.SettingActivity"></activity>
     </application>
 
 </manifest>

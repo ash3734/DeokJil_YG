@@ -12,10 +12,10 @@ import com.deokjilmate.www.deokjilmate.R;
  * 사전 투표 리사이클러 뷰 뷰홀더
  */
 
-public class ViewHolder extends RecyclerView.ViewHolder{
+public class PreViewHolder extends RecyclerView.ViewHolder{
     TextView textViewProgramName;
     ImageView imageViewProgram;
-    public ViewHolder(View itemView) {
+    public PreViewHolder(View itemView) {
         super(itemView);
         textViewProgramName = (TextView) itemView.findViewById(R.id.home_list_textview_program);
         imageViewProgram = (ImageView) itemView.findViewById(R.id.home_list_imageview_program);

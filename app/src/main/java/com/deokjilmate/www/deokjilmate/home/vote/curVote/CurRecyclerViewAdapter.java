@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.home.vote.preVote;
+package com.deokjilmate.www.deokjilmate.home.vote.curVote;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreData;
+import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreViewHolder;
 
 import java.util.ArrayList;
 
@@ -13,12 +15,12 @@ import java.util.ArrayList;
  * Created by ash on 2017-02-07.
  */
 
-public class PreRecyclerViewAdapter extends RecyclerView.Adapter<PreViewHolder>{
+public class CurRecyclerViewAdapter extends RecyclerView.Adapter<PreViewHolder>{
     ArrayList<PreData> itemDatas;
   //  View.OnClickListener clickEvent; 추후 수정
     //RequestManager mRequestManager; 이것두
     //, View.OnClickListener clickEvent, RequestManager requestManager 밑에 파라메터로 넣자 나중에
-    public PreRecyclerViewAdapter(ArrayList<PreData> itemDatas) {
+    public CurRecyclerViewAdapter(ArrayList<PreData> itemDatas) {
         this.itemDatas=itemDatas;
         //this.clickEvent = clickEvent;
         //this.mRequestManager = requestManager;
