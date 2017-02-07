@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "338630845157",
-    "project_id": "deokjilmate"
+    "firebase_url": "https://deokjilmate.firebaseio.com",
+    "project_id": "deokjilmate",
+    "storage_bucket": "deokjilmate.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "338630845157-b8spfi004o8svalvf3k0c0d6nviu2uor.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "338630845157-1c2tjoqtc66m502dl00f9ct7qevr0jqf.apps.googleusercontent.com",
           "client_type": 3
@@ -27,11 +33,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338630845157-b8spfi004o8svalvf3k0c0d6nviu2uor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
