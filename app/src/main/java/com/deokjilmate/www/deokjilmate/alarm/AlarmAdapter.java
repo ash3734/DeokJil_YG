@@ -78,6 +78,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
             view.setImageResource(R.drawable.alarm_arrow);
             textView.setTextColor(0xFF000000);
         }
+
 //////
 
         viewHolder.singerTextView.setText(getGroup(groupPosition));
@@ -155,3 +156,4 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         return true;
     }
 }
+
