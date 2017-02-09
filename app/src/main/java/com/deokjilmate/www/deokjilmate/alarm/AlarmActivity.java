@@ -283,9 +283,10 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                         finish();
                     }
                 }
-               /* else{
+ else{
                     Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
-                }*/
+                }
+
             }
 
             @Override

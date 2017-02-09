@@ -14,9 +14,10 @@ import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
 
-/**
+*
  * Created by 김민경 on 2017-02-05.
- */
+
+
 
 public class AlarmAdapter extends BaseExpandableListAdapter{
     private ArrayList<String> groupList = null;
