@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="64dp">
+        <LinearLayout
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:gravity="center_vertical">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/SetSingerRecycle_singerImg"
+                app:civ_border="false"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#FF7D8F"
+                app:civ_shadow_radius="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/SetSingerRecycle_singerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textSize="18dp"
+                android:textColor="#9D9E9E"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:gravity="right">
+            <ImageView
+                android:id="@+id/SetSingerRecycle_most"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#c9caca"/>
+</LinearLayout>

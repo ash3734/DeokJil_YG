@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_set_singer"
     android:layout_width="match_parent"
@@ -8,6 +8,88 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.deokjilmate.www.deokjilmate.Login.SetSingerActivity">
+    tools:context="com.deokjilmate.www.deokjilmate.Login.SetSingerActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/SetSinger_topImage"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="여기는 툴바"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFE7E7">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="81dp">
+                <LinearLayout
+                    android:layout_width="280dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true" >
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" />
+                    <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
+                        android:layout_width="240dp"
+                        android:layout_height="35dp"
+                        android:hint="좋아하는 가수를 검색해보세요"
+                        android:textSize="14dp"
+                        android:gravity="center_vertical"
+                        android:id="@+id/SetSinger_search"
+                        android:background="@null"
+                        android:layout_centerInParent="true"/>
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="66dp"
+                    android:layout_height="35dp"
+                    android:text="가수 목록"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/SetSinger_set"
+                    android:textColor="#FF7D8F"
+                    android:textSize="16dp"
+                    />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/SetSinger_list">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

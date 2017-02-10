@@ -48,7 +48,9 @@
         <activity
             android:name=".Login.SetProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login.SetSingerActivity"></activity>
+
+        <activity android:name=".Login.SetSingerActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 
