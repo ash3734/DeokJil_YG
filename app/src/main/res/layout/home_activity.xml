@@ -34,14 +34,35 @@
 
 
     <!--drawer layout을 만들고 그 안에 view를 배치하면 됨-->
-    <ListView
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:orientation="vertical"
-        android:divider="#23222A"
-        android:dividerHeight="1dp"
-        android:background="#FFE868"
-        android:id="@+id/drawer"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/home_drawer_myimage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/aoa"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_drawer_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/home_drawer_allvote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="투표 모아보기"/>
+        <TextView
+            android:id="@+id/home_drawer_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="setting"/>
+        <TextView
+            android:id="@+id/home_drawer_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="alarm"/>
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
 
