@@ -10,8 +10,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="4898f0500922fe54d7bf58552e18edda9963a597" />
@@ -36,13 +37,17 @@
         <activity
             android:name=".Login.FindPwdActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Login.SignActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".Login.SignActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"/>
-
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Login.SetProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Login.SetSingerActivity"></activity>
     </application>
 
 </manifest>
