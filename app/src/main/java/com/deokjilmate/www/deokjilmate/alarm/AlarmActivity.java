@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 
@@ -281,9 +283,10 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                         finish();
                     }
                 }
-               /* else{
+ else{
                     Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
-                }*/
+                }
+
             }
 
             @Override

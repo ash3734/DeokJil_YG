@@ -26,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity" />
+        <activity android:name=".home.HomeActivity">
+        </activity>
         <activity android:name=".alarm.AlarmActivity" />
         <activity
             android:name=".Login.MainLoginActivity"
@@ -48,6 +49,7 @@
             android:name=".Login.SetProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Login.SetSingerActivity"></activity>
+
     </application>
 
 </manifest>

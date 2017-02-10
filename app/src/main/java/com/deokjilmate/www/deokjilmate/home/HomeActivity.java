@@ -1,191 +1,104 @@
 package com.deokjilmate.www.deokjilmate.home;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.deokjilmate.www.deokjilmate.R;
-import com.deokjilmate.www.deokjilmate.astuetz.PagerSlidingTabStrip;
 
-@SuppressLint("NewApi")
-public class HomeActivity extends FragmentActivity implements ScrollTabHolder, ViewPager.OnPageChangeListener {
-
-    public static final boolean NEEDS_PROXY = Integer.valueOf(Build.VERSION.SDK_INT).intValue() < 11;
-
-    private View mHeader;
-
-    private PagerSlidingTabStrip mPagerSlidingTabStrip;
-    private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
-
-    private int mMinHeaderHeight;
-    private int mHeaderHeight;
-    private int mMinHeaderTranslation;
-
-    private TextView info;
-    private int mLastY;
+/**
+ * 홈화면 액티비티
+ * 액션바,탭,튜표정보,랭크 정보로 구성
+ * made by ash
+ */
+public class HomeActivity extends ActionBarActivity {
+    ActionBarDrawerToggle drawerToggle;
+    String[] drawer_str = {"mypage", "setup", "help"};
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity);
 
-        mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.min_header_height);
-        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.header_height);
-        mMinHeaderTranslation = -mMinHeaderHeight;
+        //텝 추가
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        setContentView(R.layout.activity_home);
+        // Initializing ViewPager
+        viewPager = (ViewPager) findViewById(R.id.pager);
 
-        mHeader = findViewById(R.id.header);
-        info = (TextView) findViewById(R.id.info);
+        // Creating TabPagerAdapter adapter
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(4);
-
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.setTabHolderScrollingContent(this);
-
-        mViewPager.setAdapter(mPagerAdapter);
-
-        mPagerSlidingTabStrip.setViewPager(mViewPager);
-        mPagerSlidingTabStrip.setOnPageChangeListener(this);
-        mLastY=0;
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int arg0) {
-        // nothing
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        if (positionOffsetPixels > 0) {
-            int currentItem = mViewPager.getCurrentItem();
-
-            SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-            ScrollTabHolder currentHolder;
-
-            if (position < currentItem) {
-                currentHolder = scrollTabHolders.valueAt(position);
-            } else {
-                currentHolder = scrollTabHolders.valueAt(position + 1);
+        // Set TabSelectedListener
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
-            if (NEEDS_PROXY) {
-                // TODO is not good
-                currentHolder.adjustScroll(mHeader.getHeight() - mLastY);
-                mHeader.postInvalidate();
-            } else {
-                currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
             }
-        }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //네비게이션 바 부분
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        ListView listView = (ListView) findViewById(R.id.drawer);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drawer_str);
+        listView.setAdapter(adapter);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
     }
 
     @Override
-    public void onPageSelected(int position) {
-        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
-        if(NEEDS_PROXY){
-            //TODO is not good
-            currentHolder.adjustScroll(mHeader.getHeight()-mLastY);
-            mHeader.postInvalidate();
-        }else{
-            currentHolder.adjustScroll((int) (mHeader.getHeight() +mHeader.getTranslationY()));
-        }
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount, int pagePosition) {
-        if (mViewPager.getCurrentItem() == pagePosition) {
-            int scrollY = getScrollY(view);
-            if(NEEDS_PROXY){
-                //TODO is not good
-                mLastY=-Math.max(-scrollY, mMinHeaderTranslation);
-                info.setText(String.valueOf(scrollY));
-                mHeader.scrollTo(0, mLastY);
-                mHeader.postInvalidate();
-            }else{
-                mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
-            }
-        }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public void adjustScroll(int scrollHeight) {
-        // nothing
-    }
-
-    public int getScrollY(AbsListView view) {
-        View c = view.getChildAt(0);
-        if (c == null) {
-            return 0;
-        }
-
-        int firstVisiblePosition = view.getFirstVisiblePosition();
-        int top = c.getTop();
-
-        int headerHeight = 0;
-        if (firstVisiblePosition >= 1) {
-            headerHeight = mHeaderHeight;
-        }
-
-        return -top + firstVisiblePosition * c.getHeight() + headerHeight;
-    }
-
-    public static float clamp(float value, float max, float min) {
-        return Math.max(Math.min(value, min), max);
-    }
-
-    public class PagerAdapter extends FragmentPagerAdapter {
-
-        private SparseArrayCompat<ScrollTabHolder> mScrollTabHolders;
-        private final String[] TITLES = { "Page 1", "Page 2", "Page 3", "Page 4"};
-        private ScrollTabHolder mListener;
-
-        public PagerAdapter(FragmentManager fm) {
-            super(fm);
-            mScrollTabHolders = new SparseArrayCompat<ScrollTabHolder>();
-        }
-
-        public void setTabHolderScrollingContent(ScrollTabHolder listener) {
-            mListener = listener;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            ScrollTabHolderFragment fragment = (ScrollTabHolderFragment) SampleListFragment.newInstance(position);
-
-            mScrollTabHolders.put(position, fragment);
-            if (mListener != null) {
-                fragment.setScrollTabHolder(mListener);
-            }
-
-            return fragment;
-        }
-
-        public SparseArrayCompat<ScrollTabHolder> getScrollTabHolders() {
-            return mScrollTabHolders;
-        }
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
     }
 }
+
