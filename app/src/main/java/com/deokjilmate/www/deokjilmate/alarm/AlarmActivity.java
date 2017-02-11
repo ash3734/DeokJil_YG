@@ -70,15 +70,14 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         alarm_today_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AlarmActivity.this);
 
                 // 제목셋팅
-                //alertDialogBuilder.setTitle("프로그램 종료");
+                alertDialogBuilder.setTitle("오늘의 알림");
 
                 // AlertDialog 셋팅
                 alertDialogBuilder
-                        .setMessage("프로그램을 종료할 것입니까?")
+                        .setMessage("어쩌고 저쩌고")
                         .setCancelable(false)
                         .setNeutralButton("확인",
                                 new DialogInterface.OnClickListener() {
@@ -108,13 +107,13 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
 
         //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
-        View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
-        actionBar.setCustomView(mCustomView);
+        /*View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
+        actionBar.setCustomView(mCustomView);*/
 
 
 
         // 액션바에 백그라운드 이미지를 아래처럼 입힐 수 있습니다. (drawable 폴더에 img_action_background.png 파일이 있어야 겠죠?)
-        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_topbar));
+       // actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_topbar));
 
         s_id = 0;
         m_id = 129;
