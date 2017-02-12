@@ -7,12 +7,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.home.vote.nevigation.DrawerRecyclerViewAdapter;
+import com.deokjilmate.www.deokjilmate.home.vote.nevigation.MySingerData;
+
+import java.util.ArrayList;
 
 /**
  * 홈화면 액티비티
@@ -21,9 +25,12 @@ import com.deokjilmate.www.deokjilmate.R;
  */
 public class HomeActivity extends ActionBarActivity {
     ActionBarDrawerToggle drawerToggle;
-    String[] drawer_str = {"mypage", "setup", "help"};
+    private RecyclerView recyclerView;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private LinearLayoutManager linearLayoutManager;
+    private DrawerRecyclerViewAdapter drawerRecyclerViewAdapter;
+    private ArrayList<MySingerData> datas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +72,14 @@ public class HomeActivity extends ActionBarActivity {
         //네비게이션 바 부분
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        ListView listView = (ListView) findViewById(R.id.drawer);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drawer_str);
-        listView.setAdapter(adapter);
+        recyclerView = (RecyclerView)findViewById(R.id.home_drawer_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        drawerRecyclerViewAdapter = new DrawerRecyclerViewAdapter(datas);
+        recyclerView.setAdapter(drawerRecyclerViewAdapter);
+
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
             @Override
             public void onDrawerOpened(View drawerView) {
