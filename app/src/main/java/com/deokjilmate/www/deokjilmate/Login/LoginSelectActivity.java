@@ -59,7 +59,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         callbackManager = CallbackManager.Factory.create();
 
         //toolbar = (Toolbar)findViewById(R.id.)
-        Glide.with(this).load(R.drawable.meta).into(toobarImage);
+        Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
