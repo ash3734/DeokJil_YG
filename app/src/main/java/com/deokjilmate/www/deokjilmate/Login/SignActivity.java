@@ -20,6 +20,6 @@ public class SignActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
 
-        Glide.with(this).load(R.drawable.meta).into(toolbarImage);
+        Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
     }
 }
