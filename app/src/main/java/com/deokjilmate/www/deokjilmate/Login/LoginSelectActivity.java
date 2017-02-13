@@ -41,6 +41,8 @@ import butterknife.OnClick;
 //여기는 로그인 방법 결정하는 곳(구글, 페북, 트위터, 커스텀)
 public class LoginSelectActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private int loginType = 0;
+
     private CallbackManager callbackManager;
     TwitterAuthClient twitterAuthClient;
 
@@ -82,17 +84,18 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @OnClick(R.id.LoginSelect_facebook)
     public void LoginFacebook()//페이스북 로그인 버튼
     {
+        loginType = 1;
         LoginManager.getInstance().logInWithReadPermissions(LoginSelectActivity.this,
                 Arrays.asList("public_profile", "email"));
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
                 final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
                 {
-
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
+                        //
 
                     }
                 });
@@ -116,12 +119,14 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @OnClick(R.id.LoginSelect_twitter)
     public void LoginTwitter()//트위터 로그인 버튼
     {
+        loginType = 2;
         twitterAuthClient = new TwitterAuthClient();
         twitterAuthClient.authorize(LoginSelectActivity.this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
 
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
+                //result.
 
             }
 
@@ -135,24 +140,29 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @OnClick(R.id.LoginSelect_google)
     public void LoginGoogle()//구글 로그인 버튼
     {
-        signIn();
-        Log.v("LoginSelect", "ClickedGoogle");
-    }
-    private void signIn() {
+        loginType = 3;
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.v("LoginSelect", "ClickedGoogle");
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-            Log.v("GoogleResult", "GoogleResult");
-            //TODO : 여기서부터는 페이지 넘어가는거 구현
-
+        switch (loginType)
+        {
+            case 1://페북 로그인
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+                break;
+            case 2://트위터 로그인
+                twitterAuthClient.onActivityResult(requestCode, resultCode, data);
+                break;
+            case 3://구글 로그인
+                if (requestCode == RC_SIGN_IN) {
+                    GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                    handleSignInResult(result);
+                    Log.v("GoogleResult", "GoogleResult");
+                }
+                break;
         }
     }
     private void handleSignInResult(GoogleSignInResult result) {
@@ -189,6 +199,5 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 }
