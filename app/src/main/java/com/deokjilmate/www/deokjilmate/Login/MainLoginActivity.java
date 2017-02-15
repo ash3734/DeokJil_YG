@@ -24,7 +24,7 @@ public class MainLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_login);
+        setContentView(R.layout.login_main_login);
         ButterKnife.bind(this);
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);

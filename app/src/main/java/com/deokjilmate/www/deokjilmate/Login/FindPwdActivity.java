@@ -19,7 +19,7 @@ public class FindPwdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_pwd);
+        setContentView(R.layout.login_find_pwd);
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
