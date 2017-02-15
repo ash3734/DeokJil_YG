@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.home.vote.nevigation;
+package com.deokjilmate.www.deokjilmate.home.nevigation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ public class DrawerRecyclerViewAdapter extends RecyclerView.Adapter<DrawerViewHo
     @Override
     public DrawerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.drawer_listitem, parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_drawer_listitem, parent,false);
         DrawerViewHolder viewHolder = new DrawerViewHolder(itemView);
         return viewHolder;
     }

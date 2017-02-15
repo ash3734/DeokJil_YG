@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.home.vote.nevigation;
+package com.deokjilmate.www.deokjilmate.home.nevigation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +15,6 @@ public class DrawerViewHolder extends RecyclerView.ViewHolder {
 
     public DrawerViewHolder(View itemView) {
         super(itemView);
-        textView = (TextView) itemView.findViewById(R.id.drawer_list_singername);
+        textView = (TextView) itemView.findViewById(R.id.home_drawer_singername);
     }
 }
