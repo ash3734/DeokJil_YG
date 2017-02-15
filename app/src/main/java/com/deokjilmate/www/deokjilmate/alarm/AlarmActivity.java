@@ -107,8 +107,8 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
 
         //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
-View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
-        actionBar.setCustomView(mCustomView);
+        // View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
+        // actionBar.setCustomView(mCustomView);
 
 
 

@@ -20,11 +20,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="메일주소"/>
+        android:hint="메일주소"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:gravity="center_vertical"
         android:textSize="18dp"
         android:text="3~5일 내에 답장을 메일로 보내드립니다."/>
+
+
+    <Button
+        android:id="@+id/send_inquiry"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:text="보내기"/>
 
 </LinearLayout>
