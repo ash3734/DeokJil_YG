@@ -22,6 +22,6 @@ public class FindPwdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_pwd);
         ButterKnife.bind(this);
 
-        Glide.with(this).load(R.drawable.meta).into(toobarImage);
+        Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
     }
 }

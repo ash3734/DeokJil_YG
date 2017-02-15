@@ -5,7 +5,10 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class SetSingerItemData {
-    String singer_image;
+    int singer_image;
+
+
+
     // int singer;
     //보통 이미지의 리소스는 인트로 저장.
     String singer_name;
@@ -14,10 +17,14 @@ public class SetSingerItemData {
 
 
 
-    public SetSingerItemData(String singer_image,String singer_name, int singer_most) {
+    public SetSingerItemData(int singer_image,String singer_name, int singer_most) {
         this.singer_image = singer_image;
         // this.singer = singer;
         this.singer_name = singer_name;
         this.singer_most = singer_most;
+    }
+
+    public String getSinger_name() {
+        return singer_name;
     }
 }

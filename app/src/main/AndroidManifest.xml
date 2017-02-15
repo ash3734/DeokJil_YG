@@ -54,6 +54,13 @@
         <activity
             android:name=".Login.SetSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".MyPage.MyPageActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MyPage.AddSingerActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".Setting.InquiryActivity"></activity>
     </application>
 
 </manifest>
