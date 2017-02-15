@@ -17,7 +17,7 @@ public class SignActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign);
+        setContentView(R.layout.login_sign);
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);

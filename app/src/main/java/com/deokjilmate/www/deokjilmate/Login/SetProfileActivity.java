@@ -25,7 +25,7 @@ public class SetProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_profile);
+        setContentView(R.layout.login_set_profile);
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.output).into(toobarImage);

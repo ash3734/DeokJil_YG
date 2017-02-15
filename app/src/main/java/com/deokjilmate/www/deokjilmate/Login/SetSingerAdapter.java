@@ -35,7 +35,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     @Override
     public SetSingerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.setsinger_recycle, parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.login_setsinger_recycle, parent,false);
         //화면상에 보여줄 레이아웃을 지정해주어야 함.
         SetSingerViewHolder viewHolder = new SetSingerViewHolder(itemView);
         //itemView.setOnClickListener(clickEvent);

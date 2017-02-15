@@ -55,7 +55,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_select);
+        setContentView(R.layout.login_login_select);
         ButterKnife.bind(this);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();

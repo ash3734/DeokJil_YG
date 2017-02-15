@@ -39,7 +39,7 @@ public class SetSingerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_singer);
+        setContentView(R.layout.login_set_singer);
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
