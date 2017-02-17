@@ -15,11 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/MyPageMain_toolbar"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/MyPage_backImage"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="여기는 툴바"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/MyPage_editSinger"/>
     </RelativeLayout>
 
 
@@ -179,24 +189,6 @@
                 android:id="@+id/MyPage_subRecycle">
 
             </android.support.v7.widget.RecyclerView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:gravity="center_vertical"
-                android:background="#FFF">
-                <ImageButton
-                    android:layout_width="42dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/MyPage_plusSub"
-                    />
-                <TextView
-                    android:layout_width="225dp"
-                    android:layout_height="82dp"
-                    android:text="좋아하는 가수를 추가하세요"
-                    android:textSize="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

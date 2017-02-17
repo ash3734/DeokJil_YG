@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,9 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @BindView(R.id.LoginSelect_topImage)
     ImageView toobarImage;
 
+    @BindView(R.id.LoginSelect_backImage)
+    ImageButton backButton;
+
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
 
@@ -55,6 +59,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
 
         //toolbar = (Toolbar)findViewById(R.id.)
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
+        Glide.with(this).load(R.drawable.meta).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -192,5 +197,12 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+    @OnClick(R.id.LoginSelect_backImage)
+    public void ClickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
+        startActivity(intent);
     }
 }

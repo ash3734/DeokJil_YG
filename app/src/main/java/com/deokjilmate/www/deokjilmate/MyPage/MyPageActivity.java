@@ -26,7 +26,7 @@ public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.MyPageMain_toolbar)
     ImageView toolbarImage;
 
-    @BindView(R.id.MyPage_plusSub)
+    @BindView(R.id.MyPage_editSinger)
     ImageButton plusSub;
 
     @BindView(R.id.MyPage_mainSingerImage)
@@ -48,6 +48,7 @@ public class MyPageActivity extends AppCompatActivity {
         setContentView(R.layout.mypage_main);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
+        Glide.with(this).load(R.drawable.meta).into(plusSub);
 
         requestManager_singer = Glide.with(this);
         requestManager_rank = Glide.with(this);
@@ -88,7 +89,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.MyPage_plusSub)
+    @OnClick(R.id.MyPage_editSinger)
     public void plusSub()
     {
         Intent intent = new Intent(getApplicationContext(), AddSingerActivity.class);
