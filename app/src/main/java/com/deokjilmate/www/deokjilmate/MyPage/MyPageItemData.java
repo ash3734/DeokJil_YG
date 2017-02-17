@@ -5,15 +5,15 @@ package com.deokjilmate.www.deokjilmate.MyPage;
  */
 
 public class MyPageItemData {
-    String singer_Image;
-    String rank_Image;
+    int singer_Image;
+    int rank_Image;
     String singer_name;
     String vote_count;
     //서버 딴에서 받을 때는 숫자로 받고 이것을 문자열로 캐스팅해야 함.
 
 
-
-    public MyPageItemData(String singer_Image, String singer_name, String vote_count, String rack_Image) {
+    //이미지들은 나중에 string으로 변경할 것.
+    public MyPageItemData(int singer_Image, int rack_Image, String singer_name, String vote_count) {
         this.singer_Image = singer_Image;
         this.rank_Image = rack_Image;
         this.singer_name = singer_name;

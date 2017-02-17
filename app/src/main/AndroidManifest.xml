@@ -53,7 +53,7 @@
 
         <activity android:name=".MyPage.MyPageActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MyPage.AddSingerActivity"
+        <activity android:name=".MyPage.AddSinger.AddSingerActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".Setting.InquiryActivity"></activity>

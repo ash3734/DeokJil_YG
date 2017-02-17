@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mypage_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity"
@@ -20,6 +21,184 @@
         android:layout_centerInParent="true"
         android:text="여기는 툴바"/>
     </RelativeLayout>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/MyPage_scrollView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="5px">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/MyPage_profileBackground"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/MyPage_profileImage"
+                        android:layout_gravity="center"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/profile_default"
+                        android:layout_centerInParent="true"
+                        app:civ_shadow="true"
+                        app:civ_shadow_color="#ff7d8f"
+                        app:civ_shadow_radius="3"
+                        />
+                    <RelativeLayout
+                        android:layout_marginTop="8dp"
+                        android:layout_width="105dp"
+                        android:layout_height="20dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="닉네임"
+                            android:textSize="10dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_centerInParent="true"
+                            android:id="@+id/mypage_My_TextView_Id"
+                            />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="24dp"
+                    android:text="메인 가수"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="7dp"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="14dp"
+                    android:id="@+id/MyPage_mainSingerBackground"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal">
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:layout_width="78dp"
+                        android:layout_height="78dp"
+                        android:layout_marginTop="35dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_color="#ff7d8f"
+                        app:civ_shadow_radius="3"
+                        android:id="@+id/MyPage_mainSingerImage"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/MyPage_singerName"
+                        android:text="twice"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mypage_Main_Bul_Id">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/MyPage_rankImage"
+                            android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:text="투표수"
+                            android:textColor="#5d5f5d"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/MyPage_vote"
+                            android:layout_toRightOf="@+id/MyPage_rankImage"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:text="123123"
+                            android:id="@+id/MyPage_voteCount"
+                            android:layout_toRightOf="@+id/MyPage_vote"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="146dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#c9c9c8"
+                    android:layout_alignParentBottom="true"
+                    />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="서브 가수"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:paddingLeft="18dp"
+                android:gravity="center_vertical"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MyPage_subRecycle">
+
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:gravity="center_vertical"
+                android:background="#FFF">
+                <ImageButton
+                    android:layout_width="42dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/MyPage_plusSub"
+                    />
+                <TextView
+                    android:layout_width="225dp"
+                    android:layout_height="82dp"
+                    android:text="좋아하는 가수를 추가하세요"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
