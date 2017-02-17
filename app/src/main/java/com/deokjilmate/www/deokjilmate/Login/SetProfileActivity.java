@@ -1,5 +1,7 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+
+import android.content.Intent;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,6 +25,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SetProfileActivity extends AppCompatActivity {
+
+    final int REQ_CODE_SELECT_IMAGE = 100;
 
     @BindView(R.id.SetProfile_topImage)
     ImageView toobarImage;
@@ -54,6 +58,7 @@ public class SetProfileActivity extends AppCompatActivity {
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
