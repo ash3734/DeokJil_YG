@@ -17,11 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/LoginSelect_topImage"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="여기는 툴바"/>
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/LoginSelect_backImage"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="여기는 툴바"/>
 
         </RelativeLayout>
 

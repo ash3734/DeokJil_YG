@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,6 +31,9 @@ public class SetSingerActivity extends AppCompatActivity {
     @BindView(R.id.SetSinger_search)
     EditText search;
 
+    @BindView(R.id.SetSinger_backImage)
+    ImageButton backButton;
+
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     RequestManager requestManager;
@@ -43,6 +48,7 @@ public class SetSingerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
+        Glide.with(this).load(R.drawable.meta).into(backButton);
 
         requestManager = Glide.with(this);
 
@@ -82,5 +88,12 @@ public class SetSingerActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    @OnClick(R.id.SetSinger_backImage)
+    public void ClickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+        startActivity(intent);
     }
 }
