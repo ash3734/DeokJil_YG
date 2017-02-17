@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.home.vote.nevigation;
+package com.deokjilmate.www.deokjilmate.home.nevigation;
 
 /**
  * Created by ash on 2017-02-09.

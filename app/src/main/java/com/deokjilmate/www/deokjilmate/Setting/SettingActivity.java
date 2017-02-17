@@ -21,7 +21,7 @@ public class SettingActivity extends AppCompatActivity {
     ArrayList<SettingListItem> datas= new ArrayList<SettingListItem>();
     ListView listview;
     Button logoutBtn;
-    Intent intent;
+    Intent intent_inquiry;
     SharedPreferences.Editor editor;
     SharedPreferences logout;
 
@@ -33,14 +33,17 @@ public class SettingActivity extends AppCompatActivity {
 
 /*
         datas.add( new SettingListItem("공지사항",R.drawable.right_arrow));
-        datas.add( new SettingListItem("버전정보",R.drawable.right_arrow));
-        datas.add( new SettingListItem("탈퇴하기",R.drawable.right_arrow));*/
+        datas.add( new SettingListItem("문의하기",R.drawable.right_arrow));
+        datas.add( new SettingListItem("버전정보                                 1.0.0",R.drawable.right_arrow));
+        datas.add( new SettingListItem("약관 및 정책"));
+        datas.add( new SettingListItem("탈퇴하기"));*/
 
         listview= (ListView)findViewById(R.id.basicListview);
         //SettingAdapter adapter= new SettingAdapter( getLayoutInflater() , datas);
-        logoutBtn = (Button)findViewById(R.id.logout);
+        logoutBtn = (Button)findViewById(R.id.setting_logout);
         //listview.setAdapter(SettingAdapter);
-        //intent = new Intent(this,OutActivity.class);// 탈퇴 액티비티로 넘어감
+
+        intent_inquiry = new Intent(this,InquiryActivity.class);
 
         // sharedpreferences 설정
         logout = getSharedPreferences("loginState",MODE_PRIVATE);
@@ -55,10 +58,10 @@ public class SettingActivity extends AppCompatActivity {
                         notice();
                         break;
                     case 1:
-                        notice();
+                        startActivity(intent_inquiry);
                         break;
                     case 2:
-                        startActivity(intent);
+                        notice();
                         break;
                 }
             }
