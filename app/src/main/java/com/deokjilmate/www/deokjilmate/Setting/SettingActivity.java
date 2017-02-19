@@ -31,17 +31,16 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity);
 
-/*
-        datas.add( new SettingListItem("공지사항",R.drawable.right_arrow));
-        datas.add( new SettingListItem("문의하기",R.drawable.right_arrow));
-        datas.add( new SettingListItem("버전정보                                 1.0.0",R.drawable.right_arrow));
-        datas.add( new SettingListItem("약관 및 정책"));
-        datas.add( new SettingListItem("탈퇴하기"));*/
+        datas.add( new SettingListItem("공지사항",R.drawable.aoa));
+        datas.add( new SettingListItem("문의하기",R.drawable.aoa));
+        datas.add( new SettingListItem("버전정보                                 1.0.0",R.drawable.aoa));
+        datas.add( new SettingListItem("약관 및 정책",R.drawable.aoa));
+        datas.add( new SettingListItem("탈퇴하기",R.drawable.aoa));
 
         listview= (ListView)findViewById(R.id.basicListview);
-        //SettingAdapter adapter= new SettingAdapter( getLayoutInflater() , datas);
+        SettingAdapter adapter= new SettingAdapter( getLayoutInflater() , datas);
         logoutBtn = (Button)findViewById(R.id.setting_logout);
-        //listview.setAdapter(SettingAdapter);
+        listview.setAdapter(adapter);
 
         intent_inquiry = new Intent(this,InquiryActivity.class);
 

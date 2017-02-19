@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -43,6 +44,9 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     @BindView(R.id.Sign_topImage)
     ImageView toolbarImage;
 
+    @BindView(R.id.Sign_backImage)
+    ImageButton backButton;
+
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
 
@@ -61,6 +65,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         callbackManager = CallbackManager.Factory.create();
 
         Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
+        Glide.with(this).load(R.drawable.meta).into(backButton);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -190,5 +196,13 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+
+    @OnClick(R.id.Sign_backImage)
+    public void ClickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
+        startActivity(intent);
     }
 }

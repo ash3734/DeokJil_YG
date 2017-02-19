@@ -1,7 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
 
-import android.content.Intent;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,6 +35,9 @@ public class SetProfileActivity extends AppCompatActivity {
     @BindView(R.id.SetProfile_select)
     ImageButton profileSelect;
 
+    @BindView(R.id.SetProfile_backImage)
+    ImageButton backButton;
+
     final int REQ_CODE_SELECT_IMAGE = 100;
 
     @Override
@@ -49,6 +51,9 @@ public class SetProfileActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.profile_default).into(profileImage);
 
         Glide.with(this).load(R.drawable.profilesetting_photo).into(profileSelect);
+
+        Glide.with(this).load(R.drawable.meta).into(backButton);
+
     }
     @OnClick(R.id.SetProfile_select)
     public void ProfileSet()
@@ -114,6 +119,13 @@ public class SetProfileActivity extends AppCompatActivity {
 
 
         return imgName;
+    }
+
+    @OnClick(R.id.SetProfile_backImage)
+    public void ClickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), SignActivity.class);
+        startActivity(intent);
     }
 
 }
