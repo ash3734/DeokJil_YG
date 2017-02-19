@@ -30,7 +30,6 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity);
-
         datas.add( new SettingListItem("공지사항",R.drawable.aoa));
         datas.add( new SettingListItem("문의하기",R.drawable.aoa));
         datas.add( new SettingListItem("버전정보                                 1.0.0",R.drawable.aoa));

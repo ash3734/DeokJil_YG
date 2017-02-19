@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.AddSingerActivity;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
@@ -23,6 +25,12 @@ public class EditSingerActivity extends AppCompatActivity {
 
     @BindView(R.id.Sign_topImage)
     ImageView toolbarImage;
+
+    @BindView(R.id.MyPage_EditSinger_backImage)
+    ImageButton back;
+
+    @BindView(R.id.MyPage_EditSinger_save)
+    ImageButton save;
 
 
 
@@ -57,6 +65,20 @@ public class EditSingerActivity extends AppCompatActivity {
 
         editSingerAdpater = new EditSingerAdpater(requestManager, editSingerItemDatas);
         recyclerView.setAdapter(editSingerAdpater);
+    }
+
+
+    @OnClick(R.id.MyPage_EditSinger_save)
+    public void save()
+    {
+
+    }
+
+    @OnClick(R.id.MyPage_EditSinger_backImage)
+    public void clickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.MyPage_EditSinger_addSinger)
