@@ -39,4 +39,10 @@ public class FindPwdActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LoginSelectActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.FindPwd_check)
+    public void clickCheck()
+    {
+        
+    }
 }
