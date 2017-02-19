@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.AddSingerActivity;
+import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerActivity;
 import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class MyPageActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_editSinger)
     public void plusSub()
     {
-        Intent intent = new Intent(getApplicationContext(), AddSingerActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
     }
 }
