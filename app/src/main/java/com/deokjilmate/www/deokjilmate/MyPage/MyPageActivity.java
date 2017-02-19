@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -61,13 +60,7 @@ public class MyPageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        final ScrollView scrollview = ((ScrollView) findViewById(R.id.MyPage_scrollView));
-        scrollview.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollview.fullScroll(ScrollView.FOCUS_UP);
-            }
-        });
+
 
 
         //TODO : 통신 이후 이 부분 바뀌어야 함.
