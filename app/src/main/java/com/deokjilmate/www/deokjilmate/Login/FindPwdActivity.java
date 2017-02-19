@@ -9,6 +9,7 @@ import com.deokjilmate.www.deokjilmate.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 //여긴 비번 찾는 페이지
 public class FindPwdActivity extends AppCompatActivity {
@@ -23,5 +24,11 @@ public class FindPwdActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
+    }
+
+    @OnClick(R.id.FindPwd_check)
+    public void clickCheck()
+    {
+        
     }
 }

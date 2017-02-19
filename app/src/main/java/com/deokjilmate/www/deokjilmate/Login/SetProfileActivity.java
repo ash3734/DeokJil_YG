@@ -26,7 +26,6 @@ import butterknife.OnClick;
 
 public class SetProfileActivity extends AppCompatActivity {
 
-    final int REQ_CODE_SELECT_IMAGE = 100;
 
     @BindView(R.id.SetProfile_topImage)
     ImageView toobarImage;

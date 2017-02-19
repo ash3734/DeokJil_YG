@@ -29,8 +29,7 @@
         <activity
             android:name=".home.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".alarm.AlarmActivity" />
         <activity
             android:name=".Login.MainLoginActivity"
@@ -54,13 +53,14 @@
         <activity
             android:name=".Login.SetSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".MyPage.MyPageActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MyPage.AddSinger.AddSingerActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".Setting.InquiryActivity"></activity>
+        <activity
+            android:name=".MyPage.MyPageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyPage.AddSinger.AddSingerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Setting.InquiryActivity" />
+        <activity android:name=".MyPage.EditSinger.EditSingerActivity"></activity>
     </application>
 
 </manifest>
