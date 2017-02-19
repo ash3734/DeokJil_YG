@@ -20,9 +20,9 @@ public class EditSingerViewHolder extends RecyclerView.ViewHolder{
 
     public EditSingerViewHolder(View itemView) {
         super(itemView);
-        singer_Image = (ImageView)itemView.findViewById(R.id.MyPageRecycle_SingerImage);
-        singer_Name = (TextView) itemView.findViewById(R.id.EditSinger_singerName);
-        set_Main = (ImageView) itemView.findViewById(R.id.EditSinger_setMain);
-        delete_Singer = (ImageView) itemView.findViewById(R.id.EditSinger_deleteSinger);
+        singer_Image = (ImageView)itemView.findViewById(R.id.MyPage_EditSinger_Recycle_singerImage);
+        singer_Name = (TextView) itemView.findViewById(R.id.MyPage_EditSinger_Recycle_singerName);
+        set_Main = (ImageView) itemView.findViewById(R.id.MyPage_EditSinger_Recycle_setMain);
+        delete_Singer = (ImageView) itemView.findViewById(R.id.MyPage_EditSinger_Recycle_deleteSinger);
     }
 }
