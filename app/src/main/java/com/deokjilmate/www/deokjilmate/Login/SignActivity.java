@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
@@ -34,6 +39,7 @@ import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +61,26 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private CallbackManager callbackManager;
     TwitterAuthClient twitterAuthClient;
 
+    @BindView(R.id.Sign_email)
+    EditText email;
+
+    @BindView(R.id.Sign_pwd)
+    EditText pwd;
+
+    @BindView(R.id.Sign_checkPwd)
+    EditText checkPwd;
+
+    @BindView(R.id.Sign_next)
+    Button next;
+
+
+    private String t_email;
+    private String t_pwd;
+    private String t_pwdCheck;
+
+    private boolean b_email = false;
+    private boolean b_pwd = false;
+    private  boolean b_pwdCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,5 +230,143 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     {
         Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.Sign_email)
+    public void setEmail()
+    {
+//        email.addTextChangedListener(new TextWatcher()
+//        {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.v("이메일", "email");
+//                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
+//                if(t_email.length() == 0)
+//                    b_email = false;
+//                else {
+//                    b_email = true;
+//                }
+//                if (b_email && b_pwd && b_pwdCheck)
+//                    next.setEnabled(true);
+//                Log.v("email", String.valueOf(b_email));
+//                Log.v("pwd", String.valueOf(b_pwd));
+//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+//            }
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+        t_email = email.getText().toString().toLowerCase(Locale.getDefault());
+        if(t_email.length() == 0)
+            b_email = false;
+        else {
+            b_email = true;
+        }
+        if (b_email && b_pwd && b_pwdCheck)
+            next.setEnabled(true);
+        Log.v("email", String.valueOf(b_email));
+        Log.v("pwd", String.valueOf(b_pwd));
+        Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+    }
+
+    @OnClick(R.id.Sign_pwd)
+    public void setPwd()
+    {
+        Log.v("비번", "pwd");
+        pwd.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.v("비번", "email");
+
+                t_pwd = pwd.getText().toString().toLowerCase(Locale.getDefault());
+                if(t_pwd.length() == 0)
+                    b_pwd = false;
+                else {
+                    b_pwd = true;
+                }
+                if (b_email && b_pwd && b_pwdCheck)
+                    next.setEnabled(true);
+                Log.v("email", String.valueOf(b_email));
+                Log.v("pwd", String.valueOf(b_pwd));
+                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+            }
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    @OnClick(R.id.Sign_checkPwd)
+    public void setCheckPwd()
+    {
+        Log.v("비번체크", "pwd");
+
+        checkPwd.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.v("비번체크", "email");
+
+                t_pwdCheck = checkPwd.getText().toString().toLowerCase(Locale.getDefault());
+                if(t_pwdCheck.length() == 0)
+                    b_pwdCheck = false;
+                else {
+                    b_pwdCheck = true;
+                }
+                if (b_email && b_pwd && b_pwdCheck)
+                    next.setEnabled(true);
+                Log.v("email", String.valueOf(b_email));
+                Log.v("pwd", String.valueOf(b_pwd));
+                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+            }
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    @OnClick(R.id.Sign_next)
+    public void ClickNext()
+    {
+        //1. pwd와 t_pwdCheck가 같은지 확인.
+        Log.v("Sign", t_pwd + " " +t_pwdCheck);
+        if(t_pwd.equals(t_pwdCheck))
+        {
+            Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(SignActivity.this, "비밀번호와 확인이 일치한지 확인해주세요", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+
+    public boolean checkFill()
+    {
+        if(t_email != "" && t_pwd != "" && t_pwdCheck != "")
+        {//셋 다 공백이 아닐 때.
+            next.setEnabled(true);
+            return true;
+        }
+        else
+        {//하나라도 공백 있음.
+            return false;
+        }
     }
 }

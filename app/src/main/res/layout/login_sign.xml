@@ -4,10 +4,6 @@
     android:id="@+id/activity_sign"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.deokjilmate.www.deokjilmate.Login.SignActivity"
     android:orientation="vertical">
 
@@ -73,16 +69,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Sign_email"
+            android:focusable="true"
             android:hint="메일주소"/>
         <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Sign_pwd"
+            android:focusable="true"
             android:hint="비밀번호"/>
         <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Sign_checkPwd"
+            android:focusable="true"
             android:hint="비밀번호 확인"/>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -134,6 +133,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:id="@+id/Sign_next"
+            android:enabled="false"
             android:text="다음 단계로" />
     </RelativeLayout>
 
