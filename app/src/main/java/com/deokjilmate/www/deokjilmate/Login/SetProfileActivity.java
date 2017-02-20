@@ -3,11 +3,11 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -76,7 +76,6 @@ public class SetProfileActivity extends AppCompatActivity {
                 Log.v("result", "result_well");
                 try {
                     //Uri에서 이미지 이름을 얻어온다.
-                    String name_Str = getImageNameToUri(data.getData());
 
                     // 서버에 보낼 imgUrl
 
@@ -84,12 +83,12 @@ public class SetProfileActivity extends AppCompatActivity {
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     ImageView image = (ImageView) findViewById(R.id.SetProfile_profileImage);
 
-//                    RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), image_bitmap);
-//                    bitmapDrawable.setCornerRadius(Math.max(image_bitmap.getWidth(), image_bitmap.getHeight()) / 2.0f);
-//                    bitmapDrawable.setAntiAlias(true);
+                    RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), image_bitmap);
+                    bitmapDrawable.setCornerRadius(Math.max(image_bitmap.getWidth(), image_bitmap.getHeight()) / 2.0f);
+                    bitmapDrawable.setAntiAlias(true);
 //
 //                    // 배치해놓은 imageview에 동그랗게 set!!!
-//                    image.setImageDrawable(bitmapDrawable);
+                    image.setImageDrawable(bitmapDrawable);
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -107,24 +106,19 @@ public class SetProfileActivity extends AppCompatActivity {
     /**
      * 선택된 이미지 파일명 가져오기
      */
-    public String getImageNameToUri(Uri data) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(data, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
-        cursor.moveToFirst();
-
-        String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
-
-
-        return imgName;
-    }
 
     @OnClick(R.id.SetProfile_backImage)
     public void ClickBack()
     {
         Intent intent = new Intent(getApplicationContext(), SignActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.SetProfile_next)
+    public void ClickNext()
+    {
+        Intent intent = new Intent(getApplicationContext(), SetSingerActivity.class);
         startActivity(intent);
     }
 

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
+import com.deokjilmate.www.deokjilmate.Login.SetProfileActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run()
             {
-                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+                startActivity(new Intent(getApplicationContext(), SetProfileActivity.class));
                 finish();
             }
         }, 5000);

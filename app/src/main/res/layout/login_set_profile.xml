@@ -82,6 +82,12 @@
 
         </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="다음 단계로"
+            android:id="@+id/SetProfile_next"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -7,12 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -25,6 +31,8 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -86,32 +94,32 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         LoginManager.getInstance().logInWithReadPermissions(LoginSelectActivity.this,
                 Arrays.asList("public_profile", "email"));
 
-//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(final LoginResult loginResult) {
-//                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
-//                {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        //
-//
-//                    }
-//                });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id,name,email,gender,birthday");
-//                graphRequest.setParameters(parameters);
-//                graphRequest.executeAsync();
-//            }
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        });
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
+                {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        //
+
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
+            }
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
 
     }
     @OnClick(R.id.LoginSelect_twitter)
@@ -124,13 +132,14 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
-                //result.
+                String twitter_token = session.getAuthToken().token;
 
             }
 
             @Override
             public void failure(TwitterException exception) {
-
+                //로긴 취소 했을 때도 들어옴.
+                Toast.makeText(LoginSelectActivity.this, "먼저 다운로드 해주세요", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -168,6 +177,8 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            acct.getIdToken();
+            //TODO : 여기서 레트로핏 적용.
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -198,6 +209,9 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+
+
+
 
     @OnClick(R.id.LoginSelect_backImage)
     public void ClickBack()
