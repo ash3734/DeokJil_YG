@@ -36,17 +36,28 @@
             android:text="여기는 툴바"/>
     </RelativeLayout>
 
+
+
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/MyPage_EditSinger_recycle">
 
     </android.support.v7.widget.RecyclerView>
-    <Button
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/MyPage_EditSinger_addSinger"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:text="내 가수추가"/>
+    </RelativeLayout>
 
 
 </LinearLayout>
