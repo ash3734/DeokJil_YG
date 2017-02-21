@@ -1,6 +1,7 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +85,15 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private boolean b_pwd = false;
     private  boolean b_pwdCheck = false;
 
+    private String r_email =  "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+    private String r_pwd = "^[a-z0-9_-]{6,}$";   ///6자 이상
+
+    private Pattern email_Pattern;
+    private Pattern pwd_Pattern;
+
+    private Matcher email_Match;
+    private Matcher pwd_Match;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +113,11 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        email_Pattern = Pattern.compile(r_email);
+        pwd_Pattern = Pattern.compile(r_pwd);
+
+
     }
 
 
@@ -235,42 +252,40 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     @OnClick(R.id.Sign_email)
     public void setEmail()
     {
-//        email.addTextChangedListener(new TextWatcher()
-//        {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.v("이메일", "email");
-//                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
-//                if(t_email.length() == 0)
-//                    b_email = false;
-//                else {
-//                    b_email = true;
-//                }
-//                if (b_email && b_pwd && b_pwdCheck)
-//                    next.setEnabled(true);
-//                Log.v("email", String.valueOf(b_email));
-//                Log.v("pwd", String.valueOf(b_pwd));
-//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-//            }
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-        t_email = email.getText().toString().toLowerCase(Locale.getDefault());
-        if(t_email.length() == 0)
-            b_email = false;
-        else {
-            b_email = true;
-        }
-        if (b_email && b_pwd && b_pwdCheck)
-            next.setEnabled(true);
-        Log.v("email", String.valueOf(b_email));
-        Log.v("pwd", String.valueOf(b_pwd));
-        Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+        email.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.v("이메일", "email");
+                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
+                if(t_email.length() == 0)
+                    b_email = false;
+                else {
+                    b_email = true;
+                }
+                email_Match = email_Pattern.matcher(t_email);
+
+                if (b_email && b_pwd && b_pwdCheck)
+                    next.setEnabled(true);
+                Log.v("email", String.valueOf(b_email));
+                Log.v("pwd", String.valueOf(b_pwd));
+                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+
+                if(!email_Match.find())
+                    email.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
+                else
+                    email.setBackgroundColor(Color.TRANSPARENT);
+                //email.set
+
+            }
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @OnClick(R.id.Sign_pwd)
@@ -298,6 +313,13 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 Log.v("email", String.valueOf(b_email));
                 Log.v("pwd", String.valueOf(b_pwd));
                 Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+
+                pwd_Match = pwd_Pattern.matcher(t_pwd);
+
+                if(!pwd_Match.find())
+                    pwd.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
+                else
+                    pwd.setBackgroundColor(Color.TRANSPARENT);
             }
             public void afterTextChanged(Editable s) {
 
