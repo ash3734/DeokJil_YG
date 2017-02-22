@@ -28,17 +28,17 @@ public class SettingAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return datas.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return datas.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
