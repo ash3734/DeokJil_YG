@@ -57,6 +57,19 @@ public class SetSingerActivity extends AppCompatActivity {
         allSingerList = new ArrayList<SetSingerItemData>();
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta));
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta));
+        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "cccc", R.drawable.meta));
+        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "dddd", R.drawable.meta));
+        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "eeee", R.drawable.meta));
+        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "ffff", R.drawable.meta));
+
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "ffff", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "dddd", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "cccc", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "eeee", R.drawable.meta));
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.SetSinger_list);
         recyclerView.setHasFixedSize(true);
@@ -80,8 +93,10 @@ public class SetSingerActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setSingerAdapter.search = true;
                 String text = search.getText().toString().toLowerCase(Locale.getDefault());
                 if(text.length() == 0) {
+                    setSingerAdapter.search = false;
                 }
                 setSingerAdapter.filter(text);
             }
