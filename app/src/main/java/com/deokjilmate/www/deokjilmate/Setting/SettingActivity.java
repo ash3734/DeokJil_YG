@@ -32,7 +32,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.setting_activity);
         datas.add( new SettingListItem("공지사항",R.drawable.aoa));
         datas.add( new SettingListItem("문의하기",R.drawable.aoa));
-        datas.add( new SettingListItem("버전정보                                 1.0.0",R.drawable.aoa));
+        datas.add( new SettingListItem("버전정보                                                1.0.0",R.drawable.aoa));
         datas.add( new SettingListItem("약관 및 정책",R.drawable.aoa));
         datas.add( new SettingListItem("탈퇴하기",R.drawable.aoa));
 
@@ -52,7 +52,6 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 switch(position){
                     case 0:
-                        Log.d("tag","들어왔음ㅇㅁㄻㅇㄻㅇㄻㅇㄹ!~!~!~!");
                         notice();
                         break;
                     case 1:
