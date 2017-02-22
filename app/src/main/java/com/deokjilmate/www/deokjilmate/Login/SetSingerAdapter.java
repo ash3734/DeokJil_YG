@@ -19,8 +19,10 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
 
     RequestManager requestManager;
     ArrayList<SetSingerItemData> setSingerItemDatas;//이건 추천목록
-    ArrayList<SetSingerItemData> allSingerList;
-    ArrayList<SetSingerItemData> searchSingerList;
+    ArrayList<SetSingerItemData> allSingerList;//이건 전체 가수 목록
+    ArrayList<SetSingerItemData> searchSingerList;//실제 보여줄 것.
+
+    boolean search = false;
     //보여지는 것은 추천목록이고 검색하면 검색한 녀석이 보여져야 함.
 
     public SetSingerAdapter(RequestManager requestManager, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList) {
@@ -45,15 +47,24 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
 
     @Override
     public void onBindViewHolder(SetSingerViewHolder holder, int position) {
-        holder.singer_image.setImageResource(setSingerItemDatas.get(position).singer_image);
-        holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
-        holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
-
+        if(search == false) {
+            holder.singer_image.setImageResource(setSingerItemDatas.get(position).singer_image);
+            holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
+            holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
+        }
+        else{
+            holder.singer_image.setImageResource(searchSingerList.get(position).singer_image);
+            holder.singer_name.setText(searchSingerList.get(position).singer_name);
+            holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return (setSingerItemDatas != null) ? setSingerItemDatas.size() : 0;
+        if(search == false)
+            return (setSingerItemDatas != null) ? setSingerItemDatas.size() : 0;
+        else
+            return (searchSingerList != null) ? searchSingerList.size() : 0;
     }
 
     public void filter(String charText) {
@@ -66,7 +77,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         if (charText.length() == 0)
             searchSingerList.addAll(setSingerItemDatas);
         else
-        {
+        {//검색하면 전체로부터 가져오기.
             for (int i = 0; i < allSingerList.size() ; i++)
             {
                 String wp = allSingerList.get(i).getSinger_name();
