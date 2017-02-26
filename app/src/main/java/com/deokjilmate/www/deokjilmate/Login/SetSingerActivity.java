@@ -67,11 +67,15 @@ public class SetSingerActivity extends AppCompatActivity {
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "ffff", R.drawable.meta));
 
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "AOA", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "2PM", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "EXO", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "BLACKPINK", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "B1A4", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "EXID", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "CNBLUE", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "GOT7", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "TWICE", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "WINNER", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "방탄소년단", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "걸스데이", R.drawable.meta));
         allSingerList.add(new SetSingerItemData(R.drawable.meta, "소녀시대", R.drawable.meta));
@@ -81,16 +85,34 @@ public class SetSingerActivity extends AppCompatActivity {
 
 
 
-        singerPNData.put("투피엠", "2PM");
-        singerPNData.put("에이오에이", "AOA");
-        singerPNData.put("비원에이포", "B1A4");
-        singerPNData.put("블랙핑크", "BLACKPINK");
-        singerPNData.put("씨엘씨", "CLC");
-        singerPNData.put("씨엔블루", "CNBLUE");
-        singerPNData.put("엑소", "EXO");
-        singerPNData.put("이엑스아이디", "EXID");
-        singerPNData.put("트와이스", "TWICE");
-        singerPNData.put("위너", "WINNER");
+//        singerPNData.put("투피엠", "2PM");
+//        singerPNData.put("에이오에이", "AOA");
+//        singerPNData.put("비원에이포", "B1A4");
+//        singerPNData.put("블랙핑크", "BLACKPINK");
+//        singerPNData.put("씨엔블루", "CNBLUE");
+//        singerPNData.put("엑소", "EXO");
+//        singerPNData.put("이엑스아이디", "EXID");
+//        singerPNData.put("트와이스", "TWICE");
+//        singerPNData.put("위너", "WINNER");
+//        singerPNData.put("갓세븐", "GOT7");
+        singerPNData.put("2PM", "투페임");
+        singerPNData.put("AOA", "에이오에이");
+        singerPNData.put("B1A4", "비원에이포");
+        singerPNData.put("BLACKPINK", "블랙핑크");
+        singerPNData.put("CNBLUE", "씨엔블루");
+        singerPNData.put("EXO", "엑소");
+        singerPNData.put("EXID", "이엑스아이디");
+        singerPNData.put("TWICE", "트와이스");
+        singerPNData.put("WINNER", "위너");
+        singerPNData.put("GOT7", "갓세븐");
+        singerPNData.put("방탄소년단", "방탄소년단");
+        singerPNData.put("걸스데이", "걸스데이");
+        singerPNData.put("소녀시대", "소녀시대");
+        singerPNData.put("비투비", "비투비");
+        singerPNData.put("악동뮤지션", "악동뮤지션");
+        singerPNData.put("에이핑크", "에이핑크");
+
+
 
         String[] keySet = {"투피엠","에이오에이","비원에이포","블랙핑크","씨엘씨","씨엔블루","엑소","이엑스아이디","트와이스","위너"};
 
@@ -104,11 +126,7 @@ public class SetSingerActivity extends AppCompatActivity {
 
         setSingerAdapter = new SetSingerAdapter(requestManager, setSingerItemDatas, allSingerList, singerPNData, keySet);
         recyclerView.setAdapter(setSingerAdapter);
-    }
 
-    @OnClick(R.id.SetSinger_search)
-    public void Search()
-    {
         search.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -127,7 +145,14 @@ public class SetSingerActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+
     }
+
+//    @OnClick(R.id.SetSinger_search)
+//    public void Search()
+//    {
+//
+//    }
 
     @OnClick(R.id.SetSinger_backImage)
     public void ClickBack()
