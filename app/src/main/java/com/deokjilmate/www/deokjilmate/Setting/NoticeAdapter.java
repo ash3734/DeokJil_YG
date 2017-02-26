@@ -32,6 +32,14 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         this.childList = childList;
     }
 
+
+    class ViewHolder {
+
+        public TextView notice_order;
+        public ImageView notice_order_icon;
+        public TextView notice_content;
+    }
+
     // 그룹 포지션을 반환한다.
     @Override
     public String getGroup(int groupPosition) {
@@ -66,18 +74,16 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         }else{
             viewHolder = (ViewHolder)v.getTag();
         }
-/*
 
 
         ImageView view = (ImageView)v.findViewById(R.id.notice_order_icon);
 
         // 그룹을 펼칠때와 닫을때 아이콘을 변경해 준다.
         if(isExpanded){
-            view.setImageResource(R.drawable.aoa);
+            view.setImageResource(R.drawable.meta);
         }else{
             view.setImageResource(R.drawable.aoa);
         }
-*/
 
         viewHolder.notice_order.setText(getGroup(groupPosition));
 
@@ -129,12 +135,7 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) { return true; }
 
-    class ViewHolder {
 
-        public TextView notice_order;
-        public ImageView notice_order_icon;
-        public TextView notice_content;
-    }
 
 }
 

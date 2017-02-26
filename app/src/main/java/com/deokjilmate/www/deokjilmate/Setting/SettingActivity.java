@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,6 +21,7 @@ public class SettingActivity extends AppCompatActivity {
     ListView listview;
     Button logoutBtn;
     Intent intent_inquiry;
+    Intent intent_notice;
     SharedPreferences.Editor editor;
     SharedPreferences logout;
 
@@ -42,6 +42,7 @@ public class SettingActivity extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         intent_inquiry = new Intent(this,InquiryActivity.class);
+        intent_notice = new Intent(this,NoticeActivity.class);
 
         // sharedpreferences 설정
         logout = getSharedPreferences("loginState",MODE_PRIVATE);
@@ -52,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 switch(position){
                     case 0:
-                        notice();
+                        startActivity(intent_notice);
                         break;
                     case 1:
                         startActivity(intent_inquiry);
