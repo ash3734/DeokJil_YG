@@ -17,6 +17,7 @@ import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -40,6 +41,8 @@ public class SetSingerActivity extends AppCompatActivity {
     ArrayList<SetSingerItemData> setSingerItemDatas;//추천목록
     ArrayList<SetSingerItemData> allSingerList;//전체목록
     SetSingerAdapter setSingerAdapter;
+    HashMap<String, String> singerPNData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class SetSingerActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.meta).into(backButton);
 
         requestManager = Glide.with(this);
+        singerPNData = new HashMap<>();
 
 
         setSingerItemDatas = new ArrayList<SetSingerItemData>();
@@ -62,13 +66,33 @@ public class SetSingerActivity extends AppCompatActivity {
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "eeee", R.drawable.meta));
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "ffff", R.drawable.meta));
 
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "ffff", R.drawable.meta));
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "dddd", R.drawable.meta));
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta));
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta));
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "cccc", R.drawable.meta));
-        allSingerList.add(new SetSingerItemData(R.drawable.meta, "eeee", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "AOA", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "EXO", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "B1A4", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "EXID", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "GOT7", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "TWICE", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "방탄소년단", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "걸스데이", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "소녀시대", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "비투비", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "악동뮤지션", R.drawable.meta));
+        allSingerList.add(new SetSingerItemData(R.drawable.meta, "에이핑크", R.drawable.meta));
 
+
+
+        singerPNData.put("투피엠", "2PM");
+        singerPNData.put("에이오에이", "AOA");
+        singerPNData.put("비원에이포", "B1A4");
+        singerPNData.put("블랙핑크", "BLACKPINK");
+        singerPNData.put("씨엘씨", "CLC");
+        singerPNData.put("씨엔블루", "CNBLUE");
+        singerPNData.put("엑소", "EXO");
+        singerPNData.put("이엑스아이디", "EXID");
+        singerPNData.put("트와이스", "TWICE");
+        singerPNData.put("위너", "WINNER");
+
+        String[] keySet = {"투피엠","에이오에이","비원에이포","블랙핑크","씨엘씨","씨엔블루","엑소","이엑스아이디","트와이스","위너"};
 
 
         recyclerView = (RecyclerView) findViewById(R.id.SetSinger_list);
@@ -78,7 +102,7 @@ public class SetSingerActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        setSingerAdapter = new SetSingerAdapter(requestManager, setSingerItemDatas, allSingerList);
+        setSingerAdapter = new SetSingerAdapter(requestManager, setSingerItemDatas, allSingerList, singerPNData, keySet);
         recyclerView.setAdapter(setSingerAdapter);
     }
 
