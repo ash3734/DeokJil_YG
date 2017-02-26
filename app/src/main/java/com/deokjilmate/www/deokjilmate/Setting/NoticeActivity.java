@@ -16,6 +16,9 @@ public class NoticeActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> mChildList = null;
     private ArrayList<String> mChildListContent = null;
 
+
+    private NoticeAdapter mBaseExpandableAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +35,14 @@ public class NoticeActivity extends AppCompatActivity {
         mGroupList.add("보");
 
         mChildListContent.add("1");
-        mChildListContent.add("2");
-        mChildListContent.add("3");
+
 
         mChildList.add(mChildListContent);
         mChildList.add(mChildListContent);
         mChildList.add(mChildListContent);
 
-        mListView.setAdapter(new NoticeAdapter(this, mGroupList, mChildList));
+        mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
+        mListView.setAdapter(mBaseExpandableAdapter);
 
         // 그룹 클릭 했을 경우 이벤트
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
