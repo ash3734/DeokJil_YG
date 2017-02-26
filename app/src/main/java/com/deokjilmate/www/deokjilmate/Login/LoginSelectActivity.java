@@ -101,7 +101,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        //
+                        //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔.
 
                     }
                 });
@@ -133,6 +133,8 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
                 String twitter_token = session.getAuthToken().token;
+                //TODO : 여기서 가입 정보 없으면 회원가입 페이지로.
+
 
             }
 
@@ -178,7 +180,9 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             acct.getIdToken();
-            //TODO : 여기서 레트로핏 적용.
+            //TODO : 여기서 레트로핏 적용. 정보 없으면 회원가입 페이지로.
+
+
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);

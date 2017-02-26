@@ -45,6 +45,4 @@ public class FindPwdActivity extends AppCompatActivity {
     {
         
     }
-
-
 }
