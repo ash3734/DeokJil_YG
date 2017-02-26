@@ -63,7 +63,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MyPage.EditSinger.EditSingerActivity" />
-        <activity android:name=".Setting.NoticeActivity"></activity>
+        <activity android:name=".Setting.NoticeActivity" />
+        <activity android:name=".Setting.TermsActivity" />
+        <activity android:name=".Setting.BreakActivity"></activity>
     </application>
 
 </manifest>

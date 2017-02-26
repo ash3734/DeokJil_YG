@@ -22,6 +22,8 @@ public class SettingActivity extends AppCompatActivity {
     Button logoutBtn;
     Intent intent_inquiry;
     Intent intent_notice;
+    Intent intent_terms;
+    Intent intent_break;
     SharedPreferences.Editor editor;
     SharedPreferences logout;
 
@@ -43,6 +45,8 @@ public class SettingActivity extends AppCompatActivity {
 
         intent_inquiry = new Intent(this,InquiryActivity.class);
         intent_notice = new Intent(this,NoticeActivity.class);
+        intent_terms = new Intent(this,TermsActivity.class);
+        intent_break = new Intent(this,BreakActivity.class);
 
         // sharedpreferences 설정
         logout = getSharedPreferences("loginState",MODE_PRIVATE);
@@ -61,6 +65,13 @@ public class SettingActivity extends AppCompatActivity {
                     case 2:
                         notice();
                         break;
+                    case 3:
+                        startActivity(intent_terms);
+                        break;
+                    case 4:
+                        startActivity(intent_break);
+                        break;
+
                 }
             }
         };
