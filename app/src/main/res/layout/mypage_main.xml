@@ -34,13 +34,9 @@
 
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/MyPage_scrollView">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingRight="5px">
             <RelativeLayout
@@ -88,8 +84,26 @@
 
                     </RelativeLayout>
                 </LinearLayout>
-
             </RelativeLayout>
+        </LinearLayout>
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/MyPage_scrollView"
+        android:overScrollMode="always"
+        android:fillViewport="true"
+        android:clipToPadding="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:nestedScrollingEnabled="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="38dp">
@@ -103,9 +117,11 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="7dp"/>
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/MyPage_mainBar">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,7 +135,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerHorizontal="true"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:layout_centerInParent="true">
                     <com.mikhaellopez.circularimageview.CircularImageView
                         android:layout_width="78dp"
                         android:layout_height="78dp"
@@ -136,11 +153,10 @@
                         android:text="twice"/>
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/mypage_Main_Bul_Id">
+                        android:layout_height="wrap_content">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:id="@+id/MyPage_rankImage"
                             android:layout_centerVertical="true"/>
                         <TextView
@@ -162,35 +178,21 @@
                             android:layout_toRightOf="@+id/MyPage_vote"/>
                     </RelativeLayout>
                 </LinearLayout>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="36dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="146dp" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#c9c9c8"
-                    android:layout_alignParentBottom="true"
-                    />
             </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:text="서브 가수"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:paddingLeft="18dp"
-                android:gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="서브 가수"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingLeft="18dp"
+                    android:gravity="center_vertical"
+                    />
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/MyPage_subRecycle">
-
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>
