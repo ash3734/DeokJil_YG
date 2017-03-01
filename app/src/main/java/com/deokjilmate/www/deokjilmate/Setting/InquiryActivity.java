@@ -47,7 +47,7 @@ public class InquiryActivity extends AppCompatActivity {
                                         });
 
                                 // 다이얼로그 생성
-                                AlertDialog alertDialog2 = alertDialogBuilder.create();
+                                AlertDialog alertDialog2 = alertDialogBuilder2.create();
 
                                 // 다이얼로그 보여주기
                                 alertDialog2.show();
