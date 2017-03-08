@@ -9,14 +9,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/MyPage_mainBar">
+        android:id="@+id/MyPageHead_mainBar">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="14dp"
-            android:id="@+id/MyPage_mainSingerBackground"
+            android:id="@+id/MyPageHead_mainSingerBackground"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,12 +32,12 @@
                 app:civ_shadow="true"
                 app:civ_shadow_color="#ff7d8f"
                 app:civ_shadow_radius="3"
-                android:id="@+id/MyPageRecycle_SingerImage"
+                android:id="@+id/MyPageHead_SingerImage"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/MyPageRecycle_singerName"
+                android:id="@+id/MyPageHead_singerName"
                 android:text="twice"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:id="@+id/MyPageRecycle_rank"
+                    android:id="@+id/MyPageHead_rank"
                     android:layout_centerVertical="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -55,16 +55,21 @@
                     android:text="투표수"
                     android:textColor="#5d5f5d"
                     android:layout_centerHorizontal="true"
-                    android:id="@+id/MyPageRecycle_vote"
-                    android:layout_toRightOf="@+id/MyPageRecycle_rank"/>
+                    android:id="@+id/MyPageHead_vote"
+                    android:layout_toRightOf="@+id/MyPageHead_rank"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:text="123123"
-                    android:id="@+id/MyPageRecycle_voteCount"
-                    android:layout_toRightOf="@+id/MyPageRecycle_vote"/>
+                    android:id="@+id/MyPageHead_voteCount"
+                    android:layout_toRightOf="@+id/MyPageHead_vote"/>
+
             </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여기는 헤더입니다!!"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
