@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="78dp"
-            android:layout_height="78dp"
-            android:src="@android:drawable/sym_def_app_icon"
-            app:civ_shadow="true"
-            app:civ_shadow_color="#ff7d8f"
-            app:civ_shadow_radius="3"
-            android:id="@+id/MyPageRecycle_SingerImage"
-            android:layout_centerVertical="true"
-            />
-        <LinearLayout
+        android:id="@+id/MyPage_mainBar">
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/MyPageRecycle_SingerImage"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="left"
-            android:text="트와이스"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="#5d5f5d"
-            android:id="@+id/MyPageRecycle_singerName"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/MyPage_mainSingerBackground"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_centerInParent="true">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:layout_marginTop="35dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#ff7d8f"
+                app:civ_shadow_radius="3"
+                android:id="@+id/MyPageRecycle_SingerImage"
+                />
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:id="@+id/MyPageRecycle_singerName"
+                android:text="twice"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:id="@+id/MyPageRecycle_rank"
-                    />
+                    android:layout_centerVertical="true"/>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11dp"
+                    android:layout_height="20dp"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:text="투표수"
                     android:textColor="#5d5f5d"
-                    android:text="투표"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11dp"
-                    android:textColor="#5d5f5d"
-                    android:text="count"
-                    android:id="@+id/MyPageRecycle_voteCount"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11dp"
-                    android:textColor="#5d5f5d"
-                    android:text="번"/>
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/MyPageRecycle_vote"
+                    android:layout_toRightOf="@+id/MyPageRecycle_rank"/>
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="123123"
+                    android:id="@+id/MyPageRecycle_voteCount"
+                    android:layout_toRightOf="@+id/MyPageRecycle_vote"/>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

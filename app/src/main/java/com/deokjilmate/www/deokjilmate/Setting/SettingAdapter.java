@@ -1,6 +1,13 @@
 package com.deokjilmate.www.deokjilmate.Setting;
 
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
 
@@ -8,7 +15,7 @@ import java.util.ArrayList;
  * Created by 김민경 on 2017-02-11.
  */
 
-public class SettingAdapter {
+public class SettingAdapter extends BaseAdapter{
 
     ArrayList<SettingListItem> datas;
     LayoutInflater inflater;
@@ -19,6 +26,33 @@ public class SettingAdapter {
     }
 
 
+    @Override
+    public int getCount() {
+        return datas.size();
+    }
 
+    @Override
+    public Object getItem(int i) {
+        return datas.get(i);
+    }
 
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        if( view==null){
+            view= inflater.inflate(R.layout.setting_item, null);
+        }
+
+        TextView title= (TextView)view.findViewById(R.id.textView);
+        ImageView icon = (ImageView)view.findViewById(R.id.button);
+
+        title.setText(datas.get(i).getTitle() );
+        icon.setImageResource(datas.get(i).getIcon());
+
+        return view;
+    }
 }

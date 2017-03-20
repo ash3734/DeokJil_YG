@@ -7,14 +7,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
@@ -22,11 +20,8 @@ import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class AlarmActivity extends AppCompatActivity implements MainView {
+
 
     private ArrayList<String> reGroupList = null;
     private ArrayList<String> mGroupList = null;
@@ -121,7 +116,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<ChildStateObject>>();
 
-
         Call<NoticeResult> getDetailData = service.getNoticeData(m_id);
         getDetailData.enqueue(new Callback<NoticeResult>() {
 
@@ -170,7 +164,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
             public void onFailure(Call<NoticeResult> call, Throwable t) {
 
             }
-        });
+        });*/
 
 
         mBaseExpandableAdapter = new AlarmAdapter(this, mGroupList, mChildList, this);
@@ -275,7 +269,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
             public void onFailure(retrofit2.Call<RegisterResult> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
     }

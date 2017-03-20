@@ -15,20 +15,11 @@
         android:orientation="vertical"
         android:background="#DCDCDC">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="서비스 정보"
-            android:textSize="17dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginBottom="12dp"
-            />
+
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="2dip"
+            android:layout_height="20dip"
             android:background="#DCDCDC" />
     </LinearLayout>
 
@@ -48,7 +39,7 @@
         android:background="#DCDCDC" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/setting_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로그아웃"

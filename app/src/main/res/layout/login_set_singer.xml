@@ -4,12 +4,10 @@
     android:id="@+id/activity_set_singer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.deokjilmate.www.deokjilmate.Login.SetSingerActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,6 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/SetSinger_topImage"/>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/SetSinger_backImage"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,18 +50,31 @@
                     android:layout_width="280dp"
                     android:layout_height="35dp"
                     android:layout_centerInParent="true" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                     <ImageView
                         android:layout_width="35dp"
-                        android:layout_height="35dp" />
-                    <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
+                        android:layout_height="35dp"
+                        android:layout_weight="1"/>
+                    <EditText
                         android:layout_width="240dp"
                         android:layout_height="35dp"
                         android:hint="좋아하는 가수를 검색해보세요"
                         android:textSize="14dp"
                         android:gravity="center_vertical"
                         android:id="@+id/SetSinger_search"
-                        android:background="@null"
-                        android:layout_centerInParent="true"/>
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch"
+                        android:layout_centerInParent="true"
+                        android:layout_weight="8"/>
+                        <ImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_menu_camera"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout

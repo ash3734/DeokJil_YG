@@ -1,11 +1,15 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
@@ -13,8 +17,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -29,8 +31,6 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-
-import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -49,19 +49,24 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     @BindView(R.id.LoginSelect_topImage)
     ImageView toobarImage;
 
+    @BindView(R.id.LoginSelect_backImage)
+    ImageButton backButton;
+
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_select);
+        setContentView(R.layout.login_login_select);
         ButterKnife.bind(this);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
         //toolbar = (Toolbar)findViewById(R.id.)
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
+        Glide.with(this).load(R.drawable.meta).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -71,8 +76,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-
+        LoginManager.getInstance().logOut();
     }
 
     @OnClick(R.id.LoginSelect_findPwd)
@@ -85,24 +89,66 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     public void LoginFacebook()//페이스북 로그인 버튼
     {
         loginType = 1;
+
+
         LoginManager.getInstance().logInWithReadPermissions(LoginSelectActivity.this,
                 Arrays.asList("public_profile", "email"));
-
+//        LoginManager.getInstance().logInWithPublishPermissions(LoginSelectActivity.this,
+//                Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
-                {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        //
+//                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
+//                {
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        Log.v("로그인", "로그인");
+//                        //loginResult.getAccessToken();
+//
+//                    }
+//                });
 
+               //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
+                //TODO : if 정보 있음이면 다음 페이지
+
+
+                //TODO : if 정보 없음이면 밑에 다이얼로그
+
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+                dialog.setTitle("회원 정보가 없습니다.");
+                dialog.setMessage("회원 가입 하시겠습니까?");
+
+                dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // YES 선택시 처리할 내용
+                        Log.v("로그인", "로그인");
+                        loginResult.getAccessToken().getToken().toString();
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender,birthday");
+
+                        startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                        finish();
                     }
                 });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
+
+                dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // NO 선택시 처리할 내용
+                        LoginManager.getInstance().logOut();
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+
+
+
+
+
+//                graphRequest.setParameters(parameters);
+//                graphRequest.executeAsync();
             }
             @Override
             public void onCancel() {
@@ -126,13 +172,16 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
-                //result.
+                String twitter_token = session.getAuthToken().token;
+                //TODO : 여기서 가입 정보 없으면 회원가입 페이지로.
+
 
             }
 
             @Override
             public void failure(TwitterException exception) {
-
+                //로긴 취소 했을 때도 들어옴.
+                Toast.makeText(LoginSelectActivity.this, "먼저 다운로드 해주세요", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -170,6 +219,10 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            acct.getIdToken();
+            //TODO : 여기서 레트로핏 적용. 정보 없으면 회원가입 페이지로.
+
+
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -199,5 +252,15 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+
+
+
+    @OnClick(R.id.LoginSelect_backImage)
+    public void ClickBack()
+    {
+        Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
+        startActivity(intent);
     }
 }
