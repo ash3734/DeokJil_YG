@@ -4,17 +4,15 @@
     android:id="@+id/mypage_edit_singer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerActivity"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/MyPage_EditSinger_top">
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -38,26 +36,22 @@
 
 
 
-
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MyPage_EditSinger_recycle">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MyPage_EditSinger_recycle">
+         </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|end"
         android:id="@+id/MyPage_EditSinger_addSinger"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="내 가수추가"/>
-    </RelativeLayout>
-
+        android:text="내 가수추가">
+    </android.support.design.widget.FloatingActionButton>
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

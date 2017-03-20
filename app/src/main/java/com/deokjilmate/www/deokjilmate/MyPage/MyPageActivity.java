@@ -78,7 +78,7 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
-         myPageItemDatas.add(new MyPageItemData(R.drawable.meta, R.drawable.meta, "aaaaaaa", "1234"));
+        myPageItemDatas.add(new MyPageItemData(R.drawable.meta, R.drawable.meta, "aaaaaaa", "1234"));
         myPageItemDatas.add(new MyPageItemData(R.drawable.meta, R.drawable.meta, "bbbbbbb", "1234"));
         myPageItemDatas.add(new MyPageItemData(R.drawable.meta, R.drawable.meta, "ccccccc", "1234"));
         myPageItemDatas.add(new MyPageItemData(R.drawable.meta, R.drawable.meta, "ddddddd", "1234"));

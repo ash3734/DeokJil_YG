@@ -19,7 +19,7 @@ public class ApplicationController extends Application{
 
     private NetworkService networkService;
     //// TODO: 2017-02-06 base Url 수정 
-    private String baseUrl = "http://???/"; 
+    private String baseUrl = "http://35.187.196.208/duckmate/";
 
     public NetworkService getNetworkService() {
         return networkService;
