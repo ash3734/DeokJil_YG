@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.MyPage.EditSinger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,7 @@ import butterknife.OnClick;
 
 public class EditSingerActivity extends AppCompatActivity {
 
-    @BindView(R.id.Sign_topImage)
+    @BindView(R.id.MyPage_EditSinger_toolbar)
     ImageView toolbarImage;
 
     @BindView(R.id.MyPage_EditSinger_backImage)
@@ -32,12 +33,16 @@ public class EditSingerActivity extends AppCompatActivity {
     @BindView(R.id.MyPage_EditSinger_save)
     ImageButton save;
 
-
-
+    @BindView(R.id.MyPage_EditSinger_recycle)
     RecyclerView recyclerView;
+
+    @BindView(R.id.MyPage_EditSinger_addSinger)
+    FloatingActionButton addSinger;
+
     LinearLayoutManager linearLayoutManager;
     RequestManager requestManager;
     ArrayList<EditSingerItemData> editSingerItemDatas;//추천목록
+    EditSingerHeadItemData editSingerHeadItemData;
     EditSingerAdpater editSingerAdpater;
 
     @Override
@@ -48,23 +53,27 @@ public class EditSingerActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
 
         requestManager = Glide.with(this);
-
-        editSingerItemDatas = new ArrayList<EditSingerItemData>();
-
-
-        editSingerItemDatas.add(new EditSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta, R.drawable.meta));
-        editSingerItemDatas.add(new EditSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta, R.drawable.meta));
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.SetSinger_list);
         recyclerView.setHasFixedSize(true);
         //recyclerView.get
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        editSingerAdpater = new EditSingerAdpater(requestManager, editSingerItemDatas);
+        editSingerHeadItemData = new EditSingerHeadItemData(R.drawable.meta, "메인", R.drawable.meta, R.drawable.toolbar);
+
+
+
+        editSingerItemDatas = new ArrayList<EditSingerItemData>();
+        editSingerItemDatas.add(new EditSingerItemData(R.drawable.meta, "서브1", R.drawable.toolbar, R.drawable.meta));
+        editSingerItemDatas.add(new EditSingerItemData(R.drawable.meta, "서브2", R.drawable.toolbar, R.drawable.meta));
+        editSingerItemDatas.add(new EditSingerItemData(R.drawable.meta, "서브3", R.drawable.toolbar, R.drawable.meta));
+
+
+
+        editSingerAdpater = new EditSingerAdpater(requestManager, editSingerItemDatas, editSingerHeadItemData);
         recyclerView.setAdapter(editSingerAdpater);
+
+
     }
 
 
