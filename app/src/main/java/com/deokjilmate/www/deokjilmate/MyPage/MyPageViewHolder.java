@@ -24,6 +24,5 @@ public class MyPageViewHolder extends RecyclerView.ViewHolder {
         rank_Image = (ImageView)itemView.findViewById(R.id.MyPageRecycle_rank);
         singer_name = (TextView) itemView.findViewById(R.id.MyPageRecycle_singerName);
         vote_count = (TextView)itemView.findViewById(R.id.MyPageRecycle_voteCount);
-
     }
 }

@@ -7,20 +7,16 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.fabric.sdk.android.Fabric;
 
 public class MainLoginActivity extends AppCompatActivity {
 
     @BindView(R.id.MainLogin_logo)
     ImageView logoImage;
-    private static final String TWITTER_KEY = "ZPJ66hrJ8nJpMKRS297O9BgGQ ";
-    private static final String TWITTER_SECRET = "Kb41OH7xsJfEZ3Rzf9rCiBLE6mz47GMtiJBdCcbuYmtIDqCLHu";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +25,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
         Glide.with(this).load(R.drawable.output).into(logoImage);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+
 
 
     }
