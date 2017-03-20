@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="60dp"
+    >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:id="@+id/MyPage_AddSinger_Recycle_singerImage"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
-        <TextView
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="singername"
-            android:id="@+id/MyPage_AddSinger_Recycle_singerName"/>
+            android:layout_height="60dp"
+            android:layout_weight="1">
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-        <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/mypage_add_singer_recycle_rank"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/MyPage_AddSinger_Recycle_AddSinger_setMain"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/MyPage_AddSinger_Recycle_addSub"/>
+            android:layout_height="60dp"
+            android:layout_weight="9"
+            android:orientation="horizontal">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/mypage_add_singer_recycle_singerImage"
+                android:layout_weight="4"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mypage_add_singer_recycle_singerName"
+                android:layout_weight="5"/>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mypage_add_singer_recycle_add"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
