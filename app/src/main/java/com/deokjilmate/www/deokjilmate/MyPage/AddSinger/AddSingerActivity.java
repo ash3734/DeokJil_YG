@@ -11,14 +11,20 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddSingerActivity extends AppCompatActivity {
 
@@ -36,6 +42,8 @@ public class AddSingerActivity extends AppCompatActivity {
 
     LinearLayoutManager linearLayoutManager;
     RequestManager requestManager;
+
+    NetworkService networkService;
     //@BindView(R.id.)
 
     @Override
@@ -46,6 +54,8 @@ public class AddSingerActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
 
+        networkService = ApplicationController.getInstance().getNetworkService();
+
         requestManager = Glide.with(this);
         recyclerView.setHasFixedSize(true);
         //recyclerView.get
@@ -54,6 +64,19 @@ public class AddSingerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
+        Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
+        setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
+            @Override
+            public void onResponse(Call<AllSingerRanking> call, Response<AllSingerRanking> response) {
+                if(response.isSuccessful()) {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<AllSingerRanking> call, Throwable t) {
+
+            }
+        });
 
 
     }

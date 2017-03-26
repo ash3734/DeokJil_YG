@@ -35,12 +35,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/mypage_add_singer_recycle_singerName"
                 android:layout_weight="5"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/mypage_add_singer_recycle_add"
                 android:layout_weight="1"/>
         </LinearLayout>
