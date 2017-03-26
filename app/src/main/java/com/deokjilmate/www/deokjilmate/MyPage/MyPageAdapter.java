@@ -21,8 +21,6 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     MyPageHeadItemData myPageHeadItemData;
 
     private static final int HEADER_VIEW = 1;
-//    MyPageFootViewHolder myPageFootViewHolder;
-//    MyPageViewHolder myPageViewHolder;
 
     public MyPageAdapter(RequestManager requestManager_singer, RequestManager requestManager_rank, ArrayList<MyPageItemData> myPageItemDatas, MyPageHeadItemData myPageHeadItemData) {
         this.requestManager_singer = requestManager_singer;

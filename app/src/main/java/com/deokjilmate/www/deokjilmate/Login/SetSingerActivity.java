@@ -14,7 +14,10 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +26,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SetSingerActivity extends AppCompatActivity {
 
@@ -43,6 +49,8 @@ public class SetSingerActivity extends AppCompatActivity {
     SetSingerAdapter setSingerAdapter;
     HashMap<String, String> singerPNData;
 
+    NetworkService networkService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +61,33 @@ public class SetSingerActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
 
+        networkService = ApplicationController.getInstance().getNetworkService();
+
         requestManager = Glide.with(this);
         singerPNData = new HashMap<>();
 
 
         setSingerItemDatas = new ArrayList<SetSingerItemData>();
         allSingerList = new ArrayList<SetSingerItemData>();
+
+
+        //TODO : 랭킹 가수 목록 넣기
+
+        Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
+        setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
+            @Override
+            public void onResponse(Call<AllSingerRanking> call, Response<AllSingerRanking> response) {
+                if(response.isSuccessful())
+                {
+                    //TODO : 일단 서버단에서 온 모든 것을 받을 데이터셋이 하나 필요하고 여기서 가공된 애를 저장할 데이터셋이 필요
+                }
+            }
+            @Override
+            public void onFailure(Call<AllSingerRanking> call, Throwable t) {
+            }
+        });
+
+
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta));
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta));
         setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "cccc", R.drawable.meta));
