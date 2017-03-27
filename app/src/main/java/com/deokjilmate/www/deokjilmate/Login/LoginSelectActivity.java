@@ -27,6 +27,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -45,6 +53,10 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
 
     private CallbackManager callbackManager;
     TwitterAuthClient twitterAuthClient;
+    private FirebaseAuth mfirebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
+
 
     @BindView(R.id.LoginSelect_topImage)
     ImageView toobarImage;
@@ -64,6 +76,24 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
+        mfirebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                  //  Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // [START_EXCLUDE]
+                //updateUI(user);
+                // [END_EXCLUDE]
+            }
+        };
+
         //toolbar = (Toolbar)findViewById(R.id.)
         Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
@@ -76,7 +106,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        LoginManager.getInstance().logOut();
+       // LoginManager.getInstance().logOut();
     }
 
     @OnClick(R.id.LoginSelect_findPwd)
@@ -171,17 +201,16 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
 
             @Override
             public void success(Result<TwitterSession> result) {
-                TwitterSession session = result.data;
-                String twitter_token = session.getAuthToken().token;
-                //TODO : 여기서 가입 정보 없으면 회원가입 페이지로.
+//                TwitterSession session = result.data;
+//                String twitter_token = session.getAuthToken().token;
 
+
+                handleTwitterSession(result.data);
 
             }
-
             @Override
             public void failure(TwitterException exception) {
                 //로긴 취소 했을 때도 들어옴.
-                Toast.makeText(LoginSelectActivity.this, "먼저 다운로드 해주세요", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,22 +238,117 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 if (requestCode == RC_SIGN_IN) {
                     GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                     handleSignInResult(result);
-                    Log.v("GoogleResult", "GoogleResult");
                 }
                 break;
         }
     }
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
+        // [START_EXCLUDE silent]
+        // [END_EXCLUDE]
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mfirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        // [START_EXCLUDE]
+                        // [END_EXCLUDE]
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+                        dialog.setTitle("회원 정보가 없습니다.");
+                        dialog.setMessage("회원 가입 하시겠습니까?");
+
+                        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // YES 선택시 처리할 내용
+                                Log.v("로그인", "로그인");
+                                acct.getIdToken().toString();
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", "id,name,email,gender,birthday");
+
+                                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                                finish();
+                            }
+                        });
+
+                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // NO 선택시 처리할 내용
+                                mfirebaseAuth.signOut();
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.show();
+                        Log.v("회원 정보", acct.getIdToken().toString());
+
+
+
+                    }
+                });
+    }
+
+
+
+
     private void handleSignInResult(GoogleSignInResult result) {
         //Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            acct.getIdToken();
-            //TODO : 여기서 레트로핏 적용. 정보 없으면 회원가입 페이지로.
+            final GoogleSignInAccount acct = result.getSignInAccount();
+           // String accc = acct.getIdToken().toString();
+            //TODO : 여기서 가입 정보 없으면 회원가입 페이지로. & 레트로핏 적용 여기서
+            //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
+            //TODO : if 정보 있음이면 다음 페이지
 
+
+
+            Log.v("Google", "Google");
+
+            //TODO : if 정보 없음이면 밑에 다이얼로그
+
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+            dialog.setTitle("회원 정보가 없습니다.");
+            dialog.setMessage("회원 가입 하시겠습니까?");
+
+            dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // YES 선택시 처리할 내용
+                    Log.v("로그인", "로그인");
+                    acct.getIdToken();
+
+
+                    startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                    finish();
+                }
+            });
+
+            dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // NO 선택시 처리할 내용
+                    //mGoogleApiClient.getContext().getApplicatio
+
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
 
         } else {
             // Signed out, show unauthenticated UI.
+            Log.v("GoogleFalse", "GoogleFalse");
             updateUI(false);
         }
     }
@@ -262,5 +386,67 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     {
         Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
         startActivity(intent);
+    }
+
+
+    private void handleTwitterSession(final TwitterSession session) {
+        // [START_EXCLUDE silent]
+        // [END_EXCLUDE]
+
+        final AuthCredential credential = TwitterAuthProvider.getCredential(
+                session.getAuthToken().token,
+                session.getAuthToken().secret);
+
+        mfirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        //TODO : 여기서 가입 정보 없으면 회원가입 페이지로. & 레트로핏 적용 여기서
+                        //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
+                        //TODO : if 정보 있음이면 다음 페이지
+
+
+
+
+
+                        //TODO : if 정보 없음이면 밑에 다이얼로그
+
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+                        dialog.setTitle("회원 정보가 없습니다.");
+                        dialog.setMessage("회원 가입 하시겠습니까?");
+
+                        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // YES 선택시 처리할 내용
+                                Log.v("로그인", "로그인");
+                                session.getAuthToken().token.toString();
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", "id,name,email,gender,birthday");
+
+                                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                                finish();
+                            }
+                        });
+
+                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // NO 선택시 처리할 내용
+                                mfirebaseAuth.signOut();
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.show();
+                        Log.v("회원 정보", session.getAuthToken().token.toString());
+                    }
+                });
     }
 }
