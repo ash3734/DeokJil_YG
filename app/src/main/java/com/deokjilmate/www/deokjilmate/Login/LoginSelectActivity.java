@@ -174,9 +174,6 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 dialog.show();
 
 
-
-
-
 //                graphRequest.setParameters(parameters);
 //                graphRequest.executeAsync();
             }
@@ -235,9 +232,11 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 twitterAuthClient.onActivityResult(requestCode, resultCode, data);
                 break;
             case 3://구글 로그인
-                if (requestCode == RC_SIGN_IN) {
-                    GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                    handleSignInResult(result);
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                if (result.isSuccess()) {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = result.getSignInAccount();
+                    firebaseAuthWithGoogle(account);
                 }
                 break;
         }
@@ -246,6 +245,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
 
+        mfirebaseAuth.signOut();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -272,8 +272,6 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                                 // YES 선택시 처리할 내용
                                 Log.v("로그인", "로그인");
                                 acct.getIdToken().toString();
-                                Bundle parameters = new Bundle();
-                                parameters.putString("fields", "id,name,email,gender,birthday");
 
                                 startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
                                 finish();
@@ -290,9 +288,6 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                         });
                         dialog.show();
                         Log.v("회원 정보", acct.getIdToken().toString());
-
-
-
                     }
                 });
     }
@@ -326,7 +321,9 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 public void onClick(DialogInterface dialog, int which) {
                     // YES 선택시 처리할 내용
                     Log.v("로그인", "로그인");
-                    acct.getIdToken();
+                    //acct.getIdToken().toString();
+
+                    Log.v("로그인", acct.getIdToken());
 
 
                     startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
@@ -428,6 +425,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                                 // YES 선택시 처리할 내용
                                 Log.v("로그인", "로그인");
                                 session.getAuthToken().token.toString();
+
                                 Bundle parameters = new Bundle();
                                 parameters.putString("fields", "id,name,email,gender,birthday");
 

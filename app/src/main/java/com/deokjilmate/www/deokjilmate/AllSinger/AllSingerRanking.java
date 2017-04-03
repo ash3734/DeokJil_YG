@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public class AllSingerRanking {
-    ArrayList<AllSingerDetails> result;
+    public ArrayList<AllSingerDetails> result;
 }

@@ -25,12 +25,12 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     ArrayList<SetSingerItemData> searchSingerList;//실제 보여줄 것.
     HashMap<String, String> singerPNData = new HashMap<String, String>();
     SetSingerNameData setSingerNameData;
-    String[] keySet;
+
 
     boolean search = false;
     //보여지는 것은 추천목록이고 검색하면 검색한 녀석이 보여져야 함.
 
-    public SetSingerAdapter(RequestManager requestManager, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList, HashMap<String, String> singerPNData, String[] keySet) {
+    public SetSingerAdapter(RequestManager requestManager, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList, HashMap<String, String> singerPNData) {
         this.requestManager = requestManager;
         this.setSingerItemDatas = setSingerItemDatas;//이건 추천목록
         this.searchSingerList = allSingerList;
@@ -41,7 +41,6 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         //this.singerPNData = new HashMap<String, String>();
         this.singerPNData.putAll(singerPNData);
 
-        this.keySet = keySet;
     }
 
     @Override
@@ -59,13 +58,14 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     public void onBindViewHolder(SetSingerViewHolder holder, int position) {
         if(search == false) {
             Log.v("false", "false");
-            holder.singer_image.setImageResource(setSingerItemDatas.get(position).singer_image);
+            requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
             holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
         }
         else{
             Log.v("true", "true");
-            holder.singer_image.setImageResource(searchSingerList.get(position).singer_image);
+            //holder.singer_image.setImageResource(searchSingerList.get(position).singer_image);
+            requestManager.load(searchSingerList.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
             holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
         }
@@ -115,6 +115,8 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                     searchSingerList.add(allSingerList.get(i));
                     search = true;
                 }
+                else
+                    search = false;
             }
         }
         //입력한 데이터가 있을 경우에는 일치하는 항목들만 찾아 출력해줍니다.

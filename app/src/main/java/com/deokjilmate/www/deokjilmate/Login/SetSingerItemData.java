@@ -5,7 +5,7 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class SetSingerItemData {
-    int singer_image;
+    String singer_image;
 
 
 
@@ -17,7 +17,7 @@ public class SetSingerItemData {
 
 
 
-    public SetSingerItemData(int singer_image,String singer_name, int singer_most) {
+    public SetSingerItemData(String singer_image,String singer_name, int singer_most) {
         this.singer_image = singer_image;
         // this.singer = singer;
         this.singer_name = singer_name;

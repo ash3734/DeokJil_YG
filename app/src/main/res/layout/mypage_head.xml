@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/meta"
             android:id="@+id/MyPageHead_mainSingerBackground"
             />
         <LinearLayout
