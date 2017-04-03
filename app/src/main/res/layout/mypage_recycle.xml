@@ -21,7 +21,6 @@
             android:layout_height="200dp"
             android:layout_marginRight="4dp"
             android:id="@+id/MyPage_mainSingerBackground"
-            android:background="@drawable/meta"
             />
         <LinearLayout
             android:layout_width="wrap_content"

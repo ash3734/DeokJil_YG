@@ -52,14 +52,14 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 requestManager_singer.load(myPageItemDatas.get(position-1).singer_Image).into(myPageViewHolder.singer_Image);
                 requestManager_rank.load(myPageItemDatas.get(position-1).rank_Image).into(myPageViewHolder.rank_Image);
                 myPageViewHolder.singer_name.setText(myPageItemDatas.get(position-1).singer_name);
-                myPageViewHolder.vote_count.setText(myPageItemDatas.get(position-1).vote_count);
+                myPageViewHolder.vote_count.setText(String.valueOf(myPageItemDatas.get(position-1).choice_count));
 
             } else if (holder instanceof MyPageHeadViewHolder) {
                 MyPageHeadViewHolder myPageHeadViewHolder = (MyPageHeadViewHolder) holder;
-                myPageHeadViewHolder.singer_Image.setImageResource(myPageHeadItemData.singer_Image);
+                requestManager_singer.load(myPageHeadItemData.singer_Image).into(myPageHeadViewHolder.singer_Image);
                 myPageHeadViewHolder.rank_Image.setImageResource(myPageHeadItemData.rank_Image);
                 myPageHeadViewHolder.singer_name.setText(myPageHeadItemData.singer_name);
-                myPageHeadViewHolder.vote_count.setText(myPageHeadItemData.vote_count);
+                myPageHeadViewHolder.vote_count.setText(String.valueOf(myPageHeadItemData.choice_count));
             }
         } catch (Exception e) {
             e.printStackTrace();
