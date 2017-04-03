@@ -22,11 +22,7 @@
             android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -62,15 +58,24 @@
         <activity
             android:name=".MyPage.AddSinger.AddSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Setting.InquiryActivity" />
+        <activity android:name=".Setting.Inquiry.InquiryActivity" />
         <activity android:name=".Setting.SettingActivity">
+
 
         </activity>
         <activity android:name=".MyPage.EditSinger.EditSingerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Setting.NoticeActivity" />
-        <activity android:name=".Setting.TermsActivity" />
-        <activity android:name=".Setting.BreakActivity"></activity>
+        <activity android:name=".Setting.Notice.NoticeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".Setting.Terms.TermsActivity" />
+        <activity android:name=".Setting.Break.BreakActivity"></activity>
     </application>
 
 </manifest>

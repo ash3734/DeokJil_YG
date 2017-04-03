@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Inquiry;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
