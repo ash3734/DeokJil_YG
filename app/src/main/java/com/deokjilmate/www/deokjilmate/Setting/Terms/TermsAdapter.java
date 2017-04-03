@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Terms;
 
 import android.content.Context;
 import android.view.LayoutInflater;

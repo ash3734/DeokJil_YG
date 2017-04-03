@@ -11,6 +11,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.Setting.Break.BreakActivity;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryActivity;
+import com.deokjilmate.www.deokjilmate.Setting.Notice.NoticeActivity;
+import com.deokjilmate.www.deokjilmate.Setting.Terms.TermsActivity;
 
 import java.util.ArrayList;
 
