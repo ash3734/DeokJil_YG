@@ -38,4 +38,12 @@ public class ApplicationController extends Application{
         networkService = retrofit.create(NetworkService.class);
 
     }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        instance = this;
+        buildNetwork();
+    }
+
 }
