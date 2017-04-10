@@ -8,13 +8,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.deokjilmate.www.deokjilmate.R;
+
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
 
 public class InquiryActivity extends AppCompatActivity {
 
 
     Button send_inquiry;
+
     NetworkService service;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class InquiryActivity extends AppCompatActivity {
                         .setNeutralButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+
 
                                 /*
 
@@ -69,8 +74,7 @@ public class InquiryActivity extends AppCompatActivity {
 
 
 
-
-                                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
+                 AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
 
                                 alertDialogBuilder2
                                         .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
