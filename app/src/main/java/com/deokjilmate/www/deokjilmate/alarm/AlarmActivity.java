@@ -1,13 +1,12 @@
+//
 //package com.deokjilmate.www.deokjilmate.alarm;
+//
 //
 //import android.content.DialogInterface;
 //import android.content.SharedPreferences;
 //import android.os.Bundle;
-//import android.support.v7.app.ActionBar;
-//import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 //import android.util.Log;
-//import android.view.LayoutInflater;
 //import android.view.View;
 //import android.widget.Button;
 //import android.widget.CompoundButton;
@@ -104,8 +103,8 @@
 //
 //
 //        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
-//        View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
-//        actionBar.setCustomView(mCustomView);
+//        //View mCustomView = LayoutInflater.from(this).inflate(R.layout.layout_alarm_actionbar, null);
+//        //actionBar.setCustomView(mCustomView);
 //
 //
 //        // 액션바에 백그라운드 이미지를 아래처럼 입힐 수 있습니다. (drawable 폴더에 img_action_background.png 파일이 있어야 겠죠?)
@@ -120,6 +119,8 @@
 //        mListView = (ExpandableListView) findViewById(R.id.elv_list);
 //        mGroupList = new ArrayList<String>();
 //        mChildList = new ArrayList<ArrayList<ChildStateObject>>();
+//
+//
 //
 //        Call<NoticeResult> getDetailData = service.getNoticeData(m_id);
 //        getDetailData.enqueue(new Callback<NoticeResult>() {
@@ -274,11 +275,12 @@
 //            public void onFailure(retrofit2.Call<RegisterResult> call, Throwable t) {
 //                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
 //            }
-//        });*/
+//        });
 //
 //
-//    }
+//
+//   }
+//
 //
 //
 //}
-//
