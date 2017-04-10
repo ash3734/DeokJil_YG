@@ -3,10 +3,14 @@ package com.deokjilmate.www.deokjilmate.network;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -20,6 +24,9 @@ public interface NetworkService {
     @GET("/notice")
     Call<BoardNotice> getNotice();
 
+    //문의하기
+    @POST("/question/send")
+    Call<InquiryResult> inquiryResult(@Body InquiryObject getObject);
 
 
 

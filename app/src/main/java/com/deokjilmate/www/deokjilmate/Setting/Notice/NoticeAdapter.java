@@ -70,11 +70,11 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
             v = inflater.inflate(R.layout.notice_parent, parent, false);
             viewHolder.notice_title = (TextView) v.findViewById(R.id.notice_title);
             viewHolder.notice_main = (TextView) v.findViewById(R.id.notice_main);
+          //  viewHolder.notice_time = (TextView) v.findViewById(R.id.notice_time);
             v.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)v.getTag();
         }
-
 
         ImageView view = (ImageView)v.findViewById(R.id.notice_order_icon);
 
@@ -86,6 +86,7 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         }
 
         viewHolder.notice_title.setText(getGroup(groupPosition));
+
 
         return v;
     }

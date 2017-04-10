@@ -21,7 +21,7 @@ public class NoticeActivity extends AppCompatActivity {
     private ArrayList<String> mGroupList = null;
     private ArrayList<ArrayList<String>> mChildList = null;
     private ArrayList<String> mChildListContent = null;
-
+    private ExpandableListView mListView;
 
     private NoticeAdapter mBaseExpandableAdapter = null;
 
@@ -32,8 +32,8 @@ public class NoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice_activity);
 
-        setLayout();
 
+        mListView = (ExpandableListView) findViewById(R.id.elv_list);
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
@@ -120,12 +120,13 @@ public class NoticeActivity extends AppCompatActivity {
 
     /*
      * Layout
-     */
+
     private ExpandableListView mListView;
 
     private void setLayout(){
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
     }
+    */
 
 
 }
