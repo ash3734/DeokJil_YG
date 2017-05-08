@@ -6,15 +6,27 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InquiryActivity extends AppCompatActivity {
 
 
     Button send_inquiry;
     NetworkService service;
+
+    int member_id;
+    String questions_title;
+    String questions_main;
+    String questions_mail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +44,23 @@ public class InquiryActivity extends AppCompatActivity {
                 alertDialogBuilder
                         .setMessage("문의사항을 제출하시겠습니까?")
                         .setCancelable(false)
-                        .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                /*
+
+                                member_id = 7;
+                                questions_title = "hi!";
+                                questions_main = "hello~";
+                                questions_mail = "hi@dmail.com";
+
+
 
                                 ///////////////////////////////////////////////////////
-                                retrofit2.Call<InquiryResult> inquiryResult = service.inquiryResult(new InquiryObject(member_id,questions_title,questions_main,questions_mail));
-                                requestRegister.enqueue(new Callback<RegisterResult>() {
+                                Call<InquiryResult> inquiryRegister = service.inquiryRegister(new InquiryObject(member_id,questions_title,questions_main,questions_mail));
+                                inquiryRegister.enqueue(new Callback<InquiryResult>() {
                                     @Override
-                                    public void onResponse(retrofit2.Call<RegisterResult> call, Response<RegisterResult> response) {
+                                    public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
                                         if(response.isSuccessful()){
                                             if(response.body().result.equals("create")){
                                                 Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
@@ -52,23 +70,11 @@ public class InquiryActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
                                         }
                                     }
-
                                     @Override
-                                    public void onFailure(retrofit2.Call<RegisterResult> call, Throwable t) {
+                                    public void onFailure(Call<InquiryResult> call, Throwable t) {
                                         Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
-                                */
-
-
-
-
-
-
-
-
-
 
                                 AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
 
