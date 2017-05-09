@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -57,10 +56,6 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
     private FirebaseAuth.AuthStateListener authStateListener;
 
 
-
-    @BindView(R.id.LoginSelect_topImage)
-    ImageView toobarImage;
-
     @BindView(R.id.LoginSelect_backImage)
     ImageButton backButton;
 
@@ -82,20 +77,12 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    // User is signed out
-                  //  Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // [START_EXCLUDE]
-                //updateUI(user);
-                // [END_EXCLUDE]
             }
         };
 
-        //toolbar = (Toolbar)findViewById(R.id.)
-        Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
+       // Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -106,7 +93,6 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-       // LoginManager.getInstance().logOut();
     }
 
     @OnClick(R.id.LoginSelect_findPwd)
@@ -123,20 +109,10 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
 
         LoginManager.getInstance().logInWithReadPermissions(LoginSelectActivity.this,
                 Arrays.asList("public_profile", "email"));
-//        LoginManager.getInstance().logInWithPublishPermissions(LoginSelectActivity.this,
-//                Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-//                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
-//                {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        Log.v("로그인", "로그인");
-//                        //loginResult.getAccessToken();
-//
-//                    }
-//                });
+
 
                //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
                 //TODO : if 정보 있음이면 다음 페이지
@@ -174,8 +150,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
                 dialog.show();
 
 
-//                graphRequest.setParameters(parameters);
-//                graphRequest.executeAsync();
+
             }
             @Override
             public void onCancel() {
@@ -198,8 +173,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
 
             @Override
             public void success(Result<TwitterSession> result) {
-//                TwitterSession session = result.data;
-//                String twitter_token = session.getAuthToken().token;
+
 
 
                 handleTwitterSession(result.data);
@@ -207,7 +181,7 @@ public class LoginSelectActivity extends AppCompatActivity implements GoogleApiC
             }
             @Override
             public void failure(TwitterException exception) {
-                //로긴 취소 했을 때도 들어옴.
+
             }
         });
 

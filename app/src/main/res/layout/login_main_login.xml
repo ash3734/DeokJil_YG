@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_login"
     android:layout_width="match_parent"
@@ -7,21 +7,40 @@
     tools:context="com.deokjilmate.www.deokjilmate.Login.MainLoginActivity"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/MainLogin_logo"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="56dp"
         android:text="Login"
         android:id="@+id/MainLogin_login"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회원가입"
-        android:id="@+id/MainLogin_sign"/>
+        android:layout_above="@+id/MainLogin_sign"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/main_login_button_style">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:text="로그인"
+                android:textColor="#ff7973"
+                />
+        </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="56dp"
+        android:text="회원가입"
+        android:background="@drawable/main_login_button_style"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/MainLogin_sign">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:textColor="#ff7973"
+            android:text="회원가입"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
