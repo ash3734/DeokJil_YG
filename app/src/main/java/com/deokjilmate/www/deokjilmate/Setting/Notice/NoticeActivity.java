@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Notice;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,39 +7,75 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 
-public class TermsActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class NoticeActivity extends AppCompatActivity {
 
     private ArrayList<String> mGroupList = null;
     private ArrayList<ArrayList<String>> mChildList = null;
     private ArrayList<String> mChildListContent = null;
 
+    private ExpandableListView mListView;
 
     private NoticeAdapter mBaseExpandableAdapter = null;
+
+    NetworkService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice_activity);
 
-        setLayout();
+
+
+        mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
 
-        mGroupList.add("가위");
-        mGroupList.add("바위");
-        mGroupList.add("보");
 
-        mChildListContent.add("1");
+        service = ApplicationController.getInstance().getNetworkService();
 
 
-        mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent);
+        Call<BoardNotice> getNotice = service.getNotice();
+        getNotice.enqueue(new Callback<BoardNotice>() {
+
+            @Override
+            public void onResponse(Call<BoardNotice> call, Response<BoardNotice> response) {
+
+                if(response.isSuccessful()){
+                    for(BoardNoticeData notice : response.body().result){
+                        mGroupList.add(notice.notice_title+" "+notice.notice_time);
+                    }
+
+                    for(BoardNoticeData notice : response.body().result){
+                        mChildListContent.add(notice.notice_main);
+                        mChildList.add(mChildListContent);
+                    }
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<BoardNotice> call, Throwable t) {
+
+            }
+        });
+
+
+
+//        mChildList.add(mChildListContent);
+//        mChildList.add(mChildListContent);
+//        mChildList.add(mChildListContent);
+
 
         mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
         mListView.setAdapter(mBaseExpandableAdapter);
@@ -87,11 +123,15 @@ public class TermsActivity extends AppCompatActivity {
 
     /*
      * Layout
-     */
+
     private ExpandableListView mListView;
 
     private void setLayout(){
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
     }
+
+    */
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Inquiry;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -9,10 +9,15 @@ import android.widget.Button;
 
 import com.deokjilmate.www.deokjilmate.R;
 
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
+
 public class InquiryActivity extends AppCompatActivity {
 
 
     Button send_inquiry;
+
+    NetworkService service;
 
 
     @Override
@@ -34,7 +39,42 @@ public class InquiryActivity extends AppCompatActivity {
                         .setNeutralButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
+
+
+                                /*
+
+                                ///////////////////////////////////////////////////////
+                                retrofit2.Call<InquiryResult> inquiryResult = service.inquiryResult(new InquiryObject(member_id,questions_title,questions_main,questions_mail));
+                                requestRegister.enqueue(new Callback<RegisterResult>() {
+                                    @Override
+                                    public void onResponse(retrofit2.Call<RegisterResult> call, Response<RegisterResult> response) {
+                                        if(response.isSuccessful()){
+                                            if(response.body().result.equals("create")){
+                                                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        } else{
+                                                Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(retrofit2.Call<RegisterResult> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                */
+
+
+
+
+
+
+
+
+
+                 AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
 
                                 alertDialogBuilder2
                                         .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +

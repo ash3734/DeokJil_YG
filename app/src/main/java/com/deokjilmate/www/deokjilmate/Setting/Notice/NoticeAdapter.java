@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Notice;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -35,9 +35,9 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
 
     class ViewHolder {
 
-        public TextView notice_order;
-        public ImageView notice_order_icon;
-        public TextView notice_content;
+        public TextView notice_title;
+        public TextView notice_main;
+        public TextView notice_time;
     }
 
     // 그룹 포지션을 반환한다.
@@ -68,8 +68,11 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         if(v == null){
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.notice_parent, parent, false);
-            viewHolder.notice_order = (TextView) v.findViewById(R.id.notice_order);
-            viewHolder.notice_order_icon = (ImageView) v.findViewById(R.id.notice_order_icon);
+            viewHolder.notice_title = (TextView) v.findViewById(R.id.notice_title);
+            viewHolder.notice_main = (TextView) v.findViewById(R.id.notice_main);
+
+          //  viewHolder.notice_time = (TextView) v.findViewById(R.id.notice_time);
+
             v.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)v.getTag();
@@ -85,7 +88,8 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
             view.setImageResource(R.drawable.aoa);
         }
 
-        viewHolder.notice_order.setText(getGroup(groupPosition));
+        viewHolder.notice_title.setText(getGroup(groupPosition));
+
 
         return v;
     }
@@ -118,13 +122,13 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         if(v == null){
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.notice_child, null);
-            viewHolder.notice_content = (TextView) v.findViewById(R.id.notice_content);
+            viewHolder.notice_main = (TextView) v.findViewById(R.id.notice_main);
             v.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)v.getTag();
         }
 
-        viewHolder.notice_content.setText(getChild(groupPosition, childPosition));
+        viewHolder.notice_main.setText(getChild(groupPosition, childPosition));
 
         return v;
     }

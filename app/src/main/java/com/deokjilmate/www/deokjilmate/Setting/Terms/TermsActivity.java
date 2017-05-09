@@ -1,4 +1,4 @@
-package com.deokjilmate.www.deokjilmate.Setting;
+package com.deokjilmate.www.deokjilmate.Setting.Terms;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,11 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.Setting.Notice.NoticeAdapter;
 
 import java.util.ArrayList;
 
-public class NoticeActivity extends AppCompatActivity {
+public class TermsActivity extends AppCompatActivity {
 
     private ArrayList<String> mGroupList = null;
     private ArrayList<ArrayList<String>> mChildList = null;
@@ -93,6 +94,5 @@ public class NoticeActivity extends AppCompatActivity {
     private void setLayout(){
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
     }
-
 
 }

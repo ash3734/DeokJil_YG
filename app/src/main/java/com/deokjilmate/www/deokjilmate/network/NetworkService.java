@@ -7,13 +7,24 @@ import com.deokjilmate.www.deokjilmate.Login.SnsResult;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
+
+import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
+
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+
 import retrofit2.http.Path;
 
 /**
@@ -21,6 +32,11 @@ import retrofit2.http.Path;
  */
 
 public interface NetworkService {
+
+    /***********************밍구************************/
+    //공지사항 불러오기
+    @GET("/notice")
+    Call<BoardNotice> getNotice();
 
 
     //////이 밑은 YG 담당//////////
@@ -32,6 +48,11 @@ public interface NetworkService {
             @Part("email") RequestBody email,
             @Part("snstoken") RequestBody snstoken
     );
+
+    //문의하기
+    @POST("/question/send")
+    Call<InquiryResult> inquiryResult(@Body InquiryObject getObject);
+
 
 
     //회원가입 in App
