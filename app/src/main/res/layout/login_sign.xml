@@ -46,7 +46,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:text="페이스북"
-            android:layout_toLeftOf="@id/Sign_twitter"
+            android:layout_toLeftOf="@+id/Sign_twitter"
             android:id="@+id/Sign_facebook"/>
 
         <Button
@@ -62,7 +62,7 @@
             android:layout_height="64dp"
             android:layout_marginLeft="8dp"
             android:text="구글"
-            android:layout_toRightOf="@id/Sign_twitter"
+            android:layout_toRightOf="@+id/Sign_twitter"
             android:id="@+id/Sign_google"/>
 
     </RelativeLayout>

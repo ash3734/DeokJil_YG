@@ -83,16 +83,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     @BindView(R.id.Sign_next)
     Button next;
 
-    @BindView(R.id.Sign_google)
-    Button btnGoogle;
-
-    @BindView(R.id.Sign_facebook)
-    Button btnFacebook;
-
-    @BindView(R.id.Sign_twitter)
-    Button btnTwitter;
-
-
     private String t_email;
     private String t_pwd;
     private String t_pwdCheck;

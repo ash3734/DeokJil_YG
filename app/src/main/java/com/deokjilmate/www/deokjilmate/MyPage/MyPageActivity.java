@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerActivity;
-import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
+import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
 
