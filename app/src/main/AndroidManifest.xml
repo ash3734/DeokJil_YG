@@ -20,7 +20,7 @@
             android:value="4898f0500922fe54d7bf58552e18edda9963a597" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Setting.SettingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
 
@@ -60,7 +60,9 @@
             android:name=".MyPage.AddSinger.AddSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Setting.Inquiry.InquiryActivity" />
-        <activity android:name=".Setting.SettingActivity">
+
+
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
