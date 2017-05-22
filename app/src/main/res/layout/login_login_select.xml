@@ -7,79 +7,91 @@
     tools:context="com.deokjilmate.www.deokjilmate.Login.LoginSelectActivity"
     android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="@color/tw__solid_white">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/LoginSelect_topImage"/>
+            android:layout_height="52dp"
+            android:background="@drawable/maingradation">
             <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginLeft="16dp"
+                android:background="@color/tw__transparent"
                 android:id="@+id/LoginSelect_backImage"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="여기는 툴바"/>
+                android:text="로그인"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            >
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="페이스북"
+                android:layout_toLeftOf="@+id/LoginSelect_twitter"
+                android:id="@+id/LoginSelect_facebook"/>
+
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="8dp"
+                android:text="트위터"
+                android:id="@+id/LoginSelect_twitter"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="8dp"
+                android:text="구글"
+                android:layout_toRightOf="@+id/LoginSelect_twitter"
+                android:id="@+id/LoginSelect_google"/>
 
         </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="구글"
-            android:id="@+id/LoginSelect_google"
-            android:layout_weight="1"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="페이스북"
-            android:id="@+id/LoginSelect_facebook"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="트위터"
-            android:id="@+id/LoginSelect_twitter"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="또는"
+        android:layout_height="20dp"
+        android:text="---------- or ----------"
+        android:layout_marginTop="40dp"
         android:textAlignment="center"/>
     <LinearLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:id="@+id/LoginSelece_email"
             android:nextFocusUp="@+id/LoginSelece_email"
+            android:background="#000000"
+            android:alpha="0.46"
             android:hint="메일주소"/>
-        <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="#000000"
+            android:alpha="0.46"
+            android:layout_marginTop="8dp"
             android:hint="비밀번호"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,9 +101,16 @@
         </RelativeLayout>
     </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="로그인" />
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/sing_login_check_button"
+    android:text="회원가입하기" />
+        </RelativeLayout>
 
 </LinearLayout>

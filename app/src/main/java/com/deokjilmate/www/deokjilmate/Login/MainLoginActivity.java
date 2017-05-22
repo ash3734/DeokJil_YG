@@ -3,9 +3,8 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 
 import butterknife.BindView;
@@ -14,8 +13,11 @@ import butterknife.OnClick;
 
 public class MainLoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.MainLogin_logo)
-    ImageView logoImage;
+    @BindView(R.id.MainLogin_sign)
+    RelativeLayout btnSign;
+
+    @BindView(R.id.MainLogin_login)
+    RelativeLayout btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class MainLoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
-        Glide.with(this).load(R.drawable.output).into(logoImage);
+       // Glide.with(this).load(R.drawable.output).into(logoImage);
 
 
 
