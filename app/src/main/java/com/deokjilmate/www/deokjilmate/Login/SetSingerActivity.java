@@ -191,7 +191,6 @@ public class SetSingerActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
     }
 
 //    @OnClick(R.id.SetSinger_search)

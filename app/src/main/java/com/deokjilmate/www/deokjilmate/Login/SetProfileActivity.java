@@ -205,13 +205,8 @@ public class SetProfileActivity extends AppCompatActivity {
 
                     b_memberName = RequestBody.create(MediaType.parse("multipart/form-data"), nickname);
 
-                    Call<RegisterResult> registerResult = networkService.registerResult(profile_img, b_email, b_passwd, nickname);
-                    Log.v("프로필",profile_img.toString());
-                    Log.v("프로필",b_email.toString());
-                    Log.v("프로필",b_passwd.toString());
-                    Log.v("프로필",b_memberName.toString());
-                    Log.v("프로필",nickname);
-
+                    Call<RegisterResult> registerResult = networkService.registerResult(new TempBody(email, passwd, nickname));
+                    //Log.v("SingPsswd", passwd);
                     registerResult.enqueue(new Callback<RegisterResult>() {
                         @Override
                         public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
