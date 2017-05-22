@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/maingradation">
+    android:background="@color/tw__solid_white">
 
 
         <RelativeLayout
@@ -25,55 +25,50 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="여기는 툴바"/>
+                android:text="로그인"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            >
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="페이스북"
+                android:layout_toLeftOf="@+id/LoginSelect_twitter"
+                android:id="@+id/LoginSelect_facebook"/>
+
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="8dp"
+                android:text="트위터"
+                android:id="@+id/LoginSelect_twitter"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="8dp"
+                android:text="구글"
+                android:layout_toRightOf="@+id/LoginSelect_twitter"
+                android:id="@+id/LoginSelect_google"/>
 
         </RelativeLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="48dp"
-        android:background="@drawable/sign_steps_context"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="구글"
-            android:id="@+id/LoginSelect_google"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="페이스북"
-            android:id="@+id/LoginSelect_facebook"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="트위터"
-            android:id="@+id/LoginSelect_twitter"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="또는"
+        android:layout_height="20dp"
+        android:text="---------- or ----------"
+        android:layout_marginTop="40dp"
         android:textAlignment="center"/>
     <LinearLayout
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -92,9 +87,11 @@
             android:alpha="0.46"
             android:layout_marginTop="8dp"
             android:hint="비밀번호"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +109,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_marginBottom="16dp"
-    android:text="로그인" />
+    android:background="@drawable/sing_login_check_button"
+    android:text="회원가입하기" />
         </RelativeLayout>
-    </LinearLayout>
+
 </LinearLayout>

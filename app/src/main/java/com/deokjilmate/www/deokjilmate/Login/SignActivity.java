@@ -2,13 +2,10 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.ResourcesUtil;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -48,7 +46,6 @@ import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -262,134 +259,142 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-    @OnClick(R.id.Sign_email)
-    public void setEmail()
-    {
-        email.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.v("이메일", "email");
-                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
-                if(t_email.length() == 0)
-                    b_email = false;
-                else {
-                    b_email = true;
-                }
-                email_Match = email_Pattern.matcher(t_email);
-
-                if (b_email && b_pwd && b_pwdCheck)
-                    next.setEnabled(true);
-                Log.v("email", String.valueOf(b_email));
-                Log.v("pwd", String.valueOf(b_pwd));
-                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-
-                if(!email_Match.find())
-                    email.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
-                else
-                    email.setBackgroundColor(Color.TRANSPARENT);
-                //email.set
-
-            }
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    @OnClick(R.id.Sign_pwd)
-    public void setPwd()
-    {
-        Log.v("비번", "pwd");
-        pwd.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.v("비번", "email");
-
-                t_pwd = pwd.getText().toString().toLowerCase(Locale.getDefault());
-                if(t_pwd.length() == 0)
-                    b_pwd = false;
-                else {
-                    b_pwd = true;
-                }
-                if (b_email && b_pwd && b_pwdCheck)
-                    next.setEnabled(true);
-                Log.v("email", String.valueOf(b_email));
-                Log.v("pwd", String.valueOf(b_pwd));
-                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-
-                pwd_Match = pwd_Pattern.matcher(t_pwd);
-
-                if(!pwd_Match.find())
-                    pwd.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
-                else
-                    pwd.setBackgroundColor(Color.TRANSPARENT);
-            }
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    @OnClick(R.id.Sign_checkPwd)
-    public void setCheckPwd()
-    {
-        Log.v("비번체크", "pwd");
-
-        checkPwd.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.v("비번체크", "email");
-
-                t_pwdCheck = checkPwd.getText().toString().toLowerCase(Locale.getDefault());
-                if(t_pwdCheck.length() == 0)
-                    b_pwdCheck = false;
-                else {
-                    b_pwdCheck = true;
-                }
-                if (b_email && b_pwd && b_pwdCheck)
-                    next.setEnabled(true);
-                Log.v("email", String.valueOf(b_email));
-                Log.v("pwd", String.valueOf(b_pwd));
-                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-            }
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
+//    @OnClick(R.id.Sign_email)
+//    public void setEmail()
+//    {
+//        email.addTextChangedListener(new TextWatcher()
+//        {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.v("이메일", "email");
+//                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
+//                if(t_email.length() == 0)
+//                    b_email = false;
+//                else {
+//                    b_email = true;
+//                }
+//                email_Match = email_Pattern.matcher(t_email);
+//
+//                if (b_email && b_pwd && b_pwdCheck)
+//                    next.setEnabled(true);
+//                Log.v("email", String.valueOf(b_email));
+//                Log.v("pwd", String.valueOf(b_pwd));
+//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+//
+//                if(!email_Match.find())
+//                    email.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
+//                else
+//                    email.setBackgroundColor(Color.TRANSPARENT);
+//                //email.set
+//
+//            }
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+//    }
+//
+//    @OnClick(R.id.Sign_pwd)
+//    public void setPwd()
+//    {
+//        Log.v("비번", "pwd");
+//        pwd.addTextChangedListener(new TextWatcher()
+//        {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.v("비번", "email");
+//
+//                t_pwd = pwd.getText().toString().toLowerCase(Locale.getDefault());
+//                if(t_pwd.length() == 0)
+//                    b_pwd = false;
+//                else {
+//                    b_pwd = true;
+//                }
+//                if (b_email && b_pwd && b_pwdCheck)
+//                    next.setEnabled(true);
+//                Log.v("email", String.valueOf(b_email));
+//                Log.v("pwd", String.valueOf(b_pwd));
+//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+//
+//                pwd_Match = pwd_Pattern.matcher(t_pwd);
+//
+//                if(!pwd_Match.find())
+//                    pwd.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
+//                else
+//                    pwd.setBackgroundColor(Color.TRANSPARENT);
+//            }
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+//    }
+//
+//    @OnClick(R.id.Sign_checkPwd)
+//    public void setCheckPwd()
+//    {
+//        Log.v("비번체크", "pwd");
+//
+//        checkPwd.addTextChangedListener(new TextWatcher()
+//        {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.v("비번체크", "email");
+//
+//                t_pwdCheck = checkPwd.getText().toString().toLowerCase(Locale.getDefault());
+//                if(t_pwdCheck.length() == 0)
+//                    b_pwdCheck = false;
+//                else {
+//                    b_pwdCheck = true;
+//                }
+//                if (b_email && b_pwd && b_pwdCheck)
+//                    next.setEnabled(true);
+//                Log.v("email", String.valueOf(b_email));
+//                Log.v("pwd", String.valueOf(b_pwd));
+//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
+//            }
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+//    }
 
     @OnClick(R.id.Sign_next)
     public void ClickNext()
     {
-        //1. pwd와 t_pwdCheck가 같은지 확인.
-        Log.v("Sign", t_pwd + " " +t_pwdCheck);
-        if(t_pwd.equals(t_pwdCheck))
-        {
-            Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
-            intent.putExtra("email", t_email);
-            intent.putExtra("passwd", t_pwd);
-            startActivity(intent);
+        if(email.getText().toString().isEmpty() || pwd.getText().toString().isEmpty() || checkPwd.getText().toString().isEmpty()){
+            Toast.makeText(this, "모든 입력란을 채워주세요!", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else
-        {
-            Toast.makeText(SignActivity.this, "비밀번호와 확인이 일치한지 확인해주세요", Toast.LENGTH_SHORT).show();
+        if(!pwd.getText().toString().equals(checkPwd.getText().toString())){
+            Toast.makeText(this, "비밀번호를 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!isPasswordValid(pwd.getText().toString())){
+            Toast.makeText(this, "비밀번호 패턴을 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!ResourcesUtil.checkEmail(email.getText().toString())){
+            Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
+
+            return;
         }
 
+        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+        intent.putExtra("email", email.getText().toString());
+        intent.putExtra("passwd", pwd.getText().toString());
+        startActivity(intent);
     }
 
     public boolean checkFill()
@@ -520,6 +525,13 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         Log.v("회원 정보", session.getAuthToken().token.toString());
                     }
                 });
+    }
+
+    public boolean isPasswordValid(final String raw) {
+        String Passwrod_PATTERN = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
+        Pattern pattern = Pattern.compile(Passwrod_PATTERN);
+        Matcher matcher = pattern.matcher(raw);
+        return matcher.matches();
     }
 
 }

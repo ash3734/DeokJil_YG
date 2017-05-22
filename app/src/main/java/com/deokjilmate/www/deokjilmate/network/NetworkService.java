@@ -4,27 +4,21 @@ import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
+import com.deokjilmate.www.deokjilmate.Login.TempBody;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
-
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
+import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
-import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
-
-import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
-
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-
 import retrofit2.http.Path;
 
 /**
@@ -56,18 +50,24 @@ public interface NetworkService {
 
 
     //회원가입 in App
-    @Multipart
+//    @Multipart
+//    @POST("register")
+//    Call<RegisterResult> registerResult(
+//            @Part("member_email") RequestBody email,
+//            @Part("member_password") RequestBody passwd,
+//            @Part("member_name") RequestBody member_name
+//    );
+
+
+   // @Multipart
     @POST("register")
     Call<RegisterResult> registerResult(
-            @Part MultipartBody.Part member_img,
-            @Part("member_email") RequestBody email,
-            @Part("member_password") RequestBody passwd,
-            @Part("member_name") String member_name
-    );
+            @Body TempBody tempBody
+            );
 
     //닉넴 중복 체크
-    @GET("register/{member_email}")
-    Call<SetProfileResult> setProfileResult(@Path("member_email") String member_email);
+    @GET("register/{member_name}")
+    Call<SetProfileResult> setProfileResult(@Path("member_name") String member_name);
 
 
 

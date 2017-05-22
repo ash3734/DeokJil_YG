@@ -34,13 +34,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_centerHorizontal="true">
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/sign_steps_context"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -99,12 +98,24 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="296dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/SetSinger_list">
             </android.support.v7.widget.RecyclerView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/sing_login_check_button"
+                    android:id="@+id/Setsinger_next"
+                    android:text="덕질메이트 시작하기" />
+            </RelativeLayout>
         </LinearLayout>
-
     </RelativeLayout>
-
 </LinearLayout>

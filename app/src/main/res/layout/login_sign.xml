@@ -168,6 +168,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/sing_login_check_button"
             android:id="@+id/Sign_next"
             android:text="다음 단계로" />
     </RelativeLayout>
