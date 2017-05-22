@@ -5,6 +5,7 @@
 //import android.content.DialogInterface;
 //import android.content.SharedPreferences;
 //import android.os.Bundle;
+//import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 //import android.util.Log;
 //import android.view.View;
@@ -22,6 +23,7 @@
 //import java.util.ArrayList;
 //
 //import retrofit2.Call;
+//import retrofit2.Callback;
 //import retrofit2.Response;
 //
 //public class AlarmActivity extends AppCompatActivity implements MainView {
@@ -52,7 +54,7 @@
 //    String notice;
 //    TextView childText;
 //    MainView view;
-//    ActionBar actionBar;
+//   // ActionBar actionBar;
 //
 //    Button alarm_today_info;
 //
@@ -93,6 +95,7 @@
 //            }
 //        });
 //
+//        /*
 //        actionBar = getSupportActionBar();
 //
 //        // Custom Actionbar를 사용하기 위해 CustomEnabled을 true 시키고 필요 없는 것은 false 시킨다
@@ -109,6 +112,7 @@
 //
 //        // 액션바에 백그라운드 이미지를 아래처럼 입힐 수 있습니다. (drawable 폴더에 img_action_background.png 파일이 있어야 겠죠?)
 //        // actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_topbar));
+//        */
 //
 //        s_id = 0;
 //        m_id = 129;

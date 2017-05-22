@@ -1,31 +1,27 @@
 {
   "project_info": {
-    "project_number": "338630845157",
-    "firebase_url": "https://deokjilmate.firebaseio.com",
-    "project_id": "deokjilmate",
-    "storage_bucket": "deokjilmate.appspot.com"
+    "project_number": "796401332848",
+    "firebase_url": "https://duckmate-72be5.firebaseio.com",
+    "project_id": "duckmate-72be5",
+    "storage_bucket": "duckmate-72be5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:338630845157:android:7c7f6b055d8cb7a2",
+        "mobilesdk_app_id": "1:796401332848:android:7c7f6b055d8cb7a2",
         "android_client_info": {
           "package_name": "com.deokjilmate.www.deokjilmate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "338630845157-b8spfi004o8svalvf3k0c0d6nviu2uor.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "338630845157-1c2tjoqtc66m502dl00f9ct7qevr0jqf.apps.googleusercontent.com",
+          "client_id": "796401332848-nprkcq8pfbffvh28avrcp93ml14atkc9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAPAT5gJlP6GY7UpXAndRpIE0RIayXA260"
+          "current_key": "AIzaSyAy2GV2g1XA9YhIEOok4q_9HmSmyb9hEB4"
         }
       ],
       "services": {
@@ -33,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "338630845157-b8spfi004o8svalvf3k0c0d6nviu2uor.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

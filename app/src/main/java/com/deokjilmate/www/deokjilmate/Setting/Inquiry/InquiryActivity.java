@@ -4,23 +4,34 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class InquiryActivity extends AppCompatActivity {
 
 
+    private static final String TAG = "InquiryActivity";
     Button send_inquiry;
+    Button show_token;
+
     NetworkService service;
+
+    EditText title;
+    EditText main;
+    EditText mail;
 
     int member_id;
     String questions_title;
@@ -28,11 +39,27 @@ public class InquiryActivity extends AppCompatActivity {
     String questions_mail;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inquiry_activity);
 
+        service = ApplicationController.getInstance().getNetworkService();
+
+        title = (EditText)findViewById(R.id.questions_title);
+        main = (EditText)findViewById(R.id.questions_main);
+        mail = (EditText)findViewById(R.id.questions_mail);
+
+        show_token = (Button)findViewById(R.id.show_token);
+        show_token.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String token = FirebaseInstanceId.getInstance().getToken();
+                Log.d(TAG,"Token: "+token);
+                Toast.makeText(InquiryActivity.this,token,Toast.LENGTH_SHORT).show();
+            }
+        });
 
         send_inquiry = (Button)findViewById(R.id.send_inquiry);
         send_inquiry.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +76,12 @@ public class InquiryActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
 
 
+
                                 member_id = 7;
-                                questions_title = "hi!";
-                                questions_main = "hello~";
-                                questions_mail = "hi@dmail.com";
+                                questions_title = title.getText().toString();
+                                questions_main = main.getText().toString();
+                                questions_mail = mail.getText().toString();
+
 
 
 
@@ -61,14 +90,16 @@ public class InquiryActivity extends AppCompatActivity {
                                 inquiryRegister.enqueue(new Callback<InquiryResult>() {
                                     @Override
                                     public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
-                                        if(response.isSuccessful()){
-                                            if(response.body().result.equals("create")){
-                                                Toast.makeText(getApplicationContext(),"성공",Toast.LENGTH_SHORT).show();
+                                        if(response.isSuccessful()) {
+                                            if (response.body().result.equals("create")) {
+                                                Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
-                                        } else{
+                                        }
+                                        else{
                                                 Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
                                         }
+
                                     }
                                     @Override
                                     public void onFailure(Call<InquiryResult> call, Throwable t) {
@@ -76,12 +107,13 @@ public class InquiryActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
+
+                   AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
 
                                 alertDialogBuilder2
                                         .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
                                                 "문의해주셔서 감사합니다.")
-                                        .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                             public void onClick(
                                                     DialogInterface dialog, int id) {
                                                 dialog.cancel();
