@@ -564,50 +564,48 @@ public class LoginSelectActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
                 //if(response.body().) {
-                if(response.isSuccessful()) {
-
-                    //s@n.v
-                    //hi
-                    // }
-                    Log.v("들들들", "들들들");
+                Log.v("들들들", "들들들");
                     Log.v("멤버", String.valueOf(response.body().result.member_id));
                     Log.v("멤버", String.valueOf(response.body().result.b_vote_count));
                     Log.v("멤버", String.valueOf(response.body().result.singer_info.album_img));
                     Log.v("멤버", String.valueOf(response.body().result.singer_info.choice_count));
                     Log.v("멤버", String.valueOf(response.body().result.singer_info.singer_name));
-                }
-                else
-                {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
-                    dialog.setTitle("회원 정보가 없습니다.");
-                    dialog.setMessage("회원 가입 하시겠습니까?");
 
-                    dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // YES 선택시 처리할 내용
-                            Log.v("로그인", "로그인");
-                            //  session.getAuthToken().token.toString();
-
-                            Bundle parameters = new Bundle();
-                            parameters.putString("fields", "id,name,email,gender,birthday");
-
-                            startActivity(new Intent(getApplicationContext(), SignActivity.class));
-                            finish();
-                        }
-                    });
-
-                    dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // NO 선택시 처리할 내용
-                            mfirebaseAuth.signOut();
-                            dialog.cancel();
-                        }
-                    });
-                    dialog.show();
-
-                }
+                    //s@n.v
+                    //hi
+               // }
+//                else
+//                {
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+//                    dialog.setTitle("회원 정보가 없습니다.");
+//                    dialog.setMessage("회원 가입 하시겠습니까?");
+//
+//                    dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // YES 선택시 처리할 내용
+//                            Log.v("로그인", "로그인");
+//                            //  session.getAuthToken().token.toString();
+//
+//                            Bundle parameters = new Bundle();
+//                            parameters.putString("fields", "id,name,email,gender,birthday");
+//
+//                            startActivity(new Intent(getApplicationContext(), SignActivity.class));
+//                            finish();
+//                        }
+//                    });
+//
+//                    dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // NO 선택시 처리할 내용
+//                            mfirebaseAuth.signOut();
+//                            dialog.cancel();
+//                        }
+//                    });
+//                    dialog.show();
+//
+//                }
 
             }
             @Override

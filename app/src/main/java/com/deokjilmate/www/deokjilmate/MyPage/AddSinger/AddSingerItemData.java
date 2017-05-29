@@ -5,19 +5,17 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
  */
 
 public class AddSingerItemData {
-
-    int singer_id;
+    String singer_rank;
     String singer_image;
 
 
     // int singer;
     //보통 이미지의 리소스는 인트로 저장.
     String singer_name;
-    int add_singer;
+    String add_singer;
 
-    public AddSingerItemData(int singer_id, String singer_image, String singer_name, int add_singer) {
-       // this.singer_rank = singer_rank;
-        this.singer_id = singer_id;
+    public AddSingerItemData(String singer_rank, String singer_image, String singer_name, String add_singer) {
+        this.singer_rank = singer_rank;
         this.singer_image = singer_image;
         this.singer_name = singer_name;
         this.add_singer = add_singer;

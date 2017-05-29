@@ -5,9 +5,9 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class FindPwdPost {
-    String member_email;
+    String email;
 
-    public FindPwdPost(String member_email) {
-        this.member_email = member_email;
+    public FindPwdPost(String email) {
+        this.email = email;
     }
 }

@@ -91,20 +91,19 @@ public class MyPageActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
 
-        Log.v("들어는오냐", "들어는오냐");
+
         myPageAllSingerNumberses = new ArrayList<MyPageAllSingerNumbers>();
         //myPageCheckMainSub = new MyPageCheckMainSub();
         Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
         myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
             @Override
             public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
-
-                myPageAllSingerNumberses = response.body().result;
-                ApplicationController.getInstance().setTotalSingerCount(myPageAllSingerNumberses.size());
-                ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
-                Log.v("들어는오냐", "들어는오냐");
-
+                if(response.isSuccessful())
+                {
+                    myPageAllSingerNumberses = response.body().result;
+                }
             }
+
             @Override
             public void onFailure(Call<MyPageCheckMainSub> call, Throwable t) {
 
