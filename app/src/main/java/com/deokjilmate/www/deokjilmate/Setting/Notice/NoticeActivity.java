@@ -34,7 +34,6 @@ public class NoticeActivity extends AppCompatActivity {
         setContentView(R.layout.notice_activity);
 
 
-
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
@@ -60,17 +59,15 @@ public class NoticeActivity extends AppCompatActivity {
                         mChildListContent.add(notice.notice_main);
                         mChildList.add(mChildListContent);
                     }
-
+                    Toast.makeText(getApplicationContext(),"성공~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
                 }
 
             }
             @Override
             public void onFailure(Call<BoardNotice> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(),"실패~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 //        mChildList.add(mChildListContent);
 //        mChildList.add(mChildListContent);

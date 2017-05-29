@@ -10,37 +10,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryActivity">
-    
-    
-    <EditText
-        android:background="@drawable/inquiry_content"
-        android:layout_width="match_parent"
-        android:layout_height="250dp" />
-
 
     <EditText
+        android:id="@+id/questions_mail"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/inquiry_content"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-
-        android:hint="메일주소"
+        android:hint="내 메일 주소"
         android:textColorHint="#FFFFFF"
         />
+
+    <EditText
+        android:id="@+id/questions_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/inquiry_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="제목"
+        android:textColorHint="#FFFFFF"
+        />
+
+    <EditText
+        android:id="@+id/questions_main"
+        android:background="@drawable/inquiry_content"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:hint="문의사항을 작성해주세요"
+        android:textColorHint="#FFFFFF"
+        />
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
         android:textSize="18dp"
-        android:text="3~5일 내에 답장을 메일로 보내드립니다."/>
+        android:text="답변은 5일 내에 메일 주소로 전송됩니다."/>
 
 
     <Button
         android:id="@+id/send_inquiry"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:text="보내기"/>
+        android:layout_marginTop="10dp"
+        android:text="문의하기"/>
+
+    <Button
+        android:id="@+id/show_token"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="SHOW TOKEN"/>
 
 </LinearLayout>
