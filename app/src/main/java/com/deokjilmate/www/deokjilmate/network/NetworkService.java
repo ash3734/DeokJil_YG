@@ -1,6 +1,8 @@
 package com.deokjilmate.www.deokjilmate.network;
 
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
+import com.deokjilmate.www.deokjilmate.Login.LoginPost;
+import com.deokjilmate.www.deokjilmate.Login.LoginResultResponse;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
@@ -34,6 +36,13 @@ public interface NetworkService {
 
 
     //////이 밑은 YG 담당//////////
+    //로그인(sns)
+    @POST("login")
+    Call<LoginResultResponse> login(@Body LoginPost loginPost);
+
+
+
+
     //회원가입(sns)
     @Multipart
     @POST("sns")

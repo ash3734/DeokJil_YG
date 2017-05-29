@@ -39,7 +39,9 @@
                 android:layout_height="64dp"
                 android:text="페이스북"
                 android:layout_toLeftOf="@+id/LoginSelect_twitter"
-                android:id="@+id/LoginSelect_facebook"/>
+                android:id="@+id/LoginSelect_facebook"
+                android:onClick="onLoginButtonClick"
+                />
 
             <Button
                 android:layout_width="64dp"
@@ -47,7 +49,9 @@
                 android:layout_marginLeft="8dp"
                 android:text="트위터"
                 android:id="@+id/LoginSelect_twitter"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:onClick="onLoginButtonClick"
+                />
 
             <Button
                 android:layout_width="64dp"
@@ -55,7 +59,8 @@
                 android:layout_marginLeft="8dp"
                 android:text="구글"
                 android:layout_toRightOf="@+id/LoginSelect_twitter"
-                android:id="@+id/LoginSelect_google"/>
+                android:id="@+id/LoginSelect_google"
+                android:onClick="onLoginButtonClick"/>
 
         </RelativeLayout>
 

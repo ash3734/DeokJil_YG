@@ -2,7 +2,6 @@ package com.deokjilmate.www.deokjilmate.MyPage.EditSinger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +23,6 @@ import butterknife.OnClick;
 
 public class EditSingerActivity extends AppCompatActivity {
 
-    @BindView(R.id.MyPage_EditSinger_toolbar)
-    ImageView toolbarImage;
-
     @BindView(R.id.MyPage_EditSinger_backImage)
     ImageButton back;
 
@@ -37,21 +33,24 @@ public class EditSingerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     @BindView(R.id.MyPage_EditSinger_addSinger)
-    FloatingActionButton addSinger;
+    ImageView addSinger;
 
-    LinearLayoutManager linearLayoutManager;
-    RequestManager requestManager;
-    ArrayList<EditSingerItemData> editSingerItemDatas;//추천목록
-    EditSingerHeadItemData editSingerHeadItemData;
-    EditSingerAdpater editSingerAdpater;
+
+
+    private LinearLayoutManager linearLayoutManager;
+    private RequestManager requestManager;
+    private ArrayList<EditSingerItemData> editSingerItemDatas;//추천목록
+    private EditSingerHeadItemData editSingerHeadItemData;
+    private EditSingerAdpater editSingerAdpater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_edit_singer);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
-
+        //Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
+        Glide.with(this).load(R.drawable.meta).into(addSinger);
+        //Glide.with(this).load(R.drawable.meta).into(presentMain);
         requestManager = Glide.with(this);
         recyclerView.setHasFixedSize(true);
         //recyclerView.get

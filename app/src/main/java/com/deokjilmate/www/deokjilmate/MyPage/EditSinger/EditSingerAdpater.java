@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 
 public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    RequestManager requestManager_singer;
-    ArrayList<EditSingerItemData> editSingerItemDatas;
+    private RequestManager requestManager_singer;
+    private ArrayList<EditSingerItemData> editSingerItemDatas;
     private static final int HEADER_VIEW = 1;
-    EditSingerHeadItemData editSingerHeadItemData;
+    private EditSingerHeadItemData editSingerHeadItemData;
 
 
 
@@ -62,6 +62,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                 editSingerHeadViewHolder.singer_Name.setText(editSingerHeadItemData.singer_Name);
                 editSingerHeadViewHolder.set_Sub.setImageResource(editSingerHeadItemData.set_Sub);
                 editSingerHeadViewHolder.delete_Singer.setImageResource(editSingerHeadItemData.delete_Singer);
+                editSingerHeadViewHolder.presentMain.setImageResource(R.drawable.meta);
             }
         } catch (Exception e) {
             e.printStackTrace();

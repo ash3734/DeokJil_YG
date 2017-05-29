@@ -15,12 +15,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.ResourcesUtil;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -35,15 +34,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -64,7 +63,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private int signType = 0;
 
     private CallbackManager callbackManager;
-    TwitterAuthClient twitterAuthClient;
+    private TwitterAuthClient twitterAuthClient;
     private FirebaseAuth mfirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -122,6 +121,45 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
+    private void handleFacebookAccessToken(AccessToken token) {
+        // Log.d(TAG, "handleFacebookAccessToken:" + token);
+        // [START_EXCLUDE silent]
+        // showProgressDialog();
+        // [END_EXCLUDE]
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mfirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mfirebaseAuth.getCurrentUser();
+                            Toast.makeText(SignActivity.this, "Authentication suceess.",
+                                    Toast.LENGTH_SHORT).show();
+
+
+
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                        }
+
+                        // [START_EXCLUDE]
+                        //hideProgressDialog();
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+
+
+
 
     @OnClick(R.id.Sign_facebook)
     public void LoginFacebook()//페이스북 로그인 버튼
@@ -133,24 +171,26 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
-                {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        //
+//                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
+//                {
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        //
+//
+//
+//
+//
+//
+//
+//
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,email,gender,birthday");
+//                graphRequest.setParameters(parameters);
+//                graphRequest.executeAsync();
 
-
-
-
-
-
-
-                    }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
             @Override
             public void onCancel() {

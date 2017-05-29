@@ -9,30 +9,50 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/mypage_box"
+        android:background="#f4f4f4"
         android:text="메인가수"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dfdfdf"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/mypage_layoutblock">
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/main_singer_frame">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:id="@+id/mypage_edit_singer_head_mainView">
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/Mypage_edit_singer_head_mainImageLayout">
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/mypage_edit_singer_head_mainImage"/>
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/mypage_edit_singer_head_presentMain"/>
+            </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/mypage_edit_singer_head_mainName"
-            android:layout_below="@+id/mypage_edit_singer_head_mainImage"/>
+            android:layout_below="@+id/mypage_edit_singer_head_mainImageLayout"/>
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -51,8 +71,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/mypage_box"
+        android:background="#f4f4f4"
         android:text="서브가수"
         android:layout_below="@+id/mypage_edit_singer_head_toSub"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dfdfdf"
+        android:layout_marginBottom="20dp"
+        />
 
 </LinearLayout>
