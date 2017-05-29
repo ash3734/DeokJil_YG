@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,36 +29,37 @@ import retrofit2.Response;
 
 public class MyPageActivity extends AppCompatActivity {
 
-    @BindView(R.id.MyPageMain_toolbar)
-    ImageView toolbarImage;
-
     @BindView(R.id.MyPage_editSinger)
     ImageButton plusSub;
 
-    @BindView(R.id.MyPage_backImage)
-    ImageView backImage;
 
     @BindView(R.id.MyPage_subRecycle)
     RecyclerView subSingerrecyclerView;
 
+    @BindView(R.id.Mypage_main_layout)
+    LinearLayout mainLayout;
 
-    RequestManager requestManager_singer;
-    RequestManager requestManager_rank;
-    ArrayList<MyPageItemData> myPageItemDatas;
+    @BindView(R.id.Mypage_editProfile)
+    ImageView editProfile;
 
-    MyPageHeadItemData myPageHeadItemData;
 
-    LinearLayoutManager linearLayoutManager;
-    MyPageAdapter myPageAdapter;
-    NetworkService networkService;
+    private RequestManager requestManager_singer;
+    private RequestManager requestManager_rank;
+    private ArrayList<MyPageItemData> myPageItemDatas;
+
+    private MyPageHeadItemData myPageHeadItemData;
+
+    private LinearLayoutManager linearLayoutManager;
+    private MyPageAdapter myPageAdapter;
+    private NetworkService networkService;
 
     // NoxView noxView;
 
-    int member_id = 0;
+    private int member_id = 0;
 
-    MyPageCheckMainSub myPageCheckMainSub;
-    ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
-    ArrayList<MyPageSelectedSinger> myPageSelectedSingers;
+    private MyPageCheckMainSub myPageCheckMainSub;
+    private ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
+    private ArrayList<MyPageSelectedSinger> myPageSelectedSingers;
     //ArrayList<MyPageSingerList> myPageSingerList;
 
 
@@ -72,9 +74,11 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_main);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
+        setLayoutSize();
+       // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.meta).into(plusSub);
-        Glide.with(this).load(R.drawable.meta).into(backImage);
+        Glide.with(this).load(R.drawable.meta).into(editProfile);
+       // Glide.with(this).load(R.drawable.meta).into(backImage);
 
         networkService = ApplicationController.getInstance().getNetworkService();
 
@@ -168,25 +172,11 @@ public class MyPageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public static void setListViewHeightBasedOnChildren(ListView listView) {
-//        ListAdapter listAdapter = listView.getAdapter();
-//        if (listAdapter == null) {
-//            // pre-condition
-//            return;
-//        }
-//
-//        int totalHeight = 0;
-//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-//
-//        for (int i = 0; i < listAdapter.getCount(); i++) {
-//            View listItem = listAdapter.getView(i, null, listView);
-//            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-//            totalHeight += listItem.getMeasuredHeight();
-//        }
-//
-//        ViewGroup.LayoutParams params = listView.getLayoutParams();
-//        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-//        listView.setLayoutParams(params);
-//        listView.requestLayout();
-//    }
+    public void setLayoutSize(){
+        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = width*2/3;
+        mainLayout.setMinimumHeight(height);
+    }
+
 }

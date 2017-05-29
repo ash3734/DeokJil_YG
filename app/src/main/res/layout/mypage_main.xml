@@ -10,43 +10,46 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MyPageMain_toolbar"/>
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/MyPage_backImage"/>
+        android:layout_height="52dp"
+        android:background="@drawable/maingradation">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="여기는 툴바"/>
+        android:text="마이 페이지"/>
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="16dp"
             android:layout_alignParentRight="true"
+            android:background="@color/tw__transparent"
             android:id="@+id/MyPage_editSinger"/>
     </RelativeLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical"
+            android:id="@+id/Mypage_main_layout"
+            android:background="#fef9ed"
             android:paddingRight="5px">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/MyPage_profileBackground"
                     />
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/Mypage_editProfile"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,8 +60,8 @@
                     <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/MyPage_profileImage"
                         android:layout_gravity="center"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:src="@drawable/profile_default"
                         android:layout_centerInParent="true"
                         app:civ_shadow="true"
@@ -78,13 +81,24 @@
                             android:gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_centerInParent="true"
-                            android:id="@+id/mypage_My_TextView_Id"
-                            />
-
-
+                            android:id="@+id/mypage_My_TextView_Id"/>
                     </RelativeLayout>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="총 투표 | "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"/>
         </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

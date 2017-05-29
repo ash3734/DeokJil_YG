@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:layout_gravity="center"
-        android:background="@drawable/mypage_layoutblock">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/sub_singers_frame">
     <RelativeLayout
         android:layout_marginLeft="16dp"
         android:layout_width="350dp"
@@ -47,7 +50,6 @@
             android:layout_below="@+id/mypage_edit_singer_head_mainView"
             android:id="@+id/mypage_edit_singer_recycle_setMain"/>
     </RelativeLayout>
-
 
     </RelativeLayout>
 </LinearLayout>

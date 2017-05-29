@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -33,9 +32,6 @@ import retrofit2.Response;
 
 public class SetSingerActivity extends AppCompatActivity {
 
-    @BindView(R.id.SetSinger_topImage)
-    ImageView toobarImage;
-
     @BindView(R.id.SetSinger_search)
     EditText search;
 
@@ -46,18 +42,19 @@ public class SetSingerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     //RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
-    RequestManager requestManager;
-    ArrayList<SetSingerItemData> setSingerItemDatas;//추천목록
-    ArrayList<SetSingerItemData> allSingerList;//전체목록
-    ArrayList<AllSingerDetails> allSingerDetails;
+    private LinearLayoutManager linearLayoutManager;
+    private RequestManager requestManager;
+    private ArrayList<SetSingerItemData> setSingerItemDatas;//추천목록
+    private ArrayList<SetSingerItemData> allSingerList;//전체목록
+    private ArrayList<AllSingerDetails> allSingerDetails;
 
 
-    SetSingerAdapter setSingerAdapter;
-    HashMap<String, String> singerPNData;
+    private SetSingerAdapter setSingerAdapter;
+    private HashMap<String, String> singerPNData;
 
-    NetworkService networkService;
-    String imageUrl = "https://00e9e64bac7c4aab450e3b22d212cabca5cfe7403d011279ee-apidata.googleusercontent.com/download/storage/v1/b/duckmate_1/o/new%2Fhi.png?qk=AD5uMEu5kgUv6YApI3IzolJW8OWW-pQNcREa89fmIeqQc4J4WIUao1JO4A_f2aTkJ91QyoigAf0icnspWaNZmeISXBAzxl3_4uic4kFCLjL-DSnZimW0ZXboYfnPzCW_Vtf2YwncRtzC6eiePWIJTt0o-S2w5oqFaeA3GV9eGhHpkBO04HyDYJGWsGDN2YMrXCs2l-Ds1DZsxgBZHk23B1-HdoaQFJs34fNtHa8BTaA1i9tG3WVWw7VpQx2RxrMSt2F-UowVQNA9sLcTFuOa7ROMi87qMsWCxk0OOE88-8mP_kXJEFSvONS9Ng1dvZtnIS-95OzKGNogYmZ7fgCj88nHAJK5GzNjiB561g_a_iOclET6IVeYtViHFhDiJBLIW6hVGCBIu0TyfzE15ry4TEiuaDZ8ONjLiqPf6CK345B1OMDjhw5sZcu-RnNXS7mDCOdvUiLCTQyr5LPDIG2VPiq8ZtcanyTaibX-eB5z-JZZCPzharQDDsyM4A4OiGKhNt71mFJF-tG4WYHdF3LYtz41R1BhttPiWjBH2yh19th_JjPl7hyhodF8EW5KCj_LYYiahZg8NlPnrjyKk5VmxBDnGA0R1OQkFcBAok6biq1jtmAkcU6XiwdVL0FZtoOsvgFk651C3FZMDRtRgGpDgAWTOnRMBr2P4p_YJfEsliKGRCmAB0LbByNIu3Meso_-EUJS-0mSX_KDqmB7O-C0f2xdihC4XuLTguUZNxG3RNK096gA2QFJMojPCzqZ7pYspn56iK1VaVXJ6ZHVKLYYrnLBBke7qzMaiw";
+    private NetworkService networkService;
+    private String imageUrl = "https://00e9e64bac7c4aab450e3b22d212cabca5cfe7403d011279ee-apidata.googleusercontent.com/download/storage/v1/b/duckmate_1/o/new%2Fhi.png?qk=AD5uMEu5kgUv6YApI3IzolJW8OWW-pQNcREa89fmIeqQc4J4WIUao1JO4A_f2aTkJ91QyoigAf0icnspWaNZmeISXBAzxl3_4uic4kFCLjL-DSnZimW0ZXboYfnPzCW_Vtf2YwncRtzC6eiePWIJTt0o-S2w5oqFaeA3GV9eGhHpkBO04HyDYJGWsGDN2YMrXCs2l-Ds1DZsxgBZHk23B1-HdoaQFJs34fNtHa8BTaA1i9tG3WVWw7VpQx2RxrMSt2F-UowVQNA9sLcTFuOa7ROMi87qMsWCxk0OOE88-8mP_kXJEFSvONS9Ng1dvZtnIS-95OzKGNogYmZ7fgCj88nHAJK5GzNjiB561g_a_iOclET6IVeYtViHFhDiJBLIW6hVGCBIu0TyfzE15ry4TEiuaDZ8ONjLiqPf6CK345B1OMDjhw5sZcu-RnNXS7mDCOdvUiLCTQyr5LPDIG2VPiq8ZtcanyTaibX-eB5z-JZZCPzharQDDsyM4A4OiGKhNt71mFJF-tG4WYHdF3LYtz41R1BhttPiWjBH2yh19th_JjPl7hyhodF8EW5KCj_LYYiahZg8NlPnrjyKk5VmxBDnGA0R1OQkFcBAok6biq1jtmAkcU6XiwdVL0FZtoOsvgFk651C3FZMDRtRgGpDgAWTOnRMBr2P4p_YJfEsliKGRCmAB0LbByNIu3Meso_-EUJS-0mSX_KDqmB7O-C0f2xdihC4XuLTguUZNxG3RNK096gA2QFJMojPCzqZ7pYspn56iK1VaVXJ6ZHVKLYYrnLBBke7qzMaiw";
+
 
 
     @Override
@@ -65,8 +62,6 @@ public class SetSingerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_set_singer);
         ButterKnife.bind(this);
-
-        Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
         //recyclerView = (RecyclerView) findViewById(R.id.SetSinger_list);
         recyclerView.setHasFixedSize(true);
@@ -87,12 +82,43 @@ public class SetSingerActivity extends AppCompatActivity {
         String[] keySet = {"투피엠","에이오에이","비원에이포","블랙핑크","씨엘씨","씨엔블루","엑소","이엑스아이디","트와이스","위너"};
 
         //TODO : 랭킹 가수 목록 넣기
-        singerPNData.put("IU", "아이유");
-        singerPNData.put("TWICE", "트와이스");
-        singerPNData.put("Redvelvet", "레드벨벳");
-        singerPNData.put("BigBang", "빅뱅");
-        singerPNData.put("악동뮤지션", "악동뮤지션");
-        singerPNData.put("EXO", "엑소");
+//        singerPNData.put("IU", "아이유");
+//        singerPNData.put("TWICE", "트와이스");
+//        singerPNData.put("Redvelvet", "레드벨벳");
+        singerPNData.put("빅뱅", "BIGBANG");
+      //  singerPNData.put("악동뮤지션", "악동뮤지션");
+        singerPNData.put("엑소", "EXO");
+        singerPNData.put("신화", "SHINWHA");
+        singerPNData.put("젝스키스", "젝스키스");
+        singerPNData.put("라붐", "LABOOM");
+        singerPNData.put("모모랜드", "MOMOLAND");
+
+        //        singerPNData.put("투피엠", "2PM");
+//        singerPNData.put("에이오에이", "AOA");
+//        singerPNData.put("비원에이포", "B1A4");
+//        singerPNData.put("블랙핑크", "BLACKPINK");
+//        singerPNData.put("씨엔블루", "CNBLUE");
+//        singerPNData.put("엑소", "EXO");
+//        singerPNData.put("이엑스아이디", "EXID");
+//        singerPNData.put("트와이스", "TWICE");
+//        singerPNData.put("위너", "WINNER");
+//        singerPNData.put("갓세븐", "GOT7");
+//        singerPNData.put("2PM", "투피엠");
+//        singerPNData.put("AOA", "에이오에이");
+//        singerPNData.put("B1A4", "비원에이포");
+//        singerPNData.put("BLACKPINK", "블랙핑크");
+//        singerPNData.put("CNBLUE", "씨엔블루");
+//        singerPNData.put("EXO", "엑소");
+//        singerPNData.put("EXID", "이엑스아이디");
+//        singerPNData.put("TWICE", "트와이스");
+//        singerPNData.put("WINNER", "위너");
+//        singerPNData.put("GOT7", "갓세븐");
+//        singerPNData.put("방탄소년단", "방탄소년단");
+//        singerPNData.put("걸스데이", "걸스데이");
+//        singerPNData.put("소녀시대", "소녀시대");
+//        singerPNData.put("비투비", "비투비");
+//        singerPNData.put("악동뮤지션", "악동뮤지션");
+//        singerPNData.put("에이핑크", "에이핑크");
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
         setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
             @Override
@@ -115,7 +141,6 @@ public class SetSingerActivity extends AppCompatActivity {
             public void onFailure(Call<AllSingerRanking> call, Throwable t) {
             }
         });
-
 
 //        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "aaaa", R.drawable.meta));
 //        setSingerItemDatas.add(new SetSingerItemData(R.drawable.meta, "bbbb", R.drawable.meta));
@@ -197,7 +222,6 @@ public class SetSingerActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
     }
 
 //    @OnClick(R.id.SetSinger_search)

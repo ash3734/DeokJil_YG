@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="65dp"
+    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <LinearLayout
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp">
         <LinearLayout
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/SetSingerRecycle_singerImg"
                 app:civ_border="false"
                 app:civ_shadow="true"
@@ -27,6 +27,7 @@
             android:orientation="vertical"
             android:layout_width="150dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -38,20 +39,29 @@
                 android:textColor="#9D9E9E"
                 android:gravity="center_vertical" />
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:gravity="right">
-            <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/SetSingerRecycle_most"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 />
         </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
         android:background="#c9caca"/>
+    </RelativeLayout>
 </LinearLayout>
