@@ -3,14 +3,21 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //여긴 비번 찾는 페이지
 public class FindPwdActivity extends AppCompatActivity {
@@ -18,12 +25,17 @@ public class FindPwdActivity extends AppCompatActivity {
 
     @BindView(R.id.FindPwd_backImage)
     ImageButton backButton;
+
+    @BindView(R.id.FindPwd_email)
+    EditText findPwdbyEmail;
+
+    private NetworkService networkService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_find_pwd);
         ButterKnife.bind(this);
-
+        networkService = ApplicationController.getInstance().getNetworkService();
       //  Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
         Glide.with(this).load(R.drawable.meta).into(backButton);
 
@@ -39,6 +51,22 @@ public class FindPwdActivity extends AppCompatActivity {
     @OnClick(R.id.FindPwd_check)
     public void clickCheck()
     {
-        
+        Call<FindPwdResponse> findPwd = networkService.findPwd(new FindPwdPost(findPwdbyEmail.getText().toString()));
+        findPwd.enqueue(new Callback<FindPwdResponse>() {
+            @Override
+            public void onResponse(Call<FindPwdResponse> call, Response<FindPwdResponse> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "메일로 보냄", Toast.LENGTH_SHORT);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "메일 확인 ㄱ", Toast.LENGTH_SHORT);
+                }
+            }
+            @Override
+            public void onFailure(Call<FindPwdResponse> call, Throwable t) {
+            }
+        });
+
     }
 }

@@ -1,8 +1,11 @@
 package com.deokjilmate.www.deokjilmate.network;
 
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
+import com.deokjilmate.www.deokjilmate.Login.FindPwdPost;
+import com.deokjilmate.www.deokjilmate.Login.FindPwdResponse;
 import com.deokjilmate.www.deokjilmate.Login.LoginPost;
-import com.deokjilmate.www.deokjilmate.Login.LoginResultResponse;
+import com.deokjilmate.www.deokjilmate.Login.LoginResponseResult;
+import com.deokjilmate.www.deokjilmate.Login.LoginSnsPost;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
@@ -38,9 +41,10 @@ public interface NetworkService {
     //////이 밑은 YG 담당//////////
     //로그인(sns)
     @POST("login")
-    Call<LoginResultResponse> login(@Body LoginPost loginPost);
+    Call<LoginResponseResult> login(@Body LoginPost loginPost);
 
-
+    @POST("login")
+    Call<LoginResponseResult> loginSns(@Body LoginSnsPost loginSnsPost);
 
 
     //회원가입(sns)
@@ -82,7 +86,9 @@ public interface NetworkService {
     @GET("register/{member_name}")
     Call<SetProfileResult> setProfileResult(@Path("member_name") String member_name);
 
-
+    //비번 찾기
+    @POST("findpassword")
+    Call<FindPwdResponse> findPwd(@Body FindPwdPost findPwdPost);
 
 
     //가수 전체 목록 불러오기
