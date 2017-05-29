@@ -59,20 +59,26 @@
         <activity
             android:name=".MyPage.AddSinger.AddSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Setting.Inquiry.InquiryActivity" />
+
 
 
         <activity android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+        </activity>
 
+        <activity android:name=".Setting.SettingActivity">
 
         </activity>
+
         <activity android:name=".MyPage.EditSinger.EditSingerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Setting.Notice.NoticeActivity">
@@ -88,6 +94,20 @@
         </activity>
         <activity android:name=".Setting.Terms.TermsActivity" />
         <activity android:name=".Setting.Break.BreakActivity"></activity>
+
+        <service android:name=".alarm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".alarm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
+
 
 </manifest>

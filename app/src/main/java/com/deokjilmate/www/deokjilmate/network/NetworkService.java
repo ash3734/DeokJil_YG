@@ -58,8 +58,12 @@ public interface NetworkService {
 
     //문의하기
     @POST("/question/send")
-    Call<InquiryResult> inquiryResult(@Body InquiryObject getObject);
+    Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
 
+    /*
+    @POST("/alarm/token")
+    Call<>
+*/
 
 
     //회원가입 in App
