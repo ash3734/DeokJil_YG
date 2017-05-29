@@ -3,6 +3,7 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -55,11 +56,15 @@ public class FindPwdActivity extends AppCompatActivity {
         findPwd.enqueue(new Callback<FindPwdResponse>() {
             @Override
             public void onResponse(Call<FindPwdResponse> call, Response<FindPwdResponse> response) {
+                Log.v("메일", findPwdbyEmail.getText().toString());
                 if(response.isSuccessful()) {
+                    Log.v("메일로 보냄", "메일로 보냄");
                     Toast.makeText(getApplicationContext(), "메일로 보냄", Toast.LENGTH_SHORT);
                 }
                 else
                 {
+                    Log.v("메일 확인ㄱ", "메일 확인ㄱ");
+
                     Toast.makeText(getApplicationContext(), "메일 확인 ㄱ", Toast.LENGTH_SHORT);
                 }
             }

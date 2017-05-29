@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.deokjilmate.www.deokjilmate.Login.LoginSelectActivity;
+import com.deokjilmate.www.deokjilmate.Login.FindPwdActivity;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run()
             {
-                startActivity(new Intent(getApplicationContext(), LoginSelectActivity.class));
+                startActivity(new Intent(getApplicationContext(), FindPwdActivity.class));
                 finish();
             }
         }, 5000);

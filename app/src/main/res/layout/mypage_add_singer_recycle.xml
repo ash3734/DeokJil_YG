@@ -5,17 +5,17 @@
     >
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1">
+            android:layout_width="20dp"
+            android:layout_height="80dp">
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/mypage_add_singer_recycle_rank"
@@ -23,28 +23,30 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="9"
+            android:layout_height="80dp"
             android:orientation="horizontal">
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
                 android:layout_gravity="center_vertical"
                 android:id="@+id/mypage_add_singer_recycle_singerImage"
                 android:layout_weight="4"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+
                 android:layout_gravity="center_vertical"
                 android:id="@+id/mypage_add_singer_recycle_singerName"
-                android:layout_weight="5"/>
+                />
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+
                 android:id="@+id/mypage_add_singer_recycle_add"
-                android:layout_weight="1"/>
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
