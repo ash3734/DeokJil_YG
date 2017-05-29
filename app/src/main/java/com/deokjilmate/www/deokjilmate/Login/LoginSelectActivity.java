@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -54,8 +55,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.view.View.GONE;
-
 //여기는 로그인 방법 결정하는 곳(구글, 페북, 트위터, 커스텀)
 public class LoginSelectActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
@@ -80,6 +79,17 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     @BindView(R.id.LoginSelect_google)
     Button googleButton;
+
+    @BindView(R.id.LoginSelect_email)
+    EditText email;
+
+    @BindView(R.id.LoginSelect_pwd)
+    EditText pwd;
+
+    @BindView(R.id.LoginSelect_customLogin)
+    Button customLogin;
+
+
 
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
@@ -147,15 +157,13 @@ public class LoginSelectActivity extends AppCompatActivity implements
                                     Toast.LENGTH_SHORT).show();
 
 
-                            facebookButton.setVisibility(GONE);
+                            //facebookButton.setVisibility(GONE);
 
-                            Call<LoginResultResponse> setSingerRankingCall = networkService.login(new LoginPost(user.getToken(true).toString(), "f"));
-                            setSingerRankingCall.enqueue(new Callback<LoginResultResponse>() {
+                            Call<LoginResponseResult> setSingerRankingCall = networkService.loginSns(new LoginSnsPost(user.getToken(true).toString(), "f"));
+                            setSingerRankingCall.enqueue(new Callback<LoginResponseResult>() {
                                 @Override
-                                public void onResponse(Call<LoginResultResponse> call, Response<LoginResultResponse> response) {
+                                public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
                                     if(response.isSuccessful()) {
-
-
 
 
                                     }
@@ -194,7 +202,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
                                 }
                                 @Override
-                                public void onFailure(Call<LoginResultResponse> call, Throwable t) {
+                                public void onFailure(Call<LoginResponseResult> call, Throwable t) {
                                 }
                             });
 
@@ -498,10 +506,10 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
 
 
-                        Call<LoginResultResponse> setSingerRankingCall = networkService.login(new LoginPost(session.getAuthToken().toString(), "t"));
-                        setSingerRankingCall.enqueue(new Callback<LoginResultResponse>() {
+                        Call<LoginResponseResult> setSingerRankingCall = networkService.loginSns(new LoginSnsPost(session.getAuthToken().toString(), "t"));
+                        setSingerRankingCall.enqueue(new Callback<LoginResponseResult>() {
                             @Override
-                            public void onResponse(Call<LoginResultResponse> call, Response<LoginResultResponse> response) {
+                            public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
                                 if(response.isSuccessful()) {
                                 }
                                 else
@@ -541,17 +549,71 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
                             }
                             @Override
-                            public void onFailure(Call<LoginResultResponse> call, Throwable t) {
+                            public void onFailure(Call<LoginResponseResult> call, Throwable t) {
                             }
                         });
 
-
-
-
-
-
                     }
                 });
+    }
+
+    @OnClick(R.id.LoginSelect_customLogin)
+    public void clickCustom(){
+        Call<LoginResponseResult> setSingerRankingCall = networkService.login(new LoginPost(email.getText().toString(), pwd.getText().toString()));
+        setSingerRankingCall.enqueue(new Callback<LoginResponseResult>() {
+            @Override
+            public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
+                //if(response.body().) {
+                Log.v("들들들", "들들들");
+                    Log.v("멤버", String.valueOf(response.body().result.member_id));
+                    Log.v("멤버", String.valueOf(response.body().result.b_vote_count));
+                    Log.v("멤버", String.valueOf(response.body().result.singer_info.album_img));
+                    Log.v("멤버", String.valueOf(response.body().result.singer_info.choice_count));
+                    Log.v("멤버", String.valueOf(response.body().result.singer_info.singer_name));
+
+                    //s@n.v
+                    //hi
+               // }
+//                else
+//                {
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(LoginSelectActivity.this);
+//                    dialog.setTitle("회원 정보가 없습니다.");
+//                    dialog.setMessage("회원 가입 하시겠습니까?");
+//
+//                    dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // YES 선택시 처리할 내용
+//                            Log.v("로그인", "로그인");
+//                            //  session.getAuthToken().token.toString();
+//
+//                            Bundle parameters = new Bundle();
+//                            parameters.putString("fields", "id,name,email,gender,birthday");
+//
+//                            startActivity(new Intent(getApplicationContext(), SignActivity.class));
+//                            finish();
+//                        }
+//                    });
+//
+//                    dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // NO 선택시 처리할 내용
+//                            mfirebaseAuth.signOut();
+//                            dialog.cancel();
+//                        }
+//                    });
+//                    dialog.show();
+//
+//                }
+
+            }
+            @Override
+            public void onFailure(Call<LoginResponseResult> call, Throwable t) {
+                Log.v("들들들2", "들들들2");
+
+            }
+        });
     }
 
 

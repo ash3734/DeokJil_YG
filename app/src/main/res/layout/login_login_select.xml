@@ -80,8 +80,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/LoginSelece_email"
-            android:nextFocusUp="@+id/LoginSelece_email"
+            android:id="@+id/LoginSelect_email"
             android:background="#000000"
             android:alpha="0.46"
             android:hint="메일주소"/>
@@ -91,6 +90,7 @@
             android:background="#000000"
             android:alpha="0.46"
             android:layout_marginTop="8dp"
+            android:id="@+id/LoginSelect_pwd"
             android:hint="비밀번호"/>
 
         <RelativeLayout
@@ -110,12 +110,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     <Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="16dp"
-    android:background="@drawable/sing_login_check_button"
-    android:text="회원가입하기" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/sing_login_check_button"
+        android:id="@+id/LoginSelect_customLogin"
+        android:text="로그인하기" />
         </RelativeLayout>
 
 </LinearLayout>
