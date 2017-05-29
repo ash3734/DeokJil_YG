@@ -5,5 +5,6 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class FindPwdResponse {
-    boolean check;
+    boolean result;
+
 }

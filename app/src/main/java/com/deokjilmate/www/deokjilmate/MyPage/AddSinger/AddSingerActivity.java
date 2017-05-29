@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
@@ -18,6 +19,7 @@ import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +41,18 @@ public class AddSingerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     ArrayList<AddSingerItemData> addSingerItemDatas;
-
-    LinearLayoutManager linearLayoutManager;
-    RequestManager requestManager;
-
-    NetworkService networkService;
     //@BindView(R.id.)
+
+    private LinearLayoutManager linearLayoutManager;
+    private RequestManager requestManager;
+    //private ArrayList<AddSingerItemData> setSingerItemDatas;//추천목록
+    private ArrayList<AddSingerItemData> allSingerList;//전체목록
+    private ArrayList<AllSingerDetails> allSingerDetails;
+    private AddsingerAdapter addsingerAdapter;
+    private HashMap<String, String> singerPNData;
+
+    private NetworkService networkService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,18 @@ public class AddSingerActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        singerPNData = new HashMap<>();
+        allSingerList = new ArrayList<AddSingerItemData>();
+        allSingerDetails = new ArrayList<AllSingerDetails>();
+
+
+        singerPNData.put("빅뱅", "BIGBANG");
+        //  singerPNData.put("악동뮤지션", "악동뮤지션");
+        singerPNData.put("엑소", "EXO");
+        singerPNData.put("신화", "SHINWHA");
+        singerPNData.put("젝스키스", "젝스키스");
+        singerPNData.put("라붐", "LABOOM");
+        singerPNData.put("모모랜드", "MOMOLAND");
 
 
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
@@ -69,6 +89,14 @@ public class AddSingerActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AllSingerRanking> call, Response<AllSingerRanking> response) {
                 if(response.isSuccessful()) {
+                    allSingerDetails = response.body().result;
+                    for(int i = 0; i<allSingerDetails.size(); i++)
+                    {
+                        allSingerList.add(new AddSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
+                                allSingerDetails.get(i).getSinger_name(), R.drawable.meta));
+                    }
+                    addsingerAdapter = new AddsingerAdapter(getApplicationContext(), requestManager, allSingerList, singerPNData, networkService);
+                    recyclerView.setAdapter(addsingerAdapter);
 
                 }
             }

@@ -98,10 +98,10 @@ public class MyPageActivity extends AppCompatActivity {
         myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
             @Override
             public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
-                if(response.isSuccessful())
-                {
-                    myPageAllSingerNumberses = response.body().result;
-                }
+                myPageAllSingerNumberses = response.body().result;
+                ApplicationController.getInstance().setTotalSingerCount(myPageAllSingerNumberses.size());
+                ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
+
             }
 
             @Override

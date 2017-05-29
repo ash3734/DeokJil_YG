@@ -10,6 +10,8 @@ import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
 import com.deokjilmate.www.deokjilmate.Login.TempBody;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
@@ -102,6 +104,11 @@ public interface NetworkService {
     //내 가수들
     @GET("singer/singercheck/{member_id}")
     Call<MyPageSingerList> myPageSingerList(@Path("member_id") int member_id);
+
+    //가수 추가
+    @POST("/singer/singerAdd")
+    Call<SingerAddResponse> addSinger(@Body SingerAddPost singerAddPost);
+
 
 
 }
