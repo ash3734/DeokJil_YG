@@ -60,11 +60,7 @@
             android:name=".MyPage.AddSinger.AddSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Setting.Inquiry.InquiryActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -75,7 +71,6 @@
         <activity android:name=".MyPage.EditSinger.EditSingerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Setting.Notice.NoticeActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -85,8 +80,13 @@
 
 
         </activity>
-        <activity android:name=".Setting.Terms.TermsActivity" />
+        <activity android:name=".Setting.Terms.TermsActivity">
+
+
+        </activity>
+
         <activity android:name=".Setting.Break.BreakActivity"></activity>
+
 
         <service android:name=".alarm.MyFirebaseMessagingService">
             <intent-filter>

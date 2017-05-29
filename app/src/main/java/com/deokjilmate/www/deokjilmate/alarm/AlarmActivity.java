@@ -126,7 +126,7 @@
 //
 //
 //
-//        Call<NoticeResult> getDetailData = service.getNoticeData(m_id);
+//        Call<NoticeResult> getDetailData = service.getDetailData(m_id);
 //        getDetailData.enqueue(new Callback<NoticeResult>() {
 //
 //            boolean state;

@@ -34,7 +34,6 @@ public class NoticeActivity extends AppCompatActivity {
         setContentView(R.layout.notice_activity);
 
 
-
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
@@ -70,11 +69,9 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-
-
-        mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent);
-        mChildList.add(mChildListContent);
+//        mChildList.add(mChildListContent);
+//        mChildList.add(mChildListContent);
+//        mChildList.add(mChildListContent);
 
 
         mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
