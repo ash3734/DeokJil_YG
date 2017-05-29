@@ -2,7 +2,10 @@ package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
 
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
+import java.util.ArrayList;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,7 +18,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationController extends Application{
 
+
+    private int totalSingerCount = 0;
+
+
     private static ApplicationController instance;
+
+
+
+
+    private ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
+
+
 
     private NetworkService networkService;
     //// TODO: 2017-02-06 base Url 수정 
@@ -45,5 +59,24 @@ public class ApplicationController extends Application{
         instance = this;
         buildNetwork();
     }
+
+    public int getTotalSingerCount() {
+        return totalSingerCount;
+    }
+
+    public void setTotalSingerCount(int totalSingerCount) {
+        this.totalSingerCount = totalSingerCount;
+    }
+
+    public ArrayList<MyPageAllSingerNumbers> getMyPageAllSingerNumberses() {
+        return myPageAllSingerNumberses;
+    }
+
+    public void setMyPageAllSingerNumberses(ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses) {
+        this.myPageAllSingerNumberses = myPageAllSingerNumberses;
+    }
+
+
+
 
 }
