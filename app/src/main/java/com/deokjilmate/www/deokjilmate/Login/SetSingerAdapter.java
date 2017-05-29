@@ -99,11 +99,16 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             Log.v("해쉬", String.valueOf(singerPNData));
 
             for (int i = 0; i < allSingerList.size() ; i++)
-            {Log.v("들어옴", "들어옴");
+            {
+                Log.v("들어옴", "들어옴");
+                Log.v("입력", charText);
+
                 String wp = allSingerList.get(i).getSinger_name();//실제 서버단에 저장된 가수 이름.AOA
                 //실질적 비교를 위해서는 에이오에이라고 치면 이것이 AOA가 되어야 함.
                 //해쉬 내에서 wp를 키로하는 애들의 value가 charText를 포함.
                 Log.v("첫번째 wp", wp);
+                Log.v("가수", singerPNData.toString());
+               // Log.v("가수", singerPNData.)
                 if (wp.toLowerCase(Locale.getDefault()).contains(charText))
                 {//실제 가수 이름이 charText를 갖고 있다면!.
                     searchSingerList.add(allSingerList.get(i));
@@ -115,8 +120,10 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                     searchSingerList.add(allSingerList.get(i));
                     search = true;
                 }
-                else
-                    search = false;
+                else {
+                    Log.v("불일치", "레알 불일치");
+                    //search = false;
+                }
             }
         }
         //입력한 데이터가 있을 경우에는 일치하는 항목들만 찾아 출력해줍니다.

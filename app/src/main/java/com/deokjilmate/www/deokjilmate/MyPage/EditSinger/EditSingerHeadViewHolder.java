@@ -17,6 +17,7 @@ public class EditSingerHeadViewHolder extends RecyclerView.ViewHolder{
     TextView singer_Name;
     ImageView set_Sub;
     ImageView delete_Singer;
+    ImageView presentMain;
 
 
 
@@ -27,5 +28,6 @@ public class EditSingerHeadViewHolder extends RecyclerView.ViewHolder{
         singer_Name = (TextView) itemView.findViewById(R.id.mypage_edit_singer_head_mainName);
         set_Sub = (ImageView) itemView.findViewById(R.id.mypage_edit_singer_head_toSub);
         delete_Singer = (ImageView) itemView.findViewById(R.id.mypage_edit_singer_head_delete);
+        presentMain = (ImageView) itemView.findViewById(R.id.mypage_edit_singer_head_presentMain);
     }
 }

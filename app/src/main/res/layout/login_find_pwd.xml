@@ -24,7 +24,11 @@
             android:text="여기는 툴바"/>
     </RelativeLayout>
 
-    <com.deokjilmate.www.deokjilmate.ClearEditText.ClearEditText
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="메일주소"/>
@@ -41,6 +45,7 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/FindPwd_check"
             android:text="확인"/>
+    </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
 

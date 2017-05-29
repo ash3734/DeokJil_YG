@@ -11,6 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="52dp"
         android:id="@+id/MyPage_EditSinger_top"
         android:background="@drawable/maingradation">
@@ -20,10 +23,6 @@
             android:layout_marginLeft="16dp"
             android:background="@color/tw__transparent"
             android:id="@+id/MyPage_EditSinger_backImage"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/MyPage_EditSinger_toolbar"/>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
@@ -34,27 +33,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="여기는 툴바"/>
+            android:text="내 가수 수정"/>
     </RelativeLayout>
 
 
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/MyPage_EditSinger_top"
             android:id="@+id/MyPage_EditSinger_recycle">
          </android.support.v7.widget.RecyclerView>
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="bottom|end"
-        android:id="@+id/MyPage_EditSinger_addSinger"
-        android:layout_alignParentRight="true"
-        android:text="내 가수추가">
-    </android.support.design.widget.FloatingActionButton>
-    </android.support.design.widget.CoordinatorLayout>
+        
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginRight="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/MyPage_EditSinger_addSinger"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
