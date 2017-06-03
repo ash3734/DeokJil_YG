@@ -11,19 +11,24 @@
     android:background="@drawable/maingradation">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="@color/tw__solid_white"
-        android:alpha="0.3">
+        android:layout_height="52dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/tw__solid_white"
+            android:alpha="0.3">
+        </RelativeLayout>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_back"
             android:id="@+id/SetSinger_backImage"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="#ffffff"
             android:text="내 가수 설정"/>
 
     </RelativeLayout>

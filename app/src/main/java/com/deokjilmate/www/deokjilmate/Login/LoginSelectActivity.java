@@ -115,7 +115,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
         };
 
        // Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
-        Glide.with(this).load(R.drawable.meta).into(backButton);
+        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -641,11 +641,14 @@ public class LoginSelectActivity extends AppCompatActivity implements
                         Log.v("계정", account.toString());
                         firebaseAuthWithGoogle(account);
                         Log.v("google", "success");
+                        Toast.makeText(this, "성공", Toast.LENGTH_LONG);
+
                     } else {
                         // Google Sign In failed, update UI appropriately
                         // [START_EXCLUDE]
                         //updateUI(null);
                         // [END_EXCLUDE]
+                        Toast.makeText(this, "실패", Toast.LENGTH_LONG);
                         Log.v("google", "false");
 
                     }
@@ -660,6 +663,14 @@ public class LoginSelectActivity extends AppCompatActivity implements
         // be available.
        // Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mfirebaseAuth.getCurrentUser();
+        //updateUI(currentUser);
     }
 
 

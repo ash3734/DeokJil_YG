@@ -36,7 +36,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     HashMap<String, String> singerPNData = new HashMap<String, String>();
     NetworkService networkService;
     SetSingerNameData setSingerNameData;
-    private ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
+    private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private Context addSingerActivity;
 
     private int selectSingerNum;
@@ -76,13 +76,13 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         holder.singer_Name.setText(allSingerList.get(position).singer_name);
         holder.add_singer.setImageResource(allSingerList.get(position).add_singer);
         selectSingerNum = allSingerList.get(position).singer_id;
-        Log.v("넘버", String.valueOf(selectSingerNum));
         holder.add_singer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectSingerNum = allSingerList.get(position).singer_id;
-
-                if (ApplicationController.getInstance().getMyPageAllSingerNumberses().contains(selectSingerNum)) {
+                Log.v("넘버", String.valueOf(selectSingerNum));
+                //;
+                if (checkHave(selectSingerNum)) {
                     //Log.v("내 가수들", myPageAllSingerNumberses.toString());
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else{
@@ -91,7 +91,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     addSinger.enqueue(new Callback<SingerAddResponse>() {
                         @Override
                         public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                            if (response.isSuccessful()) {
+                            if (response.body().result.equals("success")) {
                                 Log.v("추가", "성공");
                                 //해당 아이디에 맞는 애를 마이페이지에 추가
                             } else {
@@ -114,5 +114,16 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     @Override
     public int getItemCount() {
         return (allSingerList != null) ? allSingerList.size() : 0;
+    }
+
+    public boolean checkHave(int selectNum){
+       // MyPageAllSingerNumbers myPageAllSingerNumbers = ApplicationController.getInstance().getMyPageAllSingerNumberses();
+
+        if(myPageAllSingerNumberses.toString().contains(String.valueOf(selectNum))){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

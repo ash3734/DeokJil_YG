@@ -62,7 +62,7 @@ public class SetSingerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_set_singer);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.meta).into(backButton);
+        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
         //recyclerView = (RecyclerView) findViewById(R.id.SetSinger_list);
         recyclerView.setHasFixedSize(true);
         //recyclerView.get

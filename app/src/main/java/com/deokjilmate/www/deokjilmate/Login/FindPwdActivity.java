@@ -38,7 +38,7 @@ public class FindPwdActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         networkService = ApplicationController.getInstance().getNetworkService();
       //  Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
-        Glide.with(this).load(R.drawable.meta).into(backButton);
+        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 
     }
 
@@ -72,6 +72,5 @@ public class FindPwdActivity extends AppCompatActivity {
             public void onFailure(Call<FindPwdResponse> call, Throwable t) {
             }
         });
-
     }
 }

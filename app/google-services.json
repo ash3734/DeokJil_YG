@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "796401332848",
-    "firebase_url": "https://duckmate-72be5.firebaseio.com",
-    "project_id": "duckmate-72be5",
-    "storage_bucket": "duckmate-72be5.appspot.com"
+    "project_number": "338630845157",
+    "firebase_url": "https://deokjilmate.firebaseio.com",
+    "project_id": "deokjilmate",
+    "storage_bucket": "deokjilmate.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:796401332848:android:7c7f6b055d8cb7a2",
+        "mobilesdk_app_id": "1:338630845157:android:7c7f6b055d8cb7a2",
         "android_client_info": {
           "package_name": "com.deokjilmate.www.deokjilmate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "796401332848-nprkcq8pfbffvh28avrcp93ml14atkc9.apps.googleusercontent.com",
+          "client_id": "338630845157-0e67laium9gku4qjdkmbfhg530l9bfae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deokjilmate.www.deokjilmate",
+            "certificate_hash": "54848a2d9f5d8e5fdbf75c1c9c61d479348678d1"
+          }
+        },
+        {
+          "client_id": "338630845157-7ju9akolem89vgpartug8cp8dflfoe6v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAy2GV2g1XA9YhIEOok4q_9HmSmyb9hEB4"
+          "current_key": "AIzaSyB1rhy5mQnDIsJ0Fg0Ya30lp9kFOwwNb3E"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338630845157-7ju9akolem89vgpartug8cp8dflfoe6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
