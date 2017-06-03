@@ -9,15 +9,20 @@
     android:background="@drawable/maingradation">
 
     <RelativeLayout
+        android:id="@+id/Sign_top"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="@color/tw__solid_white"
-        android:alpha="0.3">
+        android:layout_height="52dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/tw__solid_white"
+            android:alpha="0.3">
+        </RelativeLayout>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_back"
             android:id="@+id/Sign_backImage"/>
         <TextView
             android:layout_width="wrap_content"

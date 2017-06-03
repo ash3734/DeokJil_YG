@@ -104,7 +104,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
-        Glide.with(this).load(R.drawable.meta).into(backButton);
+        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

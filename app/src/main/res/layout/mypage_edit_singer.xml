@@ -21,13 +21,14 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_check"
+            android:layout_alignParentRight="true"
             android:id="@+id/MyPage_EditSinger_backImage"/>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_back"
             android:id="@+id/MyPage_EditSinger_save"/>
         <TextView
             android:layout_width="wrap_content"

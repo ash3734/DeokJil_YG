@@ -10,14 +10,18 @@
     android:background="@drawable/maingradation">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="@color/tw__solid_white"
-        android:alpha="0.3">
+        android:layout_height="52dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@color/tw__solid_white"
+            android:alpha="0.3">
+        </RelativeLayout>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_back"
             android:id="@+id/SetProfile_backImage"/>
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +67,7 @@
             android:layout_height="43dp"
             android:id="@+id/SetProfile_select"
             android:layout_alignParentRight="true"
-            android:background="@drawable/profilesetting_photo"
+            android:background="@drawable/profile_change"
             android:layout_marginTop="216dp"
             android:layout_marginRight="102dp"
             />

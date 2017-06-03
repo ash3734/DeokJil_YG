@@ -80,7 +80,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
         Glide.with(this).load(R.drawable.profilesetting_photo).into(profileSelect);
 
-        Glide.with(this).load(R.drawable.meta).into(backButton);
+        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
         networkService = ApplicationController.getInstance().getNetworkService();
         email = getIntent().getExtras().getString("email");
         passwd = getIntent().getExtras().getString("passwd");

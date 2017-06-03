@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -58,7 +59,7 @@ public class MyPageActivity extends AppCompatActivity {
     private int member_id = 0;
 
     private MyPageCheckMainSub myPageCheckMainSub;
-    private ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
+    private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private ArrayList<MyPageSelectedSinger> myPageSelectedSingers;
     //ArrayList<MyPageSingerList> myPageSingerList;
 
@@ -92,15 +93,23 @@ public class MyPageActivity extends AppCompatActivity {
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
 
 
-        myPageAllSingerNumberses = new ArrayList<MyPageAllSingerNumbers>();
+        //myPageAllSingerNumberses = new ArrayList<MyPageAllSingerNumbers>();
         //myPageCheckMainSub = new MyPageCheckMainSub();
-        Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
+        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
         myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
             @Override
             public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
-                myPageAllSingerNumberses = response.body().result;
-                ApplicationController.getInstance().setTotalSingerCount(myPageAllSingerNumberses.size());
-                ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
+                if(response.body().result.equals("success")) {
+                    myPageAllSingerNumberses = new MyPageAllSingerNumbers(response.body().data.singerb_id, response.body().data.singer0_id, response.body().data.singer1_id,
+                            response.body().data.singer2_id,response.body().data.singer3_id);
+                    int count = nextCount(myPageAllSingerNumberses);
+                    //myPageAllSingerNumberses.
+                    ApplicationController.getInstance().setTotalSingerCount(count);
+                    ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "못 받음", Toast.LENGTH_LONG);
+                }
 
             }
 
@@ -177,6 +186,19 @@ public class MyPageActivity extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = width*2/3;
         mainLayout.setMinimumHeight(height);
+    }
+
+    public int nextCount(MyPageAllSingerNumbers myPageAllSingerNumbers){
+        int count = 0;//전체 서브가 몇 명인지
+        if(myPageAllSingerNumbers.singer0_id == 0)
+            count = 0;
+        else if(myPageAllSingerNumbers.singer1_id == 0)
+            count = 1;
+        else if(myPageAllSingerNumbers.singer2_id == 0)
+            count = 2;
+        else if(myPageAllSingerNumbers.singer3_id == 0)
+            count = 3;
+        return count;
     }
 
 }

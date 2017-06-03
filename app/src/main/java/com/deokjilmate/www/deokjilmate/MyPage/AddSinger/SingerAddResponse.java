@@ -5,9 +5,9 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
  */
 
 public class SingerAddResponse {
-    boolean result;
+    String result;
 
-    public SingerAddResponse(boolean result) {
+    public SingerAddResponse(String result) {
         this.result = result;
     }
 

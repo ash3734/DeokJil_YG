@@ -5,8 +5,6 @@ import android.app.Application;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
-import java.util.ArrayList;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,7 +23,9 @@ public class ApplicationController extends Application{
     private String baseUrl = "http://35.187.196.208/duckmate/";
     private int totalSingerCount = 0;
 
-    private ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses;
+
+
+    private MyPageAllSingerNumbers myPageAllSingerNumberses;
     public NetworkService getNetworkService() {
         return networkService;
     }
@@ -58,15 +58,12 @@ public class ApplicationController extends Application{
         this.totalSingerCount = totalSingerCount;
     }
 
-    public ArrayList<MyPageAllSingerNumbers> getMyPageAllSingerNumberses() {
+    public MyPageAllSingerNumbers getMyPageAllSingerNumberses() {
         return myPageAllSingerNumberses;
     }
 
-    public void setMyPageAllSingerNumberses(ArrayList<MyPageAllSingerNumbers> myPageAllSingerNumberses) {
+    public void setMyPageAllSingerNumberses(MyPageAllSingerNumbers myPageAllSingerNumberses) {
         this.myPageAllSingerNumberses = myPageAllSingerNumberses;
     }
-
-
-
 
 }
