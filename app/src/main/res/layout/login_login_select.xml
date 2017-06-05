@@ -37,30 +37,30 @@
             <Button
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:text="페이스북"
                 android:layout_toLeftOf="@+id/LoginSelect_twitter"
                 android:id="@+id/LoginSelect_facebook"
                 android:onClick="onLoginButtonClick"
+                android:background="@drawable/login_fb"
                 />
 
             <Button
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginLeft="8dp"
-                android:text="트위터"
                 android:id="@+id/LoginSelect_twitter"
                 android:layout_centerInParent="true"
                 android:onClick="onLoginButtonClick"
+                android:background="@drawable/login_tw"
                 />
 
             <Button
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginLeft="8dp"
-                android:text="구글"
                 android:layout_toRightOf="@+id/LoginSelect_twitter"
                 android:id="@+id/LoginSelect_google"
-                android:onClick="onLoginButtonClick"/>
+                android:onClick="onLoginButtonClick"
+                android:background="@drawable/login_g"/>
 
         </RelativeLayout>
 
@@ -69,8 +69,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:text="---------- or ----------"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="---------------------- or ----------------------"
         android:layout_marginTop="40dp"
+        android:textColor="#000000"
+        android:alpha="32"
         android:textAlignment="center"/>
     <LinearLayout
         android:layout_marginTop="40dp"
@@ -80,15 +84,19 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:paddingLeft="8dp"
             android:id="@+id/LoginSelect_email"
-            android:background="#000000"
-            android:alpha="0.46"
+            android:background="@drawable/edit_text_background"
             android:hint="메일주소"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#000000"
-            android:alpha="0.46"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:paddingLeft="8dp"
+            android:background="@drawable/edit_text_background"
             android:layout_marginTop="8dp"
             android:id="@+id/LoginSelect_pwd"
             android:hint="비밀번호"/>
@@ -111,11 +119,14 @@
             android:layout_height="match_parent">
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/sing_login_check_button"
         android:id="@+id/LoginSelect_customLogin"
+        android:textStyle="bold"
         android:text="로그인하기" />
         </RelativeLayout>
 

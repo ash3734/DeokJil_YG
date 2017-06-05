@@ -4,8 +4,12 @@
     android:id="@+id/activity_main_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deokjilmate.www.deokjilmate.Login.MainLoginActivity"
-    android:orientation="vertical">
+    tools:context="com.deokjilmate.www.deokjilmate.Login.MainLoginActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/MainLogin_background"
+        />
 
     <RelativeLayout
         android:layout_width="300dp"

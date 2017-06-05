@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
@@ -24,9 +22,6 @@ import retrofit2.Response;
 public class FindPwdActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.FindPwd_backImage)
-    ImageButton backButton;
-
     @BindView(R.id.FindPwd_email)
     EditText findPwdbyEmail;
 
@@ -38,7 +33,7 @@ public class FindPwdActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         networkService = ApplicationController.getInstance().getNetworkService();
       //  Glide.with(this).load(R.drawable.toolbar).into(toobarImage);
-        Glide.with(this).load(R.drawable.topbar_back).into(backButton);
+        //Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 
     }
 
