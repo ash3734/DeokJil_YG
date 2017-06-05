@@ -4,13 +4,29 @@
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splashbackground"
     tools:context="com.deokjilmate.www.deokjilmate.SplashActivity"
-    android:background="@drawable/maingradation"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="splash"/>
-
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/Splash_background"/>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash_full"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/Splash_centerView"
+                />
+        <ImageView
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:background="@drawable/splash_logo"
+            android:layout_above="@+id/Splash_centerView"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </LinearLayout>

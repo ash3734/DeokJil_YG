@@ -50,25 +50,25 @@
         <Button
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:text="페이스북"
             android:layout_toLeftOf="@+id/Sign_twitter"
-            android:id="@+id/Sign_facebook"/>
+            android:id="@+id/Sign_facebook"
+            android:background="@drawable/login_fb"/>
 
         <Button
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="8dp"
-            android:text="트위터"
             android:id="@+id/Sign_twitter"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:background="@drawable/login_tw"/>
 
         <Button
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="8dp"
-            android:text="구글"
             android:layout_toRightOf="@+id/Sign_twitter"
-            android:id="@+id/Sign_google"/>
+            android:id="@+id/Sign_google"
+            android:background="@drawable/login_g"/>
 
     </RelativeLayout>
 
@@ -89,8 +89,7 @@
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_email"
             android:focusable="true"
-            android:background="#000000"
-            android:alpha="0.46"
+            android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="메일주소"/>
         <EditText
@@ -101,8 +100,7 @@
             android:layout_marginTop="8dp"
             android:id="@+id/Sign_pwd"
             android:focusable="true"
-            android:background="#000000"
-            android:alpha="0.46"
+            android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="비밀번호"/>
         <EditText
@@ -113,8 +111,7 @@
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_checkPwd"
             android:focusable="true"
-            android:background="#000000"
-            android:alpha="0.46"
+            android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="비밀번호 확인"/>
         <RelativeLayout

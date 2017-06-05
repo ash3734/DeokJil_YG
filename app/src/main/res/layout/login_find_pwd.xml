@@ -4,6 +4,7 @@
     android:id="@+id/activity_find_pwd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="com.deokjilmate.www.deokjilmate.Login.FindPwdActivity"
     android:orientation="vertical">
 
@@ -15,37 +16,66 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
-            android:background="@color/tw__transparent"
+            android:background="@drawable/topbar_back"
             android:id="@+id/FindPwd_backImage"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="여기는 툴바"/>
+            android:text="비밀번호 찾기"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:layout_height="match_parent">
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="140dp"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/edit_text_background"
         android:id="@+id/FindPwd_email"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:hint="메일주소"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="비밀번호를 찾으려면 메일 주소를 입력해주세요"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="88dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="버튼을 누르면 등록된 메일주소로 비밀번호가 전송됩니다"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="72dp"
+            />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메일을 보내면 어쩌구 저쩌구"/>
+        android:text="버튼을 누르면 등록된 메일 주소로 비밀번호가 발송됩니다"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="48dp"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/sing_login_check_button"
             android:id="@+id/FindPwd_check"
-            android:text="확인"/>
+            android:text="비밀번호 메일로 보내기"/>
     </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
