@@ -91,7 +91,7 @@ public class InquiryActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
                                         if(response.isSuccessful()) {
-                                            if (response.body().result.equals("create")) {
+                                            if (response.body().result.equals("success")) {
                                                 Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }

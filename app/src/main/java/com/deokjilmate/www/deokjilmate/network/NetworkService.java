@@ -39,6 +39,16 @@ public interface NetworkService {
     @GET("/notice")
     Call<BoardNotice> getNotice();
 
+    //문의하기
+    @POST("/question/send")
+    Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
+
+    /*
+    @POST("/alarm/token")
+    Call<>
+*/
+
+
 
     //////이 밑은 YG 담당//////////
     //로그인(sns)
@@ -58,14 +68,6 @@ public interface NetworkService {
             @Part("snstoken") RequestBody snstoken
     );
 
-    //문의하기
-    @POST("/question/send")
-    Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
-
-    /*
-    @POST("/alarm/token")
-    Call<>
-*/
 
 
     //회원가입 in App

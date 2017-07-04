@@ -62,17 +62,15 @@
 
 
 
-        <activity android:name=".Setting.Inquiry.InquiryActivity" />
+        <activity android:name=".Setting.Inquiry.InquiryActivity">
+
+        </activity>
 
 
 
         <activity android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -82,13 +80,14 @@
 
         <activity android:name=".Setting.Notice.NoticeActivity">
 
-
-
-
         </activity>
+
         <activity android:name=".Setting.Terms.TermsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".Setting.Break.BreakActivity"></activity>
