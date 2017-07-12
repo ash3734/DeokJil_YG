@@ -29,7 +29,7 @@ public class MainLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main_login);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.splash).into(background);
+        Glide.with(this).load(R.drawable.splash_full).into(background);
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
         //Glide.with(this).load(R.drawable.output).into(logoImage);
