@@ -101,10 +101,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:background="@drawable/sing_login_check_button"
             android:text="다음 단계로"
             android:id="@+id/SetProfile_next"/>
     </RelativeLayout>
+
+
         </LinearLayout>
 
 </LinearLayout>

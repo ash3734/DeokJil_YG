@@ -95,7 +95,8 @@ public class MyPageActivity extends AppCompatActivity {
 
         //myPageAllSingerNumberses = new ArrayList<MyPageAllSingerNumbers>();
         //myPageCheckMainSub = new MyPageCheckMainSub();
-        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
+        //메인 서브 판별
+        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(2);
         myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
             @Override
             public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
@@ -106,6 +107,7 @@ public class MyPageActivity extends AppCompatActivity {
                     //myPageAllSingerNumberses.
                     ApplicationController.getInstance().setTotalSingerCount(count);
                     ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
+                    //전체 몇 명인지 확인.
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "못 받음", Toast.LENGTH_LONG);
@@ -122,6 +124,7 @@ public class MyPageActivity extends AppCompatActivity {
         myPageItemDatas = new ArrayList<MyPageItemData>();
 
 
+        //가수 목록 불러오기
         Call<MyPageSingerList> myPageSingerList = networkService.myPageSingerList(1);
         myPageSingerList.enqueue(new Callback<MyPageSingerList>() {
             @Override
@@ -162,10 +165,6 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
         //TODO : 통신 이후 이 부분 바뀌어야 함.
         //메인

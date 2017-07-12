@@ -38,7 +38,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     SetSingerNameData setSingerNameData;
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private Context addSingerActivity;
-
+    private int totalSingerCount;
     private int selectSingerNum;
 
 
@@ -55,7 +55,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.singerPNData.putAll(singerPNData);
         this.networkService = networkService;
         this.myPageAllSingerNumberses = ApplicationController.getInstance().getMyPageAllSingerNumberses();
-
+        this.totalSingerCount = ApplicationController.getInstance().getTotalSingerCount();
     }
 
     @Override
@@ -81,17 +81,18 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
             public void onClick(View view) {
                 selectSingerNum = allSingerList.get(position).singer_id;
                 Log.v("넘버", String.valueOf(selectSingerNum));
+                Log.v("넘버", String.valueOf(totalSingerCount));
                 //;
                 if (checkHave(selectSingerNum)) {
                     //Log.v("내 가수들", myPageAllSingerNumberses.toString());
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else{
                     Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
-                            1, ApplicationController.getInstance().getTotalSingerCount()));
+                            1, totalSingerCount));
                     addSinger.enqueue(new Callback<SingerAddResponse>() {
                         @Override
                         public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                            if (response.body().result.equals("success")) {
+                            if (response.body().result) {
                                 Log.v("추가", "성공");
                                 //해당 아이디에 맞는 애를 마이페이지에 추가
                             } else {
