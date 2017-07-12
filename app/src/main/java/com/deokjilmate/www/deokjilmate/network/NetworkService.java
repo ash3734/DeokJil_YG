@@ -97,11 +97,11 @@ public interface NetworkService {
     @GET("singer/singer_rank")
     Call<AllSingerRanking> setSingerRanking();
 
-    //내 가수들 번호 가져오기
+    //내 가수들 번호 가져오기(메인, 서브 판별
     @GET("singer/singerbase/{member_id}")
     Call<MyPageCheckMainSub> myPageCheckMainSub(@Path("member_id") int member_id);
 
-    //내 가수들
+    //내 가수들(목록 불러오기)
     @GET("singer/singercheck/{member_id}")
     Call<MyPageSingerList> myPageSingerList(@Path("member_id") int member_id);
 

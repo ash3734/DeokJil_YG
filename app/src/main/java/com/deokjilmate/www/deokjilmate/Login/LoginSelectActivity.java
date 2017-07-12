@@ -301,18 +301,21 @@ public class LoginSelectActivity extends AppCompatActivity implements
     {
         loginType = 2;
         twitterAuthClient = new TwitterAuthClient();
+        Log.v("트윗", "트윗");
+
         twitterAuthClient.authorize(LoginSelectActivity.this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
 
             @Override
             public void success(Result<TwitterSession> result) {
 
-
+                Log.v("트윗", "트윗1");
 
                 handleTwitterSession(result.data);
 
             }
             @Override
             public void failure(TwitterException exception) {
+                Log.v("트윗", "트윗2");
 
             }
         });
@@ -496,6 +499,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
                         //TODO : if 정보 있음이면 다음 페이지
 
 
+                        Log.v("트윗", "트윗3");
 
 
 
@@ -550,6 +554,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
                             }
                             @Override
                             public void onFailure(Call<LoginResponseResult> call, Throwable t) {
+                                Log.v("트윗", "트윗4");
+
                             }
                         });
 
