@@ -1,7 +1,9 @@
 package com.deokjilmate.www.deokjilmate.Setting.Notice;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -18,13 +20,16 @@ import retrofit2.Response;
 
 public class NoticeActivity extends AppCompatActivity {
 
-    private ArrayList<String> mGroupList = null;
-    private ArrayList<ArrayList<String>> mChildList = null;
-    private ArrayList<String> mChildListContent = null;
+    private ArrayList<String> mGroupList;
+    private ArrayList<ArrayList<String>> mChildList;
+    private ArrayList<String> mChildListContent;
 
     private ExpandableListView mListView;
 
-    private NoticeAdapter mBaseExpandableAdapter = null;
+    private NoticeAdapter mBaseExpandableAdapter;
+    int i=0;
+    int size;
+    Context c = this;
 
     NetworkService service;
 
@@ -34,6 +39,9 @@ public class NoticeActivity extends AppCompatActivity {
         setContentView(R.layout.notice_activity);
 
 
+        service = ApplicationController.getInstance().getNetworkService();
+
+
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
@@ -41,32 +49,51 @@ public class NoticeActivity extends AppCompatActivity {
         mChildListContent = new ArrayList<String>();
 
 
-        service = ApplicationController.getInstance().getNetworkService();
+
 
 
         Call<BoardNotice> getNotice = service.getNotice();
         getNotice.enqueue(new Callback<BoardNotice>() {
-
             @Override
             public void onResponse(Call<BoardNotice> call, Response<BoardNotice> response) {
-
+                Log.d("밍구밍구","여기들어오나?On Response");
                 if(response.isSuccessful()){
+                    size = 0;
+                    Log.d("밍구밍구","여기들어오나?");
                     for(BoardNoticeData notice : response.body().result){
                         mGroupList.add(notice.notice_title+" "+notice.notice_time);
-                    }
 
-                    for(BoardNoticeData notice : response.body().result){
-                        mChildListContent.add(notice.notice_main);
-                        mChildList.add(mChildListContent);
+                        Log.d("밍구",notice.notice_title);
+                        Log.d("밍구",notice.notice_time);
+
+//                        mChildListContent.add(notice.notice_main);
+                        mChildListContent.add(size,notice.notice_main);
+
+                        Log.d("밍구",notice.notice_main);
+
+                       // mChildList.add(mChildListContent);
+
+                        mChildList.add(size,mChildListContent);
+                        size++;
+
+
                     }
+                    mBaseExpandableAdapter = new NoticeAdapter(c,mGroupList,mChildList);
+                    mListView.setAdapter(mBaseExpandableAdapter);
+
                     Toast.makeText(getApplicationContext(),"성공~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
                 }
 
+
             }
+
             @Override
             public void onFailure(Call<BoardNotice> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"실패~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
+                Log.d("밍구밍구","여기 실패로 들어오나?");
+                Log.d("밍구밍구",t.getMessage());
+                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
         });
 
 //        mChildList.add(mChildListContent);
@@ -74,8 +101,8 @@ public class NoticeActivity extends AppCompatActivity {
 //        mChildList.add(mChildListContent);
 
 
-        mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
-        mListView.setAdapter(mBaseExpandableAdapter);
+//        mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
+//        mListView.setAdapter(mBaseExpandableAdapter);
 
         // 그룹 클릭 했을 경우 이벤트
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {

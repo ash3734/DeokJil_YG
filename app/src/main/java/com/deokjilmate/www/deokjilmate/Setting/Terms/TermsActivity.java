@@ -7,7 +7,6 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
-import com.deokjilmate.www.deokjilmate.Setting.Notice.NoticeAdapter;
 
 import java.util.ArrayList;
 
@@ -16,15 +15,23 @@ public class TermsActivity extends AppCompatActivity {
     private ArrayList<String> mGroupList = null;
     private ArrayList<ArrayList<String>> mChildList = null;
     private ArrayList<String> mChildListContent = null;
+    private TermsAdapter mBaseExpandableAdapter = null;
 
 
-    private NoticeAdapter mBaseExpandableAdapter = null;
+    private ExpandableListView mListView = null;
+
+    private void setLayout(){
+        mListView = (ExpandableListView) findViewById(R.id.elv_list);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notice_activity);
+        setContentView(R.layout.terms_activity);
 
+       // mListView = new ExpandableListView();
         setLayout();
 
         mGroupList = new ArrayList<String>();
@@ -36,13 +43,15 @@ public class TermsActivity extends AppCompatActivity {
         mGroupList.add("보");
 
         mChildListContent.add("1");
+        mChildListContent.add("2");
+        mChildListContent.add("3");
 
 
         mChildList.add(mChildListContent);
         mChildList.add(mChildListContent);
         mChildList.add(mChildListContent);
 
-        mBaseExpandableAdapter = new NoticeAdapter(this,mGroupList,mChildList);
+        mBaseExpandableAdapter = new TermsAdapter(this,mGroupList,mChildList);
         mListView.setAdapter(mBaseExpandableAdapter);
 
         // 그룹 클릭 했을 경우 이벤트
@@ -86,13 +95,6 @@ public class TermsActivity extends AppCompatActivity {
         });
     }
 
-    /*
-     * Layout
-     */
-    private ExpandableListView mListView;
 
-    private void setLayout(){
-        mListView = (ExpandableListView) findViewById(R.id.elv_list);
-    }
 
 }

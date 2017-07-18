@@ -1,6 +1,7 @@
 package com.deokjilmate.www.deokjilmate.Setting.Terms;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,9 +80,11 @@ public class TermsAdapter extends BaseExpandableListAdapter {
 
         // 그룹을 펼칠때와 닫을때 아이콘을 변경해 준다.
         if(isExpanded){
-            view.setImageResource(R.drawable.meta);
+            view.setImageResource(R.drawable.gather_spread);
+            Log.d("terms","^^^^^^^^^^^^^^^^^^^ㅎㅇ^^");
         }else{
-            view.setImageResource(R.drawable.aoa);
+            view.setImageResource(R.drawable.gather_fold);
+            Log.d("terms","^^^^^^^^^^^^^^^^^^^^ㅂㅇ^^");
         }
 
         viewHolder.terms_order.setText(getGroup(groupPosition));

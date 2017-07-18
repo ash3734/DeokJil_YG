@@ -61,13 +61,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
 
-
-        <activity android:name=".Setting.Inquiry.InquiryActivity" />
-
-
-
         <activity android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
+        <activity android:name=".MyPage.EditSinger.EditSingerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
+        <activity android:name=".Setting.Inquiry.InquiryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,18 +80,11 @@
         </activity>
 
 
-        <activity android:name=".MyPage.EditSinger.EditSingerActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
         <activity android:name=".Setting.Notice.NoticeActivity">
 
-
-
-
         </activity>
-        <activity android:name=".Setting.Terms.TermsActivity">
 
+        <activity android:name=".Setting.Terms.TermsActivity">
 
         </activity>
 
