@@ -20,7 +20,7 @@ public class ApplicationController extends Application{
 
     private NetworkService networkService;
     //// TODO: 2017-02-06 base Url 수정 
-    private String baseUrl = "https://defflee.com/duckmate/";
+    private String baseUrl = "http://35.197.5.223/duckmate/";
     private int totalSingerCount = 0;
 
 

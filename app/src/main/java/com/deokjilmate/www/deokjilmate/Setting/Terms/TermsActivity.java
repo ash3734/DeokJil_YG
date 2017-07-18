@@ -31,7 +31,7 @@ public class TermsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terms_activity);
 
-        mListView = new ExpandableListView();
+       // mListView = new ExpandableListView();
         setLayout();
 
         mGroupList = new ArrayList<String>();

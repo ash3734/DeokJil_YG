@@ -69,7 +69,7 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.notice_parent, parent, false);
             viewHolder.notice_title = (TextView) v.findViewById(R.id.notice_title);
-            viewHolder.notice_main = (TextView) v.findViewById(R.id.notice_main);
+           // viewHolder.notice_main = (TextView) v.findViewById(R.id.notice_main);
             viewHolder.notice_time = (TextView) v.findViewById(R.id.notice_time);
 
           //  viewHolder.notice_time = (TextView) v.findViewById(R.id.notice_time);
@@ -90,6 +90,7 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
         }
 
         viewHolder.notice_title.setText(getGroup(groupPosition));
+        viewHolder.notice_time = (TextView) v.findViewById(R.id.notice_time);
 
 
         return v;

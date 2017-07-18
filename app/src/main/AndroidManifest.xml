@@ -79,15 +79,15 @@
 
 
         <activity android:name=".Setting.Notice.NoticeActivity">
-
-        </activity>
-
-        <activity android:name=".Setting.Terms.TermsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".Setting.Terms.TermsActivity">
+
         </activity>
 
         <activity android:name=".Setting.Break.BreakActivity"></activity>

@@ -36,7 +36,7 @@ public interface NetworkService {
 
     /***********************밍구************************/
     //공지사항 불러오기
-    @GET("/notice")
+    @GET("notice")
     Call<BoardNotice> getNotice();
 
     //문의하기

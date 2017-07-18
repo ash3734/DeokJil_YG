@@ -92,11 +92,32 @@ public class InquiryActivity extends AppCompatActivity {
                                     public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
                                         if(response.isSuccessful()) {
                                             if (response.body().result.equals("success")) {
+
+                                                Log.d("밍구밍구","등록성공!");
+
                                                 Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
                                                 finish();
+                                                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
+
+                                                alertDialogBuilder2
+                                                        .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
+                                                                "문의해주셔서 감사합니다.")
+                                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                            public void onClick(
+                                                                    DialogInterface dialog, int id) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+
+                                                // 다이얼로그 생성
+                                                AlertDialog alertDialog2 = alertDialogBuilder2.create();
+
+                                                // 다이얼로그 보여주기
+                                                alertDialog2.show();
                                             }
                                         }
                                         else{
+                                            Log.d("밍구밍구","등록실패!");
                                                 Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
                                         }
 
@@ -108,23 +129,23 @@ public class InquiryActivity extends AppCompatActivity {
                                 });
 
 
-                   AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
-
-                                alertDialogBuilder2
-                                        .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
-                                                "문의해주셔서 감사합니다.")
-                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                            public void onClick(
-                                                    DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-
-                                // 다이얼로그 생성
-                                AlertDialog alertDialog2 = alertDialogBuilder2.create();
-
-                                // 다이얼로그 보여주기
-                                alertDialog2.show();
+//                   AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(InquiryActivity.this);
+//
+//                                alertDialogBuilder2
+//                                        .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
+//                                                "문의해주셔서 감사합니다.")
+//                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//                                            public void onClick(
+//                                                    DialogInterface dialog, int id) {
+//                                                dialog.cancel();
+//                                            }
+//                                        });
+//
+//                                // 다이얼로그 생성
+//                                AlertDialog alertDialog2 = alertDialogBuilder2.create();
+//
+//                                // 다이얼로그 보여주기
+//                                alertDialog2.show();
 
 
                             }

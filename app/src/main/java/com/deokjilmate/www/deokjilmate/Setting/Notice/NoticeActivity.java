@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.Setting.Notice;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class NoticeActivity extends AppCompatActivity {
     private ExpandableListView mListView;
 
     private NoticeAdapter mBaseExpandableAdapter = null;
+    int i=0;
 
     NetworkService service;
 
@@ -34,6 +36,9 @@ public class NoticeActivity extends AppCompatActivity {
         setContentView(R.layout.notice_activity);
 
 
+        service = ApplicationController.getInstance().getNetworkService();
+
+
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
@@ -41,21 +46,19 @@ public class NoticeActivity extends AppCompatActivity {
         mChildListContent = new ArrayList<String>();
 
 
-        service = ApplicationController.getInstance().getNetworkService();
+
 
 
         Call<BoardNotice> getNotice = service.getNotice();
         getNotice.enqueue(new Callback<BoardNotice>() {
-
             @Override
             public void onResponse(Call<BoardNotice> call, Response<BoardNotice> response) {
-
+                Log.d("밍구밍구","여기들어오나?On Response");
                 if(response.isSuccessful()){
+                    Log.d("밍구밍구","여기들어오나?");
                     for(BoardNoticeData notice : response.body().result){
                         mGroupList.add(notice.notice_title+" "+notice.notice_time);
-                    }
 
-                    for(BoardNoticeData notice : response.body().result){
                         mChildListContent.add(notice.notice_main);
                         mChildList.add(mChildListContent);
                     }
@@ -65,7 +68,9 @@ public class NoticeActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<BoardNotice> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"실패~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
+                Log.d("밍구밍구","여기 실패로 들어오나?");
+                Log.d("밍구밍구",t.getMessage());
+                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
