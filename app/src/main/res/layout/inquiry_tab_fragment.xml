@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="This is Tab 1"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <EditText
+    android:id="@+id/questions_mail"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/inquiry_content"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:hint="내 메일 주소"
+    android:textColorHint="#FFFFFF"
+    />
 
-</RelativeLayout>
+    <!--<EditText-->
+    <!--android:id="@+id/questions_title"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:background="@drawable/inquiry_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:hint="제목"-->
+    <!--android:textColorHint="#FFFFFF"-->
+    <!--/>-->
+
+    <EditText
+    android:id="@+id/questions_main"
+    android:background="@drawable/inquiry_content"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:hint="문의사항을 작성해주세요"
+    android:textColorHint="#FFFFFF"
+    />
+
+
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:textSize="18dp"
+    android:text="답변은 5일 내에 메일 주소로 전송됩니다."/>
+
+
+    <Button
+    android:id="@+id/send_inquiry"
+    android:layout_width="300dp"
+    android:layout_height="30dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:text="문의하기"/>
+
+    <Button
+    android:id="@+id/show_token"
+    android:layout_width="300dp"
+    android:layout_height="30dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="2dp"
+    android:text="SHOW TOKEN"/>
+
+</LinearLayout>
