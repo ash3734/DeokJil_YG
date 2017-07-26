@@ -84,9 +84,9 @@ public class NoticeAdapter extends BaseExpandableListAdapter{
 
         // 그룹을 펼칠때와 닫을때 아이콘을 변경해 준다.
         if(isExpanded){
-            view.setImageResource(R.drawable.meta);
+            view.setImageResource(R.drawable.setting_arrow);
         }else{
-            view.setImageResource(R.drawable.aoa);
+            view.setImageResource(R.drawable.setting_arrow);
         }
 
         viewHolder.notice_title.setText(getGroup(groupPosition));
