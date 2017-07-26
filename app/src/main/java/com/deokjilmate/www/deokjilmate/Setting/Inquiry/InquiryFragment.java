@@ -74,6 +74,7 @@ public class InquiryFragment extends Fragment {
         send_inquiry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("다이얼로그","onClick들어옴");
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
                 // AlertDialog 셋팅

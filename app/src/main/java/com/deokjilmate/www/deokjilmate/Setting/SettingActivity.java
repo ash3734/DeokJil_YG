@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,17 +32,50 @@ public class SettingActivity extends AppCompatActivity {
     Intent intent_break;
     SharedPreferences.Editor editor;
     SharedPreferences logout;
+    android.app.ActionBar actionBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
+        actionBar = getActionBar();
         setContentView(R.layout.setting_activity);
-        datas.add( new SettingListItem("공지사항",R.drawable.aoa));
-        datas.add( new SettingListItem("문의하기",R.drawable.aoa));
-        datas.add( new SettingListItem("버전정보                                                1.0.0",R.drawable.aoa));
-        datas.add( new SettingListItem("약관 및 정책",R.drawable.aoa));
-        datas.add( new SettingListItem("탈퇴하기",R.drawable.aoa));
+       // getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //getActionBar().setCustomView(R.layout.main_topbar);
+//        getActionBar().setIcon(R.drawable.main_topbar);
+
+       // getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.main_topbar);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.main_topbar));
+
+
+//        // Custom Actionbar를 사용하기 위해 CustomEnabled을 true 시키고 필요 없는 것은 false 시킨다
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+//        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+//        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+//
+
+        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.main_topbar, null);
+
+        actionBar.setCustomView(actionbar);
+
+        //액션바 양쪽 공백 없애기
+        Toolbar parent = (Toolbar)actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
+
+
+
+        datas.add( new SettingListItem("공지사항",R.drawable.setting_arrow));
+        datas.add( new SettingListItem("문의하기",R.drawable.setting_arrow));
+        datas.add( new SettingListItem("버전정보                                                1.0.0",R.drawable.setting_arrow));
+        datas.add( new SettingListItem("약관 및 정책",R.drawable.setting_arrow));
+        datas.add( new SettingListItem("탈퇴하기",R.drawable.setting_arrow));
 
         listview= (ListView)findViewById(R.id.basicListview);
         SettingAdapter adapter= new SettingAdapter( getLayoutInflater() , datas);
