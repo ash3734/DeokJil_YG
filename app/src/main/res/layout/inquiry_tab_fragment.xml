@@ -2,18 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <EditText
-    android:id="@+id/questions_mail"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/inquiry_content"
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:hint="내 메일 주소"
-    android:textColorHint="#FFFFFF"
-    />
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustResize"
+>
 
     <!--<EditText-->
     <!--android:id="@+id/questions_title"-->
@@ -28,29 +19,61 @@
 
     <EditText
     android:id="@+id/questions_main"
-    android:background="@drawable/inquiry_content"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:hint="문의사항을 작성해주세요"
-    android:textColorHint="#FFFFFF"
+    android:background="@drawable/edit_text_background"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:gravity="start"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:hint="문의사항을 작성해주세요."
+        android:textSize="15dp"
+        android:textColorHint="#8A000000"
+        android:textColor="#8A000000"
     />
+
+    <EditText
+        android:id="@+id/questions_mail"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/edit_text_background"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="답변 받을 메일 주소"
+        android:paddingLeft="10dp"
+        android:textSize="15dp"
+        android:textColorHint="#8A000000"
+        android:textColor="#8A000000"
+        />
 
 
     <TextView
     android:layout_width="match_parent"
     android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
     android:gravity="center_vertical"
-    android:textSize="18dp"
-    android:text="답변은 5일 내에 메일 주소로 전송됩니다."/>
+    android:textSize="15dp"
+        android:paddingLeft="10dp"
+    android:text="3~5일 이내에 답장을 메일로 보내드립니다."
+        android:textColor="#8A000000"/>
 
 
     <Button
     android:id="@+id/send_inquiry"
     android:layout_width="300dp"
-    android:layout_height="30dp"
+    android:layout_height="45dp"
     android:layout_gravity="center"
     android:layout_marginTop="10dp"
-    android:text="문의하기"/>
+    android:text="문의하기"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/sing_login_check_button"/>
 
     <Button
     android:id="@+id/show_token"

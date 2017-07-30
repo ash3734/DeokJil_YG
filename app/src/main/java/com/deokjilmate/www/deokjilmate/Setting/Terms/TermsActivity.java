@@ -20,9 +20,9 @@ public class TermsActivity extends AppCompatActivity {
 
     private ExpandableListView mListView = null;
 
-    private void setLayout(){
-        mListView = (ExpandableListView) findViewById(R.id.elv_list);
-    }
+//    private void setLayout(){
+//        mListView = (ExpandableListView) findViewById(R.id.elv_list);
+//    }
 
 
 
@@ -31,16 +31,14 @@ public class TermsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terms_activity);
 
-       // mListView = new ExpandableListView();
-        setLayout();
+        mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
 
-        mGroupList.add("가위");
-        mGroupList.add("바위");
-        mGroupList.add("보");
+        mGroupList.add("서비스 이용약관");
+        mGroupList.add("개인정보 처리방침");
 
         mChildListContent.add("1");
         mChildListContent.add("2");

@@ -45,7 +45,6 @@ public class InquiryFragment extends Fragment {
     String questions_mail;
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

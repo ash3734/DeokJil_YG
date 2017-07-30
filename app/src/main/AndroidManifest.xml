@@ -75,7 +75,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
-        <activity android:name=".Setting.Inquiry.InquiryActivity">
+        <activity android:name=".Setting.Inquiry.InquiryActivity" android:windowSoftInputMode="adjustPan">
+
 
         </activity>
 

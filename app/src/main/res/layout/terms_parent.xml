@@ -22,14 +22,13 @@
             android:id="@+id/terms_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="약관 및 정책"
             android:textSize="15dp"
             android:textColor="#5D5F5E"/>
 
         <ImageView
             android:id="@+id/terms_order_icon"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="180dp"
             />
 

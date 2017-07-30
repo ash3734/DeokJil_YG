@@ -5,20 +5,20 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
 
 public class BreakActivity extends AppCompatActivity {
 
-    ImageButton button_break;
+    Button button_break;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.break_activity);
 
-        button_break = (ImageButton)findViewById(R.id.button_break);
+        button_break = (Button)findViewById(R.id.button_break);
 
         button_break.setOnClickListener(new View.OnClickListener() {
             @Override
