@@ -15,13 +15,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15dp"
         android:text="덕질메이트를 탈퇴하시겠습니까?"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="25dp"></View>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:text="탈퇴 시 계정 정보와 개인 정보가 삭제됩니다."/>
     <View
         android:layout_width="match_parent"
@@ -30,20 +31,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:layout_marginLeft="15dp"
         android:text="탈퇴하려면 비밀번호를 입력해주세요."/>
     <EditText
         android:id="@+id/break_pwd"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="비밀번호"/>
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_background"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:hint="비밀번호 확인"
+        android:textSize="15dp"
+        />
 
 
-    <ImageButton
+    <Button
         android:id="@+id/button_break"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="160dp"
-        android:src="@drawable/aoa"/>
+        android:text="탈퇴하기"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/sing_login_check_button"/>
 
 </LinearLayout>

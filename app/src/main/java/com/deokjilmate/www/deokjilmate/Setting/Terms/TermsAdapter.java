@@ -67,7 +67,7 @@ public class TermsAdapter extends BaseExpandableListAdapter {
 
         if(v == null){
             viewHolder = new TermsAdapter.ViewHolder();
-            v = inflater.inflate(R.layout.notice_parent, parent, false);
+            v = inflater.inflate(R.layout.terms_parent, parent, false);
             viewHolder.terms_order = (TextView) v.findViewById(R.id.terms_order);
             viewHolder.terms_order_icon = (ImageView) v.findViewById(R.id.terms_order_icon);
             v.setTag(viewHolder);
@@ -83,6 +83,7 @@ public class TermsAdapter extends BaseExpandableListAdapter {
             view.setImageResource(R.drawable.gather_spread);
             Log.d("terms","^^^^^^^^^^^^^^^^^^^ㅎㅇ^^");
         }else{
+
             view.setImageResource(R.drawable.gather_fold);
             Log.d("terms","^^^^^^^^^^^^^^^^^^^^ㅂㅇ^^");
         }

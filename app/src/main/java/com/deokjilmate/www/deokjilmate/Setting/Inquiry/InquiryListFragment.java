@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.Setting.Inquiry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -102,22 +103,15 @@ public class InquiryListFragment extends Fragment {
         // Adding child data
         List<String> top250 = new ArrayList<String>();
         top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
+
 
         List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine");
+       //nowShowing.add("The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine");
+        nowShowing.add(null);
 
         List<String> comingSoon = new ArrayList<String>();
         comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
+
 
         listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
         listDataChild.put(listDataHeader.get(1), nowShowing);
@@ -142,8 +136,8 @@ public class InquiryListFragment extends Fragment {
 
         @Override
         public Object getChild(int groupPosition, int childPosititon) {
-            return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                    .get(childPosititon);
+            return this._listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosititon);
+//            return this._listDataChild.get(this._listDataHeader.get(groupPosition));
         }
 
         @Override
@@ -158,14 +152,26 @@ public class InquiryListFragment extends Fragment {
             final String childText = (String) getChild(groupPosition, childPosition);
 
             if (convertView == null) {
-                LayoutInflater infalInflater = (LayoutInflater) this._context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.inquiry_list_child, null);
+
+                if(getChild(groupPosition,0)==null){
+                    LayoutInflater infalInflater2 = (LayoutInflater) this._context
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = infalInflater2.inflate(R.layout.inquiry_list_null_child, null);
+                }
+                else{
+                    LayoutInflater infalInflater = (LayoutInflater) this._context
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = infalInflater.inflate(R.layout.inquiry_list_child, null);
+
+                    TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
+
+                    inquiry_answer_content.setText(childText);
+                }
             }
 
-            TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
-
-            inquiry_answer_content.setText(childText);
+//            TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
+//
+//            inquiry_answer_content.setText(childText);
             return convertView;
         }
 
@@ -198,6 +204,16 @@ public class InquiryListFragment extends Fragment {
                 LayoutInflater infalInflater = (LayoutInflater) this._context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = infalInflater.inflate(R.layout.inquiry_list_parent, null);
+                TextView inquiryState = (TextView) convertView.findViewById(R.id.inquiry_state);
+
+                if(getChild(groupPosition,0)==null){
+                    inquiryState.setText("답변 대기");
+                    inquiryState.setTextColor(Color.parseColor("#FF7973"));
+                }
+                else{
+                    inquiryState.setText("답변 완료");
+                    inquiryState.setTextColor(Color.parseColor("#7AC943"));
+                }
             }
 
 //            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
