@@ -19,23 +19,25 @@ import java.util.Locale;
 
 public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
 
-    RequestManager requestManager;
-    ArrayList<SetSingerItemData> setSingerItemDatas;//이건 추천목록
-    ArrayList<SetSingerItemData> allSingerList;//이건 전체 가수 목록
-    ArrayList<SetSingerItemData> searchSingerList;//실제 보여줄 것.
-    HashMap<String, String> singerPNData = new HashMap<String, String>();
-    SetSingerNameData setSingerNameData;
-
+    private RequestManager requestManager;
+    private RequestManager requestManagerSel;
+    private ArrayList<SetSingerItemData> setSingerItemDatas;//이건 추천목록
+    private ArrayList<SetSingerItemData> allSingerList;//이건 전체 가수 목록
+    private ArrayList<SetSingerItemData> searchSingerList;//실제 보여줄 것.
+    private HashMap<String, String> singerPNData = new HashMap<String, String>();
+    private SetSingerNameData setSingerNameData;
+    private final String TAG = "LOG::SetSingerAdapter";
 
     boolean search = false;
     //보여지는 것은 추천목록이고 검색하면 검색한 녀석이 보여져야 함.
 
-    public SetSingerAdapter(RequestManager requestManager, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList, HashMap<String, String> singerPNData) {
+    public SetSingerAdapter(RequestManager requestManager, RequestManager requestManagerSel, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList, HashMap<String, String> singerPNData) {
         this.requestManager = requestManager;
         this.setSingerItemDatas = setSingerItemDatas;//이건 추천목록
         this.searchSingerList = allSingerList;
         this.allSingerList = new ArrayList<SetSingerItemData>();
         this.allSingerList.addAll(allSingerList);
+        this.requestManagerSel = requestManagerSel;
         Log.v("전체", String.valueOf(this.allSingerList.size()));
 
         //this.singerPNData = new HashMap<String, String>();
@@ -57,17 +59,20 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     @Override
     public void onBindViewHolder(SetSingerViewHolder holder, int position) {
         if(search == false) {
-            Log.v("false", "false");
+            Log.v(TAG, "검색 false");
             requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
-            holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
+            //holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
+            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
         }
         else{
-            Log.v("true", "true");
+            Log.v(TAG, "검색 true");
             //holder.singer_image.setImageResource(searchSingerList.get(position).singer_image);
             requestManager.load(searchSingerList.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
-            holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
+            //holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
+            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
+
         }
     }
 
@@ -94,34 +99,33 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         }
         else
         {//검색하면 전체로부터 가져오기.
-            Log.v("검색 중", "검색 중");
-            Log.v("전체2", String.valueOf(allSingerList.size()));
-            Log.v("해쉬", String.valueOf(singerPNData));
+            Log.v(TAG, String.valueOf(allSingerList.size()));
 
             for (int i = 0; i < allSingerList.size() ; i++)
             {
-                Log.v("들어옴", "들어옴");
-                Log.v("입력", charText);
+                Log.v(TAG, "들어옴");
+                Log.v(TAG, charText);
 
                 String wp = allSingerList.get(i).getSinger_name();//실제 서버단에 저장된 가수 이름.AOA
                 //실질적 비교를 위해서는 에이오에이라고 치면 이것이 AOA가 되어야 함.
                 //해쉬 내에서 wp를 키로하는 애들의 value가 charText를 포함.
-                Log.v("첫번째 wp", wp);
-                Log.v("가수", singerPNData.toString());
+                Log.v(TAG, wp);
+                Log.v(TAG, singerPNData.toString());
+                Log.v(TAG, singerPNData.get(wp));
                // Log.v("가수", singerPNData.)
                 if (wp.toLowerCase(Locale.getDefault()).contains(charText))
                 {//실제 가수 이름이 charText를 갖고 있다면!.
                     searchSingerList.add(allSingerList.get(i));
-                    Log.v("일치", "일치");
+                    Log.v(TAG, "일치");
                     search = true;
                 }
-                else if(singerPNData.get(wp).contains(charText)) {
-                    Log.v("불일치", "불일치");
+                else if(singerPNData.get(wp).toLowerCase(Locale.getDefault()).contains(charText)) {
+                    Log.v(TAG, "불일치");
                     searchSingerList.add(allSingerList.get(i));
                     search = true;
                 }
                 else {
-                    Log.v("불일치", "레알 불일치");
+                    Log.v(TAG, "레알 불일치");
                     //search = false;
                 }
             }

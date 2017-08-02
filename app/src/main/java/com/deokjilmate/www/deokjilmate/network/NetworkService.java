@@ -8,10 +8,10 @@ import com.deokjilmate.www.deokjilmate.Login.LoginResponseResult;
 import com.deokjilmate.www.deokjilmate.Login.LoginSnsPost;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
+import com.deokjilmate.www.deokjilmate.Login.SignPost;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
-import com.deokjilmate.www.deokjilmate.Login.TempBody;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
-import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
+import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDelete;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
@@ -23,6 +23,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -84,10 +85,11 @@ public interface NetworkService {
 
 
    // @Multipart
-    @POST("register")
-    Call<RegisterResult> registerResult(
-            @Body TempBody tempBody
-            );
+   // @Multipart
+   @POST("register")
+   Call<RegisterResult> registerResult(
+           @Body SignPost signPost
+   );
 
     //닉넴 중복 체크
     @GET("register/{member_name}")
@@ -111,9 +113,15 @@ public interface NetworkService {
     Call<MyPageSingerList> myPageSingerList(@Path("member_id") int member_id);
 
     //가수 추가
-    @POST("/singer/singerAdd")
-    Call<SingerAddResponse> addSinger(@Body SingerAddPost singerAddPost);
+    @POST("singer/singerAdd")
+    Call<Void> addSinger(@Body SingerAddPost singerAddPost);
 
+    //가수 삭제
+//    @DELETE("singerDelete")
+//    Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
+
+    @HTTP(method = "DELETE", path = "singerDelete", hasBody = true)
+    Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
 
 
 }

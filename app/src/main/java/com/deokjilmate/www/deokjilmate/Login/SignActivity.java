@@ -95,6 +95,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private Matcher email_Match;
     private Matcher pwd_Match;
+    private final String LOG = "LOG::Sign";
+   // private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,50 +117,31 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                   // Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+
         email_Pattern = Pattern.compile(r_email);
         pwd_Pattern = Pattern.compile(r_pwd);
 
+        mfirebaseAuth = FirebaseAuth.getInstance();
+
+
 
     }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-        // Log.d(TAG, "handleFacebookAccessToken:" + token);
-        // [START_EXCLUDE silent]
-        // showProgressDialog();
-        // [END_EXCLUDE]
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mfirebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mfirebaseAuth.getCurrentUser();
-                            Toast.makeText(SignActivity.this, "Authentication suceess.",
-                                    Toast.LENGTH_SHORT).show();
-
-
-
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                        }
-
-                        // [START_EXCLUDE]
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
-                    }
-                });
-    }
-
-
-
 
 
     @OnClick(R.id.Sign_facebook)
@@ -171,24 +154,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-//                final GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
-//                {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        //
-//
-//
-//
-//
-//
-//
-//
-//                    }
-//                });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id,name,email,gender,birthday");
-//                graphRequest.setParameters(parameters);
-//                graphRequest.executeAsync();
+
 
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
@@ -232,7 +198,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         signType = 3;
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        Log.v("LoginSelect", "ClickedGoogle");
+        Log.v(LOG, "ClickedGoogle");
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -246,11 +212,18 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 twitterAuthClient.onActivityResult(requestCode, resultCode, data);
                 break;
             case 3://구글 로그인
-                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                if (result.isSuccess()) {
-                    // Google Sign In was successful, authenticate with Firebase
-                    GoogleSignInAccount account = result.getSignInAccount();
-                    //fire(account);
+                //startActivityForResult();
+                if(requestCode == RC_SIGN_IN) {
+                    GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                    if (result.isSuccess()) {
+                        Log.v(LOG, "googleSuccess");
+
+                        // Google Sign In was successful, authenticate with Firebase
+                        GoogleSignInAccount account = result.getSignInAccount();
+                        firebaseAuthWithGoogle(account);
+                    } else {
+                        Log.v(LOG, "googleFalse");
+                    }
                 }
                 break;
         }
@@ -299,116 +272,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-//    @OnClick(R.id.Sign_email)
-//    public void setEmail()
-//    {
-//        email.addTextChangedListener(new TextWatcher()
-//        {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.v("이메일", "email");
-//                t_email = email.getText().toString().toLowerCase(Locale.getDefault());
-//                if(t_email.length() == 0)
-//                    b_email = false;
-//                else {
-//                    b_email = true;
-//                }
-//                email_Match = email_Pattern.matcher(t_email);
-//
-//                if (b_email && b_pwd && b_pwdCheck)
-//                    next.setEnabled(true);
-//                Log.v("email", String.valueOf(b_email));
-//                Log.v("pwd", String.valueOf(b_pwd));
-//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-//
-//                if(!email_Match.find())
-//                    email.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
-//                else
-//                    email.setBackgroundColor(Color.TRANSPARENT);
-//                //email.set
-//
-//            }
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//    }
-//
-//    @OnClick(R.id.Sign_pwd)
-//    public void setPwd()
-//    {
-//        Log.v("비번", "pwd");
-//        pwd.addTextChangedListener(new TextWatcher()
-//        {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.v("비번", "email");
-//
-//                t_pwd = pwd.getText().toString().toLowerCase(Locale.getDefault());
-//                if(t_pwd.length() == 0)
-//                    b_pwd = false;
-//                else {
-//                    b_pwd = true;
-//                }
-//                if (b_email && b_pwd && b_pwdCheck)
-//                    next.setEnabled(true);
-//                Log.v("email", String.valueOf(b_email));
-//                Log.v("pwd", String.valueOf(b_pwd));
-//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-//
-//                pwd_Match = pwd_Pattern.matcher(t_pwd);
-//
-//                if(!pwd_Match.find())
-//                    pwd.setBackgroundColor(Color.RED);//나중에 DRawble로 지정.
-//                else
-//                    pwd.setBackgroundColor(Color.TRANSPARENT);
-//            }
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//    }
-//
-//    @OnClick(R.id.Sign_checkPwd)
-//    public void setCheckPwd()
-//    {
-//        Log.v("비번체크", "pwd");
-//
-//        checkPwd.addTextChangedListener(new TextWatcher()
-//        {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.v("비번체크", "email");
-//
-//                t_pwdCheck = checkPwd.getText().toString().toLowerCase(Locale.getDefault());
-//                if(t_pwdCheck.length() == 0)
-//                    b_pwdCheck = false;
-//                else {
-//                    b_pwdCheck = true;
-//                }
-//                if (b_email && b_pwd && b_pwdCheck)
-//                    next.setEnabled(true);
-//                Log.v("email", String.valueOf(b_email));
-//                Log.v("pwd", String.valueOf(b_pwd));
-//                Log.v("pwdCheck", String.valueOf(b_pwdCheck));
-//            }
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//    }
 
     @OnClick(R.id.Sign_next)
     public void ClickNext()
@@ -427,35 +290,69 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         if(!ResourcesUtil.checkEmail(email.getText().toString())){
             Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
-
             return;
         }
+        createAcctount(email.getText().toString(), pwd.getText().toString());
 
-        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
-        intent.putExtra("email", email.getText().toString());
-        intent.putExtra("passwd", pwd.getText().toString());
-        startActivity(intent);
+    }
+    public void createAcctount(final String email, final String pwd){
+        mfirebaseAuth.createUserWithEmailAndPassword(email, pwd)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(LOG, "createUserWithEmail:success");
+                            singWithEmailPassword(email, pwd);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(LOG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
     }
 
-    public boolean checkFill()
-    {
-        if(t_email != "" && t_pwd != "" && t_pwdCheck != "")
-        {//셋 다 공백이 아닐 때.
-           // next.setEnabled(true);
-            return true;
-        }
-        else
-        {//하나라도 공백 있음.
-            return false;
-        }
+    public void singWithEmailPassword(final String email, final String pwd){
+        mfirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(LOG, "signInWithEmail:success");
+                    FirebaseUser user = mfirebaseAuth.getCurrentUser();
+
+                    Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+
+                    intent.putExtra("uid", user.getUid());
+                    Log.v(LOG, user.getUid());
+                    intent.putExtra("member_email", email);
+                    intent.putExtra("notSns", true);
+                    intent.putExtra("member_passwd", pwd);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(LOG, "signInWithEmail:failure", task.getException());
+                    Toast.makeText(SignActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                // [START_EXCLUDE]
+                if (!task.isSuccessful()) {
+                }
+                // [END_EXCLUDE]
+            }
+        });
+
     }
-
-
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
-
-        mfirebaseAuth.signOut();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -480,7 +377,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // YES 선택시 처리할 내용
-                                Log.v("로그인", "로그인");
+                                Log.v(LOG, "로그인");
                                 acct.getIdToken().toString();
 
                                 startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
@@ -497,12 +394,48 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             }
                         });
                         dialog.show();
-                        Log.v("회원 정보", acct.getIdToken().toString());
+                        Log.v(LOG, acct.getIdToken().toString());
                     }
                 });
     }
 
+    private void handleFacebookAccessToken(AccessToken token) {
 
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mfirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mfirebaseAuth.getCurrentUser();
+                            Toast.makeText(SignActivity.this, "Authentication suceess.",
+                                    Toast.LENGTH_SHORT).show();
+
+                            Log.v(LOG, user.getUid());
+                            Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+                            intent.putExtra("uid", user.getUid());
+                            intent.putExtra("notSns", false);
+                            intent.putExtra("type", 2);
+                            startActivity(intent);
+
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                        }
+
+                        // [START_EXCLUDE]
+                        //hideProgressDialog();
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
 
 
     private void handleTwitterSession(final TwitterSession session) {
@@ -523,46 +456,18 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        //TODO : 여기서 가입 정보 없으면 회원가입 페이지로. & 레트로핏 적용 여기서
-                        //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
-                        //TODO : if 정보 있음이면 다음 페이지
+                        //TODO : 가입의 경우 굳이 다이얼로그가 있을 필요는 없음
+                        FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
+                        Log.v(LOG, user.getUid());
+                        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+                        intent.putExtra("uid", user.getUid());
+                        intent.putExtra("notSns", false);
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
+                        //이걸 보내면 됨.
 
-
-
-
-                        //TODO : if 정보 없음이면 밑에 다이얼로그
-
-
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(SignActivity.this);
-                        dialog.setTitle("회원 정보가 없습니다.");
-                        dialog.setMessage("회원 가입 하시겠습니까?");
-
-                        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // YES 선택시 처리할 내용
-                                Log.v("로그인", "로그인");
-                                session.getAuthToken().token.toString();
-
-                                Bundle parameters = new Bundle();
-                                parameters.putString("fields", "id,name,email,gender,birthday");
-
-                                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
-                                finish();
-                            }
-                        });
-
-                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // NO 선택시 처리할 내용
-                                mfirebaseAuth.signOut();
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
-                        Log.v("회원 정보", session.getAuthToken().token.toString());
+                        //credential.getProvider()
                     }
                 });
     }
@@ -574,4 +479,17 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         return matcher.matches();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mfirebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            mfirebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
 }

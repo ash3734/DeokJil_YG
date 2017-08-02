@@ -3,35 +3,35 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MediaType;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -58,15 +58,21 @@ public class SetProfileActivity extends AppCompatActivity {
     protected  int a = 0;
     private NetworkService networkService;
     private Uri data;
-    private String email;
-    private String passwd;
+
+    private String member_email;
+    private String member_passwd;
+    private String uid;
+    private boolean notSns;
     private String member_name;
+    private int type;
+
     private int checkReturn = -1;
     private RequestBody b_email;
     private RequestBody b_passwd;
     private RequestBody b_memberName;
     private MultipartBody.Part profile_img;
-
+    private RequestManager requestManager;
+    private final String LOG = "LOG::SetProfile";
 
 
 
@@ -81,11 +87,65 @@ public class SetProfileActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.profilesetting_photo).into(profileSelect);
 
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
+
+        requestManager = Glide.with(this);
+
         networkService = ApplicationController.getInstance().getNetworkService();
-        email = getIntent().getExtras().getString("email");
-        passwd = getIntent().getExtras().getString("passwd");
+        //email = getIntent().getExtras().getString("email");
+        //passwd = getIntent().getExtras().getString("passwd");
+
+        type = getIntent().getExtras().getInt("type");
+        switch (type){
+            case 1:
+                //notSns
+                uid = getIntent().getExtras().getString("uid");
+                member_email = getIntent().getExtras().getString("member_email");
+                member_passwd = getIntent().getExtras().getString("member_passwd");
+                notSns = getIntent().getExtras().getBoolean("notSns");
+                //true
+                break;
+            case 2:
+                //Sns
+                uid = getIntent().getExtras().getString("uid");
+                notSns = getIntent().getExtras().getBoolean("notSns");
+                //false
+                break;
+            default:
+                break;
+        }
 
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        recycleView(findViewById(R.id.SetProfile_profileImage));
+
+    }
+
+
+
+    private void recycleView(View view) {
+
+        if(view != null) {
+
+            Drawable bg = view.getBackground();
+
+            if(bg != null) {
+
+                bg.setCallback(null);
+
+                ((BitmapDrawable)bg).getBitmap().recycle();
+
+                view.setBackgroundDrawable(null);
+
+            }
+
+        }
+
+    }
+
     @OnClick(R.id.SetProfile_select)
     public void ProfileSet()
     {
@@ -106,29 +166,11 @@ public class SetProfileActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Log.v("result", "result_well");
                 try {
-                    //Uri에서 이미지 이름을 얻어온다.
 
-                    // 서버에 보낼 imgUrl
-
-                    //이미지 데이터를 비트맵으로 받아온다.
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    ImageView image = (ImageView) findViewById(R.id.SetProfile_profileImage);
-
-                    RoundedBitmapDrawable bitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), image_bitmap);
-                    bitmapDrawable.setCornerRadius(Math.max(image_bitmap.getWidth(), image_bitmap.getHeight()) / 2.0f);
-                    bitmapDrawable.setAntiAlias(true);
-
-
-                    b_email = RequestBody.create(MediaType.parse("multipart/form-data"), email);
-                    b_passwd = RequestBody.create(MediaType.parse("multipart/form-data"), passwd);
-
-
-//
-//                    // 배치해놓은 imageview에 동그랗게 set!!!
-                    image.setImageDrawable(bitmapDrawable);
                     this.data = data.getData();
 
                     BitmapFactory.Options options = new BitmapFactory.Options();
+
 
                     InputStream in = null; // here, you need to get your context.
                     try {
@@ -136,24 +178,19 @@ public class SetProfileActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+
                     Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos); // 압축 옵션( JPEG, PNG ) , 품질 설정 ( 0 - 100까지의 int형 ),
 
 
-                    File photo = new File(data.toString()); // 그저 블러온 파일의 이름을 알아내려고 사용.
-                    RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
+                    Glide.with(profileImage.getContext())
+                            .load(data.getData())
+                            .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                            .into(profileImage);
 
-                    // MultipartBody.Part is used to send also the actual file name
-                    //이미지 이름을 서버로 보낼 때에에는 아무렇게나 보내줘도된다! 서버에서 자동변환된다 (보안의문제)
-                    profile_img = MultipartBody.Part.createFormData("profile_img", "jpg", photoBody);
 
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,46 +227,94 @@ public class SetProfileActivity extends AppCompatActivity {
         setProfileResult.enqueue(new Callback<SetProfileResult>() {
             @Override
             public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
-                Log.v("들어는 옴", "들어는 옴");
+                Log.v(LOG, "들어는 옴");
                 if (response.body().result) {
                     checkReturn = 0;
                     //이건 중복 되었다는 이야기
-                    Log.v("통신", "성공");
-                    b_memberName = RequestBody.create(MediaType.parse("multipart/form-data"), nickname);
+                    Toast.makeText(getApplicationContext(),"존재하는 닉네임입니다", Toast.LENGTH_LONG);
+                    Log.v(LOG, "중복");
 
                 }
                 else{
                     checkReturn = 1;
                     //이건 중복 안 되었다는 이야기
-                    Log.v("통신", "살패");
+                    Toast.makeText(getApplicationContext(),"사용 가능한 닉네임입니다", Toast.LENGTH_LONG);
+                    //SetSinger로 넘어감
+                    Intent intent = new Intent(getApplicationContext(), SetSingerActivity.class);
 
-                    b_memberName = RequestBody.create(MediaType.parse("multipart/form-data"), nickname);
+                    switch (type){
+                        case 1:
+                            intent.putExtra("uid", uid);
+                            intent.putExtra("member_email", member_email);
+                            intent.putExtra("notSns", true);
+                            intent.putExtra("member_passwd", member_passwd);
+                            intent.putExtra("member_name", member_name);
+                            intent.putExtra("type", 1);
+                            break;
+                        case 2:
+                            intent.putExtra("uid", uid);
+                            intent.putExtra("notSns", false);
+                            intent.putExtra("member_name", member_name);
+                            intent.putExtra("type", 2);
+                            break;
+                        default:
+                            break;
+                    }
 
-                    Call<RegisterResult> registerResult = networkService.registerResult(new TempBody(email, passwd, nickname));
-                    //Log.v("SingPsswd", passwd);
-                    registerResult.enqueue(new Callback<RegisterResult>() {
-                        @Override
-                        public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-                            if (response.body().result) {
-                                Intent intent = new Intent(getApplicationContext(), SetSingerActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<RegisterResult> call, Throwable t) {
-                            Log.v("통신", "서버 꺼져 있음");
-                        }
-                    });
+
+                    startActivity(intent);
+
+                    Log.v(LOG, "중복아님");
 
                 }
 
             }
             @Override
             public void onFailure(Call<SetProfileResult> call, Throwable t) {
-                Log.v("통신", "서버 꺼져 있음2");
+                Log.v(LOG, "서버 꺼져 있음2");
 
             }
         });
 
     }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = 8;
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
 }

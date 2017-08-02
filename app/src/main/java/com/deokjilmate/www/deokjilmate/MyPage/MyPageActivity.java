@@ -33,6 +33,8 @@ public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.MyPage_editSinger)
     ImageButton plusSub;
 
+    @BindView(R.id.mypage_main_backImage)
+    ImageButton back;
 
     @BindView(R.id.MyPage_subRecycle)
     RecyclerView subSingerrecyclerView;
@@ -61,6 +63,9 @@ public class MyPageActivity extends AppCompatActivity {
     private MyPageCheckMainSub myPageCheckMainSub;
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private ArrayList<MyPageSelectedSinger> myPageSelectedSingers;
+    private ArrayList<Integer> myAllSingerArray;
+    private ArrayList<Integer> myAllSingerArrayN;
+
     //ArrayList<MyPageSingerList> myPageSingerList;
 
 
@@ -77,7 +82,7 @@ public class MyPageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setLayoutSize();
        // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
-        Glide.with(this).load(R.drawable.meta).into(plusSub);
+        Glide.with(this).load(R.drawable.menu_chgasu).into(plusSub);
         Glide.with(this).load(R.drawable.meta).into(editProfile);
        // Glide.with(this).load(R.drawable.meta).into(backImage);
 
@@ -91,77 +96,48 @@ public class MyPageActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
+        myAllSingerArray = new ArrayList<>();
+        myAllSingerArrayN = new ArrayList<>();
+        myAllSingerArray.clear();
+        myAllSingerArrayN.clear();
 
 
         //myPageAllSingerNumberses = new ArrayList<MyPageAllSingerNumbers>();
         //myPageCheckMainSub = new MyPageCheckMainSub();
         //메인 서브 판별
-        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(2);
+        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
         myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
             @Override
             public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
                 if(response.body().result.equals("success")) {
                     myPageAllSingerNumberses = new MyPageAllSingerNumbers(response.body().data.singerb_id, response.body().data.singer0_id, response.body().data.singer1_id,
                             response.body().data.singer2_id,response.body().data.singer3_id);
+
                     int count = nextCount(myPageAllSingerNumberses);
-                    //myPageAllSingerNumberses.
+
                     ApplicationController.getInstance().setTotalSingerCount(count);
                     ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
+
+                    Log.v("MyPage", String.valueOf(count));
+                    Log.v("MyPage", myPageAllSingerNumberses.toString());
+
+
+                    myAllSingerArray.add(myPageAllSingerNumberses.getSingerb_id());
+                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger0_id());
+                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger1_id());
+                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger2_id());
+
+                    setLists();
+
                     //전체 몇 명인지 확인.
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "못 받음", Toast.LENGTH_LONG);
                 }
-
             }
 
             @Override
             public void onFailure(Call<MyPageCheckMainSub> call, Throwable t) {
-
-            }
-        });
-        //서브
-        myPageItemDatas = new ArrayList<MyPageItemData>();
-
-
-        //가수 목록 불러오기
-        Call<MyPageSingerList> myPageSingerList = networkService.myPageSingerList(1);
-        myPageSingerList.enqueue(new Callback<MyPageSingerList>() {
-            @Override
-            public void onResponse(Call<MyPageSingerList> call, Response<MyPageSingerList> response) {
-                if(response.isSuccessful())
-                {
-                    myPageSelectedSingers = response.body().result;
-                    Log.v("MyPage", String.valueOf(myPageSelectedSingers.size()));
-
-                    for(int i = 0; i<myPageSelectedSingers.size(); i++)
-                    {
-                        if(i==0)
-                        {
-                            myPageHeadItemData = new MyPageHeadItemData(myPageSelectedSingers.get(0).getSinger_img(),
-                                    R.drawable.meta, myPageSelectedSingers.get(0).getSinger_name(), myPageSelectedSingers.get(0).getChoice_count());
-                            //Log.v("MyPage", myPageSelectedSingers.get(0).getSinger_img());
-                            Log.v("MyPage", myPageSelectedSingers.get(0).getSinger_name());
-                            Log.v("aa","aa");
-
-                        }
-                        else
-                        {
-                            myPageItemDatas.add(new MyPageItemData(myPageSelectedSingers.get(0).getSinger_img(),
-                                    R.drawable.meta, myPageSelectedSingers.get(i).getSinger_name(), myPageSelectedSingers.get(i).getChoice_count()));
-                            //Log.v("MyPage", myPageSelectedSingers.get(i).getSinger_img());
-                            Log.v("MyPage", myPageSelectedSingers.get(i).getSinger_name());
-                        }
-                    }
-                    Log.v("aa2","aa");
-                    myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
-                    subSingerrecyclerView.setAdapter(myPageAdapter);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyPageSingerList> call, Throwable t) {
 
             }
         });
@@ -171,6 +147,14 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @OnClick(R.id.mypage_main_backImage)
+    public void back(){
+
+        //TODO : 홈으로
+//        Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
+//        startActivity(intent);
     }
 
     @OnClick(R.id.MyPage_editSinger)
@@ -188,16 +172,67 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     public int nextCount(MyPageAllSingerNumbers myPageAllSingerNumbers){
-        int count = 0;//전체 서브가 몇 명인지
+        int count;//전체 서브가 몇 명인지
         if(myPageAllSingerNumbers.singer0_id == 0)
-            count = 0;
+            count = 0;//서브 없음
         else if(myPageAllSingerNumbers.singer1_id == 0)
-            count = 1;
+            count = 1;//서브 1명
         else if(myPageAllSingerNumbers.singer2_id == 0)
-            count = 2;
-        else if(myPageAllSingerNumbers.singer3_id == 0)
-            count = 3;
+            count = 2;//서브 2명
+        else
+            count = 3;//서브 3명(풀)
         return count;
+    }
+
+    public void setLists(){
+        //서브
+        myPageItemDatas = new ArrayList<MyPageItemData>();
+
+        //가수 목록 불러오기
+        final Call<MyPageSingerList> myPageSingerList = networkService.myPageSingerList(1);
+        myPageSingerList.enqueue(new Callback<MyPageSingerList>() {
+            @Override
+            public void onResponse(Call<MyPageSingerList> call, Response<MyPageSingerList> response) {
+                if(response.isSuccessful())
+                {
+                    myPageSelectedSingers = response.body().result;
+                    //myAllSingerArray1.add(myPageSelectedSingers.get);
+
+                    for(int i = 0; i<myPageSelectedSingers.size(); i++){
+                        myAllSingerArrayN.add(myPageSelectedSingers.get(i).getSinger_id());
+                    }
+
+                    for(int i = 0; i<myAllSingerArray.size(); i++)
+                    {
+                        if(i==0)
+                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
+                            if(myAllSingerArray.get(0)!=null) {
+                                myPageHeadItemData = new MyPageHeadItemData(myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_img(),
+                                        R.drawable.badge_newbie, myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_name(),
+                                        myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getChoice_count());
+                            }
+                            //Log.v("MyPage", myPageSelectedSingers.get(0).getSinger_img());
+                        }
+                        else
+                        {
+                            if(myAllSingerArray.get(i)!=null) {
+                                myPageItemDatas.add(new MyPageItemData(myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_img(),
+                                        R.drawable.badge_newbie, myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_name(),
+                                        myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getChoice_count()));
+                            }
+                            //Log.v("MyPage", myPageSelectedSingers.get(i).getSinger_img());
+                        }
+                    }
+                    myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
+                    subSingerrecyclerView.setAdapter(myPageAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyPageSingerList> call, Throwable t) {
+
+            }
+        });
     }
 
 }

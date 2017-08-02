@@ -12,17 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/maingradation">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="마이 페이지"/>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
+            android:background="@drawable/topbar_back"
+            android:id="@+id/mypage_main_backImage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="마이 페이지"
+        android:textColor="@color/tw__solid_white"/>
+
+
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginRight="16dp"
             android:layout_alignParentRight="true"
-            android:background="@color/tw__transparent"
             android:id="@+id/MyPage_editSinger"/>
     </RelativeLayout>
 

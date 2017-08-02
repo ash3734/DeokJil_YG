@@ -5,6 +5,8 @@ import android.app.Application;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
+import java.util.ArrayList;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -19,13 +21,16 @@ public class ApplicationController extends Application{
     private static ApplicationController instance;
 
     private NetworkService networkService;
-    //// TODO: 2017-02-06 base Url 수정 
+    //// TODO: 2017-02-06 base Url 수정
     private String baseUrl = "https://www.defflee.com/duckmate/";
     private int totalSingerCount = 0;
-
-
+    private ArrayList<Integer> deleteList;
 
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
+
+
+
+
     public NetworkService getNetworkService() {
         return networkService;
     }
@@ -65,5 +70,14 @@ public class ApplicationController extends Application{
     public void setMyPageAllSingerNumberses(MyPageAllSingerNumbers myPageAllSingerNumberses) {
         this.myPageAllSingerNumberses = myPageAllSingerNumberses;
     }
+
+    public ArrayList<Integer> getDeleteList() {
+        return deleteList;
+    }
+
+    public void setDeleteList(ArrayList<Integer> deleteList) {
+        this.deleteList = deleteList;
+    }
+
 
 }

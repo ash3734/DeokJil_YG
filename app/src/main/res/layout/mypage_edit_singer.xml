@@ -20,20 +20,21 @@
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/topbar_check"
             android:layout_alignParentRight="true"
-            android:id="@+id/MyPage_EditSinger_backImage"/>
+            android:id="@+id/MyPage_EditSinger_save"/>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginLeft="16dp"
             android:background="@drawable/topbar_back"
-            android:id="@+id/MyPage_EditSinger_save"/>
+            android:id="@+id/MyPage_EditSinger_backImage"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/tw__solid_white"
             android:text="내 가수 수정"/>
     </RelativeLayout>
 

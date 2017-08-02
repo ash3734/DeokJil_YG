@@ -40,19 +40,18 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/mypage_edit_singer_head_mainImage"/>
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:id="@+id/mypage_edit_singer_head_presentMain"/>
-            </RelativeLayout>
+
+
         <TextView
             android:layout_width="wrap_content"
+            android:text="왜 안나오냐~"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/mypage_edit_singer_head_mainName"
-            android:layout_below="@+id/mypage_edit_singer_head_mainImageLayout"/>
+            android:layout_below="@+id/mypage_edit_singer_head_mainImage"/>
+
+            </RelativeLayout>
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -64,6 +63,7 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginTop="40dp"
             android:layout_below="@+id/mypage_edit_singer_head_mainView"
             android:id="@+id/mypage_edit_singer_head_toSub"/>
         </RelativeLayout>

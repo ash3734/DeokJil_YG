@@ -6,11 +6,63 @@
     android:layout_height="match_parent"
     android:background="@drawable/splashbackground"
     tools:context="com.deokjilmate.www.deokjilmate.Login.MainLoginActivity">
-    <ImageView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/MainLogin_background"
-        />
+        android:background="@drawable/splash_full"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+
+        <ImageView
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:id="@+id/MainLogin_background"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="300dp"
@@ -21,13 +73,11 @@
         android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/main_login_button_style">
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:text="로그인"
-                android:textColor="#ff7973"
-                />
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/MainLogin_loginBtn"
+            android:layout_centerInParent="true"/>
         </RelativeLayout>
 
     <RelativeLayout
@@ -39,13 +89,11 @@
         android:layout_marginBottom="48dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/MainLogin_sign">
-        <TextView
+        <ImageView
             android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:textColor="#ff7973"
-            android:text="회원가입"
-            />
+            android:id="@+id/MainLogin_signBtn"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

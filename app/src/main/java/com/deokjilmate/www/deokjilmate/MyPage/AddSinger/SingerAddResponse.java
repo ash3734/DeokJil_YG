@@ -5,14 +5,8 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
  */
 
 public class SingerAddResponse {
-    String data;
-    String message;
-    boolean result;
+    public String data;
+    public String message;
+    public boolean result;
 
-
-    public SingerAddResponse(String data, String message, boolean result) {
-        this.data = data;
-        this.message = message;
-        this.result = result;
-    }
 }

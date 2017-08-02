@@ -15,6 +15,7 @@ import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
@@ -52,6 +53,7 @@ public class AddSingerActivity extends AppCompatActivity {
     private HashMap<String, String> singerPNData;
 
     private NetworkService networkService;
+    private SingerList singerList;
 
 
     @Override
@@ -73,16 +75,7 @@ public class AddSingerActivity extends AppCompatActivity {
         singerPNData = new HashMap<>();
         allSingerList = new ArrayList<AddSingerItemData>();
         allSingerDetails = new ArrayList<AllSingerDetails>();
-
-
-        singerPNData.put("빅뱅", "BIGBANG");
-        //  singerPNData.put("악동뮤지션", "악동뮤지션");
-        singerPNData.put("엑소", "EXO");
-        singerPNData.put("신화", "SHINWHA");
-        singerPNData.put("젝스키스", "젝스키스");
-        singerPNData.put("라붐", "LABOOM");
-        singerPNData.put("모모랜드", "MOMOLAND");
-
+        //singerList = new SingerList();
 
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
         setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
@@ -95,7 +88,7 @@ public class AddSingerActivity extends AppCompatActivity {
                         allSingerList.add(new AddSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
                                 allSingerDetails.get(i).getSinger_name(), R.drawable.meta));
                     }
-                    addsingerAdapter = new AddsingerAdapter(getApplicationContext(), requestManager, allSingerList, singerPNData, networkService);
+                    addsingerAdapter = new AddsingerAdapter(getApplicationContext(), requestManager, allSingerList, SingerList.getList(), networkService);
                     recyclerView.setAdapter(addsingerAdapter);
 
                 }

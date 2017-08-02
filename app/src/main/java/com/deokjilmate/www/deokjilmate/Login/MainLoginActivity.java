@@ -24,18 +24,24 @@ public class MainLoginActivity extends AppCompatActivity {
     @BindView(R.id.MainLogin_background)
     ImageView background;
 
+    @BindView(R.id.MainLogin_loginBtn)
+    ImageView mainLoginBtn;
+
+    @BindView(R.id.MainLogin_signBtn)
+    ImageView mainLoginSign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main_login);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.splash_full).into(background);
+        //Glide.with(this).load(R.drawable.splash_full).into(background);
+        Glide.with(this).load(R.drawable.splash_logo).into(background);
+        Glide.with(this).load(R.drawable.splash_login).into(mainLoginBtn);
+        Glide.with(this).load(R.drawable.splash_signin).into(mainLoginSign);
 
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
         //Glide.with(this).load(R.drawable.output).into(logoImage);
-
-
-
     }
 
     //첫 화면에서 로그인 버튼 눌렀을 때

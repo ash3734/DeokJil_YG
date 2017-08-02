@@ -57,7 +57,8 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             } else if (holder instanceof MyPageHeadViewHolder) {
                 MyPageHeadViewHolder myPageHeadViewHolder = (MyPageHeadViewHolder) holder;
                 requestManager_singer.load(myPageHeadItemData.singer_Image).into(myPageHeadViewHolder.singer_Image);
-                myPageHeadViewHolder.rank_Image.setImageResource(myPageHeadItemData.rank_Image);
+                requestManager_rank.load(myPageHeadItemData.rank_Image).into(myPageHeadViewHolder.rank_Image);
+              //  myPageHeadViewHolder.rank_Image.setImageResource(myPageHeadItemData.rank_Image);
                 myPageHeadViewHolder.singer_name.setText(myPageHeadItemData.singer_name);
                 myPageHeadViewHolder.vote_count.setText(String.valueOf(myPageHeadItemData.choice_count));
             }
@@ -65,14 +66,6 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             e.printStackTrace();
         }
     }
-
-//    @Override
-//    public void onBindViewHolder(MyPageViewHolder holder, int position) {
-//        requestManager_singer.load(myPageItemDatas.get(position).singer_Image).into(holder.singer_Image);
-//        requestManager_rank.load(myPageItemDatas.get(position).rank_Image).into(holder.rank_Image);
-//        holder.singer_name.setText(myPageItemDatas.get(position).singer_name);
-//        holder.vote_count.setText(myPageItemDatas.get(position).vote_count);
-//    }
 
     @Override
     public int getItemCount() {

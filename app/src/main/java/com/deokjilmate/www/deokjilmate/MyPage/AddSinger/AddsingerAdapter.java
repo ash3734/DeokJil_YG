@@ -22,6 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+
 /**
  * Created by dldud on 2017-02-17.
  */
@@ -74,8 +76,13 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         holder.singer_rank.setText(String.valueOf(position+1));
         requestManager.load(allSingerList.get(position).singer_image).into(holder.singer_Image);
         holder.singer_Name.setText(allSingerList.get(position).singer_name);
-        holder.add_singer.setImageResource(allSingerList.get(position).add_singer);
-        selectSingerNum = allSingerList.get(position).singer_id;
+        if(!checkHave(allSingerList.get(position).singer_id)) {
+            holder.add_singer.setImageResource(allSingerList.get(position).add_singer);
+            selectSingerNum = allSingerList.get(position).singer_id;
+        }
+        else
+            holder.add_singer.setVisibility(GONE);
+
         holder.add_singer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,27 +92,33 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                 //;
                 if (checkHave(selectSingerNum)) {
                     //Log.v("내 가수들", myPageAllSingerNumberses.toString());
+                    Log.v("EditAdap", "이미 있음");
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
-                } else{
-                    Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
-                            1, totalSingerCount));
-                    addSinger.enqueue(new Callback<SingerAddResponse>() {
-                        @Override
-                        public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                            if (response.body().result) {
-                                Log.v("추가", "성공");
-                                //해당 아이디에 맞는 애를 마이페이지에 추가
-                            } else {
-                                Log.v("추가", "실패");
+                } else {
+                    if (totalSingerCount < 3) {
+                        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
+                                1, totalSingerCount+1));
+                        addSinger.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    Log.v("추가", "성공");
+                                    //해당 아이디에 맞는 애를 마이페이지에 추가
+                                } else {
+                                    Log.v("추가", "실패");
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-                            Log.v("추가", "통신 실패");
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.v("추가", "통신 실패");
 
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        Log.v("EditAdap", "서브 4명까지");
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "서브는 4명까지", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -119,9 +132,11 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
     public boolean checkHave(int selectNum){
        // MyPageAllSingerNumbers myPageAllSingerNumbers = ApplicationController.getInstance().getMyPageAllSingerNumberses();
-
-        if(myPageAllSingerNumberses.toString().contains(String.valueOf(selectNum))){
+        if((myPageAllSingerNumberses.getSingerb_id() == selectNum) || (myPageAllSingerNumberses.getSinger0_id() == selectNum) ||
+                (myPageAllSingerNumberses.getSinger1_id() == selectNum) || (myPageAllSingerNumberses.getSinger2_id() == selectNum) ||
+                (myPageAllSingerNumberses.getSinger3_id() == selectNum)){
             return true;
+
         }else{
             return false;
         }

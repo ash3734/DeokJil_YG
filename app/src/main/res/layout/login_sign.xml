@@ -99,6 +99,7 @@
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_email"
             android:focusable="true"
+            android:textColor="#000000"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="메일주소"/>
@@ -109,6 +110,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:id="@+id/Sign_pwd"
+            android:textColor="#000000"
             android:focusable="true"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
@@ -121,6 +123,7 @@
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_checkPwd"
             android:focusable="true"
+            android:textColor="#000000"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="비밀번호 확인"/>

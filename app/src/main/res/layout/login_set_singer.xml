@@ -9,6 +9,14 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/maingradation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/splash_full"
+        >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="52dp">
@@ -143,10 +151,8 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginBottom="26dp"
-
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-
             android:src="@drawable/circle_empty"/>
 
         <ImageView
@@ -155,10 +161,9 @@
             android:layout_height="10dp"
             android:layout_marginLeft="6dp"
             android:layout_marginBottom="26dp"
-
             android:layout_toRightOf="@+id/SetSinger_progress_second"
             android:layout_alignParentBottom="true"
-
             android:src="@drawable/circle_full"/>
     </RelativeLayout>
+        </LinearLayout>
 </LinearLayout>

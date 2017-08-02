@@ -93,6 +93,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseUser user;
 
 
     @Override
@@ -107,7 +108,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                 } else {
                 }

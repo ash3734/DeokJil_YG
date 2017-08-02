@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public class MyPageSingerList {
-    ArrayList<MyPageSelectedSinger> result;
+    public ArrayList<MyPageSelectedSinger> result;
 }
