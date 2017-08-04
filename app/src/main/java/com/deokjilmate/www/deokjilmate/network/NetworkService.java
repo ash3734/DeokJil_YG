@@ -113,15 +113,16 @@ public interface NetworkService {
     Call<MyPageSingerList> myPageSingerList(@Path("member_id") int member_id);
 
     //가수 추가
-    @POST("singer/singerAdd")
+    @POST("singer")
     Call<Void> addSinger(@Body SingerAddPost singerAddPost);
 
     //가수 삭제
 //    @DELETE("singerDelete")
 //    Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
 
-    @HTTP(method = "DELETE", path = "singerDelete", hasBody = true)
+    @HTTP(method = "DELETE", path = "singer/singerDelete", hasBody = true)
     Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
+
 
 
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
@@ -75,7 +77,7 @@ public class SetSingerActivity extends AppCompatActivity {
         setContentView(R.layout.login_set_singer);
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
-        //getValues();
+        getValues();
         recyclerView.setHasFixedSize(true);
         //recyclerView.get
         linearLayoutManager = new LinearLayoutManager(this);
@@ -101,9 +103,9 @@ public class SetSingerActivity extends AppCompatActivity {
                     allSingerDetails = response.body().result;
                     for(int i = 0; i<allSingerDetails.size(); i++)
                     {
-                        setSingerItemDatas.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_img(),
+                        setSingerItemDatas.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
                                 allSingerDetails.get(i).getSinger_name(), R.drawable.sign_addgasu));
-                        allSingerList.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_img(),
+                        allSingerList.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
                                 allSingerDetails.get(i).getSinger_name(), R.drawable.sign_addgasu));
                     }
                     setSingerAdapter = new SetSingerAdapter(requestManager, requestManagerSel, setSingerItemDatas, allSingerList, SingerList.getList());
@@ -138,15 +140,43 @@ public class SetSingerActivity extends AppCompatActivity {
     @OnClick(R.id.Setsinger_next)
     public void clickNext(){
 
+        Call<RegisterResult> singUp = networkService.registerResult(new SignPost(uid, member_name, notSns, member_email, member_passwd));
+        singUp.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                if(response.isSuccessful())
+                {
+                    RegisterData registerData = response.body().data;
+                    int most = ApplicationController.getInstance().getMost();
+                    int member_id = registerData.member_id;
+                    Call<Void> addSinger = networkService.addSinger(new SingerAddPost(most,
+                            member_id, 0));
+                    addSinger.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                Log.v("추가", "성공");
+                                //여기서 토큰 추가
 
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Log.v("추가", "실패");
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Log.v("추가", "통신 실패");
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+            }
+        });
 
-
-
-
-
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        startActivity(intent);
     }
 
     @OnClick(R.id.SetSinger_backImage)
