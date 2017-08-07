@@ -79,43 +79,55 @@
             android:layout_toRightOf="@+id/Sign_twitter"
             android:id="@+id/Sign_google"
             android:background="@drawable/login_g"/>
-
     </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp">
     <TextView
+        android:layout_gravity="center"
+        android:textColor="#000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="12dp"
         android:text="또는"
+        android:textSize="12dp"
         android:textAlignment="center"/>
-
+        </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <EditText
+            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_email"
-            android:focusable="true"
-            android:textColor="#000000"
+            android:textColor="#8A000000"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
-            android:hint="메일주소"/>
+            android:hint="이메일"
+            android:textColorHint="#8A000000"/>
         <EditText
+            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:id="@+id/Sign_pwd"
-            android:textColor="#000000"
+            android:textColor="#8A000000"
             android:focusable="true"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
-            android:hint="비밀번호"/>
+            android:hint="비밀번호"
+            android:textColorHint="#8A000000"/>
         <EditText
+            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
@@ -123,10 +135,11 @@
             android:layout_marginRight="16dp"
             android:id="@+id/Sign_checkPwd"
             android:focusable="true"
-            android:textColor="#000000"
+            android:textColor="#8A000000"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
-            android:hint="비밀번호 확인"/>
+            android:hint="비밀번호 확인"
+            android:textColorHint="#8A000000"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,8 +148,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="비밀번호 조건(영문자~)"
-                android:layout_alignParentLeft="true"
+                android:textSize="12dp"
+                android:text="6자 이상 문자, 숫자, 특수문자 사용"
+                android:textColor="#52000000"
                 android:id="@+id/LoginSelect_findPwd"/>
         </RelativeLayout>
     </LinearLayout>
@@ -147,30 +161,43 @@
         android:orientation="horizontal"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp">
+
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Sign_agree" />
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:text=""
+            android:checked="true"/>
         <TextView
+            android:textSize="12dp"
+            android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이용약관"
+            android:text="@string/이용약관"
             android:id="@+id/Sign_provision"
             android:textStyle="bold"/>
         <TextView
+            android:textSize="12dp"
+            android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="과 "/>
         <TextView
+            android:textSize="12dp"
+            android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="개인정보 처리방침"
+            android:text="@string/개인정보_처리방침"
             android:id="@+id/Sign_privacy"
             android:textStyle="bold"/>
         <TextView
+            android:textSize="12dp"
+            android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="에 동의합니다"/>
+
     </LinearLayout>
 
     <RelativeLayout

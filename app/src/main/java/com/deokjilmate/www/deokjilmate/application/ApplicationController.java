@@ -29,11 +29,7 @@ public class ApplicationController extends Application{
 
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
 
-
     private int most;
-
-
-
 
     public NetworkService getNetworkService() {
         return networkService;

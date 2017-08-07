@@ -17,6 +17,7 @@ import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
+import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -117,11 +118,12 @@ public interface NetworkService {
     Call<Void> addSinger(@Body SingerAddPost singerAddPost);
 
     //가수 삭제
-//    @DELETE("singerDelete")
-//    Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
-
     @HTTP(method = "DELETE", path = "singer/singerDelete", hasBody = true)
     Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
+
+    //singerBase + singerCheck
+    @GET("singer/{firebaseToken}")
+    Call<UserAllSingerResponse> userAllSinger(@Path("firebaseToken") String firebaseToken);
 
 
 

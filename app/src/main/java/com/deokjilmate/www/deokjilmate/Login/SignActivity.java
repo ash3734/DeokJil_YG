@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
+import com.tsengvn.typekit.TypekitContextWrapper;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -470,5 +472,10 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         if (authStateListener != null) {
             mfirebaseAuth.removeAuthStateListener(authStateListener);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 }

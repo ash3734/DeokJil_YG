@@ -8,5 +8,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="이용약관"> <u>이용약관</u></string>
+    <string name="개인정보_처리방침"> <u>개인정보 처리방침</u></string>
+
+
 
 </resources>

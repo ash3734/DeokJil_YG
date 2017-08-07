@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +24,7 @@ import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -271,5 +273,8 @@ public class SetProfileActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 }

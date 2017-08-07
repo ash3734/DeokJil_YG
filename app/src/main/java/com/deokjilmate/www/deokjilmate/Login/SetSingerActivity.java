@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,12 @@ import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
-import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,9 +150,10 @@ public class SetSingerActivity extends AppCompatActivity {
                 {
                     RegisterData registerData = response.body().data;
                     int most = ApplicationController.getInstance().getMost();
-                    int member_id = registerData.member_id;
-                    Call<Void> addSinger = networkService.addSinger(new SingerAddPost(most,
-                            member_id, 0));
+                    String firebasToken = registerData.firebasToken;
+
+                    Call<Void> addSinger = networkService.addSinger(new SingerAddPost(0,
+                            most, firebasToken));
                     addSinger.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
@@ -158,7 +161,7 @@ public class SetSingerActivity extends AppCompatActivity {
                                 Log.v("추가", "성공");
                                 //여기서 토큰 추가
 
-                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                                 startActivity(intent);
                             } else {
                                 Log.v("추가", "실패");
@@ -208,5 +211,10 @@ public class SetSingerActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 }

@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,5 +69,10 @@ public class FindPwdActivity extends AppCompatActivity {
             public void onFailure(Call<FindPwdResponse> call, Throwable t) {
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 }
