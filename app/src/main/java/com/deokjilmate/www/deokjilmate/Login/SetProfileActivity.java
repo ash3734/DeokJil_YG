@@ -218,6 +218,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
     public void checkNickname(final String nickname){
         //중복 안 되면 거짓 되면 참을 리턴
+        //TODO : 여기서 오류 남 아무래도 닉네임 체크가 바뀐 것 같음
         Call<SetProfileResult> setProfileResult = networkService.setProfileResult(nickname);
         setProfileResult.enqueue(new Callback<SetProfileResult>() {
             @Override

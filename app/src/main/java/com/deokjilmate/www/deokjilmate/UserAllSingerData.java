@@ -6,12 +6,16 @@ package com.deokjilmate.www.deokjilmate;
 
 public class UserAllSingerData {
     int singer_id;
+    String singer_name;
     String song_name;
     String album_name;
     String singer_img;
     String album_img;
-    int choich_count;
+    int choice_count;
     boolean new_flag;
+    public String getSinger_name() {
+        return singer_name;
+    }
 
     public int getSinger_id() {
         return singer_id;
@@ -33,8 +37,8 @@ public class UserAllSingerData {
         return album_img;
     }
 
-    public int getChoich_count() {
-        return choich_count;
+    public int getChoice_count() {
+        return choice_count;
     }
 
     public boolean isNew_flag() {

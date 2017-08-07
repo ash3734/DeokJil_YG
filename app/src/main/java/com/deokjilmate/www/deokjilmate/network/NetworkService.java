@@ -29,6 +29,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by ash on 2017-02-06.
@@ -122,9 +123,12 @@ public interface NetworkService {
     Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
 
     //singerBase + singerCheck
-    @GET("singer/{firebaseToken}")
-    Call<UserAllSingerResponse> userAllSinger(@Path("firebaseToken") String firebaseToken);
+    @GET("singer")
+    Call<UserAllSingerResponse> userAllSinger(@Query("firebaseToken") String firebaseToken);
 
-
+//    @GET("/my/API/call")
+//    Response getMyThing(
+//            @Query("param1") String param1,
+//            @Query("param2") String param2);
 
 }
