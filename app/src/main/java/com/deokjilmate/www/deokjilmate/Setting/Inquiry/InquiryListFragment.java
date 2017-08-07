@@ -152,7 +152,8 @@ public class InquiryListFragment extends Fragment {
             final String childText = (String) getChild(groupPosition, childPosition);
 
             if (convertView == null) {
-
+                Log.d("밍", String.valueOf(groupPosition));
+                Log.d("밍구",String.valueOf(childPosition));
                 if(getChild(groupPosition,0)==null){
                     LayoutInflater infalInflater2 = (LayoutInflater) this._context
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -201,6 +202,9 @@ public class InquiryListFragment extends Fragment {
                                  View convertView, ViewGroup parent) {
             String headerTitle = (String) getGroup(groupPosition);
             if (convertView == null) {
+
+                Log.d("ming!~~~~~~~~!", String.valueOf(groupPosition));
+
                 LayoutInflater infalInflater = (LayoutInflater) this._context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = infalInflater.inflate(R.layout.inquiry_list_parent, null);

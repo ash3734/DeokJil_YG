@@ -17,6 +17,7 @@ import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
+import com.deokjilmate.www.deokjilmate.alarm.NoticeResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -41,10 +42,13 @@ public interface NetworkService {
     Call<BoardNotice> getNotice();
 
 
-
     //문의하기
     @POST("/question/send")
     Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
+
+    //알람 상태 가져오기
+    @GET("/alarm")
+    Call<NoticeResult> getAlarm();
 
 
     /*
