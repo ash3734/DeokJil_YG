@@ -1,0 +1,75 @@
+package com.deokjilmate.www.deokjilmate;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+/**
+ * Created by 2yg on 2017. 8. 4..
+ */
+
+public class SharedPrefrernceController {
+    private static final String USER = "user";
+    private static final String LOGIN_TYPE = "loginType";
+    private static final String FACEBOOK_TOKEN = "facebookToken";
+    private static final String NICKNAME = "nickname";
+    private static final String EMAIL = "email";
+    private static final String PASSWD = "passwd";
+    private static final String IMAGE = "image";
+
+
+    public static void setLoginType(Context context, String loginType){
+        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(LOGIN_TYPE, loginType);
+        editor.commit();
+    }
+    public static String getLoginType(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
+        String loginType = pref.getString(LOGIN_TYPE,"");
+        return loginType;
+    }
+    public static void setFacebookToken(Context context,String token){
+        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(FACEBOOK_TOKEN,token);
+        editor.commit();
+    }
+
+
+    public static void setUserEmail(Context context,String email){
+        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(EMAIL,email);
+        editor.commit();
+    }
+    public static String getUserEmail(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
+        return pref.getString(EMAIL,"");
+    }
+
+    public static void setUserNickname(Context context, String nickname){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(NICKNAME, nickname);
+        editor.commit();
+    }
+
+    public static String getUserNickname(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getString(NICKNAME, "");
+    }
+
+    public static void setUserImage(Context context, String image){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(IMAGE, image);
+        editor.commit();
+    }
+
+    public static String getUserImage(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getString(IMAGE, "");
+    }
+
+
+}

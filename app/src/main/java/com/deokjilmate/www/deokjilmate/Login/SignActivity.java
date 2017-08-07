@@ -1,10 +1,9 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -39,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
+import com.tsengvn.typekit.TypekitContextWrapper;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -109,8 +109,10 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -220,6 +222,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
                         // Google Sign In was successful, authenticate with Firebase
                         GoogleSignInAccount account = result.getSignInAccount();
+                        Log.v(LOG, account.toString());
                         firebaseAuthWithGoogle(account);
                     } else {
                         Log.v(LOG, "googleFalse");
@@ -353,48 +356,27 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
+        Log.v(LOG, acct.getIdToken().toString());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        // [START_EXCLUDE]
-                        // [END_EXCLUDE]
 
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(SignActivity.this);
-                        dialog.setTitle("회원 정보가 없습니다.");
-                        dialog.setMessage("회원 가입 하시겠습니까?");
+                        FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
-                        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // YES 선택시 처리할 내용
-                                Log.v(LOG, "로그인");
-                                acct.getIdToken().toString();
-
-                                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
-                                finish();
-                            }
-                        });
-
-                        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // NO 선택시 처리할 내용
-                                mfirebaseAuth.signOut();
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
-                        Log.v(LOG, acct.getIdToken().toString());
+                        Log.v(LOG, user.getUid());
+                        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+                        intent.putExtra("uid", user.getUid());
+                        intent.putExtra("notSns", false);
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
                     }
                 });
     }
@@ -466,7 +448,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         intent.putExtra("type", 2);
                         startActivity(intent);
                         //이걸 보내면 됨.
-
                         //credential.getProvider()
                     }
                 });
@@ -491,5 +472,10 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         if (authStateListener != null) {
             mfirebaseAuth.removeAuthStateListener(authStateListener);
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 }

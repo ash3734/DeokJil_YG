@@ -101,20 +101,22 @@ public class EditSingerActivity extends AppCompatActivity {
     public void save()
     {
         //changeLists();
-
-        NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService);
-        NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService);
+        Thread networkThreadEdit = new NetworkThreadEdit(networkService);
+       // NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService);
+        //NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService);
         networkThreadEdit.start();
-        networkThreadDelete.start();
-
+        System.out.println("대기 중..");
         try {
             networkThreadEdit.join();
-            networkThreadDelete.join();
+            Thread.sleep(500);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        System.out.println("대기 완료..");
 
+        deleteSinger();
         // setLists();
     }
 
@@ -172,6 +174,30 @@ public class EditSingerActivity extends AppCompatActivity {
 
             }
         });
+}
+
+    public void deleteSinger(){
+        for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
+            Call<Void> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
+                    1, ApplicationController.getInstance().getDeleteList().get(i)));
+
+            deleteSinger.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Log.v("삭제", "성공");
+                        //해당 아이디에 맞는 애를 마이페이지에 추가
+                    } else {
+                        Log.v("삭제", "실패");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.v("삭제", "통신 실패");
+                }
+            });
+        }
     }
 }
 
@@ -199,7 +225,7 @@ class NetworkThreadEdit extends Thread{
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.v("추가", "성공");
+                    Log.v("추가", "성공0");
                     //해당 아이디에 맞는 애를 마이페이지에 추가
                 } else {
                     Log.v("추가", "실패");
@@ -218,7 +244,7 @@ class NetworkThreadEdit extends Thread{
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.v("추가", "성공");
+                    Log.v("추가", "성공1");
                     //해당 아이디에 맞는 애를 마이페이지에 추가
                 } else {
                     Log.v("추가", "실패");
@@ -237,7 +263,7 @@ class NetworkThreadEdit extends Thread{
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.v("추가", "성공");
+                    Log.v("추가", "성공2");
                     //해당 아이디에 맞는 애를 마이페이지에 추가
                 } else {
                     Log.v("추가", "실패");
@@ -256,7 +282,7 @@ class NetworkThreadEdit extends Thread{
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.v("추가", "성공");
+                    Log.v("추가", "성공3");
                     //해당 아이디에 맞는 애를 마이페이지에 추가
                 } else {
                     Log.v("추가", "실패");
@@ -268,10 +294,9 @@ class NetworkThreadEdit extends Thread{
                 Log.v("추가", "통신 실패");
             }
         });
+
     }
 }
-
-
 
 
 class NetworkThreadDelete extends Thread{

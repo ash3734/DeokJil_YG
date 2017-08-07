@@ -15,7 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "232808135415-6i9kr27t4qg5gcfb6dvpj7vjt3sbsb73.apps.googleusercontent.com",
+          "client_id": "232808135415-co7k59e4k8p3k27j7lv3jksm3iqlb3cq.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "232808135415-dd3ogjc4nlmfq2k7jvnsqm3hrcdl66in.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.deokjilmate.www.deokjilmate",
@@ -40,7 +44,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "232808135415-uklm7ktck9ooeagpprd9tn4t1602315i.apps.googleusercontent.com",
+              "client_id": "232808135415-co7k59e4k8p3k27j7lv3jksm3iqlb3cq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

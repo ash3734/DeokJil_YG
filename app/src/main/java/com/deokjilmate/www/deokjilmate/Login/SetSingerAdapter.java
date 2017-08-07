@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,13 +58,19 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(SetSingerViewHolder holder, int position) {
+    public void onBindViewHolder(SetSingerViewHolder holder, final int position) {
         if(search == false) {
             Log.v(TAG, "검색 false");
             requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
             //holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
             requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
+            holder.singer_most.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                }
+            });
         }
         else{
             Log.v(TAG, "검색 true");
@@ -72,7 +79,12 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
             //holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
             requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-
+            holder.singer_most.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                }
+            });
         }
     }
 

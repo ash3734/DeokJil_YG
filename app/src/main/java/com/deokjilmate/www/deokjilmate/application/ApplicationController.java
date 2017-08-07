@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.Typekit;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,7 @@ public class ApplicationController extends Application{
 
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
 
-
-
+    private int most;
 
     public NetworkService getNetworkService() {
         return networkService;
@@ -53,6 +53,10 @@ public class ApplicationController extends Application{
         super.onCreate();
 
         instance = this;
+
+        Typekit.getInstance().addNormal(Typekit.createFromAsset(this,"NotoSansCJKkr-Regular.otf"))
+                .addBold(Typekit.createFromAsset(this, "NotoSansCJKkr-Bold.otf"));
+
         buildNetwork();
     }
     public int getTotalSingerCount() {
@@ -78,6 +82,12 @@ public class ApplicationController extends Application{
     public void setDeleteList(ArrayList<Integer> deleteList) {
         this.deleteList = deleteList;
     }
+    public int getMost() {
+        return most;
+    }
 
+    public void setMost(int most) {
+        this.most = most;
+    }
 
 }

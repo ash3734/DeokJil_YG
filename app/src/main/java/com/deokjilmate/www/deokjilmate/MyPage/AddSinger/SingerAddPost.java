@@ -5,14 +5,14 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
  */
 
 public class SingerAddPost {
-    int singer_id;
-    int member_id;
     int singerNum;
+    int singer_id;
+    String firebasToken;
 
-    public SingerAddPost(int singer_id, int member_id, int singerNum) {
-        this.singer_id = singer_id;
-        this.member_id = member_id;
+
+    public SingerAddPost(int singerNum, int singer_id, String firebasToken) {
         this.singerNum = singerNum;
+        this.singer_id = singer_id;
+        this.firebasToken = firebasToken;
     }
-
 }
