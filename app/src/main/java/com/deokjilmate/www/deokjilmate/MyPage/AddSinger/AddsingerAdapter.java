@@ -97,7 +97,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                 } else {
                     if (totalSingerCount < 3) {
                         Call<Void> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
-                                1, totalSingerCount+1));
+                                1, totalSingerCount));
                         addSinger.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
