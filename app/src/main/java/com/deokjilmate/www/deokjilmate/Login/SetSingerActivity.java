@@ -21,6 +21,7 @@ import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
@@ -150,7 +151,8 @@ public class SetSingerActivity extends AppCompatActivity {
                 {
                     RegisterData registerData = response.body().data;
                     int most = ApplicationController.getInstance().getMost();
-                    String firebasToken = registerData.firebasToken;
+                    final String firebasToken = registerData.firebasToken;
+                    SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebasToken);
 
                     Call<Void> addSinger = networkService.addSinger(new SingerAddPost(0,
                             most, firebasToken));
@@ -160,7 +162,7 @@ public class SetSingerActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 Log.v("추가", "성공");
                                 //여기서 토큰 추가
-
+                                ApplicationController.getInstance().setFirebaseToken(firebasToken);
                                 Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                                 startActivity(intent);
                             } else {

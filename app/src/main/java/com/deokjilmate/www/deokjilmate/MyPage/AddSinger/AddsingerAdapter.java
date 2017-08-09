@@ -12,6 +12,7 @@ import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.Login.SetSingerNameData;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
@@ -96,8 +97,13 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else {
                     if (totalSingerCount < 3) {
+<<<<<<< HEAD
                         Call<Void> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
                                 1, totalSingerCount));
+=======
+                        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount+1,
+                                selectSingerNum, ApplicationController.getInstance().getFirebaseToken()));
+>>>>>>> d2bcbceb17ff0667b6c09f372c2470dfb829a409
                         addSinger.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -116,8 +122,8 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                             }
                         });
                     }else{
-                        Log.v("EditAdap", "서브 4명까지");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "서브는 4명까지", Toast.LENGTH_SHORT);
+                        Log.v("EditAdap", "서브 3명까지");
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "서브는 3명까지", Toast.LENGTH_SHORT);
                     }
                 }
             }
@@ -132,14 +138,11 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
     public boolean checkHave(int selectNum){
        // MyPageAllSingerNumbers myPageAllSingerNumbers = ApplicationController.getInstance().getMyPageAllSingerNumberses();
-        if((myPageAllSingerNumberses.getSingerb_id() == selectNum) || (myPageAllSingerNumberses.getSinger0_id() == selectNum) ||
-                (myPageAllSingerNumberses.getSinger1_id() == selectNum) || (myPageAllSingerNumberses.getSinger2_id() == selectNum) ||
-                (myPageAllSingerNumberses.getSinger3_id() == selectNum)){
-            return true;
-
-        }else{
-            return false;
+        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        for(int i = 0; i<userAllSingerDatas.size(); i++){
+            if(userAllSingerDatas.get(i).getSinger_id() == selectNum)
+                return true;
         }
-
+            return false;
     }
 }

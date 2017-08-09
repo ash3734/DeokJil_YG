@@ -17,8 +17,9 @@ import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSelectedSinger;
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
@@ -45,7 +46,7 @@ public class EditSingerActivity extends AppCompatActivity {
     @BindView(R.id.MyPage_EditSinger_addSinger)
     ImageView addSinger;
 
-
+    private final String TAG = "LOG::EditSingerActivity";
 
     private LinearLayoutManager linearLayoutManager;
     private RequestManager requestManager;
@@ -59,6 +60,8 @@ public class EditSingerActivity extends AppCompatActivity {
     private ArrayList<Integer> myAllSingerArray;
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
 
+    private ArrayList<UserAllSingerData> userAllSingerDatas;
+    private String firebaseToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,8 @@ public class EditSingerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.meta).into(addSinger);
+
+
 
         networkService = ApplicationController.getInstance().getNetworkService();
         requestManager = Glide.with(this);
@@ -85,13 +90,11 @@ public class EditSingerActivity extends AppCompatActivity {
         myAllSingerArrayN.clear();
         myPageAllSingerNumberses = ApplicationController.getInstance().getMyPageAllSingerNumberses();
 
-
-        myAllSingerArray.add(myPageAllSingerNumberses.getSingerb_id());
-        myAllSingerArray.add(myPageAllSingerNumberses.getSinger0_id());
-        myAllSingerArray.add(myPageAllSingerNumberses.getSinger1_id());
-        myAllSingerArray.add(myPageAllSingerNumberses.getSinger2_id());
+        userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        firebaseToken = ApplicationController.getInstance().getFirebaseToken();
 
 
+        //TODO : Edit의 경우 일단 모든 정보는 불러올 필요가 있음. 피엠이 말하길 수정 완료 되면 그대로 머물게 있게 하라고..
         setLists();
 
     }
@@ -101,6 +104,7 @@ public class EditSingerActivity extends AppCompatActivity {
     public void save()
     {
         //changeLists();
+        //TODO : 이 부분이 수정 후 저장하는 부분
         Thread networkThreadEdit = new NetworkThreadEdit(networkService);
        // NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService);
         //NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService);
@@ -117,6 +121,9 @@ public class EditSingerActivity extends AppCompatActivity {
         System.out.println("대기 완료..");
 
         deleteSinger();
+
+        finish();
+        startActivity(getIntent());
         // setLists();
     }
 
@@ -136,23 +143,17 @@ public class EditSingerActivity extends AppCompatActivity {
     }
 
     public void setLists(){
-        Call<MyPageSingerList> myPageSingerList = networkService.myPageSingerList(1);
-        myPageSingerList.enqueue(new Callback<MyPageSingerList>() {
+        Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
+        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
             @Override
-            public void onResponse(Call<MyPageSingerList> call, Response<MyPageSingerList> response) {
-                if(response.isSuccessful())
-                {
-                    myPageEditSelectedSingers = response.body().result;
-                    //Log.v("MyPage", String.valueOf(myPageSelectedSingers.size()));
-
-                    for(int i = 0; i<myPageEditSelectedSingers.size(); i++){
-                        myAllSingerArrayN.add(myPageEditSelectedSingers.get(i).getSinger_id());
-                    }
-
-                    for(int i = 0; i<myPageEditSelectedSingers.size(); i++)
+            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                if(response.isSuccessful()){
+                    userAllSingerDatas = response.body().data;
+                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+                    for(int i = 0; i<userAllSingerDatas.size(); i++)
                     {
-                        if(i==0)
-                        {
+                        if(i==0 && userAllSingerDatas.get(0)!=null)
+                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
                             editSingerHeadItemData = new EditSingerHeadItemData(myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_img(),
                                     myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_name(), R.drawable.chgasu_sub, R.drawable.chgasu_x);
                         }
@@ -160,21 +161,19 @@ public class EditSingerActivity extends AppCompatActivity {
                         {
                             editSingerItemDatas.add(new EditSingerItemData(myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_img(),
                                     myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x));
-
                         }
                     }
                     editSingerAdpater = new EditSingerAdpater(requestManagerImage, requestManager, editSingerItemDatas, editSingerHeadItemData);
                     recyclerView.setAdapter(editSingerAdpater);
-
                 }
             }
 
             @Override
-            public void onFailure(Call<MyPageSingerList> call, Throwable t) {
+            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
 
             }
         });
-}
+    }
 
     public void deleteSinger(){
         for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
@@ -185,16 +184,16 @@ public class EditSingerActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        Log.v("삭제", "성공");
+                        Log.v(TAG, "삭제 성공");
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
-                        Log.v("삭제", "실패");
+                        Log.v(TAG, "삭제 실패");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Log.v("삭제", "통신 실패");
+                    Log.e(TAG, "통신 실패");
                 }
             });
         }
@@ -213,88 +212,29 @@ class NetworkThreadEdit extends Thread{
     }
 
     public void run(){
-        int singerb_id = ApplicationController.getInstance().getMyPageAllSingerNumberses().getSingerb_id();
-        int singer0_id = ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger0_id();
-        int singer1_id = ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger1_id();
-        int singer2_id = ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger2_id();
-
-
-        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(singerb_id,
-                1, 0));
-        addSinger.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.v("추가", "성공0");
-                    //해당 아이디에 맞는 애를 마이페이지에 추가
-                } else {
-                    Log.v("추가", "실패");
+        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        String firebaseToken = ApplicationController.getInstance().getFirebaseToken();
+        for(int i = 0; i<userAllSingerDatas.size(); i++)
+        {
+            Call<Void> addSinger = networkService.addSinger(new SingerAddPost(i,
+                    userAllSingerDatas.get(i).getSinger_id(), firebaseToken));
+            addSinger.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Log.v("추가", "성공0");
+                        //해당 아이디에 맞는 애를 마이페이지에 추가
+                    } else {
+                        Log.v("추가", "실패");
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.v("추가", "통신 실패");
-            }
-        });
-
-        Call<Void> addSinger1 = networkService.addSinger(new SingerAddPost(singer0_id,
-                1, 1));
-        addSinger1.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.v("추가", "성공1");
-                    //해당 아이디에 맞는 애를 마이페이지에 추가
-                } else {
-                    Log.v("추가", "실패");
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.v("추가", "통신 실패");
                 }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.v("추가", "통신 실패");
-            }
-        });
-
-        Call<Void> addSinger2 = networkService.addSinger(new SingerAddPost(singer1_id,
-                1, 2));
-        addSinger2.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.v("추가", "성공2");
-                    //해당 아이디에 맞는 애를 마이페이지에 추가
-                } else {
-                    Log.v("추가", "실패");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.v("추가", "통신 실패");
-            }
-        });
-
-        Call<Void> addSinger3 = networkService.addSinger(new SingerAddPost(singer2_id,
-                1, 3));
-        addSinger3.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.v("추가", "성공3");
-                    //해당 아이디에 맞는 애를 마이페이지에 추가
-                } else {
-                    Log.v("추가", "실패");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.v("추가", "통신 실패");
-            }
-        });
-
+            });
+        }
     }
 }
 

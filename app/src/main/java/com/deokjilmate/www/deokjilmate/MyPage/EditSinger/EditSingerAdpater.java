@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 
 public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    //TODO : ps 디자인이 좀 덜 됨;
     private RequestManager requestManager_singer;
     private RequestManager requestManager_image;
 

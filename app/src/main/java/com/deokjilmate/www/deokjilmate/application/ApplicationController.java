@@ -3,6 +3,7 @@ package com.deokjilmate.www.deokjilmate.application;
 import android.app.Application;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
+import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.Typekit;
 
@@ -28,8 +29,12 @@ public class ApplicationController extends Application{
     private ArrayList<Integer> deleteList;
 
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
+    private ArrayList<UserAllSingerData> userAllSingerDatas;
 
     private int most;
+
+
+    private String firebaseToken;
 
     public NetworkService getNetworkService() {
         return networkService;
@@ -88,6 +93,23 @@ public class ApplicationController extends Application{
 
     public void setMost(int most) {
         this.most = most;
+    }
+
+    public ArrayList<UserAllSingerData> getUserAllSingerDatas() {
+        return userAllSingerDatas;
+    }
+
+    public void setUserAllSingerDatas(ArrayList<UserAllSingerData> userAllSingerDatas) {
+        this.userAllSingerDatas = userAllSingerDatas;
+    }
+
+
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 
 }
