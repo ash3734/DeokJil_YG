@@ -107,6 +107,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
+        //TODO : sns로 로그인 할 때는 sns register를 따르면 됨.
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -142,10 +144,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
         startActivity(new Intent(getApplicationContext(), FindPwdActivity.class));
     }
     private void handleFacebookAccessToken(AccessToken token) {
-       // Log.d(TAG, "handleFacebookAccessToken:" + token);
-        // [START_EXCLUDE silent]
-       // showProgressDialog();
-        // [END_EXCLUDE]
+
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mfirebaseAuth.signInWithCredential(credential)

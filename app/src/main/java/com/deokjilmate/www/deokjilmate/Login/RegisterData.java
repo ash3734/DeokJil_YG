@@ -5,5 +5,5 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class RegisterData {
-    public String firebasToken;
+    public String firebaseToken;
 }

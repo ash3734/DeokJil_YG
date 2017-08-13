@@ -14,12 +14,11 @@
         android:layout_marginBottom="48dp"
         android:background="@drawable/sub_singers_frame">
     <RelativeLayout
-        android:layout_marginLeft="16dp"
-        android:layout_width="350dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp">
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:id="@+id/mypage_edit_singer_head_mainView">
@@ -33,6 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="WANNAONE"
+                android:textStyle="bold"
                 android:layout_below="@+id/mypage_edit_singer_recycle_subImage"
                 android:id="@+id/mypage_edit_singer_recycle_subName"
                 />
@@ -44,11 +47,17 @@
                 android:layout_marginRight="16dp"
                 android:id="@+id/mypage_edit_singer_recycle_delete"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/mypage_edit_singer_head_mainView"
+            android:background="@drawable/sub_singer_button_frame">
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/mypage_edit_singer_head_mainView"
-            android:id="@+id/mypage_edit_singer_recycle_setMain"/>
+            android:layout_height="match_parent"
+            android:id="@+id/mypage_edit_singer_recycle_setMain"
+            android:background="@color/tw__transparent"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     </RelativeLayout>

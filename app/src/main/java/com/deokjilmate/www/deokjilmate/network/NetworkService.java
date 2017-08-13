@@ -7,10 +7,13 @@ import com.deokjilmate.www.deokjilmate.Login.LoginPost;
 import com.deokjilmate.www.deokjilmate.Login.LoginResponseResult;
 import com.deokjilmate.www.deokjilmate.Login.LoginSnsPost;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
+import com.deokjilmate.www.deokjilmate.Login.RegisterSnsResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.Login.SignPost;
+import com.deokjilmate.www.deokjilmate.Login.SignSnsPost;
 import com.deokjilmate.www.deokjilmate.Login.SnsResult;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDelete;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
@@ -93,9 +96,17 @@ public interface NetworkService {
            @Body SignPost signPost
    );
 
+    @POST("register")
+    Call<RegisterSnsResult> registerResultSns(
+            @Body SignSnsPost signSnsPost
+    );
+
     //닉넴 중복 체크
-    @GET("register/{member_name}")
-    Call<SetProfileResult> setProfileResult(@Path("member_name") String member_name);
+//    @GET("register/{member_name}")
+//    Call<SetProfileResult> setProfileResult(@Path("member_name") String member_name);
+
+    @GET("register")
+    Call<SetProfileResult> setProfileResult(@Query("member_name") String member_name);
 
     //비번 찾기
     @POST("findpassword")
@@ -103,7 +114,7 @@ public interface NetworkService {
 
 
     //가수 전체 목록 불러오기
-    @GET("singer/singer_rank")
+    @GET("singer/rank")
     Call<AllSingerRanking> setSingerRanking();
 
     //내 가수들 번호 가져오기(메인, 서브 판별
@@ -116,7 +127,7 @@ public interface NetworkService {
 
     //가수 추가
     @POST("singer")
-    Call<Void> addSinger(@Body SingerAddPost singerAddPost);
+    Call<SingerAddResponse> addSinger(@Body SingerAddPost singerAddPost);
 
     //가수 삭제
     @HTTP(method = "DELETE", path = "singer/singerDelete", hasBody = true)

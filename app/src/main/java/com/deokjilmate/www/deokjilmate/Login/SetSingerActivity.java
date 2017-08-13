@@ -19,6 +19,7 @@ import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
@@ -73,6 +74,7 @@ public class SetSingerActivity extends AppCompatActivity {
     private boolean notSns;
     private String member_name;
     private int type;
+    private String login_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +105,13 @@ public class SetSingerActivity extends AppCompatActivity {
             public void onResponse(Call<AllSingerRanking> call, Response<AllSingerRanking> response) {
                 if(response.isSuccessful())
                 {
-                    allSingerDetails = response.body().result;
+                    allSingerDetails = response.body().data;
                     for(int i = 0; i<allSingerDetails.size(); i++)
                     {
                         setSingerItemDatas.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
-                                allSingerDetails.get(i).getSinger_name(), R.drawable.sign_addgasu));
+                                allSingerDetails.get(i).getSinger_name(), R.drawable.my_maingasu));
                         allSingerList.add(new SetSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
-                                allSingerDetails.get(i).getSinger_name(), R.drawable.sign_addgasu));
+                                allSingerDetails.get(i).getSinger_name(), R.drawable.my_maingasu));
                     }
                     setSingerAdapter = new SetSingerAdapter(requestManager, requestManagerSel, setSingerItemDatas, allSingerList, SingerList.getList());
                     recyclerView.setAdapter(setSingerAdapter);
@@ -142,46 +144,94 @@ public class SetSingerActivity extends AppCompatActivity {
 
     @OnClick(R.id.Setsinger_next)
     public void clickNext(){
+        if(login_type.equals("c")){
+            Call<RegisterResult> singUp = networkService.registerResult(new SignPost(uid, member_name, notSns, member_email, member_passwd));
+            singUp.enqueue(new Callback<RegisterResult>() {
+                @Override
+                public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                    if(response.isSuccessful())
+                    {
+                        RegisterData registerData = response.body().data;
+                        int most = ApplicationController.getInstance().getMost();
+                        final String firebaseToken = registerData.firebaseToken;
+                        SharedPrefrernceController.setUserEmail(SetSingerActivity.this, member_email);
+                        SharedPrefrernceController.setPasswd(SetSingerActivity.this, member_passwd);
 
-        Call<RegisterResult> singUp = networkService.registerResult(new SignPost(uid, member_name, notSns, member_email, member_passwd));
-        singUp.enqueue(new Callback<RegisterResult>() {
-            @Override
-            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-                if(response.isSuccessful())
-                {
-                    RegisterData registerData = response.body().data;
-                    int most = ApplicationController.getInstance().getMost();
-                    final String firebasToken = registerData.firebasToken;
-                    SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebasToken);
+                        SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
+                        SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
 
-                    Call<Void> addSinger = networkService.addSinger(new SingerAddPost(0,
-                            most, firebasToken));
-                    addSinger.enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                Log.v("추가", "성공");
-                                //여기서 토큰 추가
-                                ApplicationController.getInstance().setFirebaseToken(firebasToken);
-                                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Log.v("추가", "실패");
+                        Log.v("SetSinger", String.valueOf(most));
+                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
+                                most, firebaseToken));
+                        addSinger.enqueue(new Callback<SingerAddResponse>() {
+                            @Override
+                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+                                if (response.isSuccessful()) {
+                                    Log.v("추가", "성공");
+                                    //여기서 토큰 추가
+                                    ApplicationController.getInstance().setFirebaseToken(firebaseToken);
+                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Log.v("추가", "실패");
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Log.v("추가", "통신 실패");
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+                                Log.v("추가", "통신 실패");
+                            }
+                        });
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<RegisterResult> call, Throwable t) {
-            }
-        });
+                @Override
+                public void onFailure(Call<RegisterResult> call, Throwable t) {
+                }
+            });
+        } else{
+            Call<RegisterSnsResult> singUpSns = networkService.registerResultSns(new SignSnsPost(uid, member_name, notSns));
+            singUpSns.enqueue(new Callback<RegisterSnsResult>() {
+                @Override
+                public void onResponse(Call<RegisterSnsResult> call, Response<RegisterSnsResult> response) {
+                    if(response.isSuccessful())
+                    {
+                        //RegisterData registerData = response.body().data;
+                        int most = ApplicationController.getInstance().getMost();
+                        final String firebaseToken = response.body().data;
+                        Log.v("SetSinger", firebaseToken);
 
+                        SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
+                        SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
+
+                        Log.v("SetSinger", String.valueOf(most));
+                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
+                                most, firebaseToken));
+                        addSinger.enqueue(new Callback<SingerAddResponse>() {
+                            @Override
+                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+                                if (response.body().result) {
+                                    Log.v("SetSinger", "성공");
+                                    //여기서 토큰 추가
+                                    ApplicationController.getInstance().setFirebaseToken(firebaseToken);
+                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Log.v("SetSinger", "실패");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+                                Log.v("추가", "통신 실패");
+                            }
+                        });
+                    }
+                }
+                @Override
+                public void onFailure(Call<RegisterSnsResult> call, Throwable t) {
+                }
+            });
+        }
     }
 
     @OnClick(R.id.SetSinger_backImage)
@@ -201,6 +251,7 @@ public class SetSingerActivity extends AppCompatActivity {
                 member_passwd = getIntent().getExtras().getString("member_passwd");
                 member_name = getIntent().getExtras().getString("member_name");
                 notSns = getIntent().getExtras().getBoolean("notSns");
+                login_type = "c";//커스텀
                 //true
                 break;
             case 2:
@@ -208,11 +259,25 @@ public class SetSingerActivity extends AppCompatActivity {
                 uid = getIntent().getExtras().getString("uid");
                 member_name = getIntent().getExtras().getString("member_name");
                 notSns = getIntent().getExtras().getBoolean("notSns");
+                login_type= "f";//페북
                 //false
+                break;
+            case 3:
+                uid = getIntent().getExtras().getString("uid");
+                member_name = getIntent().getExtras().getString("member_name");
+                notSns = getIntent().getExtras().getBoolean("notSns");
+                login_type= "t";//트윗
+                break;
+            case 4:
+                uid = getIntent().getExtras().getString("uid");
+                member_name = getIntent().getExtras().getString("member_name");
+                notSns = getIntent().getExtras().getBoolean("notSns");
+                login_type= "g";//구글
                 break;
             default:
                 break;
         }
+        Log.v("SetSinger", uid);
     }
 
     @Override
