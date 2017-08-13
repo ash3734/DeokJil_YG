@@ -5,7 +5,6 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
  */
 
 public class SingerAddResponse {
-    public String data;
     public String message;
     public boolean result;
 

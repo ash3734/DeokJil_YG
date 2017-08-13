@@ -24,7 +24,7 @@ public class ApplicationController extends Application{
 
     private NetworkService networkService;
     //// TODO: 2017-02-06 base Url 수정
-    private String baseUrl = "https://www.defflee.com/duckmate/";
+    private String baseUrl = "https://www.defflee.com/duckmate/android/";
     private int totalSingerCount = 0;
     private ArrayList<Integer> deleteList;
 

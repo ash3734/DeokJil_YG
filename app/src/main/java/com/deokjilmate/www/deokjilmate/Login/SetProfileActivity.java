@@ -106,15 +106,14 @@ public class SetProfileActivity extends AppCompatActivity {
                 notSns = getIntent().getExtras().getBoolean("notSns");
                 //true
                 break;
-            case 2:
+            default:
                 //Sns
                 uid = getIntent().getExtras().getString("uid");
                 notSns = getIntent().getExtras().getBoolean("notSns");
                 //false
                 break;
-            default:
-                break;
         }
+        Log.v(LOG, uid);
 
     }
 
@@ -224,38 +223,36 @@ public class SetProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
                 Log.v(LOG, "들어는 옴");
-                if (response.body().result) {
+                if (!response.body().result) {
                     checkReturn = 0;
                     //이건 중복 되었다는 이야기
-                    Toast.makeText(getApplicationContext(),"존재하는 닉네임입니다", Toast.LENGTH_LONG);
+                    Toast.makeText(SetProfileActivity.this,"존재하는 닉네임입니다", Toast.LENGTH_LONG);
                     Log.v(LOG, "중복");
 
                 }
                 else{
                     checkReturn = 1;
                     //이건 중복 안 되었다는 이야기
-                    Toast.makeText(getApplicationContext(),"사용 가능한 닉네임입니다", Toast.LENGTH_LONG);
+                    Toast.makeText(SetProfileActivity.this,"사용 가능한 닉네임입니다", Toast.LENGTH_LONG);
                     //SetSinger로 넘어감
                     Intent intent = new Intent(getApplicationContext(), SetSingerActivity.class);
 
                     switch (type){
-                        case 1:
+                        case 1://커스텀 로그인
                             intent.putExtra("uid", uid);
                             intent.putExtra("member_email", member_email);
                             intent.putExtra("notSns", true);
                             intent.putExtra("member_passwd", member_passwd);
                             intent.putExtra("member_name", member_name);
-                            intent.putExtra("type", 1);
                             break;
-                        case 2:
+                        default://sns 로그인
                             intent.putExtra("uid", uid);
                             intent.putExtra("notSns", false);
                             intent.putExtra("member_name", member_name);
-                            intent.putExtra("type", 2);
-                            break;
-                        default:
                             break;
                     }
+                    intent.putExtra("type", type);
+
 
                     SharedPrefrernceController.setUserImage(SetProfileActivity.this, data.toString());
                     SharedPrefrernceController.setUserNickname(SetProfileActivity.this, nickname);
@@ -268,7 +265,7 @@ public class SetProfileActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<SetProfileResult> call, Throwable t) {
-                Log.v(LOG, "서버 꺼져 있음2");
+                Log.v(LOG, "인터넷 확인");
 
             }
         });

@@ -51,7 +51,8 @@
                 android:id="@+id/SetSingerRecycle_most"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/sign_addgasu"/>
         </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

@@ -1,14 +1,17 @@
 package com.deokjilmate.www.deokjilmate.MyPage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -19,6 +22,7 @@ import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 
@@ -92,34 +96,39 @@ public class MyPageActivity extends AppCompatActivity {
         requestManager_singer = Glide.with(this);
         requestManager_rank = Glide.with(this);
 
-        subSingerrecyclerView.setHasFixedSize(true);
         //recyclerView.get
+        userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        myPageItemDatas = new ArrayList<MyPageItemData>();
+
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
+        subSingerrecyclerView.setHasFixedSize(true);
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
-        myAllSingerArray = new ArrayList<>();
-        myAllSingerArrayN = new ArrayList<>();
-        myAllSingerArray.clear();
-        myAllSingerArrayN.clear();
+
+
 
 
         //TODO : 맨 처음에 정보를 받아 온다면 아래 부분 바꾸어야 함 작성 당시 필요해서 적어놓긴 했음
         //TODO : 이 부분은 해당 토큰에 맞는 가수 정보 불러오는 거 근데 작동하는 지 테스트 못함
         //TODO : 그도 그럴 것이 닉넴 체크가 바뀐 것 같은데 어케 바뀐 건지 모르겠음.
         firebaseToken = SharedPrefrernceController.getFirebaseToken(MyPageActivity.this);
-        Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
+        Log.v("MyPage", firebaseToken);
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
             @Override
             public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
-                if(response.isSuccessful()){
+                if(response.body().result){
                     userAllSingerDatas = response.body().data;
-                    int count = nextCount(userAllSingerDatas.size());
+                    int count = userAllSingerDatas.size();
                     ApplicationController.getInstance().setTotalSingerCount(count);
                     ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+                    Log.v("MyPage", userAllSingerDatas.get(0).getSinger_name());
+                    Log.v("MyPage", "전체 = " + String.valueOf(userAllSingerDatas.size()));
                     for(int i = 0; i<userAllSingerDatas.size(); i++)
                     {
                         if(i==0 && userAllSingerDatas.get(0)!=null)
                         {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
+                                Log.v("MyPage", "메인 들어옴");
                                 myPageHeadItemData = new MyPageHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
                                         R.drawable.badge_newbie, userAllSingerDatas.get(i).getSinger_name(),
                                         userAllSingerDatas.get(i).getChoice_count());
@@ -131,8 +140,11 @@ public class MyPageActivity extends AppCompatActivity {
                                         userAllSingerDatas.get(i).getChoice_count()));
                         }
                     }
+                    Log.v("MyPage", "이제 어댑터로");
                     myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
                     subSingerrecyclerView.setAdapter(myPageAdapter);
+                } else{
+                    Toast.makeText(MyPageActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG);
                 }
             }
 
@@ -141,47 +153,6 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-
-
-//        final Call<MyPageCheckMainSub> myPageCheckMainSub = networkService.myPageCheckMainSub(1);
-//        myPageCheckMainSub.enqueue(new Callback<MyPageCheckMainSub>() {
-//            @Override
-//            public void onResponse(Call<MyPageCheckMainSub> call, Response<MyPageCheckMainSub> response) {
-//                if(response.body().result.equals("success")) {
-//                    myPageAllSingerNumberses = new MyPageAllSingerNumbers(response.body().data.singerb_id, response.body().data.singer0_id, response.body().data.singer1_id,
-//                            response.body().data.singer2_id,response.body().data.singer3_id);
-//
-//                    int count = nextCount(myPageAllSingerNumberses);
-//
-//                    ApplicationController.getInstance().setTotalSingerCount(count);
-//                    ApplicationController.getInstance().setMyPageAllSingerNumberses(myPageAllSingerNumberses);
-//
-//                    Log.v("MyPage", String.valueOf(count));
-//                    Log.v("MyPage", myPageAllSingerNumberses.toString());
-//
-//
-//                    myAllSingerArray.add(myPageAllSingerNumberses.getSingerb_id());
-//                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger0_id());
-//                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger1_id());
-//                    myAllSingerArray.add(myPageAllSingerNumberses.getSinger2_id());
-//
-//                    setLists();
-//
-//                    //전체 몇 명인지 확인.
-//                }
-//                else{
-//                    Toast.makeText(getApplicationContext(), "못 받음", Toast.LENGTH_LONG);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MyPageCheckMainSub> call, Throwable t) {
-//
-//            }
-//        });
-
-
-
     }
 
     @OnClick(R.id.mypage_main_backImage)
@@ -207,6 +178,7 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     public int nextCount(int count){
+        int returnCount = 0;
         if(count == 0)
             count = 0;//서브 없음
         else if(count == 0)
@@ -267,6 +239,11 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
 }

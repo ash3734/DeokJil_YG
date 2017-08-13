@@ -18,12 +18,14 @@ import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by dldud on 2017-02-17.
@@ -33,7 +35,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
 
     RequestManager requestManager;
-    //  ArrayList<AddSingerItemData> setSingerItemDatas;//이건 추천목록
+    ArrayList<AddSingerItemData> addSingerItemDatas;//이건 추천목록
     ArrayList<AddSingerItemData> allSingerList;//이건 전체 가수 목록
     ArrayList<AddSingerItemData> searchSingerList;//실제 보여줄 것.
     HashMap<String, String> singerPNData = new HashMap<String, String>();
@@ -43,12 +45,15 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     private Context addSingerActivity;
     private int totalSingerCount;
     private int selectSingerNum;
+    private String firebaseToken;
+    public boolean search = false;
+
 
 
     public AddsingerAdapter(Context addSingerActivity, RequestManager requestManager, ArrayList<AddSingerItemData> allSingerList,
-                            HashMap<String, String> singerPNData, NetworkService networkService) {
+                            HashMap<String, String> singerPNData, NetworkService networkService, String firebaseToken, ArrayList<AddSingerItemData> addSingerItemDatas) {
         this.requestManager = requestManager;
-        //this.setSingerItemDatas = setSingerItemDatas;//이건 추천목록
+        this.addSingerItemDatas = addSingerItemDatas;//이건 추천목록
         this.searchSingerList = allSingerList;
         this.allSingerList = new ArrayList<AddSingerItemData>();
         this.allSingerList.addAll(allSingerList);
@@ -59,6 +64,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.networkService = networkService;
         this.myPageAllSingerNumberses = ApplicationController.getInstance().getMyPageAllSingerNumberses();
         this.totalSingerCount = ApplicationController.getInstance().getTotalSingerCount();
+        this.firebaseToken = firebaseToken;
     }
 
     @Override
@@ -96,12 +102,12 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     Log.v("EditAdap", "이미 있음");
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else {
-                    if (totalSingerCount < 3) {
-                        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount+1,
-                                selectSingerNum, ApplicationController.getInstance().getFirebaseToken()));
-                        addSinger.enqueue(new Callback<Void>() {
+                    if (totalSingerCount < 4) {//전체 가수 length.
+                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
+                                selectSingerNum, firebaseToken));
+                        addSinger.enqueue(new Callback<SingerAddResponse>() {
                             @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
+                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
                                 if (response.isSuccessful()) {
                                     Log.v("추가", "성공");
                                     //해당 아이디에 맞는 애를 마이페이지에 추가
@@ -111,14 +117,14 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                             }
 
                             @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
+                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
                                 Log.v("추가", "통신 실패");
 
                             }
                         });
                     }else{
-                        Log.v("EditAdap", "서브 3명까지");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "서브는 3명까지", Toast.LENGTH_SHORT);
+                        Log.v("EditAdap", "가수는 4명까지");
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_SHORT);
                     }
                 }
             }
@@ -140,4 +146,52 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         }
             return false;
     }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+
+
+        searchSingerList.clear();
+        //입력한 데이터가 없을 경우에는 추천목록
+        if (charText.length() == 0) {
+            searchSingerList.addAll(addSingerItemDatas);
+            search = false;
+        }
+        else
+        {//검색하면 전체로부터 가져오기.
+            Log.v(TAG, String.valueOf(allSingerList.size()));
+
+            for (int i = 0; i < allSingerList.size() ; i++)
+            {
+                Log.v(TAG, "들어옴");
+                Log.v(TAG, charText);
+
+                String wp = allSingerList.get(i).getSinger_name();//실제 서버단에 저장된 가수 이름.AOA
+                //실질적 비교를 위해서는 에이오에이라고 치면 이것이 AOA가 되어야 함.
+                //해쉬 내에서 wp를 키로하는 애들의 value가 charText를 포함.
+                Log.v(TAG, wp);
+                Log.v(TAG, singerPNData.toString());
+                Log.v(TAG, singerPNData.get(wp));
+                // Log.v("가수", singerPNData.)
+                if (wp.toLowerCase(Locale.getDefault()).contains(charText))
+                {//실제 가수 이름이 charText를 갖고 있다면!.
+                    searchSingerList.add(allSingerList.get(i));
+                    Log.v(TAG, "일치");
+                    search = true;
+                }
+                else if(singerPNData.get(wp).toLowerCase(Locale.getDefault()).contains(charText)) {
+                    Log.v(TAG, "불일치");
+                    searchSingerList.add(allSingerList.get(i));
+                    search = true;
+                }
+                else {
+                    Log.v(TAG, "레알 불일치");
+                    //search = false;
+                }
+            }
+        }
+        //입력한 데이터가 있을 경우에는 일치하는 항목들만 찾아 출력해줍니다.
+        notifyDataSetChanged();
+    }
+
 }

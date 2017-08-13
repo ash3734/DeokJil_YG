@@ -7,12 +7,12 @@ package com.deokjilmate.www.deokjilmate.MyPage.AddSinger;
 public class SingerAddPost {
     int singerNum;
     int singer_id;
-    String firebasToken;
+    String firebaseToken;
 
 
-    public SingerAddPost(int singerNum, int singer_id, String firebasToken) {
+    public SingerAddPost(int singerNum, int singer_id, String firebaseToken) {
         this.singerNum = singerNum;
         this.singer_id = singer_id;
-        this.firebasToken = firebasToken;
+        this.firebaseToken = firebaseToken;
     }
 }

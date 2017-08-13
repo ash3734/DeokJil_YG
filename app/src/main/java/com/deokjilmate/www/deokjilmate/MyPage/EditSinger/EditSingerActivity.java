@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.MyPage.EditSinger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +15,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.AddSingerActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
+import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSelectedSinger;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 
@@ -69,7 +73,7 @@ public class EditSingerActivity extends AppCompatActivity {
         setContentView(R.layout.mypage_edit_singer);
         ButterKnife.bind(this);
         //Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
-        Glide.with(this).load(R.drawable.meta).into(addSinger);
+        Glide.with(this).load(R.drawable.floating_add).into(addSinger);
 
 
 
@@ -84,15 +88,13 @@ public class EditSingerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         editSingerItemDatas = new ArrayList<EditSingerItemData>();
-        myAllSingerArray = new ArrayList<>();
-        myAllSingerArrayN = new ArrayList<>();
-        myAllSingerArray.clear();
-        myAllSingerArrayN.clear();
+
         myPageAllSingerNumberses = ApplicationController.getInstance().getMyPageAllSingerNumberses();
 
-        userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
-        firebaseToken = ApplicationController.getInstance().getFirebaseToken();
-
+        //userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        //firebaseToken = ApplicationController.getInstance().getFirebaseToken();
+        firebaseToken = SharedPrefrernceController.getFirebaseToken(EditSingerActivity.this);
 
         //TODO : Edit의 경우 일단 모든 정보는 불러올 필요가 있음. 피엠이 말하길 수정 완료 되면 그대로 머물게 있게 하라고..
         setLists();
@@ -120,7 +122,7 @@ public class EditSingerActivity extends AppCompatActivity {
 
         System.out.println("대기 완료..");
 
-        deleteSinger();
+        //deleteSinger();
 
         finish();
         startActivity(getIntent());
@@ -154,13 +156,13 @@ public class EditSingerActivity extends AppCompatActivity {
                     {
                         if(i==0 && userAllSingerDatas.get(0)!=null)
                         {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
-                            editSingerHeadItemData = new EditSingerHeadItemData(myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_img(),
-                                    myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_name(), R.drawable.chgasu_sub, R.drawable.chgasu_x);
+                            editSingerHeadItemData = new EditSingerHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
+                                    userAllSingerDatas.get(i).getSinger_name(), R.drawable.chgasu_sub, R.drawable.chgasu_x);
                         }
                         else
                         {
-                            editSingerItemDatas.add(new EditSingerItemData(myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_img(),
-                                    myPageEditSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x));
+                            editSingerItemDatas.add(new EditSingerItemData(userAllSingerDatas.get(i).getSinger_img(),
+                                    userAllSingerDatas.get(i).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x));
                         }
                     }
                     editSingerAdpater = new EditSingerAdpater(requestManagerImage, requestManager, editSingerItemDatas, editSingerHeadItemData);
@@ -198,6 +200,11 @@ public class EditSingerActivity extends AppCompatActivity {
             });
         }
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 }
 
 
@@ -216,11 +223,11 @@ class NetworkThreadEdit extends Thread{
         String firebaseToken = ApplicationController.getInstance().getFirebaseToken();
         for(int i = 0; i<userAllSingerDatas.size(); i++)
         {
-            Call<Void> addSinger = networkService.addSinger(new SingerAddPost(i,
+            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(i,
                     userAllSingerDatas.get(i).getSinger_id(), firebaseToken));
-            addSinger.enqueue(new Callback<Void>() {
+            addSinger.enqueue(new Callback<SingerAddResponse>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
+                public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
                     if (response.isSuccessful()) {
                         Log.v("추가", "성공0");
                         //해당 아이디에 맞는 애를 마이페이지에 추가
@@ -230,7 +237,7 @@ class NetworkThreadEdit extends Thread{
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                public void onFailure(Call<SingerAddResponse> call, Throwable t) {
                     Log.v("추가", "통신 실패");
                 }
             });

@@ -23,6 +23,22 @@ public class AddSingerItemData {
         this.singer_name = singer_name;
         this.add_singer = add_singer;
     }
+
+    public int getSinger_id() {
+        return singer_id;
+    }
+
+    public String getSinger_image() {
+        return singer_image;
+    }
+
+    public String getSinger_name() {
+        return singer_name;
+    }
+
+    public int getAdd_singer() {
+        return add_singer;
+    }
     //list에 있어야 할 것은 가수 이미지, 가수 이름, most설정 이미지(T/F)이 네 가지만 있으면 된다.
 
 
