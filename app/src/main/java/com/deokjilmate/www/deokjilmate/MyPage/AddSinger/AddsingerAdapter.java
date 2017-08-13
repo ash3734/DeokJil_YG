@@ -97,13 +97,13 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else {
                     if (totalSingerCount < 3) {
-<<<<<<< HEAD
-                        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
-                                1, totalSingerCount));
-=======
+//<<<<<<<HEAD
+//                        Call<Void> addSinger = networkService.addSinger(new SingerAddPost(selectSingerNum,
+//                                1, totalSingerCount));
+//=======
                         Call<Void> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount+1,
                                 selectSingerNum, ApplicationController.getInstance().getFirebaseToken()));
->>>>>>> d2bcbceb17ff0667b6c09f372c2470dfb829a409
+//>>>>>>> d2bcbceb17ff0667b6c09f372c2470dfb829a409
                         addSinger.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {

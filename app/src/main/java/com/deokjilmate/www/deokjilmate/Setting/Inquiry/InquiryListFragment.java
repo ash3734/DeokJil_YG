@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.Setting.Inquiry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -113,8 +114,9 @@ public class InquiryListFragment extends Fragment {
 
 
         listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+                                                          // The Shawshank Redemption
+        listDataChild.put(listDataHeader.get(1), nowShowing); // null
+        listDataChild.put(listDataHeader.get(2), comingSoon); // 2 Guns
 
 
     }
@@ -148,25 +150,25 @@ public class InquiryListFragment extends Fragment {
         public View getChildView(int groupPosition, final int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
 
-            final String childText = (String) getChild(groupPosition, childPosition);
-
+//            final String childText = (String) getChild(groupPosition, childPosition);
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (convertView == null) {
                 Log.d("밍", String.valueOf(groupPosition));
                 Log.d("밍구",String.valueOf(childPosition));
-//                if(getChild(groupPosition,0)==null){
+                if(getChild(groupPosition,0)==null){
 //                    LayoutInflater infalInflater2 = (LayoutInflater) this._context
 //                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                    convertView = infalInflater2.inflate(R.layout.inquiry_list_null_child, null);
-//                }
-//                else{
-                    LayoutInflater infalInflater = (LayoutInflater) this._context
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = infalInflater.inflate(R.layout.inquiry_list_child, null);
+                    convertView = infalInflater.inflate(R.layout.inquiry_list_null_child, null);
+                }
+                else{
 
-                    TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
+                convertView = infalInflater.inflate(R.layout.inquiry_list_child, null);
 
-                    inquiry_answer_content.setText(childText);
-//                }
+                TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
+                    final String childText = (String) getChild(groupPosition, childPosition);
+                inquiry_answer_content.setText(childText);
+                }
             }
 
 //            TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
@@ -209,14 +211,14 @@ public class InquiryListFragment extends Fragment {
                 convertView = infalInflater.inflate(R.layout.inquiry_list_parent, null);
                 TextView inquiryState = (TextView) convertView.findViewById(R.id.inquiry_state);
 
-//                if(getChild(groupPosition,0)==null){
-//                    inquiryState.setText("답변 대기");
-//                    inquiryState.setTextColor(Color.parseColor("#FF7973"));
-//                }
-//                else{
-//                    inquiryState.setText("답변 완료");
-//                    inquiryState.setTextColor(Color.parseColor("#7AC943"));
-//                }
+                if(getChild(groupPosition,0)==null){
+                    inquiryState.setText("답변 대기");
+                    inquiryState.setTextColor(Color.parseColor("#FF7973"));
+                }
+                else{
+                    inquiryState.setText("답변 완료");
+                    inquiryState.setTextColor(Color.parseColor("#7AC943"));
+                }
             }
 
 //            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
