@@ -11,6 +11,7 @@ public class SharedPrefrernceController {
     private static final String USER = "user";
     private static final String LOGIN_TYPE = "loginType";
     private static final String FIREBASE_TOKEN = "firebaseToken";
+    private static final String FACEBOOK_TOKEN = "facebookToken";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
     private static final String PASSWD = "passwd";
@@ -35,10 +36,6 @@ public class SharedPrefrernceController {
         editor.commit();
     }
 
-    public static String getFirebaseToken(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        return pref.getString(FIREBASE_TOKEN, "");
-    }
 
     public static void setUserEmail(Context context,String email){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
@@ -50,19 +47,6 @@ public class SharedPrefrernceController {
         SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
         return pref.getString(EMAIL,"");
     }
-
-    public static void setPasswd(Context context, String passwd){
-        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(PASSWD,passwd);
-        editor.commit();
-    }
-
-    public static String getPasswd(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
-        return pref.getString(PASSWD,"");
-    }
-
 
     public static void setUserNickname(Context context, String nickname){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
@@ -88,6 +72,9 @@ public class SharedPrefrernceController {
         return pref.getString(IMAGE, "");
     }
 
-
+    public static String getFirebaseToken(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getString(FIREBASE_TOKEN, "");
+    }
 
 }

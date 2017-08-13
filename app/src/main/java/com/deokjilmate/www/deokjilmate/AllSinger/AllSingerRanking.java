@@ -7,7 +7,5 @@ import java.util.ArrayList;
  */
 
 public class AllSingerRanking {
-    public boolean result;
-    public String msg;
-    public ArrayList<AllSingerDetails> data;
+    public ArrayList<AllSingerDetails> result;
 }

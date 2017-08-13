@@ -30,8 +30,6 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     private final String TAG = "LOG::SetSingerAdapter";
 
     boolean search = false;
-    private short clicked = 0;
-    private int clickedPosition = -1;
     //보여지는 것은 추천목록이고 검색하면 검색한 녀석이 보여져야 함.
 
     public SetSingerAdapter(RequestManager requestManager, RequestManager requestManagerSel, ArrayList<SetSingerItemData> setSingerItemDatas, ArrayList<SetSingerItemData> allSingerList, HashMap<String, String> singerPNData) {
@@ -60,39 +58,17 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final SetSingerViewHolder holder, final int position) {
+    public void onBindViewHolder(SetSingerViewHolder holder, final int position) {
         if(search == false) {
             Log.v(TAG, "검색 false");
             requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
             //holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
+            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
             holder.singer_most.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (clicked){
-                        case 0:
-                            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-                            ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
-                            clickedPosition = position;
-                            clicked = 1;
-                            break;
-                        case 1:
-                            if(clickedPosition == position) {
-                                requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(-1);
-                                clickedPosition = -1;
-                                clicked = 0;
-                            }else{
-                                requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
-                                clickedPosition = position;
-                                clicked = 1;
-                            }
-
-                            break;
-                        default:
-                            break;
-                    }
+                    ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                 }
             });
         }
@@ -106,30 +82,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             holder.singer_most.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (clicked){
-                        case 0:
-                            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-                            ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
-                            clickedPosition = position;
-                            clicked = 1;
-                            break;
-                        case 1:
-                            if(clickedPosition == position) {
-                                requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(-1);
-                                clickedPosition = -1;
-                                clicked = 0;
-                            }else{
-                                requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
-                                clickedPosition = position;
-                                clicked = 1;
-                            }
-
-                            break;
-                        default:
-                            break;
-                    }
+                    ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                 }
             });
         }

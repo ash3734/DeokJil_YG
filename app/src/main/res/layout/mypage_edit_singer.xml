@@ -54,8 +54,8 @@
             android:layout_marginRight="24dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/maingradation"
             android:id="@+id/MyPage_EditSinger_addSinger"/>
+
     </RelativeLayout>
 
 </LinearLayout>

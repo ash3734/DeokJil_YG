@@ -2,6 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <layer-list>
+            <!-- main_singer_frame (밑으로) : 그림자 -->
+            <!--<item android:top="625dp">-->
+                <!--<shape>-->
+                    <!--<gradient-->
+                        <!--android:startColor="#ffffff"-->
+                        <!--android:endColor="#898989"-->
+                        <!--android:angle="90"-->
+                        <!--/>-->
+                <!--</shape>-->
+            <!--</item>-->
+            <!-- background (위로) -->
             <item>
                 <shape>
                     <gradient

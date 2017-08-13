@@ -32,10 +32,8 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-
         if(viewType == HEADER_VIEW)
         {
-
             itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_head,parent,false);
             MyPageHeadViewHolder myPageHeadViewHolder = new MyPageHeadViewHolder(itemView);
             return myPageHeadViewHolder;
@@ -48,7 +46,6 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
         try {
             if (holder instanceof MyPageViewHolder) {
                 MyPageViewHolder myPageViewHolder = (MyPageViewHolder) holder;
@@ -72,14 +69,12 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-
         return (myPageItemDatas != null) ? myPageItemDatas.size()+1 : 0;
 
     }
 
     @Override
     public int getItemViewType(int position) {
-
         if (position == 0) {
             // This is where we'll add footer.
             return HEADER_VIEW;

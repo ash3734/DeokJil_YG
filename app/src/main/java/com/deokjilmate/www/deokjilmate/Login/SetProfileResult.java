@@ -6,5 +6,4 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 public class SetProfileResult {
     public boolean result;
-    public String msg;
 }

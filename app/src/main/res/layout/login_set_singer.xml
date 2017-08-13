@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_set_singer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -59,17 +58,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="81dp">
                 <LinearLayout
-                    android:layout_width="296dp"
-                    android:layout_height="40dp"
+                    android:layout_width="280dp"
+                    android:layout_height="35dp"
                     android:layout_centerInParent="true" >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"/>
                     <EditText
-                        android:layout_width="256dp"
-                        android:layout_height="40dp"
+                        android:layout_width="240dp"
+                        android:layout_height="35dp"
                         android:hint="좋아하는 가수를 검색해보세요"
                         android:textSize="14dp"
                         android:gravity="center_vertical"
@@ -77,15 +79,12 @@
                         android:singleLine="true"
                         android:imeOptions="actionSearch"
                         android:layout_centerInParent="true"
-                        android:background="#f4f4f4"/>
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="#f4f4f4"
-                            android:src="@drawable/sign_search"
-                            app:civ_border="true"
-                            app:civ_border_color="#ff7d8f"
-                            />
+                        android:layout_weight="8"/>
+                        <ImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_menu_camera"
+                            android:layout_weight="1"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -113,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="296dp"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/Setsinger_buttonBlock"

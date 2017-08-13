@@ -11,6 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/maingradation">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MyPage_AddSinger_toolbar"/>
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
@@ -21,57 +25,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="내 가수 추가"/>
+            android:text="여기는 툴바"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingLeft="8dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/addgasu_search"
-            android:layout_weight="1"/>
+        android:layout_width="296dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/mypage_layoutblock">
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/MyPage_AddSinger_search"
-            android:layout_gravity="center_vertical"
-            android:background="@color/tw__transparent"
-            android:maxLines="1"
-            android:hint="가수 이름을 입력하세요"
-            android:layout_weight="8"
+            android:layout_weight="9"
             />
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingRight="8dp"
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/addgasu_x"
-            android:visibility="invisible"
-            android:id="@+id/MyPage_AddSinger_clear"
-            />
+            android:src="@drawable/ic_menu_camera"/>
+    </LinearLayout>
     </LinearLayout>
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/shadow_gradation"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"

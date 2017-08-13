@@ -375,7 +375,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
-                        intent.putExtra("type", 4);
+                        intent.putExtra("type", 2);
                         startActivity(intent);
                     }
                 });
@@ -445,7 +445,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
-                        intent.putExtra("type", 3);
+                        intent.putExtra("type", 2);
                         startActivity(intent);
                         //이걸 보내면 됨.
                         //credential.getProvider()
@@ -454,7 +454,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public boolean isPasswordValid(final String raw) {
-        String Passwrod_PATTERN = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-])(?=.*[0-9]+).{6,16}$";
+        String Passwrod_PATTERN = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
         Pattern pattern = Pattern.compile(Passwrod_PATTERN);
         Matcher matcher = pattern.matcher(raw);
         return matcher.matches();
