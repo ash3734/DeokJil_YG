@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -18,33 +17,29 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="48dp"
         android:background="@drawable/main_singer_frame">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="192dp"
             android:layout_marginTop="8dp">
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_height="144dp"
                 android:id="@+id/mypage_edit_singer_head_mainView">
                 <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_marginTop="16dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
                     android:id="@+id/mypage_edit_singer_head_mainImage"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="8dp"
                     android:text="WANNAONE"
                     android:layout_below="@+id/mypage_edit_singer_head_mainImage"
                     android:id="@+id/mypage_edit_singer_head_mainName"
@@ -53,13 +48,14 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:id="@+id/mypage_edit_singer_head_delete"/>
+                    android:layout_marginTop="11dp"
+                    android:layout_marginRight="11dp"
+                    android:id="@+id/mypage_edit_singer_head_delete"
+                    android:background="@drawable/chgasu_x"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:layout_below="@+id/mypage_edit_singer_head_mainView"
                 android:background="@drawable/main_singer_button_frame">
             <ImageButton
@@ -68,6 +64,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/mypage_edit_singer_head_recycle_setMain"
                 android:background="@color/tw__transparent"
+                android:src="@drawable/chgasu_sub"
                 />
             </RelativeLayout>
         </RelativeLayout>

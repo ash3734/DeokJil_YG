@@ -79,7 +79,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                 });
 
 
-                editSingerViewHolder.delete_Singer.setImageResource(editSingerItemDatas.get(position-1).delete_Singer);
+                //editSingerViewHolder.delete_Singer.setImageResource(editSingerItemDatas.get(position-1).delete_Singer);
                 editSingerViewHolder.delete_Singer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -115,7 +115,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                 //editSingerHeadViewHolder.set_Sub.setImageResource(editSingerHeadItemData.set_Sub);
                 requestManager_image.load(editSingerHeadItemData.set_Sub).into(editSingerHeadViewHolder.set_Sub);
 
-                editSingerHeadViewHolder.delete_Singer.setImageResource(editSingerHeadItemData.delete_Singer);
+               // editSingerHeadViewHolder.delete_Singer.setImageResource(editSingerHeadItemData.delete_Singer);
 
                 editSingerHeadViewHolder.delete_Singer.setOnClickListener(new View.OnClickListener() {
                     @Override

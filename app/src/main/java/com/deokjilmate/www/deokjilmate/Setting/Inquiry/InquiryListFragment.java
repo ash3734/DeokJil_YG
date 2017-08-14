@@ -106,7 +106,7 @@ public class InquiryListFragment extends Fragment {
 
 
         List<String> nowShowing = new ArrayList<String>();
-       //nowShowing.add("The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine");
+        //nowShowing.add("The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine The Conjuring Despicable Me TurboGrown Ups 2 Red 2 the Wolverine");
         nowShowing.add(null);
 
         List<String> comingSoon = new ArrayList<String>();
@@ -114,8 +114,9 @@ public class InquiryListFragment extends Fragment {
 
 
         listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+        // The Shawshank Redemption
+        listDataChild.put(listDataHeader.get(1), nowShowing); // null
+        listDataChild.put(listDataHeader.get(2), comingSoon); // 2 Guns
 
 
     }
@@ -149,22 +150,23 @@ public class InquiryListFragment extends Fragment {
         public View getChildView(int groupPosition, final int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
 
-            final String childText = (String) getChild(groupPosition, childPosition);
-
+//            final String childText = (String) getChild(groupPosition, childPosition);
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (convertView == null) {
-
+                Log.d("밍", String.valueOf(groupPosition));
+                Log.d("밍구",String.valueOf(childPosition));
                 if(getChild(groupPosition,0)==null){
-                    LayoutInflater infalInflater2 = (LayoutInflater) this._context
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = infalInflater2.inflate(R.layout.inquiry_list_null_child, null);
+//                    LayoutInflater infalInflater2 = (LayoutInflater) this._context
+//                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = infalInflater.inflate(R.layout.inquiry_list_null_child, null);
                 }
                 else{
-                    LayoutInflater infalInflater = (LayoutInflater) this._context
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
                     convertView = infalInflater.inflate(R.layout.inquiry_list_child, null);
 
                     TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
-
+                    final String childText = (String) getChild(groupPosition, childPosition);
                     inquiry_answer_content.setText(childText);
                 }
             }
@@ -201,6 +203,9 @@ public class InquiryListFragment extends Fragment {
                                  View convertView, ViewGroup parent) {
             String headerTitle = (String) getGroup(groupPosition);
             if (convertView == null) {
+
+                Log.d("ming!~~~~~~~~!", String.valueOf(groupPosition));
+
                 LayoutInflater infalInflater = (LayoutInflater) this._context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = infalInflater.inflate(R.layout.inquiry_list_parent, null);

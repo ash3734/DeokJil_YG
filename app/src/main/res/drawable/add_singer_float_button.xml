@@ -4,6 +4,7 @@
         <layer-list>
             <item>
                 <shape>
+                    <corners android:radius="28dp"/>
                     <gradient
                         android:startColor="#ff8c6d"
                         android:endColor="#ffac61"

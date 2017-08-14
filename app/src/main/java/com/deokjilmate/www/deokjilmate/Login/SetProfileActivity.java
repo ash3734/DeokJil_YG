@@ -86,7 +86,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
         Glide.with(this).load(R.drawable.profile_default).into(profileImage);
 
-        Glide.with(this).load(R.drawable.profilesetting_photo).into(profileSelect);
+        Glide.with(this).load(R.drawable.profile_change).into(profileSelect);
 
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
 

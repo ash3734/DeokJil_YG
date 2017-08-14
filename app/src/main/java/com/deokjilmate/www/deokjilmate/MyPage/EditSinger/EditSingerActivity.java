@@ -73,7 +73,7 @@ public class EditSingerActivity extends AppCompatActivity {
         setContentView(R.layout.mypage_edit_singer);
         ButterKnife.bind(this);
         //Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
-        Glide.with(this).load(R.drawable.floating_add).into(addSinger);
+        //Glide.with(this).load(R.drawable.floating_add).into(addSinger);
 
 
 
