@@ -10,11 +10,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.ByteArrayOutputStream;
@@ -25,6 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -44,6 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     ImageView editP_select;
 
     final int REQ_CODE_SELECT_IMAGE = 100;
+    private NetworkService networkService;
     private Uri data;
 
     @Override
@@ -51,7 +59,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
         ButterKnife.bind(this);
-
+        networkService = ApplicationController.getInstance().getNetworkService();
         init();
 
     }
@@ -116,7 +124,26 @@ public class EditProfileActivity extends AppCompatActivity {
     @OnClick(R.id.EditProfile_save)
     public void editSave(){
         SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
-        SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
+        Call<SetProfileResult> setProfileResult = networkService.setProfileResult(editP_nickname.getText().toString());
+        setProfileResult.enqueue(new Callback<SetProfileResult>() {
+            @Override
+            public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
+                if (!response.body().result) {
+                    //이건 중복 되었다는 이야기
+                    Toast.makeText(EditProfileActivity.this,"존재하는 닉네임입니다", Toast.LENGTH_LONG);
+
+                }
+                else{
+                    SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
+                    Toast.makeText(EditProfileActivity.this,"변경 되었습니다", Toast.LENGTH_LONG);
+                }
+
+            }
+            @Override
+            public void onFailure(Call<SetProfileResult> call, Throwable t) {
+
+            }
+        });
     }
 
     @OnClick(R.id.EditProfile_backImage)

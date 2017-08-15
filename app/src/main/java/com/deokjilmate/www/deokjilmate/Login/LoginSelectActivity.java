@@ -696,6 +696,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
         }
     }
 
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));

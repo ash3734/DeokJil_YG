@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -33,10 +34,19 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run()
                     {
-                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
-                finish();
+                        AutoLogin();
             }
         }, 5000);
+    }
+    public void AutoLogin(){
+        if(SharedPrefrernceController.getFirebaseToken(SplashActivity.this).equals("")){
+            startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+            finish();
+        }
+        else{
+            startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+            finish();
+        }
     }
     //누구나 다 아는 그런 스플래쉬
 }

@@ -5,6 +5,8 @@
     android:id="@+id/activity_edit_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#80ffcd54"
+
     tools:context="com.deokjilmate.www.deokjilmate.Login.SetProfileActivity"
     android:orientation="vertical">
 
@@ -34,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/tw__solid_white"
+            android:includeFontPadding="false"
             android:text="프로필 수정"/>
     </RelativeLayout>
     <View
@@ -90,6 +93,7 @@
                 android:textColorHint="#9d9e9e"
                 android:id="@+id/editPorfile_nickname"
                 android:gravity="center"
+                android:includeFontPadding="false"
                 android:background="@null"/>
 
         </LinearLayout>
