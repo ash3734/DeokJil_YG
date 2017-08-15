@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class MyPageActivity extends AppCompatActivity {
 
     @BindView(R.id.MyPage_editSinger)
-    ImageButton plusSub;
+    ImageView plusSub;
 
     @BindView(R.id.mypage_main_backImage)
     ImageButton back;
@@ -87,7 +87,7 @@ public class MyPageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setLayoutSize();
        // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
-        Glide.with(this).load(R.drawable.menu_chgasu).into(plusSub);
+        Glide.with(this).load(R.drawable.topbar_chgasu).into(plusSub);
         Glide.with(this).load(R.drawable.meta).into(editProfile);
        // Glide.with(this).load(R.drawable.meta).into(backImage);
 
@@ -104,7 +104,6 @@ public class MyPageActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         subSingerrecyclerView.setHasFixedSize(true);
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
-
 
 
 

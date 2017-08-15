@@ -9,6 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#f4f4f4"
+        android:paddingTop="12dp"
+        android:paddingLeft="16dp"
+        android:textColor="#8a000000"
+        android:textSize="14dp"
+        android:includeFontPadding="false"
         android:text="메인가수"/>
     <View
         android:layout_width="match_parent"
@@ -19,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/main_singer_frame">
@@ -37,10 +43,14 @@
                     android:layout_centerHorizontal="true"
                     android:id="@+id/mypage_edit_singer_head_mainImage"/>
                 <TextView
+                    android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="WANNAONE"
+                    android:textSize="16dp"
+                    android:textColor="#de000000"
+                    android:includeFontPadding="false"
                     android:layout_below="@+id/mypage_edit_singer_head_mainImage"
                     android:id="@+id/mypage_edit_singer_head_mainName"
                     />
@@ -54,8 +64,9 @@
                     android:background="@drawable/chgasu_x"/>
             </RelativeLayout>
             <RelativeLayout
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/mypage_edit_singer_head_mainView"
                 android:background="@drawable/main_singer_button_frame">
             <ImageButton
@@ -72,9 +83,15 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:paddingTop="12dp"
+        android:paddingLeft="16dp"
+        android:textSize="14dp"
         android:background="#f4f4f4"
+        android:textColor="#8a000000"
+        android:includeFontPadding="false"
         android:text="서브가수"
         android:layout_below="@+id/mypage_edit_singer_head_toSub"/>
     <View
