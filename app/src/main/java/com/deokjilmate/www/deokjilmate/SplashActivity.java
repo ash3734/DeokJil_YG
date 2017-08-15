@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+
 import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
+
+import com.deokjilmate.www.deokjilmate.alarm.AlarmActivity;
+
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -34,7 +38,12 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run()
                     {
-                        AutoLogin();
+
+                        //AutoLogin();
+
+                startActivity(new Intent(getApplicationContext(), AlarmActivity.class));
+                finish();
+
             }
         }, 5000);
     }
