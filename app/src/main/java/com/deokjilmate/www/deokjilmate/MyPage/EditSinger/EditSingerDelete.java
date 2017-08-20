@@ -5,11 +5,11 @@ package com.deokjilmate.www.deokjilmate.MyPage.EditSinger;
  */
 
 public class EditSingerDelete {
-    int member_id;
+    String firebaseToken;
     int singerNum;
 
-    public EditSingerDelete(int member_id, int singerNum) {
-        this.member_id = member_id;
+    public EditSingerDelete(String firebaseToken, int singerNum) {
+        this.firebaseToken = firebaseToken;
         this.singerNum = singerNum;
     }
 }

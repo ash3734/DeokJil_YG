@@ -21,7 +21,7 @@
 
         <activity
             android:name=".Setting.SettingActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".home.HomeActivity"
             android:label="@string/app_name"
@@ -69,8 +69,8 @@
         <activity
             android:name=".MyPage.EditSinger.EditSingerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Setting.Notice.NoticeActivity"></activity>
-        <activity android:name=".Setting.Terms.TermsActivity"></activity>
+        <activity android:name=".Setting.Notice.NoticeActivity" />
+        <activity android:name=".Setting.Terms.TermsActivity" />
         <activity android:name=".Setting.Break.BreakActivity" />
 
         <service android:name=".alarm.MyFirebaseMessagingService">
@@ -84,9 +84,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Profile.EditProfileActivity"
+        <activity
+            android:name=".Profile.EditProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".CustomDialog"></activity>
     </application>
 
 </manifest>

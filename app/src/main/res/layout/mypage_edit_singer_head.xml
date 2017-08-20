@@ -26,12 +26,24 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/main_singer_frame">
+        android:layout_marginRight="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mypage_edit_singer_noMain"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="메인 가수가 없습니다"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="192dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:id="@+id/mypage_edit_singer_main"
+            android:background="@drawable/main_singer_frame">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="144dp"
@@ -61,10 +73,9 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginRight="11dp"
                     android:id="@+id/mypage_edit_singer_head_delete"
-                    android:background="@drawable/chgasu_x"/>
+                    android:src="@drawable/chgasu_x"/>
             </RelativeLayout>
             <RelativeLayout
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/mypage_edit_singer_head_mainView"
@@ -73,7 +84,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/mypage_edit_singer_head_recycle_setMain"
+                android:id="@+id/mypage_edit_singer_head_toSub"
                 android:background="@color/tw__transparent"
                 android:src="@drawable/chgasu_sub"
                 />

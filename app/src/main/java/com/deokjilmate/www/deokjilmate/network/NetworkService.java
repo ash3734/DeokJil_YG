@@ -15,6 +15,7 @@ import com.deokjilmate.www.deokjilmate.Login.SnsResult;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDelete;
+import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDeleteResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
@@ -112,7 +113,6 @@ public interface NetworkService {
     @POST("findpassword")
     Call<FindPwdResponse> findPwd(@Body FindPwdPost findPwdPost);
 
-
     //가수 전체 목록 불러오기
     @GET("singer/rank")
     Call<AllSingerRanking> setSingerRanking();
@@ -130,8 +130,8 @@ public interface NetworkService {
     Call<SingerAddResponse> addSinger(@Body SingerAddPost singerAddPost);
 
     //가수 삭제
-    @HTTP(method = "DELETE", path = "singer/singerDelete", hasBody = true)
-    Call<Void> deleteSinger(@Body EditSingerDelete editSingerDelete);
+    @HTTP(method = "DELETE", path = "singer", hasBody = true)
+    Call<EditSingerDeleteResponse> deleteSinger(@Body EditSingerDelete editSingerDelete);
 
     //singerBase + singerCheck
     @GET("singer")

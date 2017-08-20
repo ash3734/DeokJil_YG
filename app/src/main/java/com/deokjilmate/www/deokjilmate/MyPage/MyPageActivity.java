@@ -20,6 +20,7 @@ import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
@@ -50,6 +51,9 @@ public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.Mypage_editProfile)
     ImageView editProfile;
 
+    @BindView(R.id.MyPage_profileImage)
+    ImageView profileImage;
+
 
     private RequestManager requestManager_singer;
     private RequestManager requestManager_rank;
@@ -72,6 +76,7 @@ public class MyPageActivity extends AppCompatActivity {
     private ArrayList<Integer> myAllSingerArrayN;
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private String firebaseToken;
+    private ArrayList<UserDataSumm> userDataSumms;
 
 
     //ArrayList<MyPageSingerList> myPageSingerList;
@@ -98,6 +103,7 @@ public class MyPageActivity extends AppCompatActivity {
 
         //recyclerView.get
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
         myPageItemDatas = new ArrayList<MyPageItemData>();
 
         linearLayoutManager = new LinearLayoutManager(this);
@@ -123,6 +129,11 @@ public class MyPageActivity extends AppCompatActivity {
                     ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
                     Log.v("MyPage", userAllSingerDatas.get(0).getSinger_name());
                     Log.v("MyPage", "전체 = " + String.valueOf(userAllSingerDatas.size()));
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     for(int i = 0; i<userAllSingerDatas.size(); i++)
                     {
                         if(i==0 && userAllSingerDatas.get(0)!=null)
@@ -138,8 +149,11 @@ public class MyPageActivity extends AppCompatActivity {
                                         R.drawable.badge_newbie, userAllSingerDatas.get(i).getSinger_name(),
                                         userAllSingerDatas.get(i).getChoice_count()));
                         }
+                        userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+                                userAllSingerDatas.get(i).getSinger_img()));
                     }
                     Log.v("MyPage", "이제 어댑터로");
+                    ApplicationController.getInstance().setUserDataSumms(userDataSumms);
                     myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
                     subSingerrecyclerView.setAdapter(myPageAdapter);
                 } else{
@@ -238,6 +252,12 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.MyPage_profileImage)
+    public void reset(){
+        finish();
+        startActivity(getIntent());
     }
 
     @Override
