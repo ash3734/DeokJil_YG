@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.deokjilmate.www.deokjilmate.R;
@@ -18,6 +19,8 @@ public class EditSingerHeadViewHolder extends RecyclerView.ViewHolder{
     TextView singer_Name;
     ImageButton set_Sub;
     ImageView delete_Singer;
+    RelativeLayout main;
+    RelativeLayout nonMain;
    // ImageView presentMain;
 
 
@@ -29,5 +32,7 @@ public class EditSingerHeadViewHolder extends RecyclerView.ViewHolder{
         singer_Name = (TextView) itemView.findViewById(R.id.mypage_edit_singer_head_mainName);
         set_Sub = (ImageButton) itemView.findViewById(R.id.mypage_edit_singer_head_toSub);
         delete_Singer = (ImageView) itemView.findViewById(R.id.mypage_edit_singer_head_delete);
+        main = (RelativeLayout) itemView.findViewById(R.id.mypage_edit_singer_main);
+        nonMain = (RelativeLayout) itemView.findViewById(R.id.mypage_edit_singer_noMain);
     }
 }

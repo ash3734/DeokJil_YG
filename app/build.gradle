@@ -73,7 +73,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.0.1'
     compile 'jp.wasabeef:glide-transformations:2.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.tsengvn:typekit:1.0.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
-    compile 'com.tsengvn:typekit:1.0.1'
 }

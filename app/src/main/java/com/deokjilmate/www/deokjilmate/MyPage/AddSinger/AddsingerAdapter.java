@@ -13,6 +13,7 @@ import com.deokjilmate.www.deokjilmate.Login.SetSingerNameData;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
@@ -21,8 +22,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.view.View.GONE;
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
@@ -47,6 +46,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     private int selectSingerNum;
     private String firebaseToken;
     public boolean search = false;
+    private ArrayList<UserDataSumm> userDataSumms;
 
 
 
@@ -65,6 +65,8 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.myPageAllSingerNumberses = ApplicationController.getInstance().getMyPageAllSingerNumberses();
         this.totalSingerCount = ApplicationController.getInstance().getTotalSingerCount();
         this.firebaseToken = firebaseToken;
+        this.userDataSumms = new ArrayList<UserDataSumm>();
+        this.userDataSumms = ApplicationController.getInstance().getUserDataSumms();
     }
 
     @Override
@@ -103,25 +105,32 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
                 } else {
                     if (totalSingerCount < 4) {//전체 가수 length.
+
+                        userDataSumms.add(new UserDataSumm(allSingerList.get(position).singer_id, allSingerList.get(position).singer_name,
+                                allSingerList.get(position).singer_image));
+                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
                         Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
                                 selectSingerNum, firebaseToken));
-                        addSinger.enqueue(new Callback<SingerAddResponse>() {
-                            @Override
-                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                                if (response.isSuccessful()) {
-                                    Log.v("추가", "성공");
-                                    //해당 아이디에 맞는 애를 마이페이지에 추가
-                                } else {
-                                    Log.v("추가", "실패");
-                                }
-                            }
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_SHORT);
 
-                            @Override
-                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-                                Log.v("추가", "통신 실패");
-
-                            }
-                        });
+//                        addSinger.enqueue(new Callback<SingerAddResponse>() {
+//                            @Override
+//                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+//                                if (response.isSuccessful()) {
+//                                    Log.v("추가", "성공");
+//                                    //해당 아이디에 맞는 애를 마이페이지에 추가
+//                                } else {
+//                                    Log.v("추가", "실패");
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+//                                Log.v("추가", "통신 실패");
+//
+//                            }
+//                        });
                     }else{
                         Log.v("EditAdap", "가수는 4명까지");
                         Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_SHORT);

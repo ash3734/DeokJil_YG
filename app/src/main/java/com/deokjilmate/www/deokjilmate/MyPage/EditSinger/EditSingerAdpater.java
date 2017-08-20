@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 
 import java.util.ArrayList;
@@ -27,7 +27,8 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
     private EditSingerHeadItemData editSingerHeadItemData;
     private int selectedSubPos = 0;
     private ArrayList<Integer> deleteList;
-
+    private boolean mainExist = true;
+    private ArrayList<UserDataSumm> userDataSumms;
 
 
     public EditSingerAdpater(RequestManager requestManager_image, RequestManager requestManager_singer, ArrayList<EditSingerItemData> editSingerItemDatas, EditSingerHeadItemData editSingerHeadItemData) {
@@ -36,6 +37,8 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.editSingerHeadItemData = editSingerHeadItemData;
         this.requestManager_image = requestManager_image;
         this.deleteList = new ArrayList<Integer>();
+        this.userDataSumms = new ArrayList<UserDataSumm>();
+        this.userDataSumms = ApplicationController.getInstance().getUserDataSumms();
     }
 
     @Override
@@ -55,7 +58,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         try {
             if (holder instanceof EditSingerViewHolder) {
                 //서브를 찍음
@@ -64,7 +67,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                 requestManager_singer.load(editSingerItemDatas.get(position-1).singer_Image).into(editSingerViewHolder.singer_Image);
                 editSingerViewHolder.singer_Name.setText(editSingerItemDatas.get(position-1).singer_Name);
                 //editSingerViewHolder.set_Main.setImageResource(editSingerItemDatas.get(position-1).set_Main);
-               // Log.v("셀렉포지션1", String.valueOf(position-1));
+                // Log.v("셀렉포지션1", String.valueOf(position-1));
                 //requestManager_image.load(editSingerItemDatas.get(position))
                 requestManager_image.load(editSingerItemDatas.get(position-1).set_Main).into(editSingerViewHolder.set_Main);
 
@@ -73,31 +76,21 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View view) {
 
                         selectedSubPos = (position-1);
+
                         changeWithMain();
 
                     }
                 });
 
-
                 //editSingerViewHolder.delete_Singer.setImageResource(editSingerItemDatas.get(position-1).delete_Singer);
                 editSingerViewHolder.delete_Singer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //editSingerItemDatas.
-                        //selectedSubPos = (position-1);
+                        selectedSubPos = (position-1);
 
-                        editSingerItemDatas.get(selectedSubPos).singer_Name = "";
-                        editSingerItemDatas.get(selectedSubPos).delete_Singer = 0;
-                        editSingerItemDatas.get(selectedSubPos).set_Main = 0;
-                        editSingerItemDatas.get(selectedSubPos).singer_Image = "";
-
-
-                        deleteList.add(position);
-
-//                        ApplicationController.getInstance().setDeleteList(deleteList);
-                        //sortList(position);
-                        checkType(deleteList);
-
+                        editSingerItemDatas.remove(selectedSubPos);
+                        userDataSumms.remove(selectedSubPos+1);
+                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
                         notifyDataSetChanged();
 
 
@@ -106,43 +99,87 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             } else if (holder instanceof EditSingerHeadViewHolder) {
                 //헤더를 찍음(메인을 찍음)
-                EditSingerHeadViewHolder editSingerHeadViewHolder = (EditSingerHeadViewHolder) holder;
+                final EditSingerHeadViewHolder editSingerHeadViewHolder = (EditSingerHeadViewHolder) holder;
 
                 requestManager_singer.load(editSingerHeadItemData.singer_Image).into(editSingerHeadViewHolder.singer_Image);
+                editSingerHeadViewHolder.singer_Image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.v("EditAdap", "누르긴 누름3");
+                    }
+                });
+
+
                 editSingerHeadViewHolder.singer_Name.setText(editSingerHeadItemData.singer_Name);
                 Log.v("이름", editSingerHeadItemData.singer_Name);
 
                 //editSingerHeadViewHolder.set_Sub.setImageResource(editSingerHeadItemData.set_Sub);
                 requestManager_image.load(editSingerHeadItemData.set_Sub).into(editSingerHeadViewHolder.set_Sub);
 
-               // editSingerHeadViewHolder.delete_Singer.setImageResource(editSingerHeadItemData.delete_Singer);
+                editSingerHeadViewHolder.set_Sub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.v("EditAdap", "누르긴 누름1");
+                        mainExist = false;
+
+                        UserDataSumm tempUserData = new UserDataSumm(userDataSumms.get(0).getSinger_id(),
+                                userDataSumms.get(0).getSinger_name(), userDataSumms.get(0).getSinger_img());
+
+                        EditSingerItemData tempEditSingerItemData = new EditSingerItemData(userDataSumms.get(0).getSinger_img(),
+                                userDataSumms.get(0).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x);
+
+                        editSingerItemDatas.add(tempEditSingerItemData);
+
+                        userDataSumms.get(0).setSinger_img("");
+                        userDataSumms.get(0).setSinger_name("");
+
+                        editSingerHeadItemData.singer_Name = "";
+                        editSingerHeadItemData.singer_Image = "";
+
+
+                        userDataSumms.add(tempUserData);
+
+
+                        notifyDataSetChanged();
+
+
+                    }
+                });
+                //editSingerHeadViewHolder.delete_Singer.setImageResource(R.drawable.addgasu_x);
 
                 editSingerHeadViewHolder.delete_Singer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //editSingerHeadItemData.
+                        Log.v("EditAdap", "누르긴 누름2");
+                        //editSingerHeadItemData = null;
+
+                        mainExist = false;
+
+                        userDataSumms.get(0).setSinger_img("");
+                        userDataSumms.get(0).setSinger_name("");
+
 
                         editSingerHeadItemData.singer_Name = "";
-                        editSingerHeadItemData.delete_Singer = 0;
-                        editSingerHeadItemData.set_Sub = 0;
                         editSingerHeadItemData.singer_Image = "";
+//                      editSingerHeadItemData
 
-                        //TODO : 모양만 지우고 실제 delete는 나중에
-                        //ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id(0);
-                        deleteList.add(0);
-                        //ApplicationController.getInstance().setDeleteList(deleteList);
-                        checkType(deleteList);
-                        //ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id((Integer)null);
+//                        //TODO : 모양만 지우고 실제 delete는 나중에
                         notifyDataSetChanged();
                     }
                 });
 
+                if(mainExist){
+                    editSingerHeadViewHolder.main.setVisibility(View.VISIBLE);
+                    editSingerHeadViewHolder.nonMain.setVisibility(View.GONE);
+                }else{
+                    editSingerHeadViewHolder.main.setVisibility(View.GONE);
+                    editSingerHeadViewHolder.nonMain.setVisibility(View.VISIBLE);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -162,42 +199,63 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void changeWithMain(){
         String tempImg = "";
         String tempName = "";
-        int tempId = 0;
-        MyPageAllSingerNumbers myPageAllSingerNumbers;
+        int tempId = -1;
+        UserDataSumm tempUserDataSumm;
+        //MyPageAllSingerNumbers myPageAllSingerNumbers;
 
-        tempImg = editSingerItemDatas.get(selectedSubPos).singer_Image;
-        editSingerItemDatas.get(selectedSubPos).singer_Image = editSingerHeadItemData.singer_Image;
-        editSingerHeadItemData.singer_Image = tempImg;
+        if(mainExist){
+            //메인이 있을 때
+            //selectedSubPos는 리스트의 각 position에서 1뺀 값(서브일 경우)
+            Log.v("EditAdap", String.valueOf(selectedSubPos+1));
+            Log.v("EditAdap", userDataSumms.get(selectedSubPos+1).getSinger_name());
+            Log.v("EditAdap", userDataSumms.get(0).getSinger_name());
 
-        tempName = editSingerItemDatas.get(selectedSubPos).singer_Name;
-        editSingerItemDatas.get(selectedSubPos).singer_Name = editSingerHeadItemData.singer_Name;
-        editSingerHeadItemData.singer_Name = tempName;
+            tempUserDataSumm = userDataSumms.get(0);
+            userDataSumms.set(0, userDataSumms.get(selectedSubPos+1));
+            userDataSumms.set(selectedSubPos+1, tempUserDataSumm);
+            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+            //이게 진짜 바꾼 거고 표면상으로 한 번 더 바꿔줘야 함
 
-        myPageAllSingerNumbers = ApplicationController.getInstance().getMyPageAllSingerNumberses();
-        tempId = myPageAllSingerNumbers.getSingerb_id();
+            Log.v("EditAdap", String.valueOf(selectedSubPos+1));
+            Log.v("EditAdap", userDataSumms.get(selectedSubPos+1).getSinger_name());
+            Log.v("EditAdap", userDataSumms.get(0).getSinger_name());
 
-        switch (selectedSubPos){
-            case 0:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id(myPageAllSingerNumbers.getSinger0_id());
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger0_id(tempId);
-                break;
-            case 1:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id(myPageAllSingerNumbers.getSinger1_id());
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger1_id(tempId);
-                break;
-            case 2:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id(myPageAllSingerNumbers.getSinger2_id());
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger2_id(tempId);
-                break;
-            case 3:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSingerb_id(myPageAllSingerNumbers.getSinger3_id());
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger3_id(tempId);
-                break;
-            default:
-                break;
+            editSingerItemDatas.get(selectedSubPos).singer_Image = userDataSumms.get(selectedSubPos+1).getSinger_img();
+            editSingerHeadItemData.singer_Image = userDataSumms.get(0).getSinger_img();
+
+            editSingerItemDatas.get(selectedSubPos).singer_Name = userDataSumms.get(selectedSubPos+1).getSinger_name();
+            editSingerHeadItemData.singer_Name = userDataSumms.get(0).getSinger_name();
+
+        }else{
+            //메인이 없을 때 바꾼 그 서브 뒤에서부터는 하나씩 땡겨야 함.
+
+            Log.v("EditAdap", String.valueOf(selectedSubPos+1));
+            Log.v("EditAdap", userDataSumms.get(selectedSubPos+1).getSinger_name());
+            Log.v("EditAdap", userDataSumms.get(0).getSinger_name());
+
+            tempUserDataSumm = userDataSumms.get(0);//지웠을 때는 내용을 비울 것 공백이나 -1로
+            userDataSumms.set(0, userDataSumms.get(selectedSubPos+1));
+            userDataSumms.set(selectedSubPos+1, tempUserDataSumm);
+            userDataSumms.remove(selectedSubPos+1);
+
+            //editSingerItemDatas.get(selectedSubPos).singer_Name = userDataSumms.get(selectedSubPos+1).getSinger_name();
+            editSingerHeadItemData.singer_Name = userDataSumms.get(0).getSinger_name();
+
+            //editSingerItemDatas.get(selectedSubPos).singer_Image = userDataSumms.get(selectedSubPos+1).getSinger_img();
+            editSingerHeadItemData.singer_Image = userDataSumms.get(0).getSinger_img();
+
+            editSingerItemDatas.remove(selectedSubPos);
+
+            mainExist = true;
+
         }
 
         notifyDataSetChanged();
+    }
+
+    public UserDataSumm changeOrder(UserDataSumm userDataSumm){
+
+        return userDataSumm;
     }
 
     public void sortList(int position){
