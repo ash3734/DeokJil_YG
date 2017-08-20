@@ -12,12 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
-            />
+
 
         <TextView
             android:layout_width="80dp"
@@ -26,16 +21,18 @@
             android:textSize="15dp"
             android:textColor="#5D5F5E"
             android:gravity="center_vertical"
-            android:layout_marginLeft="43dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="12dp"
             />
-        <Button
+        <ImageView
             android:id="@+id/alarm_today_info"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="12dp"
+            android:src="@drawable/alarm_info"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
             />
 
         <Switch

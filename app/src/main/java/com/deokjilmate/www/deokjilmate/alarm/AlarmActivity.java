@@ -2,6 +2,7 @@
 package com.deokjilmate.www.deokjilmate.alarm;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,9 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -28,18 +29,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AlarmActivity extends AppCompatActivity implements MainView {
+public class AlarmActivity extends AppCompatActivity {
 
 
     private ArrayList<String> reGroupList = null;
     private ArrayList<String> mGroupList = null;
-    private ArrayList<ArrayList<ChildStateObject>> mChildList = null;
-    private ArrayList<ChildStateObject> mChildListContent = null;
-    private ArrayList<ChildStateObject> mChildListContent2 = null;
-    private ArrayList<ChildStateObject> mChildListContent3 = null;
 
+    private ArrayList<ArrayList<String>> mChildList = null;
+    private ArrayList<String> mChildListContent = null;
+    private ArrayList<String> mChildListContent2 = null;
+    private ArrayList<String> mChildListContent3 = null;
+//    private ArrayList<ArrayList<ChildStateObject>> mChildList = null;
+//    private ArrayList<ChildStateObject> mChildListContent = null;
+//    private ArrayList<ChildStateObject> mChildListContent2 = null;
+//    private ArrayList<ChildStateObject> mChildListContent3 = null;
 
-    private AlarmAdapter mBaseExpandableAdapter = null;
+    AlarmAdapter mBaseExpandableAdapter = null;
     private ExpandableListView mListView;
 
     SharedPreferences noticeInfo;
@@ -57,11 +62,12 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
     TextView childText;
     MainView view;
    // ActionBar actionBar;
+    Context c;
 
 
     String firebaseToken;
 
-    Button alarm_today_info;
+    ImageView alarm_today_info;
 
 
     @Override
@@ -70,9 +76,10 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.alarm_activity);
 
 
+        c = this;
         firebaseToken = SharedPrefrernceController.getFirebaseToken(AlarmActivity.this);
 
-        alarm_today_info = (Button) findViewById(R.id.alarm_today_info);
+        alarm_today_info = (ImageView) findViewById(R.id.alarm_today_info);
         alarm_today_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,25 +137,59 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
 
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
         mGroupList = new ArrayList<String>();
-        mChildList = new ArrayList<ArrayList<ChildStateObject>>();
+        mChildList = new ArrayList<ArrayList<String>>();
+        mChildListContent = new ArrayList<String>();
 
-        Call<UserAllSingerResponse> userAllSingerResponse = service.userAllSinger(firebaseToken);
+
+        Call<UserAllSingerResponse> userAllSingerResponse = service.userAllSinger("asdfdsa");
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
             @Override
             public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+
+                Log.v("firebaseToken",firebaseToken);
+                Log.d("통신연결","성공");
+                Log.d("result값",String.valueOf(response.body().result));
+
+                mChildListContent.add("인기가요");
+                mChildListContent.add("쇼!음악중심");
+                mChildListContent.add("쇼챔피언");
+
                 if(response.body().result){
                     for(UserAllSingerData data : response.body().data){
+                        Log.d("가수명확인",data.getSinger_name());
                         mGroupList.add(data.getSinger_name());
+                        mChildList.add(mChildListContent);
                     }
                 }
+
+
+
+
+                mBaseExpandableAdapter = new AlarmAdapter(c, mGroupList, mChildList);
+                mListView.setAdapter(mBaseExpandableAdapter);
             }
 
             @Override
             public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
-
+                Log.d("통신연결","실패");
             }
         });
 
+
+
+        // TODO: fcm_token 보내줘야함
+        Call<NoticeResult> getAlarm = service.getAlarm("asdfdsa");
+        getAlarm.enqueue(new Callback<NoticeResult>() {
+            @Override
+            public void onResponse(Call<NoticeResult> call, Response<NoticeResult> response) {
+                
+            }
+
+            @Override
+            public void onFailure(Call<NoticeResult> call, Throwable t) {
+
+            }
+        });
         /*
 
         Call<NoticeResult> getDetailData = service.getDetailData(m_id);
@@ -203,10 +244,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
 
         */
 
-        mBaseExpandableAdapter = new AlarmAdapter(this, mGroupList, mChildList, this);
-
-
-        mListView.setAdapter(mBaseExpandableAdapter);
 
 
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -246,7 +283,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
 
     }
 
-
+    /*
     @Override
     public void updateStateCheck(String sname, String voteName, boolean state) {
 
@@ -279,6 +316,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
     }
 
 
+*/
+
+    /*
 
     @Override
     public void requestName(String sname, String name, String notice) {
@@ -288,7 +328,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
         Log.i("myTag", String.valueOf(name));
         Log.i("myTag", String.valueOf(notice));
 
-        /*
+
         retrofit2.Call<RegisterResult> requestRegister = service.requestRegister(new NoticeObject(m_id, sname, name, notice));
         requestRegister.enqueue(new Callback<RegisterResult>() {
             @Override
@@ -309,12 +349,13 @@ public class AlarmActivity extends AppCompatActivity implements MainView {
                 Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
             }
         });
-        */
+
 
 
 
    }
 
+   */
 
 
 }
