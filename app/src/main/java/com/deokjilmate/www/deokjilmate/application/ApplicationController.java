@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.Typekit;
 
@@ -31,6 +32,9 @@ public class ApplicationController extends Application{
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private ArrayList<UserAllSingerData> userAllSingerDatas;
 
+
+
+    private ArrayList<UserDataSumm> userDataSumms;
     private int most;
 
 
@@ -111,5 +115,11 @@ public class ApplicationController extends Application{
     public void setFirebaseToken(String firebaseToken) {
         this.firebaseToken = firebaseToken;
     }
+    public ArrayList<UserDataSumm> getUserDataSumms() {
+        return userDataSumms;
+    }
 
+    public void setUserDataSumms(ArrayList<UserDataSumm> userDataSumms) {
+        this.userDataSumms = userDataSumms;
+    }
 }

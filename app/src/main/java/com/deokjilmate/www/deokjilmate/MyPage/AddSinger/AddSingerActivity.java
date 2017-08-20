@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
+import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.SingerList;
@@ -61,6 +61,7 @@ public class AddSingerActivity extends AppCompatActivity {
     private ArrayList<AddSingerItemData> allSingerList;//전체목록
     private ArrayList<AddSingerItemData> addSingerItemDatas;//검색 목록
     private ArrayList<AllSingerDetails> allSingerDetails;
+
     private AddsingerAdapter addsingerAdapter;
     private HashMap<String, String> singerPNData;
 
@@ -144,7 +145,7 @@ public class AddSingerActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_AddSinger_backImage)
     public void ClickBack()
     {
-        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
     }
 

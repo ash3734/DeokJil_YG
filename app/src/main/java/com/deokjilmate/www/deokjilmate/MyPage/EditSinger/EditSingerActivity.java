@@ -22,7 +22,7 @@ import com.deokjilmate.www.deokjilmate.MyPage.MyPageSelectedSinger;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
-import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
@@ -65,7 +65,10 @@ public class EditSingerActivity extends AppCompatActivity {
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
+    private ArrayList<UserDataSumm> userDataSumms;
     private String firebaseToken;
+    private int baseTotal;
+    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,7 @@ public class EditSingerActivity extends AppCompatActivity {
         networkService = ApplicationController.getInstance().getNetworkService();
         requestManager = Glide.with(this);
         requestManagerImage = Glide.with(this);
-
+        baseTotal = 3;
         recyclerView.setHasFixedSize(true);
         //recyclerView.get
         linearLayoutManager = new LinearLayoutManager(this);
@@ -93,39 +96,137 @@ public class EditSingerActivity extends AppCompatActivity {
 
         //userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
+
+        userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        userDataSumms = ApplicationController.getInstance().getUserDataSumms();
         //firebaseToken = ApplicationController.getInstance().getFirebaseToken();
         firebaseToken = SharedPrefrernceController.getFirebaseToken(EditSingerActivity.this);
 
         //TODO : Edit의 경우 일단 모든 정보는 불러올 필요가 있음. 피엠이 말하길 수정 완료 되면 그대로 머물게 있게 하라고..
         setLists();
 
+//        CustomDialog customDialog = new CustomDialog(this);
+//        customDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialogInterface) {
+//                Log.v("EditActi", "보여줌");
+//            }
+//        });
+//        customDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialogInterface) {
+//                Log.v("EditActi", "사라짐");
+//
+//            }
+//        });
+//        customDialog.show();
+
     }
 
+    public void deleteLists(){
+            final ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+            Log.v("토큰", firebaseToken);
+            Log.v("전체 길이", String.valueOf(userDataSumms.size()));
+            final int listLength = userDataSumms.size();
+            baseTotal = 3;
+            count = 0;
+            if(listLength<4) {
+                for (int i = 3; i > (3 - (4 - listLength)); i--) {
+                    Call<EditSingerDeleteResponse> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
+                            firebaseToken, baseTotal));
+                    Log.v("삭제된 num", String.valueOf(baseTotal));
+
+                    //i는 3이 들어 옴.
+                    deleteSinger.enqueue(new Callback<EditSingerDeleteResponse>() {
+                        @Override
+                        public void onResponse(Call<EditSingerDeleteResponse> call, Response<EditSingerDeleteResponse> response) {
+                            if (response.body().result) {
+
+                                Log.v("삭제", "삭제 성공");
+                                Log.v("삭제된 num1", String.valueOf(baseTotal));
+
+                                Log.v("베이스", String.valueOf(baseTotal));
+                                count++;
+                                Log.v("카운트", String.valueOf(count));
+                                Log.v("카운트베이스", String.valueOf(count+baseTotal));
+                                //해당 아이디에 맞는 애를 마이페이지에 추가
+                                if(baseTotal+count==3){
+                                    Log.v("길이", String.valueOf(listLength));
+                                    Log.v("들어옴", "들어옴");
+                                    addLists();
+                                }
+
+                            } else {
+                                Log.v("삭제", "삭제 실패");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<EditSingerDeleteResponse> call, Throwable t) {
+                            Log.e("삭제", "통신 실패");
+                        }
+                    });
+                    baseTotal--;
+                }
+            }
+            else{
+                addLists();
+            }
+    }
+
+    public void addLists(){
+        final ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        for(int i = 0; i<userDataSumms.size(); i++)
+        {
+            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(i,
+                    userDataSumms.get(i).getSinger_id(), firebaseToken));
+            Log.v(String.valueOf(i)+"번째", String.valueOf(userDataSumms.get(i).getSinger_id()));
+            addSinger.enqueue(new Callback<SingerAddResponse>() {
+                @Override
+                public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+                    if (response.body().result) {
+                        Log.v("추가", "성공");
+                        //해당 아이디에 맞는 애를 마이페이지에 추가
+                    } else {
+                        Log.v("추가", "실패");
+                    }
+                }
+                @Override
+                public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+                    Log.v("추가", "통신 실패");
+                }
+            });
+        }
+    }
 
     @OnClick(R.id.MyPage_EditSinger_save)
     public void save()
     {
+
         //changeLists();
         //TODO : 이 부분이 수정 후 저장하는 부분
-        Thread networkThreadEdit = new NetworkThreadEdit(networkService);
        // NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService);
-        //NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService);
-        networkThreadEdit.start();
-        System.out.println("대기 중..");
-        try {
-            networkThreadEdit.join();
-            Thread.sleep(500);
+//        NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService, firebaseToken);
+//        //deleteSinger();
+//
+//        networkThreadDelete.start();
+//        Log.v("EditAct", "수정중...");
+//        try {
+//            networkThreadDelete.join(500);
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService, firebaseToken);
+//        networkThreadEdit.start();
+//
+//        Log.v("EditAct", "수정 완료...");
+          deleteLists();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("대기 완료..");
-
-        //deleteSinger();
-
-        finish();
-        startActivity(getIntent());
+//        finish();
+//        startActivity(getIntent());
         // setLists();
     }
 
@@ -145,60 +246,45 @@ public class EditSingerActivity extends AppCompatActivity {
     }
 
     public void setLists(){
-        Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
-        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
-            @Override
-            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
-                if(response.isSuccessful()){
-                    userAllSingerDatas = response.body().data;
-                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
-                    for(int i = 0; i<userAllSingerDatas.size(); i++)
-                    {
-                        if(i==0 && userAllSingerDatas.get(0)!=null)
-                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
-                            editSingerHeadItemData = new EditSingerHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
-                                    userAllSingerDatas.get(i).getSinger_name(), R.drawable.chgasu_sub, R.drawable.chgasu_x);
-                        }
-                        else
-                        {
-                            editSingerItemDatas.add(new EditSingerItemData(userAllSingerDatas.get(i).getSinger_img(),
-                                    userAllSingerDatas.get(i).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x));
-                        }
-                    }
-                    editSingerAdpater = new EditSingerAdpater(requestManagerImage, requestManager, editSingerItemDatas, editSingerHeadItemData);
-                    recyclerView.setAdapter(editSingerAdpater);
-                }
+        for(int i = 0; i<userDataSumms.size(); i++)
+        {
+            if(i==0 && userDataSumms.get(0)!=null)
+            {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
+                editSingerHeadItemData = new EditSingerHeadItemData(userDataSumms.get(i).getSinger_img(),
+                        userDataSumms.get(i).getSinger_name(), R.drawable.chgasu_sub, R.drawable.chgasu_x);
             }
-
-            @Override
-            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
-
+            else
+            {
+                editSingerItemDatas.add(new EditSingerItemData(userDataSumms.get(i).getSinger_img(),
+                        userDataSumms.get(i).getSinger_name(), R.drawable.chgasu_main, R.drawable.chgasu_x));
             }
-        });
+        }
+        editSingerAdpater = new EditSingerAdpater(requestManagerImage, requestManager, editSingerItemDatas, editSingerHeadItemData);
+        recyclerView.setAdapter(editSingerAdpater);
     }
 
     public void deleteSinger(){
-        for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
-            Call<Void> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
-                    1, ApplicationController.getInstance().getDeleteList().get(i)));
-
-            deleteSinger.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Log.v(TAG, "삭제 성공");
-                        //해당 아이디에 맞는 애를 마이페이지에 추가
-                    } else {
-                        Log.v(TAG, "삭제 실패");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Log.e(TAG, "통신 실패");
-                }
-            });
-        }
+//        for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
+//            Call<Void> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
+//                    1, firebaseToken));
+//
+//            deleteSinger.enqueue(new Callback<Void>() {
+//                @Override
+//                public void onResponse(Call<Void> call, Response<Void> response) {
+//                    if (response.isSuccessful()) {
+//                        Log.v(TAG, "삭제 성공");
+//                        //해당 아이디에 맞는 애를 마이페이지에 추가
+//                    } else {
+//                        Log.v(TAG, "삭제 실패");
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Void> call, Throwable t) {
+//                    Log.e(TAG, "통신 실패");
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -213,29 +299,31 @@ public class EditSingerActivity extends AppCompatActivity {
 
 class NetworkThreadEdit extends Thread{
     private NetworkService networkService;
+    private String firebaseToken;
 
-    public NetworkThreadEdit(NetworkService networkService){
+    public NetworkThreadEdit(NetworkService networkService, String firebaseToken){
         this.networkService = networkService;
+        this.firebaseToken = firebaseToken;
     }
 
     public void run(){
         ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
-        String firebaseToken = ApplicationController.getInstance().getFirebaseToken();
-        for(int i = 0; i<userAllSingerDatas.size(); i++)
+        ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+
+        for(int i = 0; i<userDataSumms.size(); i++)
         {
             Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(i,
-                    userAllSingerDatas.get(i).getSinger_id(), firebaseToken));
+                    userDataSumms.get(i).getSinger_id(), firebaseToken));
             addSinger.enqueue(new Callback<SingerAddResponse>() {
                 @Override
                 public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                    if (response.isSuccessful()) {
-                        Log.v("추가", "성공0");
+                    if (response.body().result) {
+                        Log.v("추가", "성공");
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
                         Log.v("추가", "실패");
                     }
                 }
-
                 @Override
                 public void onFailure(Call<SingerAddResponse> call, Throwable t) {
                     Log.v("추가", "통신 실패");
@@ -245,36 +333,43 @@ class NetworkThreadEdit extends Thread{
     }
 }
 
-
 class NetworkThreadDelete extends Thread{
-
     private NetworkService networkService;
+    private String firebaseToken;
 
-    public NetworkThreadDelete(NetworkService networkService){
+    public NetworkThreadDelete(NetworkService networkService, String firebaseToken){
         this.networkService = networkService;
+        this.firebaseToken = firebaseToken;
     }
 
     public void run(){
-        for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
-            Call<Void> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
-                    1, ApplicationController.getInstance().getDeleteList().get(i)));
+        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+        ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        Log.v("토큰", firebaseToken);
 
-            deleteSinger.enqueue(new Callback<Void>() {
+        Log.v("전체 길이", String.valueOf(userDataSumms.size()));
+        for(int i = 3; i>3-(4-userDataSumms.size()); i--) {
+            Call<EditSingerDeleteResponse> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
+                    firebaseToken, i));
+
+            deleteSinger.enqueue(new Callback<EditSingerDeleteResponse>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
+                public void onResponse(Call<EditSingerDeleteResponse> call, Response<EditSingerDeleteResponse> response) {
                     if (response.isSuccessful()) {
-                        Log.v("삭제", "성공");
+                        Log.v("삭제", "삭제 성공");
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
-                        Log.v("삭제", "실패");
+                        Log.v("삭제", "삭제 실패");
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Log.v("삭제", "통신 실패");
+                public void onFailure(Call<EditSingerDeleteResponse> call, Throwable t) {
+                    Log.e("삭제", "통신 실패");
                 }
             });
         }
     }
+
+
 }

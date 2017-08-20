@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:includeFontPadding="false"
             android:text="회원가입"/>
 
     </RelativeLayout>
@@ -83,14 +84,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
     <TextView
         android:layout_gravity="center"
         android:textColor="#000000"
         android:layout_width="match_parent"
-        android:layout_height="12dp"
+        android:layout_height="wrap_content"
         android:text="또는"
+        android:includeFontPadding="false"
         android:textSize="12dp"
         android:textAlignment="center"/>
         </LinearLayout>
@@ -111,6 +113,7 @@
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="이메일"
+            android:includeFontPadding="false"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -125,6 +128,7 @@
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="비밀번호"
+            android:includeFontPadding="false"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -139,6 +143,7 @@
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
             android:hint="비밀번호 확인"
+            android:includeFontPadding="false"
             android:textColorHint="#8A000000"/>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -151,6 +156,7 @@
                 android:textSize="12dp"
                 android:text="6자 이상 문자, 숫자, 특수문자 사용"
                 android:textColor="#52000000"
+                android:includeFontPadding="false"
                 android:id="@+id/LoginSelect_findPwd"/>
         </RelativeLayout>
     </LinearLayout>
@@ -175,6 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/이용약관"
+            android:includeFontPadding="false"
             android:id="@+id/Sign_provision"
             android:textStyle="bold"/>
         <TextView
@@ -182,6 +189,7 @@
             android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
             android:text="과 "/>
         <TextView
             android:textSize="12dp"
@@ -189,6 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/개인정보_처리방침"
+            android:includeFontPadding="false"
             android:id="@+id/Sign_privacy"
             android:textStyle="bold"/>
         <TextView
@@ -196,6 +205,7 @@
             android:textColor="#DE000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
             android:text="에 동의합니다"/>
 
     </LinearLayout>
