@@ -72,6 +72,7 @@
         <activity android:name=".Setting.Notice.NoticeActivity" />
         <activity android:name=".Setting.Terms.TermsActivity" />
         <activity android:name=".Setting.Break.BreakActivity" />
+        <activity android:name=".alarm.AlarmActivity"></activity>
 
         <service android:name=".alarm.MyFirebaseMessagingService">
             <intent-filter>
