@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.NavigationView
+    android:id="@+id/nav_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/neviTop">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/menu_profileback1"/>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/drawer_myimage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/drawer_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/drawer_myimage"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/drawer_badge"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/profile_change" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="306dp"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="내 가수 목록"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/drawer_go_singer_change"
+                    android:layout_width="74dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/menu_chgasu" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="14dp"
+                    android:text="메인 가수"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/drawer_layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#80FEF4DC"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drawer_singer_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/drawer_new_1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="서브가수"
+                    android:textColor="@color/lightgrey"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/drawer_layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#80FEF4DC"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drawer_singer_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/drawer_new_2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/drawer_layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#80FEF4DC"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drawer_singer_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/drawer_new_3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/drawer_layout_4"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#80FEF4DC"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/drawer_singer_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/drawer_new_4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+
+           <!-- 1.1V에서
+            <ImageView
+                android:id="@+id/drawer_all_vote_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="100dp"
+                android:src="@drawable/menu_gather" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:id="@+id/diviser"
+                android:layout_centerInParent="true"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+            </View>
+
+            <ImageView
+                android:id="@+id/drawer_setting_btn"
+                android:layout_toLeftOf="@id/diviser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/menu_setting" />
+
+            <ImageView
+                android:id="@+id/drawer_alarm_btn"
+                android:layout_toRightOf="@id/diviser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/menu_alarm" />
+        </RelativeLayout>
+    </LinearLayout>
+
+ </android.support.design.widget.NavigationView>

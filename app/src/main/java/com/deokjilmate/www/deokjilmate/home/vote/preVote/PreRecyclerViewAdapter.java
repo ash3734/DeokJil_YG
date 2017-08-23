@@ -15,21 +15,18 @@ import java.util.ArrayList;
 
 public class PreRecyclerViewAdapter extends RecyclerView.Adapter<PreViewHolder>{
     ArrayList<PreData> itemDatas;
-  //  View.OnClickListener clickEvent; 추후 수정
-    //RequestManager mRequestManager; 이것두
-    //, View.OnClickListener clickEvent, RequestManager requestManager 밑에 파라메터로 넣자 나중에
-    public PreRecyclerViewAdapter(ArrayList<PreData> itemDatas) {
+    View.OnClickListener clickEvent;
+
+    public PreRecyclerViewAdapter(ArrayList<PreData> itemDatas,View.OnClickListener clickEvent) {
         this.itemDatas=itemDatas;
-        //this.clickEvent = clickEvent;
-        //this.mRequestManager = requestManager;
+        this.clickEvent = clickEvent;
     }
     //리싸이클러 뷰 레이아웃 적용
     @Override
     public PreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_pre_listitem, parent,false);
         PreViewHolder viewHolder = new PreViewHolder(itemView);
-      //  itemView.setOnClickListener(clickEvent);
+       itemView.setOnClickListener(clickEvent);
         return viewHolder;
     }
 
@@ -37,11 +34,20 @@ public class PreRecyclerViewAdapter extends RecyclerView.Adapter<PreViewHolder>{
     //현재 이미지 미구현 상태
     @Override
     public void onBindViewHolder(PreViewHolder holder, int position) {
-
-        //mRequestManager.load(arSrc.get(position).getImageURL()).into(holder.imageView); //glide적용 미구현 사항
-        //holder.textViewID.setText(arSrc.get(position).getID());
-        holder.textViewProgramName.setText(itemDatas.get(position).getProgramName());
-        //holder.imageViewProgram.setImageResource(R.drawable.);
+        holder.textViewProgramName.setText(itemDatas.get(position).program_name+
+                "\n"+itemDatas.get(position).program_data);
+        if(itemDatas.get(position).program_name.equals("인기가요")){
+            holder.imageViewProgram.setImageResource(R.drawable.ingigayo);
+        }else if(itemDatas.get(position).program_name.equals("쇼챔피언")){
+            holder.imageViewProgram.setImageResource(R.drawable.showchampion);
+        }else if(itemDatas.get(position).program_name.equals("엠카운트다운")){
+            holder.imageViewProgram.setImageResource(R.drawable.mcountdown);
+        }else if(itemDatas.get(position).program_name.equals("뮤직뱅크")){
+            holder.imageViewProgram.setImageResource(R.drawable.musicbank);
+        }else if(itemDatas.get(position).program_name.equals("더쇼")){
+            holder.imageViewProgram.setImageResource(R.drawable.theshow);
+        }else{
+        }
     }
 
     //현재 위치 계산
