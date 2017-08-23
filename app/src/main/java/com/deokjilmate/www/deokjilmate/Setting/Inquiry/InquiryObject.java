@@ -5,14 +5,14 @@ package com.deokjilmate.www.deokjilmate.Setting.Inquiry;
  */
 
 public class InquiryObject {
-    int member_id;
+    String firebaseToken;
     String questions_title;
     String questions_main;
     String questions_mail;
 
 
-    public InquiryObject(int member_id, String questions_title, String questions_main, String questions_mail) {
-        this.member_id = member_id;
+    public InquiryObject(String firebaseToken, String questions_title, String questions_main, String questions_mail) {
+        this.firebaseToken = firebaseToken;
         this.questions_title = questions_title;
         this.questions_main = questions_main;
         this.questions_mail = questions_mail;
