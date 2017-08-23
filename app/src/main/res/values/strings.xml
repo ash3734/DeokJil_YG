@@ -11,5 +11,13 @@
     <string name="이용약관"> <u>이용약관</u></string>
     <string name="개인정보_처리방침"> <u>개인정보 처리방침</u></string>
 
+    <string name="title_activity_test">testActivity</string>
+
+
+    <string name="musicbank">뮤직뱅크</string>
+    <string name="mcountdown">엠카운트 다운</string>
+    <string name="ingigayo">인기가요</string>
+    <string name="showemackjungshim">쇼음악중심</string>
+
 
 </resources>

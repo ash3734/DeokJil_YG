@@ -18,6 +18,6 @@ public class PreViewHolder extends RecyclerView.ViewHolder{
     public PreViewHolder(View itemView) {
         super(itemView);
         textViewProgramName = (TextView) itemView.findViewById(R.id.home_list_textview_program);
-        imageViewProgram = (ImageView) itemView.findViewById(R.id.home_list_imageview_program);
+        imageViewProgram = (ImageView)itemView.findViewById(R.id.home_list_imageview_program);
     }
 }

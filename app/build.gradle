@@ -65,6 +65,7 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.0.2'
+    /*compile 'com.google.android.gms:play-services-auth:9.0.0'*/
     compile 'com.google.android.gms:play-services-auth:9.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.2'
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.5'
@@ -74,6 +75,7 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.tsengvn:typekit:1.0.1'
+    compile 'com.dev.sacot41:scviewpager:0.0.4'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
 }

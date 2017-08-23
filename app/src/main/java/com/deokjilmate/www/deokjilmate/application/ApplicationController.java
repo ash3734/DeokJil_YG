@@ -1,10 +1,12 @@
 package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserDataSumm;
+import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.Typekit;
 
@@ -24,8 +26,17 @@ public class ApplicationController extends Application{
     private static ApplicationController instance;
 
     private NetworkService networkService;
+    private Context context;
+    public String singerName = "빅스";
+    public int singer_id=3;
+
+    public MainResult mainResult;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
     //// TODO: 2017-02-06 base Url 수정
-    private String baseUrl = "https://www.defflee.com/duckmate/android/";
+    private String baseUrl = "https://35.199.171.150/duckmate/android/";
     private int totalSingerCount = 0;
     private ArrayList<Integer> deleteList;
 

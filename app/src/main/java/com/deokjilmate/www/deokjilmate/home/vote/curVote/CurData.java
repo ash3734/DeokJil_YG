@@ -1,31 +1,31 @@
 package com.deokjilmate.www.deokjilmate.home.vote.curVote;
 
 /**
- * Created by ash on 2017-02-07.
+ * Created by ash on 2017-08-20.
  */
 
 public class CurData {
-    String programName;
-    String programImageUrl;
+    String program_name;
+    String program_data;
 
-    public CurData(String programName, String programImageUrl) {
-        this.programName = programName;
-        this.programImageUrl = programImageUrl;
+    public CurData(String program_name, String program_data) {
+        this.program_name = program_name;
+        this.program_data = program_data;
     }
 
-    public String getProgramName() {
-        return programName;
+    public String getProgram_name() {
+        return program_name;
     }
 
-    public void setProgramName(String programName) {
-        this.programName = programName;
+    public void setProgram_name(String program_name) {
+        this.program_name = program_name;
     }
 
-    public String getProgramImageUrl() {
-        return programImageUrl;
+    public String getProgram_data() {
+        return program_data;
     }
 
-    public void setProgramImageUrl(String programImageUrl) {
-        this.programImageUrl = programImageUrl;
+    public void setProgram_data(String program_data) {
+        this.program_data = program_data;
     }
 }

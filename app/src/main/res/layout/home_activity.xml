@@ -6,57 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
-
-    <include
-        layout="@layout/app_bar_home2"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_home2"
-        app:menu="@menu/home2_acticity_drawer" />
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/app_bar_home2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+    <fragment
+        android:id="@+id/navi_fragment"
+        android:name="com.deokjilmate.www.deokjilmate.home.nevigation.NaviFragment"
+        android:layout_gravity = "start"
+        android:layout_width="280dp"
+        android:layout_height="match_parent">
+    </fragment>
 
 </android.support.v4.widget.DrawerLayout>
-
-<!--
-<LinearLayout
-android:id="@+id/home_left_drawer"
-android:layout_width="240dp"
-android:layout_height="match_parent"
-android:layout_gravity="start"
-android:choiceMode="singleChoice"
-android:divider="@android:color/transparent"
-android:dividerHeight="0dp"
-android:background="#111">
-<ImageView
-    android:id="@+id/home_drawer_myimage"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:src="@drawable/aoa"/>
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/home_drawer_recyclerview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-</android.support.v7.widget.RecyclerView>
-<TextView
-    android:id="@+id/home_drawer_allvote"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="투표 모아보기"/>
-<TextView
-    android:id="@+id/home_drawer_setting"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="setting"/>
-<TextView
-    android:id="@+id/home_drawer_alarm"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="alarm"/>
-</LinearLayout>-->

@@ -24,6 +24,7 @@ import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.alarm.NoticePostResult;
 import com.deokjilmate.www.deokjilmate.alarm.NoticeResult;
+import com.deokjilmate.www.deokjilmate.home.MainResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -42,6 +43,10 @@ import retrofit2.http.Query;
  */
 
 public interface NetworkService {
+
+    //안성현
+    @GET("firstpage/{firebaseToken}/{singer_id}")
+    Call<MainResult> requestMain(@Path("firebaseToken") String firebaseToken, @Path("singer_id")int singer_id);
 
     /***********************밍구************************/
     //공지사항 불러오기
