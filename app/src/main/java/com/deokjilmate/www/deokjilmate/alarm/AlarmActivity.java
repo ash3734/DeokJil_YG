@@ -177,17 +177,26 @@ public class AlarmActivity extends AppCompatActivity {
 
 
 
-        // TODO: fcm_token 보내줘야함
+        // TODO: firebaseToken 보내줘야 함
         Call<NoticeResult> getAlarm = service.getAlarm("asdfdsa");
         getAlarm.enqueue(new Callback<NoticeResult>() {
             @Override
             public void onResponse(Call<NoticeResult> call, Response<NoticeResult> response) {
-                
+                Log.d("getAlarm통신연결","성공");
+//                Log.d("response?",String.valueOf(response.body().result));
+                Log.d("response error",response.errorBody().toString());
+                Log.d("response.isSuccessful",String.valueOf(response.isSuccessful()));
+                if(response.isSuccessful()){
+//                    for(NoticeData data : response.body().data.){
+//                        Log.d("결과값 확인",String.valueOf(data));
+//                    }
+                    Log.d("결과값 확인",response.body().data.toString());
+                }
             }
 
             @Override
             public void onFailure(Call<NoticeResult> call, Throwable t) {
-
+                Log.d("getAlarm통신연결","실패");
             }
         });
         /*

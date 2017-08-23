@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
 
@@ -57,8 +56,6 @@ public class TermsActivity extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
-                Toast.makeText(getApplicationContext(), "g click = " + groupPosition,
-                        Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -68,8 +65,6 @@ public class TermsActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(getApplicationContext(), "c click = " + childPosition,
-                        Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -78,8 +73,6 @@ public class TermsActivity extends AppCompatActivity {
         mListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(), "g Collapse = " + groupPosition,
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -87,8 +80,6 @@ public class TermsActivity extends AppCompatActivity {
         mListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(), "g Expand = " + groupPosition,
-                        Toast.LENGTH_SHORT).show();
             }
         });
     }
