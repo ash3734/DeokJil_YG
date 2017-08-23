@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 
@@ -39,7 +40,7 @@ public class InquiryFragment extends Fragment {
     EditText main;
     EditText mail;
 
-    int member_id;
+    String firebaseToken;
     String questions_title;
     String questions_main;
     String questions_mail;
@@ -53,7 +54,6 @@ public class InquiryFragment extends Fragment {
 
         service = ApplicationController.getInstance().getNetworkService();
 
-       // title = (EditText)view.findViewById(R.id.questions_title);
         main = (EditText)view.findViewById(R.id.questions_main);
         mail = (EditText)view.findViewById(R.id.questions_mail);
 
@@ -68,7 +68,67 @@ public class InquiryFragment extends Fragment {
                 //Toast.makeText(InquiryActivity.this,token,Toast.LENGTH_SHORT).show();
             }
         });
+
 */
+
+        send_inquiry = (Button)view.findViewById(R.id.send_inquiry);
+        send_inquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                firebaseToken = SharedPrefrernceController.getFirebaseToken(getActivity());
+                questions_title = title.getText().toString();
+                questions_main = main.getText().toString();
+                questions_mail = mail.getText().toString();
+
+                Call<InquiryResult> inquiryRegister = service.inquiryRegister(new InquiryObject(firebaseToken,questions_title,questions_main,questions_mail));
+                inquiryRegister.enqueue(new Callback<InquiryResult>() {
+                    @Override
+                    public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
+                        Log.d("inquiry연결","성공");
+                        Log.d("inquiry연결",String.valueOf(response.isSuccessful()));
+                        Log.d("inquiry연결",String.valueOf(response.body().result));
+                        if(response.isSuccessful()) {
+                            if (response.body().result == true) {
+
+                                Log.d("inquiry","success");
+
+                                //Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
+                                //finish();
+                                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(getActivity());
+
+                                alertDialogBuilder2
+                                        .setMessage("답변은 3~5일 내에 메일로 전송됩니다.\n" +
+                                                "문의해주셔서 감사합니다.")
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            public void onClick(
+                                                    DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                // 다이얼로그 생성
+                                AlertDialog alertDialog2 = alertDialogBuilder2.create();
+
+                                // 다이얼로그 보여주기
+                                alertDialog2.show();
+                            }
+                        }
+                        else{
+                            Log.d("inquiry","fail");
+                            Toast.makeText(getApplicationContext(),"등록실패",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<InquiryResult> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(),"실패",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        /*
         send_inquiry = (Button)view.findViewById(R.id.send_inquiry);
         send_inquiry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +146,7 @@ public class InquiryFragment extends Fragment {
 
 
 
-                                member_id = 7;
+                                firebaseToken = SharedPrefrernceController.getFirebaseToken(getActivity());
                                 questions_title = title.getText().toString();
                                 questions_main = main.getText().toString();
                                 questions_mail = mail.getText().toString();
@@ -95,7 +155,7 @@ public class InquiryFragment extends Fragment {
 
 
                                 ///////////////////////////////////////////////////////
-                                Call<InquiryResult> inquiryRegister = service.inquiryRegister(new InquiryObject(member_id,questions_title,questions_main,questions_mail));
+                                Call<InquiryResult> inquiryRegister = service.inquiryRegister(new InquiryObject(firebaseToken,questions_title,questions_main,questions_mail));
                                 inquiryRegister.enqueue(new Callback<InquiryResult>() {
                                     @Override
                                     public void onResponse(Call<InquiryResult> call, Response<InquiryResult> response) {
@@ -176,6 +236,9 @@ public class InquiryFragment extends Fragment {
                 alertDialog.show();
             }
         });
+
+        */
+
         return inflater.inflate(R.layout.inquiry_tab_fragment, container, false);
 
     }

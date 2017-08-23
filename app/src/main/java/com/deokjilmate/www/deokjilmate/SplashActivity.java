@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryActivity;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -37,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
 
                         //AutoLogin();
 
-                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), InquiryActivity.class));
                 finish();
 
             }

@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:textColor="#5D5F5E"/>
+            android:textColor="#DE000000"/>
 
         <ImageView
             android:id="@+id/terms_order_icon"

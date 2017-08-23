@@ -8,7 +8,8 @@
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingTop="5dp"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#f4f4f4">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -24,7 +25,8 @@
             android:layout_marginTop="4dp"
             android:text="약관 및 정책 내용"
             android:textSize="15dp"
-            android:textColor="#5D5F5E"/>
+            android:textColor="#5D5F5E"
+            />
 
     </RelativeLayout>
 
