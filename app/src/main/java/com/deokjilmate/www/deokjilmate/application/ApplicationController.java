@@ -26,6 +26,11 @@ public class ApplicationController extends Application{
     private static ApplicationController instance;
 
     private NetworkService networkService;
+
+    public Context getContext() {
+        return context;
+    }
+
     private Context context;
     public String singerName = "빅스";
     public int singer_id=3;
@@ -36,7 +41,10 @@ public class ApplicationController extends Application{
         this.context = context;
     }
     //// TODO: 2017-02-06 base Url 수정
-    private String baseUrl = "https://35.199.171.150/duckmate/android/";
+    //private String baseUrl = "https://35.199.171.150/duckmate/android/";
+    private String baseUrl = "http://35.199.171.150/duckmate/android/";
+
+
     private int totalSingerCount = 0;
     private ArrayList<Integer> deleteList;
 
