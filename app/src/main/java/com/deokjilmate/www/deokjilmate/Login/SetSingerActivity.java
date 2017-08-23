@@ -25,6 +25,7 @@ import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -170,7 +171,7 @@ public class SetSingerActivity extends AppCompatActivity {
                                     Log.v("추가", "성공");
                                     //여기서 토큰 추가
                                     ApplicationController.getInstance().setFirebaseToken(firebaseToken);
-                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                     startActivity(intent);
                                 } else {
                                     Log.v("추가", "실패");

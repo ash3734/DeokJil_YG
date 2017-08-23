@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -78,6 +79,9 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @BindView(R.id.Sign_next)
     Button next;
+
+    @BindView(R.id.Sign_agree)
+    CheckBox agree;
 
     private String t_email;
     private String t_pwd;
@@ -293,6 +297,10 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         if(!ResourcesUtil.checkEmail(email.getText().toString())){
             Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!agree.callOnClick()){
+            Toast.makeText(this, "이용약관에 체크해주세요!", Toast.LENGTH_SHORT).show();
             return;
         }
         createAcctount(email.getText().toString(), pwd.getText().toString());
