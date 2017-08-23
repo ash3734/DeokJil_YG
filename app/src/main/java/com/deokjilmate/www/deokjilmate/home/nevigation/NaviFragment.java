@@ -18,13 +18,13 @@ import com.deokjilmate.www.deokjilmate.home.MainResult;
 
 /**
  * Created by ash on 2017-07-30.
+ * 네비게이션 바 안에 화면
  */
 
 public class NaviFragment extends Fragment {
 
 
     //네비게이션 부분의 위젯들
-
     ImageView myImage;TextView myNickName;
     ImageView myBadge;TextView singer1;
     ImageView new1;TextView singer2;
@@ -48,30 +48,53 @@ public class NaviFragment extends Fragment {
         super.onStart();
         mainResult = ApplicationController.getInstance().mainResult;
 
-        //네비게이션바
+        //네비게이션바 필요할지 몰라서 살려둠
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
         if(mainResult.nevi_data.member_img!=null)
         Glide.with(getActivity()).load(mainResult.nevi_data.member_img).into(myImage);
         if(mainResult.nevi_data.member_name!=null)
             myNickName.setText(mainResult.nevi_data.member_name);
-        //myBadge =
-        if(mainResult.nevi_data.singer.get(0).singer_name!=null)
+        //myBadge = 벳지는 현재 놔둠
+        //
+
+        //가수 등록에 따라 출력하기
+        if(mainResult.nevi_data.singer.size()==1) {
             singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
-        if(mainResult.nevi_data.singer.get(0).new_flag!=null)
             new1.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(1).singer_name!=null)
+            relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+        } else if(mainResult.nevi_data.singer.size()==2){
+            singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+            new1.setImageResource(R.drawable.menu_new);
             singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
-        if(mainResult.nevi_data.singer.get(1).new_flag!=null)
             new2.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(2).singer_name!=null)
+            relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+        }else if(mainResult.nevi_data.singer.size()==3){
+            singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+            new1.setImageResource(R.drawable.menu_new);
+            singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
+            new2.setImageResource(R.drawable.menu_new);
             singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
-        if(mainResult.nevi_data.singer.get(2).new_flag!=null)
             new3.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(3).singer_name!=null)
+            relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+        }else if(mainResult.nevi_data.singer.size()==4){
+            singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+            new1.setImageResource(R.drawable.menu_new);
+            singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
+            new2.setImageResource(R.drawable.menu_new);
+            singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
+            new3.setImageResource(R.drawable.menu_new);
             singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
-        if(mainResult.nevi_data.singer.get(3).new_flag!=null)
             new4.setImageResource(R.drawable.menu_new);
+            relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+            relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+        }
+
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
