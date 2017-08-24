@@ -13,6 +13,9 @@ import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
+
+import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryActivity;
+
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -46,7 +49,20 @@ public class SplashActivity extends AppCompatActivity {
                 Fabric.with(this, new Twitter(authConfig));
                 Random random = new Random();
 
+
                 String[] gasa = getResources().getStringArray(R.array.lyric);
+
+//                 Handler handler = new Handler();
+//                 handler.postDelayed(new Runnable(){
+//                     @Override
+//                     public void run()
+//                     {
+
+//                         //AutoLogin();
+
+//                 startActivity(new Intent(getApplicationContext(), InquiryActivity.class));
+//                 finish();
+
 
                 textViewGasa.setText(gasa[random.nextInt(gasa.length)]);
                 ApplicationController.getInstance().setMost(SharedPrefrernceController.getMost(SplashActivity.this));
