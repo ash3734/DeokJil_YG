@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.CustomDialog;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.AddSingerActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
@@ -55,6 +57,7 @@ public class EditSingerActivity extends AppCompatActivity {
 
     private final String TAG = "LOG::EditSingerActivity";
 
+
     private LinearLayoutManager linearLayoutManager;
     private RequestManager requestManager;
     private RequestManager requestManagerImage;
@@ -66,6 +69,7 @@ public class EditSingerActivity extends AppCompatActivity {
     private ArrayList<Integer> myAllSingerArrayN;
     private ArrayList<Integer> myAllSingerArray;
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
+    private CustomDialog customDialog;
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private ArrayList<UserDataSumm> userDataSumms;
@@ -124,6 +128,15 @@ public class EditSingerActivity extends AppCompatActivity {
 //            }
 //        });
 //        customDialog.show();
+//        if(customDialog.isClickedState()){
+//            Log.v("EditActi", "확인 누름");
+//            //customDialog.dismiss();
+//        }else{
+//            Log.v("EditActi", "취소 누름");
+//
+//        }
+
+
 
     }
 
@@ -242,10 +255,38 @@ public class EditSingerActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_EditSinger_backImage)
     public void clickBack()
     {
-        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-        startActivity(intent);
-        finish();
+        String content = "저장을 누르지 않으시면 원래 상태로 돌아갑니다 \n 돌아가시겠습니까";
+        customDialog = new CustomDialog(this, content, leftListener, rightListener);
+        customDialog.show();
+
+
+
+
     }
+
+    private View.OnClickListener leftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+            startActivity(intent);
+            finish();
+            customDialog.dismiss();
+            //setSingerActivity.SetComplete(ApplicationController.getInstance().getNumberSingerSet().get(temp_name));
+
+        }
+    };
+
+    private View.OnClickListener rightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //arSrc.remove(position);
+            //arSrc.add(position, new ItemData(temp_singer, temp_name, R.drawable.popup_heart));
+
+            // SingerAdapter adapter = new SingerAdapter(dataSet, clickEvent, dataSet2);
+            //recyclerView.setAdapter(SingerAdapter.this);
+            customDialog.dismiss();
+            // mCustomDialog.
+        }
+    };
 
     @OnClick(R.id.MyPage_EditSinger_addSinger)
     public void clickAdd()
