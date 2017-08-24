@@ -13,9 +13,6 @@ import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
-
-import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryActivity;
-
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -125,4 +122,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+
+    //여기까지가 8/24에 작업한 것
 }
