@@ -11,13 +11,19 @@ public class SingerList {
 
 
     public static HashMap<String, String> getList(){
-        singerPNData.put("빅뱅", "BIGBANG");
+        //singerPNData.put("빅뱅", "BIGBANG");
         //  singerPNData.put("악동뮤지션", "악동뮤지션");
-        singerPNData.put("엑소", "EXO");
-        singerPNData.put("신화", "SHINWHA");
-        singerPNData.put("젝스키스", "젝스키스");
         singerPNData.put("라붐", "LABOOM");
-        singerPNData.put("모모랜드", "MOMOLAND");
+        singerPNData.put("방탄소년단", "BTS");
+        singerPNData.put("빅스", "VIXX");
+        singerPNData.put("트와이스", "twice");
+        singerPNData.put("젝스키스", "젝스키스");
+        singerPNData.put("신화", "SHINWHA");
+        singerPNData.put("엑소", "EXO");
+
+        //singerPNData.put("모모랜드", "MOMOLAND");
+
+
 
         //        singerPNData.put("투피엠", "2PM");
 //        singerPNData.put("에이오에이", "AOA");

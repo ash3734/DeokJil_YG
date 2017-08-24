@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -20,11 +22,12 @@ import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerDetails;
 import com.deokjilmate.www.deokjilmate.AllSinger.AllSingerRanking;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.SingerList;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
+import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -152,7 +155,11 @@ public class SetSingerActivity extends AppCompatActivity {
                     if(response.isSuccessful())
                     {
                         RegisterData registerData = response.body().data;
-                        int most = ApplicationController.getInstance().getMost();
+                        final int most = ApplicationController.getInstance().getMost();
+
+                        SharedPrefrernceController.setMost(SetSingerActivity.this, most);
+                        SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
+
                         final String firebaseToken = registerData.firebaseToken;
                         SharedPrefrernceController.setUserEmail(SetSingerActivity.this, member_email);
                         SharedPrefrernceController.setPasswd(SetSingerActivity.this, member_passwd);
@@ -170,8 +177,7 @@ public class SetSingerActivity extends AppCompatActivity {
                                     Log.v("추가", "성공");
                                     //여기서 토큰 추가
                                     ApplicationController.getInstance().setFirebaseToken(firebaseToken);
-                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-                                    startActivity(intent);
+                                    setHomeData(firebaseToken, most);
                                 } else {
                                     Log.v("추가", "실패");
                                 }
@@ -196,7 +202,10 @@ public class SetSingerActivity extends AppCompatActivity {
                     if(response.isSuccessful())
                     {
                         //RegisterData registerData = response.body().data;
-                        int most = ApplicationController.getInstance().getMost();
+                        final int most = ApplicationController.getInstance().getMost();
+                        SharedPrefrernceController.setMost(SetSingerActivity.this, most);
+                        SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
+
                         final String firebaseToken = response.body().data;
                         Log.v("SetSinger", firebaseToken);
 
@@ -213,8 +222,12 @@ public class SetSingerActivity extends AppCompatActivity {
                                     Log.v("SetSinger", "성공");
                                     //여기서 토큰 추가
                                     ApplicationController.getInstance().setFirebaseToken(firebaseToken);
-                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-                                    startActivity(intent);
+                                    setHomeData(firebaseToken, most);
+
+
+//
+//                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+//                                    startActivity(intent);
                                 } else {
                                     Log.v("SetSinger", "실패");
                                 }
@@ -278,6 +291,33 @@ public class SetSingerActivity extends AppCompatActivity {
                 break;
         }
         Log.v("SetSinger", uid);
+    }
+
+    public void setHomeData(String firebaseToken, int singer_id){
+        Call<MainResult> requestMainResult = networkService.requestMain(firebaseToken,singer_id);
+
+        requestMainResult.enqueue(new Callback<MainResult>() {
+            @Override
+            public void onResponse(Call<MainResult> call, Response<MainResult> response) {
+                if(response.isSuccessful()){
+                    ApplicationController.getInstance().setMainResult(response.body());
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
+                }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainResult> call, Throwable t) {
+                Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        });
     }
 
     @Override

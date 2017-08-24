@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
@@ -26,9 +27,31 @@ public class ApplicationController extends Application{
     private static ApplicationController instance;
 
     private NetworkService networkService;
+
+    public Context getContext() {
+        return context;
+    }
+
     private Context context;
     public String singerName = "빅스";
+
+    public int getSinger_id() {
+        return singer_id;
+    }
+
+    public void setSinger_id(int singer_id) {
+        this.singer_id = singer_id;
+    }
+
     public int singer_id=3;
+
+    public MainResult getMainResult() {
+        return mainResult;
+    }
+
+    public void setMainResult(MainResult mainResult) {
+        this.mainResult = mainResult;
+    }
 
     public MainResult mainResult;
 
@@ -36,7 +59,10 @@ public class ApplicationController extends Application{
         this.context = context;
     }
     //// TODO: 2017-02-06 base Url 수정
-    private String baseUrl = "https://35.199.171.150/duckmate/android/";
+    //private String baseUrl = "https://35.199.171.150/duckmate/android/";
+    private String baseUrl = "http://35.199.171.150/duckmate/android/";
+
+
     private int totalSingerCount = 0;
     private ArrayList<Integer> deleteList;
 
@@ -47,6 +73,16 @@ public class ApplicationController extends Application{
 
     private ArrayList<UserDataSumm> userDataSumms;
     private int most;
+
+    public Uri getProfile_uri() {
+        return profile_uri;
+    }
+
+    public void setProfile_uri(Uri profile_uri) {
+        this.profile_uri = profile_uri;
+    }
+
+    private Uri profile_uri;
 
 
     private String firebaseToken;

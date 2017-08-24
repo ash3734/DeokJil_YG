@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="#ffffff"
             android:text="프로필 설정"/>
 
     </RelativeLayout>
@@ -105,6 +106,7 @@
                 android:textColorHint="#9d9e9e"
                 android:id="@+id/nickname"
                 android:gravity="center"
+                android:includeFontPadding="false"
                 android:background="@null"/>
 
         </LinearLayout>
@@ -118,6 +120,7 @@
             android:layout_marginLeft="16dp"
             android:background="@drawable/sing_login_check_button"
             android:text="다음 단계로"
+            android:textColor="#ffffff"
             android:id="@+id/SetProfile_next"/>
     </RelativeLayout>
         </LinearLayout>

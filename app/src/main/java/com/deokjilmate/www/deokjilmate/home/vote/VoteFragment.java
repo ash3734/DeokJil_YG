@@ -44,6 +44,7 @@ public class VoteFragment extends Fragment {
     TextView textViewCurProgram;
     RecyclerView preRecyclerView;
     ArrayList<PreData> preDatas;
+    TextView textViewCurNull;
     MainResult mainResult;
     LinearLayoutManager preLinearLayoutManager;
     PreRecyclerViewAdapter preRecyclerViewAdapter;
@@ -72,16 +73,21 @@ public class VoteFragment extends Fragment {
         //mainResult.program_data.cure_data
         
         //// TODO: 2017-08-14 리펙토링 해야함 스멜이나는 지역
-        if(mainResult.program_data.cure_data.getProgram_name().equals(Ingigayo.name))
-            imageViewCurProgram.setImageResource(Ingigayo.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(MCountDown.name))
-            imageViewCurProgram.setImageResource(MCountDown.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(MusicBank.name))
-            imageViewCurProgram.setImageResource(MusicBank.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(ShowChampion.name))
-            imageViewCurProgram.setImageResource(ShowChampion.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(TheShow.name))
-            imageViewCurProgram.setImageResource(TheShow.iamge);
+        if(mainResult.program_data.cure_data.getProgram_name().equals("")){
+            textViewCurNull.setText("진행중인 투표가 없습니다.");
+        }else{
+            if(mainResult.program_data.cure_data.getProgram_name().equals(Ingigayo.name))
+                imageViewCurProgram.setImageResource(Ingigayo.iamge);
+            else if(mainResult.program_data.cure_data.getProgram_name().equals(MCountDown.name))
+                imageViewCurProgram.setImageResource(MCountDown.iamge);
+            else if(mainResult.program_data.cure_data.getProgram_name().equals(MusicBank.name))
+                imageViewCurProgram.setImageResource(MusicBank.iamge);
+            else if(mainResult.program_data.cure_data.getProgram_name().equals(ShowChampion.name))
+                imageViewCurProgram.setImageResource(ShowChampion.iamge);
+            else if(mainResult.program_data.cure_data.getProgram_name().equals(TheShow.name))
+                imageViewCurProgram.setImageResource(TheShow.iamge);
+
+        }
 
         imageViewCurProgram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +116,7 @@ public class VoteFragment extends Fragment {
         textViewVoteCount = (TextView)(frag.findViewById(R.id.home_fragment_textview_vote_count));
         imageViewCurProgram = (ImageView)(frag.findViewById(R.id.home_list_imageview_cur_program));
         textViewCurProgram = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program));
+        textViewCurNull = (TextView)(frag.findViewById(R.id.home_fragment_textview_no_cur));
         return frag;
     }
     public void setLayoutSize(){

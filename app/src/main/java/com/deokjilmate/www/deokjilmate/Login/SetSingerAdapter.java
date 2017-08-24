@@ -43,7 +43,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         this.requestManagerSel = requestManagerSel;
         Log.v("전체", String.valueOf(this.allSingerList.size()));
 
-        //this.singerPNData = new HashMap<String, String>();
+        this.singerPNData = new HashMap<String, String>();
         this.singerPNData.putAll(singerPNData);
 
     }
@@ -185,7 +185,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                 }
                 else {
                     Log.v(TAG, "레알 불일치");
-                    //search = false;
+                    search = false;
                 }
             }
         }

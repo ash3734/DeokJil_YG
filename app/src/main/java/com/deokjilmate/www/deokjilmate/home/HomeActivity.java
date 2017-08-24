@@ -1,6 +1,8 @@
 package com.deokjilmate.www.deokjilmate.home;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,9 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.home.nevigation.NaviFragment;
+import com.tsengvn.typekit.TypekitContextWrapper;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 홈화면 액티비티
@@ -32,6 +41,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NaviFragment naviFragment;
     MainResult mainResult;
 
+    @BindView(R.id.home_mypage_btn)
+    ImageView mypage;
 
 
 
@@ -40,6 +51,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        ButterKnife.bind(this);
+
         //네비게이션 바 안에 정보 받아오기기
 
 
@@ -104,6 +117,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -140,6 +159,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         toggle.onConfigurationChanged(newConfig);
+    }
+
+    @OnClick(R.id.home_mypage_btn)
+    public void toMyPage(){
+        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+        startActivity(intent);
     }
 
 }

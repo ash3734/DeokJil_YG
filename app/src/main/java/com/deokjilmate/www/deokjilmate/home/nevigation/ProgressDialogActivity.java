@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -21,7 +22,8 @@ import retrofit2.Response;
 public class ProgressDialogActivity extends Activity {
     private NetworkService service;
     //// TODO: 2017-07-31 로그인시 member_id 받기
-    private final String firebaseToken="asdfdsa";
+    private String firebaseToken;
+
     private int singer_id;
 
     @Override
@@ -53,8 +55,11 @@ public class ProgressDialogActivity extends Activity {
                     //asyncDialog.setProgress(i * 30);
                     Thread.sleep(500);
                 }
-                singer_id = ApplicationController.getInstance().singer_id;
-                singer_id=1;
+                //singer_id = ApplicationController.getInstance().singer_id;
+                //singer_id=1;
+                firebaseToken = SharedPrefrernceController.getFirebaseToken(ProgressDialogActivity.this);
+                singer_id = ApplicationController.getInstance().getSinger_id();
+                SharedPrefrernceController.setSelected(ProgressDialogActivity.this, singer_id);
                 service = ApplicationController.getInstance().getNetworkService();
                 Call<MainResult> requestMainResult = service.requestMain(firebaseToken,singer_id);
 
@@ -62,7 +67,7 @@ public class ProgressDialogActivity extends Activity {
                     @Override
                     public void onResponse(Call<MainResult> call, Response<MainResult> response) {
                         if(response.isSuccessful()){
-                            ApplicationController.getInstance().mainResult = response.body();
+                            ApplicationController.getInstance().setMainResult(response.body());
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             finish();
                         }else{

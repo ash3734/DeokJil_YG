@@ -54,7 +54,7 @@ public interface NetworkService {
     Call<BoardNotice> getNotice();
 
     //문의하기
-    @POST("/question/send")
+    @POST("/question")
     Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
 
     // 알람 가져오기

@@ -61,6 +61,8 @@ public class DialogActivity extends AppCompatActivity {
         mPageAdapter = new MPagerAdapter(getSupportFragmentManager(),preDatas);
         mPageAdapter.setNumberOfPage(preDatas.size());
         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
+        //// TODO: 2017-08-25 페이지 설정하기 가능하지는 모르겟음 
+        //mViewPager.setCurrentItem(mPageAdapter.getCount());
         mViewPager.setAdapter(mPageAdapter);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -76,8 +78,6 @@ public class DialogActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
             }
-
-
         });
         closeTextView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,12 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.CustomDialog;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.AddSingerActivity;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddPost;
 import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
@@ -24,6 +28,7 @@ import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -52,6 +57,7 @@ public class EditSingerActivity extends AppCompatActivity {
 
     private final String TAG = "LOG::EditSingerActivity";
 
+
     private LinearLayoutManager linearLayoutManager;
     private RequestManager requestManager;
     private RequestManager requestManagerImage;
@@ -63,6 +69,7 @@ public class EditSingerActivity extends AppCompatActivity {
     private ArrayList<Integer> myAllSingerArrayN;
     private ArrayList<Integer> myAllSingerArray;
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
+    private CustomDialog customDialog;
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private ArrayList<UserDataSumm> userDataSumms;
@@ -121,6 +128,15 @@ public class EditSingerActivity extends AppCompatActivity {
 //            }
 //        });
 //        customDialog.show();
+//        if(customDialog.isClickedState()){
+//            Log.v("EditActi", "확인 누름");
+//            //customDialog.dismiss();
+//        }else{
+//            Log.v("EditActi", "취소 누름");
+//
+//        }
+
+
 
     }
 
@@ -155,6 +171,7 @@ public class EditSingerActivity extends AppCompatActivity {
                                     Log.v("길이", String.valueOf(listLength));
                                     Log.v("들어옴", "들어옴");
                                     addLists();
+
                                 }
 
                             } else {
@@ -176,6 +193,7 @@ public class EditSingerActivity extends AppCompatActivity {
     }
 
     public void addLists(){
+        count = 0;
         final ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
         for(int i = 0; i<userDataSumms.size(); i++)
         {
@@ -187,6 +205,10 @@ public class EditSingerActivity extends AppCompatActivity {
                 public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
                     if (response.body().result) {
                         Log.v("추가", "성공");
+                        count++;
+                        if(count == userDataSumms.size()){
+                            setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));
+                        }
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
                         Log.v("추가", "실패");
@@ -233,10 +255,38 @@ public class EditSingerActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_EditSinger_backImage)
     public void clickBack()
     {
-        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-        startActivity(intent);
-        finish();
+        String content = "저장을 누르지 않으시면 원래 상태로 돌아갑니다 \n 돌아가시겠습니까";
+        customDialog = new CustomDialog(this, content, leftListener, rightListener);
+        customDialog.show();
+
+
+
+
     }
+
+    private View.OnClickListener leftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+            startActivity(intent);
+            finish();
+            customDialog.dismiss();
+            //setSingerActivity.SetComplete(ApplicationController.getInstance().getNumberSingerSet().get(temp_name));
+
+        }
+    };
+
+    private View.OnClickListener rightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //arSrc.remove(position);
+            //arSrc.add(position, new ItemData(temp_singer, temp_name, R.drawable.popup_heart));
+
+            // SingerAdapter adapter = new SingerAdapter(dataSet, clickEvent, dataSet2);
+            //recyclerView.setAdapter(SingerAdapter.this);
+            customDialog.dismiss();
+            // mCustomDialog.
+        }
+    };
 
     @OnClick(R.id.MyPage_EditSinger_addSinger)
     public void clickAdd()
@@ -291,85 +341,32 @@ public class EditSingerActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
-}
 
+    public void setHomeData(final String firebaseToken, int singer_id){
+        Call<MainResult> requestMainResult = networkService.requestMain(firebaseToken,singer_id);
 
+        requestMainResult.enqueue(new Callback<MainResult>() {
+            @Override
+            public void onResponse(Call<MainResult> call, Response<MainResult> response) {
+                if(response.body().result){
+                    Log.v("EditActivity", "퍼스트");
+                    ApplicationController.getInstance().setMainResult(response.body());
 
-
-
-class NetworkThreadEdit extends Thread{
-    private NetworkService networkService;
-    private String firebaseToken;
-
-    public NetworkThreadEdit(NetworkService networkService, String firebaseToken){
-        this.networkService = networkService;
-        this.firebaseToken = firebaseToken;
-    }
-
-    public void run(){
-        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
-        ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
-
-        for(int i = 0; i<userDataSumms.size(); i++)
-        {
-            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(i,
-                    userDataSumms.get(i).getSinger_id(), firebaseToken));
-            addSinger.enqueue(new Callback<SingerAddResponse>() {
-                @Override
-                public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                    if (response.body().result) {
-                        Log.v("추가", "성공");
-                        //해당 아이디에 맞는 애를 마이페이지에 추가
-                    } else {
-                        Log.v("추가", "실패");
-                    }
+                }else{
+                    Log.v("여기로 뜸", "여기로 뜸");
+                    Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
-                @Override
-                public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-                    Log.v("추가", "통신 실패");
-                }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<MainResult> call, Throwable t) {
+                Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        });
     }
-}
-
-class NetworkThreadDelete extends Thread{
-    private NetworkService networkService;
-    private String firebaseToken;
-
-    public NetworkThreadDelete(NetworkService networkService, String firebaseToken){
-        this.networkService = networkService;
-        this.firebaseToken = firebaseToken;
-    }
-
-    public void run(){
-        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
-        ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
-        Log.v("토큰", firebaseToken);
-
-        Log.v("전체 길이", String.valueOf(userDataSumms.size()));
-        for(int i = 3; i>3-(4-userDataSumms.size()); i--) {
-            Call<EditSingerDeleteResponse> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
-                    firebaseToken, i));
-
-            deleteSinger.enqueue(new Callback<EditSingerDeleteResponse>() {
-                @Override
-                public void onResponse(Call<EditSingerDeleteResponse> call, Response<EditSingerDeleteResponse> response) {
-                    if (response.isSuccessful()) {
-                        Log.v("삭제", "삭제 성공");
-                        //해당 아이디에 맞는 애를 마이페이지에 추가
-                    } else {
-                        Log.v("삭제", "삭제 실패");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<EditSingerDeleteResponse> call, Throwable t) {
-                    Log.e("삭제", "통신 실패");
-                }
-            });
-        }
-    }
-
 
 }

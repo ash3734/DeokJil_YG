@@ -95,7 +95,7 @@
         <activity
             android:name=".Profile.EditProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CustomDialog"></activity>
+
     </application>
 
 </manifest>
