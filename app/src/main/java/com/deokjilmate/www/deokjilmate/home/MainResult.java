@@ -10,7 +10,7 @@ import com.deokjilmate.www.deokjilmate.home.vote.VoteData;
  */
 
 public class MainResult {
-    public String result;
+    public boolean result;
     public String message;
     public VoteData vote_data;
     public ProgramData program_data;

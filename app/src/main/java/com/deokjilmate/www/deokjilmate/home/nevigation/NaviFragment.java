@@ -1,9 +1,11 @@
 package com.deokjilmate.www.deokjilmate.home.nevigation;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
+import com.deokjilmate.www.deokjilmate.Profile.EditProfileActivity;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.Setting.SettingActivity;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
+import com.deokjilmate.www.deokjilmate.alarm.AlarmActivity;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by ash on 2017-07-30.
@@ -24,6 +33,8 @@ public class NaviFragment extends Fragment {
 
 
     //네비게이션 부분의 위젯들
+
+
 
     ImageView myImage;TextView myNickName;
     ImageView myBadge;TextView singer1;
@@ -38,6 +49,8 @@ public class NaviFragment extends Fragment {
     RelativeLayout relativeLayout4;
     MainResult mainResult;
 
+    ImageView singerChange;
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -46,39 +59,72 @@ public class NaviFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mainResult = ApplicationController.getInstance().mainResult;
+        mainResult = new MainResult();
+        mainResult = ApplicationController.getInstance().getMainResult();
 
         //네비게이션바
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
-        if(mainResult.nevi_data.member_img!=null)
-        Glide.with(getActivity()).load(mainResult.nevi_data.member_img).into(myImage);
-        if(mainResult.nevi_data.member_name!=null)
-            myNickName.setText(mainResult.nevi_data.member_name);
+//        if(mainResult.nevi_data.member_img!=null)
+//        Glide.with(getActivity()).load(mainResult.nevi_data.member_img).into(myImage);
+//        if(mainResult.nevi_data.member_name!=null)
+//            myNickName.setText(mainResult.nevi_data.member_name);
+
+        init();
         //myBadge =
-        if(mainResult.nevi_data.singer.get(0).singer_name!=null)
-            singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
-        if(mainResult.nevi_data.singer.get(0).new_flag!=null)
-            new1.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(1).singer_name!=null)
-            singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
-        if(mainResult.nevi_data.singer.get(1).new_flag!=null)
-            new2.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(2).singer_name!=null)
-            singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
-        if(mainResult.nevi_data.singer.get(2).new_flag!=null)
-            new3.setImageResource(R.drawable.menu_new);
-        if(mainResult.nevi_data.singer.get(3).singer_name!=null)
-            singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
-        if(mainResult.nevi_data.singer.get(3).new_flag!=null)
-            new4.setImageResource(R.drawable.menu_new);
+        switch (mainResult.nevi_data.singer.size()){
+            case 4:
+                if(mainResult.nevi_data.singer.get(3).singer_name!=null)
+                    singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
+                if(mainResult.nevi_data.singer.get(3).new_flag!=null)
+                    new4.setImageResource(R.drawable.menu_new);
+            case 3:
+                Log.v("3", "3");
+                if(mainResult.nevi_data.singer.get(2).singer_name!=null)
+                    singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
+                if(mainResult.nevi_data.singer.get(2).new_flag!=null)
+                    new3.setImageResource(R.drawable.menu_new);
+            case 2:
+                if(mainResult.nevi_data.singer.get(1).singer_name!=null)
+                    singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
+                if(mainResult.nevi_data.singer.get(1).new_flag!=null)
+                    new2.setImageResource(R.drawable.menu_new);
+            case 1:
+                if(mainResult.nevi_data.singer.get(0).singer_name!=null)
+                    singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+                if(mainResult.nevi_data.singer.get(0).new_flag!=null)
+                    new1.setImageResource(R.drawable.menu_new);
+                break;
+            default:
+                break;
+
+        }
+
+//        if(mainResult.nevi_data.singer.get(0).singer_name!=null)
+//            singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+//        if(mainResult.nevi_data.singer.get(0).new_flag!=null)
+//            new1.setImageResource(R.drawable.menu_new);
+//        if(mainResult.nevi_data.singer.get(1).singer_name!=null)
+//            singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
+//        if(mainResult.nevi_data.singer.get(1).new_flag!=null)
+//            new2.setImageResource(R.drawable.menu_new);
+//        if(mainResult.nevi_data.singer.get(2).singer_name!=null)
+//            singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
+//        if(mainResult.nevi_data.singer.get(2).new_flag!=null)
+//            new3.setImageResource(R.drawable.menu_new);
+//        if(mainResult.nevi_data.singer.get(3).singer_name!=null)
+//            singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
+//        if(mainResult.nevi_data.singer.get(3).new_flag!=null)
+//            new4.setImageResource(R.drawable.menu_new);
 
         relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApplicationController.getInstance().singer_id = 1;
+                ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getMost());
+                //SharedPrefrernceController.get
                 startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                 getActivity().finish();
+
 
                 //drawer.closeDrawer(GravityCompat.START);
             }
@@ -86,9 +132,12 @@ public class NaviFragment extends Fragment {
         relativeLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApplicationController.getInstance().singer_id = 2;
-                startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
-                getActivity().finish();
+                //ApplicationController.getInstance().singer_id = 2;
+                if(ApplicationController.getInstance().getUserDataSumms().size()>=2) {
+                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(1).getSinger_id());
+                    startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
+                    getActivity().finish();
+                }
 
                 //drawer.closeDrawer(GravityCompat.START);
             }
@@ -96,9 +145,12 @@ public class NaviFragment extends Fragment {
         relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApplicationController.getInstance().singer_id = 3;
-                startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
-                getActivity().finish();
+                //ApplicationController.getInstance().singer_id = 3;
+                if(ApplicationController.getInstance().getUserDataSumms().size()>=3) {
+                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(2).getSinger_id());
+                    startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
+                    getActivity().finish();
+                }
 
                 //drawer.closeDrawer(GravityCompat.START);
             }
@@ -107,11 +159,44 @@ public class NaviFragment extends Fragment {
         relativeLayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApplicationController.getInstance().singer_id = 4;
-                startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
-                getActivity().finish();
+                //ApplicationController.getInstance().singer_id = 4;
+                if(ApplicationController.getInstance().getUserDataSumms().size()>=4) {
+                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(3).getSinger_id());
+                    startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
+                    getActivity().finish();
+                }
 
                 //drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
+        myBadge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), EditProfileActivity.class));
+            }
+        });
+
+        singerChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MyPageActivity.class));
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+
+            }
+        });
+
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AlarmActivity.class));
+
             }
         });
 
@@ -142,6 +227,26 @@ public class NaviFragment extends Fragment {
         relativeLayout3 = (RelativeLayout)frag.findViewById(R.id.drawer_layout_3);
         relativeLayout4 = (RelativeLayout)frag.findViewById(R.id.drawer_layout_4);
 
+        singerChange = (ImageView)frag.findViewById(R.id.drawer_go_singer_change);
+
         return frag;
     }
+
+    public void init(){
+        Uri data;
+       // data = ApplicationController.getInstance().getProfile_uri();
+        data = Uri.parse(SharedPrefrernceController.getUserImage(getActivity()));
+
+      //  data = SharedPrefrernceController.getUserImage(getActivity());
+        Glide.with(myImage.getContext())
+                .load(data)
+                .bitmapTransform(new CropCircleTransformation(getActivity().getApplicationContext()))
+                .into(myImage);
+
+        String name = SharedPrefrernceController.getUserNickname(getActivity());
+        myNickName.setText(name);
+
+    }
+
+
 }

@@ -100,9 +100,9 @@ public class AddSingerActivity extends AppCompatActivity {
                     allSingerDetails = response.body().data;
                     for(int i = 0; i<allSingerDetails.size(); i++)
                     {
-                        allSingerList.add(new AddSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
+                        allSingerList.add(new AddSingerItemData(i+1, allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
                                 allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add));
-                        addSingerItemDatas.add(new AddSingerItemData(allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
+                        addSingerItemDatas.add(new AddSingerItemData(i+1, allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
                                 allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add));
                     }
                     addsingerAdapter = new AddsingerAdapter(getApplicationContext(), requestManager, allSingerList, SingerList.getList(),

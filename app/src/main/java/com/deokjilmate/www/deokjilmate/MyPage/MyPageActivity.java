@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.MyPage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,17 +12,20 @@ import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerActivity;
+import com.deokjilmate.www.deokjilmate.Profile.EditProfileActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -30,6 +34,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +58,9 @@ public class MyPageActivity extends AppCompatActivity {
 
     @BindView(R.id.MyPage_profileImage)
     ImageView profileImage;
+
+    @BindView(R.id.mypage_My_TextView_Id)
+    TextView mypageNickname;
 
 
     private RequestManager requestManager_singer;
@@ -93,7 +101,11 @@ public class MyPageActivity extends AppCompatActivity {
         setLayoutSize();
        // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.topbar_chgasu).into(plusSub);
-        Glide.with(this).load(R.drawable.meta).into(editProfile);
+        Glide.with(this).load(R.drawable.profile_change).into(editProfile);
+
+        init();
+
+
        // Glide.with(this).load(R.drawable.meta).into(backImage);
 
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -142,6 +154,8 @@ public class MyPageActivity extends AppCompatActivity {
                                 myPageHeadItemData = new MyPageHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
                                         R.drawable.badge_newbie, userAllSingerDatas.get(i).getSinger_name(),
                                         userAllSingerDatas.get(i).getChoice_count());
+                                ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+                                SharedPrefrernceController.setMost(MyPageActivity.this, userAllSingerDatas.get(i).getSinger_id());
                         }
                         else
                         {
@@ -172,8 +186,9 @@ public class MyPageActivity extends AppCompatActivity {
     public void back(){
 
         //TODO : 홈으로
-//        Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.MyPage_editSinger)
@@ -190,70 +205,6 @@ public class MyPageActivity extends AppCompatActivity {
         mainLayout.setMinimumHeight(height);
     }
 
-    public int nextCount(int count){
-        int returnCount = 0;
-        if(count == 0)
-            count = 0;//서브 없음
-        else if(count == 0)
-            count = 1;//서브 1명
-        else if(count == 0)
-            count = 2;//서브 2명
-        else
-            count = 3;//서브 3명(풀)
-        return count;
-    }
-
-    public void setLists(){
-        //서브
-        myPageItemDatas = new ArrayList<MyPageItemData>();
-
-        //가수 목록 불러오기
-        final Call<MyPageSingerList> myPageSingerList = networkService.myPageSingerList(1);
-        myPageSingerList.enqueue(new Callback<MyPageSingerList>() {
-            @Override
-            public void onResponse(Call<MyPageSingerList> call, Response<MyPageSingerList> response) {
-                if(response.isSuccessful())
-                {
-                    myPageSelectedSingers = response.body().result;
-                    //myAllSingerArray1.add(myPageSelectedSingers.get);
-
-                    for(int i = 0; i<myPageSelectedSingers.size(); i++){
-                        myAllSingerArrayN.add(myPageSelectedSingers.get(i).getSinger_id());
-                    }
-
-                    for(int i = 0; i<myAllSingerArray.size(); i++)
-                    {
-                        if(i==0)
-                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
-                            if(myAllSingerArray.get(0)!=null) {
-                                myPageHeadItemData = new MyPageHeadItemData(myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_img(),
-                                        R.drawable.badge_newbie, myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getSinger_name(),
-                                        myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(0))).getChoice_count());
-                            }
-                            //Log.v("MyPage", myPageSelectedSingers.get(0).getSinger_img());
-                        }
-                        else
-                        {
-                            if(myAllSingerArray.get(i)!=null) {
-                                myPageItemDatas.add(new MyPageItemData(myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_img(),
-                                        R.drawable.badge_newbie, myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getSinger_name(),
-                                        myPageSelectedSingers.get(myAllSingerArrayN.indexOf(myAllSingerArray.get(i))).getChoice_count()));
-                            }
-                            //Log.v("MyPage", myPageSelectedSingers.get(i).getSinger_img());
-                        }
-                    }
-                    myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
-                    subSingerrecyclerView.setAdapter(myPageAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyPageSingerList> call, Throwable t) {
-
-            }
-        });
-    }
-
     @OnClick(R.id.MyPage_profileImage)
     public void reset(){
         finish();
@@ -263,6 +214,25 @@ public class MyPageActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void init(){
+        Uri data;
+        data = Uri.parse(SharedPrefrernceController.getUserImage(this));
+        Glide.with(profileImage.getContext())
+                .load(data)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(profileImage);
+
+        String nickname;
+        nickname = SharedPrefrernceController.getUserNickname(this);
+        mypageNickname.setText(nickname);
+    }
+
+    @OnClick(R.id.Mypage_editProfile)
+    public void toEditProfile(){
+        Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
+        startActivity(intent);
     }
 
 }

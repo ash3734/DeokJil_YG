@@ -12,7 +12,6 @@ import com.bumptech.glide.RequestManager;
 import com.deokjilmate.www.deokjilmate.Login.SetSingerNameData;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.R;
-import com.deokjilmate.www.deokjilmate.UserAllSingerData;
 import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
@@ -58,6 +57,10 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.allSingerList = new ArrayList<AddSingerItemData>();
         this.allSingerList.addAll(allSingerList);
         Log.v("전체", String.valueOf(this.allSingerList.size()));
+
+
+
+
         this.addSingerActivity = addSingerActivity;
         //this.singerPNData = new HashMap<String, String>();
         this.singerPNData.putAll(singerPNData);
@@ -82,75 +85,106 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
     @Override
     public void onBindViewHolder(AddSingerViewHolder holder, final int position) {
-        holder.singer_rank.setText(String.valueOf(position+1));
-        requestManager.load(allSingerList.get(position).singer_image).into(holder.singer_Image);
-        holder.singer_Name.setText(allSingerList.get(position).singer_name);
-        if(!checkHave(allSingerList.get(position).singer_id)) {
-            holder.add_singer.setImageResource(allSingerList.get(position).add_singer);
-            selectSingerNum = allSingerList.get(position).singer_id;
-        }
-        else
-            holder.add_singer.setVisibility(GONE);
 
-        holder.add_singer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectSingerNum = allSingerList.get(position).singer_id;
-                Log.v("넘버", String.valueOf(selectSingerNum));
-                Log.v("넘버", String.valueOf(totalSingerCount));
-                //;
-                if (checkHave(selectSingerNum)) {
-                    //Log.v("내 가수들", myPageAllSingerNumberses.toString());
-                    Log.v("EditAdap", "이미 있음");
-                    Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
-                } else {
-                    if (totalSingerCount < 4) {//전체 가수 length.
 
-                        userDataSumms.add(new UserDataSumm(allSingerList.get(position).singer_id, allSingerList.get(position).singer_name,
-                                allSingerList.get(position).singer_image));
-                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+        if(search == false) {
+            holder.singer_rank.setText(String.valueOf(addSingerItemDatas.get(position).getSinger_rank()));
+            requestManager.load(addSingerItemDatas.get(position).singer_image).into(holder.singer_Image);
+            holder.singer_Name.setText(addSingerItemDatas.get(position).singer_name);
+            if (!checkHave(addSingerItemDatas.get(position).singer_id)) {
+                holder.add_singer.setImageResource(addSingerItemDatas.get(position).add_singer);
+                //selectSingerNum = addSingerItemDatas.get(position).singer_id;
+            } else
+                holder.add_singer.setVisibility(GONE);
 
-                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
-                                selectSingerNum, firebaseToken));
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_SHORT);
+            holder.add_singer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectSingerNum = addSingerItemDatas.get(position).singer_id;
+                    Log.v("넘버", String.valueOf(selectSingerNum));
+                    Log.v("넘버", String.valueOf(totalSingerCount));
+                    //;
+                    if (checkHave(selectSingerNum)) {
+                        //Log.v("내 가수들", myPageAllSingerNumberses.toString());
+                        Log.v("EditAdap", "이미 있음");
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
+                    } else {
+                        if (totalSingerCount < 4) {//전체 가수 length.
 
-//                        addSinger.enqueue(new Callback<SingerAddResponse>() {
-//                            @Override
-//                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-//                                if (response.isSuccessful()) {
-//                                    Log.v("추가", "성공");
-//                                    //해당 아이디에 맞는 애를 마이페이지에 추가
-//                                } else {
-//                                    Log.v("추가", "실패");
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-//                                Log.v("추가", "통신 실패");
-//
-//                            }
-//                        });
-                    }else{
-                        Log.v("EditAdap", "가수는 4명까지");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_SHORT);
+                            userDataSumms.add(new UserDataSumm(addSingerItemDatas.get(position).singer_id, addSingerItemDatas.get(position).singer_name,
+                                    addSingerItemDatas.get(position).singer_image));
+                            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
+                                    selectSingerNum, firebaseToken));
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_SHORT);
+
+                        } else {
+                            Log.v("EditAdap", "가수는 4명까지");
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_SHORT);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }else{
+            holder.singer_rank.setText(String.valueOf(searchSingerList.get(position).getSinger_rank()));
+            requestManager.load(searchSingerList.get(position).singer_image).into(holder.singer_Image);
+            holder.singer_Name.setText(searchSingerList.get(position).singer_name);
+            if (!checkHave(searchSingerList.get(position).singer_id)) {
+                holder.add_singer.setImageResource(searchSingerList.get(position).add_singer);
+                //selectSingerNum = searchSingerList.get(position).singer_id;
+            } else
+                holder.add_singer.setVisibility(GONE);
+
+            holder.add_singer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectSingerNum = searchSingerList.get(position).singer_id;
+                    Log.v("넘버", String.valueOf(selectSingerNum));
+                    Log.v("넘버", String.valueOf(totalSingerCount));
+                    //;
+                    if (checkHave(selectSingerNum)) {
+                        //Log.v("내 가수들", myPageAllSingerNumberses.toString());
+                        Log.v("EditAdap", "이미 있음");
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG);
+                    } else {
+                        if (totalSingerCount < 4) {//전체 가수 length.
+
+                            userDataSumms.add(new UserDataSumm(searchSingerList.get(position).singer_id, searchSingerList.get(position).singer_name,
+                                    searchSingerList.get(position).singer_image));
+                            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
+                                    selectSingerNum, firebaseToken));
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG);
+
+                        } else {
+                            Log.v("EditAdap", "가수는 4명까지");
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG);
+                        }
+                    }
+                }
+            });
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return (allSingerList != null) ? allSingerList.size() : 0;
+        if(!search)
+        {
+            return (allSingerList != null) ? allSingerList.size() : 0;
+
+        }else {
+            return (searchSingerList != null) ? searchSingerList.size() : 0;
+        }
     }
 
     public boolean checkHave(int selectNum){
        // MyPageAllSingerNumbers myPageAllSingerNumbers = ApplicationController.getInstance().getMyPageAllSingerNumberses();
-        ArrayList<UserAllSingerData> userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
-        for(int i = 0; i<userAllSingerDatas.size(); i++){
-            if(userAllSingerDatas.get(i).getSinger_id() == selectNum)
+        ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        for(int i = 0; i<userDataSumms.size(); i++){
+            if(userDataSumms.get(i).getSinger_id() == selectNum)
                 return true;
         }
             return false;
@@ -163,7 +197,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         searchSingerList.clear();
         //입력한 데이터가 없을 경우에는 추천목록
         if (charText.length() == 0) {
-            searchSingerList.addAll(addSingerItemDatas);
+            searchSingerList.addAll(allSingerList);
             search = false;
         }
         else

@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
@@ -33,7 +34,24 @@ public class ApplicationController extends Application{
 
     private Context context;
     public String singerName = "빅스";
+
+    public int getSinger_id() {
+        return singer_id;
+    }
+
+    public void setSinger_id(int singer_id) {
+        this.singer_id = singer_id;
+    }
+
     public int singer_id=3;
+
+    public MainResult getMainResult() {
+        return mainResult;
+    }
+
+    public void setMainResult(MainResult mainResult) {
+        this.mainResult = mainResult;
+    }
 
     public MainResult mainResult;
 
@@ -55,6 +73,16 @@ public class ApplicationController extends Application{
 
     private ArrayList<UserDataSumm> userDataSumms;
     private int most;
+
+    public Uri getProfile_uri() {
+        return profile_uri;
+    }
+
+    public void setProfile_uri(Uri profile_uri) {
+        this.profile_uri = profile_uri;
+    }
+
+    private Uri profile_uri;
 
 
     private String firebaseToken;
