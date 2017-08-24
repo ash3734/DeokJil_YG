@@ -185,7 +185,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                 }
                 else {
                     Log.v(TAG, "레알 불일치");
-                    //search = false;
+                    search = false;
                 }
             }
         }

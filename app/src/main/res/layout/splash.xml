@@ -7,10 +7,6 @@
     android:background="@drawable/splashbackground"
     tools:context="com.deokjilmate.www.deokjilmate.SplashActivity"
     android:orientation="vertical">
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/Splash_background"/>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,12 +17,22 @@
             android:layout_height="1dp"
             android:layout_centerInParent="true"
             android:id="@+id/Splash_centerView"
-                />
+            />
         <ImageView
             android:layout_width="104dp"
             android:layout_height="104dp"
             android:background="@drawable/splash_logo"
             android:layout_above="@+id/Splash_centerView"
             android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/splash_gasa"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="13dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/Splash_centerView"
+            android:includeFontPadding="false"/>
     </RelativeLayout>
 </LinearLayout>

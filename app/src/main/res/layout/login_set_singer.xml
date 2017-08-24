@@ -133,6 +133,7 @@
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/sing_login_check_button"
                     android:id="@+id/Setsinger_next"
+                    android:textColor="#ffffff"
                     android:text="덕질메이트 시작하기" />
             </RelativeLayout>
             </RelativeLayout>

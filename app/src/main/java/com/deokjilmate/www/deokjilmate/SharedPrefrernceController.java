@@ -15,6 +15,8 @@ public class SharedPrefrernceController {
     private static final String EMAIL = "email";
     private static final String PASSWD = "passwd";
     private static final String IMAGE = "image";
+    private static final String MOST = "most";
+    private static final String SELETED = "seleted";
 
 
     public static void setLoginType(Context context, String loginType){
@@ -88,6 +90,28 @@ public class SharedPrefrernceController {
         return pref.getString(IMAGE, "");
     }
 
+    public static void setMost(Context context, int most){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(MOST, most);
+        editor.commit();
+    }
 
+    public static int getMost(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getInt(MOST, -1);
+    }
+
+    public static void setSelected(Context context, int selected){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(SELETED, selected);
+        editor.commit();
+    }
+
+    public static int getSelected(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getInt(SELETED, -1);
+    }
 
 }
