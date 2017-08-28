@@ -299,10 +299,10 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!agree.callOnClick()){
-            Toast.makeText(this, "이용약관에 체크해주세요!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if(!agree.callOnClick()){
+//            Toast.makeText(this, "이용약관에 체크해주세요!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         createAcctount(email.getText().toString(), pwd.getText().toString());
 
     }
