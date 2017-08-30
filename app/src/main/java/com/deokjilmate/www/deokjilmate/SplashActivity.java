@@ -41,6 +41,19 @@ public class SplashActivity extends AppCompatActivity {
                 setContentView(R.layout.splash);
                 ButterKnife.bind(this);
 //                Glide.with(this).load(R.drawable.splash).into(background);
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo("com.deokjilmate.www.deokjilmate", PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+
 
                 TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
                 Fabric.with(this, new Twitter(authConfig));
