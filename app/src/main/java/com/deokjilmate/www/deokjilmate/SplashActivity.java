@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -98,8 +99,11 @@ public class SplashActivity extends AppCompatActivity {
         }
         else{
             ApplicationController.getInstance().setSinger_id(SharedPrefrernceController.getSelected(SplashActivity.this));
-            setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
-                    SharedPrefrernceController.getSelected(SplashActivity.this));
+//            setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
+//                    SharedPrefrernceController.getSelected(SplashActivity.this));
+
+            startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+
         }
     }
     //누구나 다 아는 그런 스플래쉬

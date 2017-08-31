@@ -28,6 +28,13 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/main_singer_frame">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/splash_half">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -103,6 +110,11 @@
             </RelativeLayout>
         </LinearLayout>
         </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
     </RelativeLayout>
         <TextView
             android:layout_marginTop="12dp"
