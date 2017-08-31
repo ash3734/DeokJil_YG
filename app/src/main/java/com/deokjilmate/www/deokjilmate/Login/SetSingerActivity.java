@@ -152,15 +152,16 @@ public class SetSingerActivity extends AppCompatActivity {
             singUp.enqueue(new Callback<RegisterResult>() {
                 @Override
                 public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-                    if(response.isSuccessful())
+                    if(response.body().result)
                     {
                         RegisterData registerData = response.body().data;
+
                         final int most = ApplicationController.getInstance().getMost();
 
                         SharedPrefrernceController.setMost(SetSingerActivity.this, most);
                         SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
 
-                        final String firebaseToken = registerData.firebaseToken;
+                        final String firebaseToken = response.body().data.firebasToken;
                         SharedPrefrernceController.setUserEmail(SetSingerActivity.this, member_email);
                         SharedPrefrernceController.setPasswd(SetSingerActivity.this, member_passwd);
 
@@ -173,13 +174,14 @@ public class SetSingerActivity extends AppCompatActivity {
                         addSinger.enqueue(new Callback<SingerAddResponse>() {
                             @Override
                             public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                                if (response.isSuccessful()) {
+                                if (response.body().result) {
                                     Log.v("추가", "성공");
                                     //여기서 토큰 추가
                                     ApplicationController.getInstance().setFirebaseToken(firebaseToken);
                                     setHomeData(firebaseToken, most);
                                 } else {
-                                    Log.v("추가", "실패");
+                                    Log.v("추가", response.body().message);
+                                    Toast.makeText(SetSingerActivity.this, response.body().message, Toast.LENGTH_LONG);
                                 }
                             }
 
@@ -188,6 +190,9 @@ public class SetSingerActivity extends AppCompatActivity {
                                 Log.v("추가", "통신 실패");
                             }
                         });
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"이미 등록된 uid", Toast.LENGTH_LONG);
                     }
                 }
                 @Override
@@ -199,7 +204,7 @@ public class SetSingerActivity extends AppCompatActivity {
             singUpSns.enqueue(new Callback<RegisterSnsResult>() {
                 @Override
                 public void onResponse(Call<RegisterSnsResult> call, Response<RegisterSnsResult> response) {
-                    if(response.isSuccessful())
+                    if(response.body().result)
                     {
                         //RegisterData registerData = response.body().data;
                         final int most = ApplicationController.getInstance().getMost();
