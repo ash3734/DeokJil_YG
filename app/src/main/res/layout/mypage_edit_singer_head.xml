@@ -47,6 +47,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="144dp"
+                android:background="@drawable/splash_half"
                 android:id="@+id/mypage_edit_singer_head_mainView">
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="92dp"

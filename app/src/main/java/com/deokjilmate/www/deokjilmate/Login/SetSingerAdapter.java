@@ -74,6 +74,8 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                             requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
                             ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                             clickedPosition = position;
+                            Log.v("포지션", String.valueOf(clickedPosition));
+                            Log.v("포지션", String.valueOf(setSingerItemDatas.get(position).singer_id));
                             clicked = 1;
                             break;
                         case 1:
@@ -185,7 +187,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                 }
                 else {
                     Log.v(TAG, "레알 불일치");
-                    search = false;
+                    //search = false;
                 }
             }
         }
