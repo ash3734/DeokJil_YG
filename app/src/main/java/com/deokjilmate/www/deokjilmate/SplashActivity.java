@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -29,6 +31,11 @@ public class SplashActivity extends AppCompatActivity {
     private static final String TWITTER_KEY = "ZPJ66hrJ8nJpMKRS297O9BgGQ ";
     private static final String TWITTER_SECRET = "Kb41OH7xsJfEZ3Rzf9rCiBLE6mz47GMtiJBdCcbuYmtIDqCLHu";
     private NetworkService networkService;
+
+    private ArrayList<UserAllSingerData> userAllSingerDatas;
+    private String firebaseToken;
+    private ArrayList<UserDataSumm> userDataSumms;
+
 
     @BindView(R.id.splash_gasa)
     TextView textViewGasa;
@@ -93,8 +100,23 @@ public class SplashActivity extends AppCompatActivity {
     }
     public void AutoLogin(){
         if(SharedPrefrernceController.getFirebaseToken(SplashActivity.this).equals("")){
-            startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
-            finish();
+
+            Handler handler = new Handler();
+                handler.postDelayed(new Runnable(){
+                    @Override
+                    public void run()
+                    {
+
+                        startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+                        finish();
+
+//                startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
+//                finish();
+
+            }
+        }, 3000);
+
+
         }
         else{
             ApplicationController.getInstance().setSinger_id(SharedPrefrernceController.getSelected(SplashActivity.this));
@@ -115,11 +137,10 @@ public class SplashActivity extends AppCompatActivity {
 
         requestMainResult.enqueue(new Callback<MainResult>() {
             @Override
-            public void onResponse(Call<MainResult> call, Response<MainResult> response) {
+            public void onResponse(Call<MainResult> call, final Response<MainResult> response) {
                 if(response.body().result){
                     ApplicationController.getInstance().setMainResult(response.body());
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    finish();
+                    getMySingerDatas();
 
                 }else{
                     Log.v("여기로 뜸", "여기로 뜸");
@@ -140,4 +161,59 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     //여기까지가 8/24에 작업한 것
+
+    public void getMySingerDatas(){
+
+        userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
+
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(SplashActivity.this));
+        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
+            @Override
+            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                if(response.body().result){
+                    userAllSingerDatas = response.body().data;
+                    int count = userAllSingerDatas.size();
+                    ApplicationController.getInstance().setTotalSingerCount(count);
+                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+                    Log.v("MyPage", userAllSingerDatas.get(0).getSinger_name());
+                    Log.v("MyPage", "전체 = " + String.valueOf(userAllSingerDatas.size()));
+
+                    for(int i = 0; i<userAllSingerDatas.size(); i++)
+                    {
+                        if(i==0 && userAllSingerDatas.get(0)!=null)
+                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
+                            Log.v("MyPage", "메인 들어옴");
+                            ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+                            SharedPrefrernceController.setMost(SplashActivity.this, userAllSingerDatas.get(i).getSinger_id());
+                        }
+                        userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+                                userAllSingerDatas.get(i).getSinger_img()));
+                    }
+                    Log.v("MyPage", "이제 어댑터로");
+                    ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+                    if(userDataSumms.size() == userAllSingerDatas.size()){
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable(){
+                            @Override
+                            public void run()
+                            {
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finish();
+                            }
+                        }, 3000);
+
+                    }
+                } else{
+                    Toast.makeText(SplashActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+
+            }
+        });
+    }
 }

@@ -328,7 +328,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOG, "signInWithEmail:success");
 
-                    makeDialog("처리중입니다.");
+                    //makeDialog("처리중입니다.");
                     FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
                     Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
@@ -370,7 +370,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             Toast.makeText(SignActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        makeDialog("처리중입니다.");
+                       // makeDialog("처리중입니다.");
 
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
@@ -395,7 +395,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCredential:success");
-                            makeDialog("처리중입니다.");
+                           // makeDialog("처리중입니다.");
 
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
                             Toast.makeText(SignActivity.this, "Authentication suceess.",
@@ -443,7 +443,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        makeDialog("처리중입니다.");
+                        //makeDialog("처리중입니다.");
 
                         //TODO : 가입의 경우 굳이 다이얼로그가 있을 필요는 없음
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();

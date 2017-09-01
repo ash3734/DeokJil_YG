@@ -234,7 +234,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
                 }
                 else{
-                    makeDialog("처리중입니다.");
+                    //makeDialog("처리중입니다.");
 
                     checkReturn = 1;
                     //이건 중복 안 되었다는 이야기

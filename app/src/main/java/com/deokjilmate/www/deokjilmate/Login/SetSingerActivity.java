@@ -259,7 +259,25 @@ public class SetSingerActivity extends AppCompatActivity {
     @OnClick(R.id.SetSinger_backImage)
     public void ClickBack()
     {
+
         Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+        switch (type){
+            case 1://커스텀 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("member_email", member_email);
+                intent.putExtra("notSns", true);
+                intent.putExtra("member_passwd", member_passwd);
+                intent.putExtra("member_name", member_name);
+                break;
+            default://sns 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("notSns", false);
+                intent.putExtra("member_name", member_name);
+                break;
+        }
+        intent.putExtra("type", type);
+
+
         startActivity(intent);
     }
 

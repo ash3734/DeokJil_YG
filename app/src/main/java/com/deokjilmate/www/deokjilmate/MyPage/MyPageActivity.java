@@ -135,6 +135,33 @@ public class MyPageActivity extends AppCompatActivity {
         //TODO : 맨 처음에 정보를 받아 온다면 아래 부분 바꾸어야 함 작성 당시 필요해서 적어놓긴 했음
         //TODO : 이 부분은 해당 토큰에 맞는 가수 정보 불러오는 거 근데 작동하는 지 테스트 못함
         //TODO : 그도 그럴 것이 닉넴 체크가 바뀐 것 같은데 어케 바뀐 건지 모르겠음.
+
+//        userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+//        for(int i = 0; i<userAllSingerDatas.size(); i++)
+//        {
+//            if(i==0 && userAllSingerDatas.get(0)!=null)
+//            {
+//                Log.v("MyPage", "메인 들어옴");
+//                myPageHeadItemData = new MyPageHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
+//                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
+//                        userAllSingerDatas.get(i).getChoice_count());
+//                //ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+//                //SharedPrefrernceController.setMost(MyPageActivity.this, userAllSingerDatas.get(i).getSinger_id());
+//            }
+//            else
+//            {
+//                myPageItemDatas.add(new MyPageItemData(userAllSingerDatas.get(i).getSinger_img(),
+//                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
+//                        userAllSingerDatas.get(i).getChoice_count()));
+//            }
+//            userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+//                    userAllSingerDatas.get(i).getSinger_img()));
+//        }
+//        Log.v("MyPage", "이제 어댑터로");
+//        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+//        myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData, context);
+//        subSingerrecyclerView.setAdapter(myPageAdapter);
+
         firebaseToken = SharedPrefrernceController.getFirebaseToken(MyPageActivity.this);
         Log.v("MyPage", firebaseToken);
         final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
