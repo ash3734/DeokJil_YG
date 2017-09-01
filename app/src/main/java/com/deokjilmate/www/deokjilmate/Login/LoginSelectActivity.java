@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
+import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -298,34 +301,6 @@ public class LoginSelectActivity extends AppCompatActivity implements
                 });
     }
 
-    private void revokeAccess() {
-        // Firebase sign out
-        mfirebaseAuth.signOut();
-
-        // Google revoke access
-        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                       // updateUI(null);
-                    }
-                });
-    }
-
-
-
-
-    private void updateUI(boolean signedIn) {
-//        if (signedIn) {
-//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-//        } else {
-//            mStatusTextView.setText(R.string.signed_out);
-//
-//            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-//        }
-    }
 
 
 
@@ -363,7 +338,15 @@ public class LoginSelectActivity extends AppCompatActivity implements
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
                         intent.putExtra("type", 3);
+
+                        //Call<RegisterSnsResult> singUpSns = networkService.registerResultSns(new SignSnsPost(uid, member_name, notSns));
+
+
                         startActivity(intent);
+
+
+
+
                         //이걸 보내면 됨.
                         //credential.getProvider()
                     }
@@ -461,5 +444,32 @@ public class LoginSelectActivity extends AppCompatActivity implements
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void setHomeData(String firebaseToken, int singer_id){
+        Call<MainResult> requestMainResult = networkService.requestMain(firebaseToken,singer_id);
+
+        requestMainResult.enqueue(new Callback<MainResult>() {
+            @Override
+            public void onResponse(Call<MainResult> call, Response<MainResult> response) {
+                if(response.isSuccessful()){
+                    ApplicationController.getInstance().setMainResult(response.body());
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
+                }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainResult> call, Throwable t) {
+                Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        });
     }
 }

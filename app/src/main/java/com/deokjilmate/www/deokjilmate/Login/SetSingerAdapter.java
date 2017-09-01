@@ -45,6 +45,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
 
         this.singerPNData = new HashMap<String, String>();
         this.singerPNData.putAll(singerPNData);
+        setHasStableIds(true);
 
     }
 
@@ -75,6 +76,8 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                             ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                             clickedPosition = position;
                             Log.v("포지션", String.valueOf(clickedPosition));
+                            Log.v("포지션", String.valueOf(position));
+
                             Log.v("포지션", String.valueOf(setSingerItemDatas.get(position).singer_id));
                             clicked = 1;
                             break;
@@ -104,7 +107,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             requestManager.load(searchSingerList.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
             //holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
-            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
+            //requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
             holder.singer_most.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -193,5 +196,15 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         }
         //입력한 데이터가 있을 경우에는 일치하는 항목들만 찾아 출력해줍니다.
         notifyDataSetChanged();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

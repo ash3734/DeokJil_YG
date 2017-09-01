@@ -208,6 +208,7 @@ public class EditSingerActivity extends AppCompatActivity {
                         count++;
                         if(count == userDataSumms.size()){
                             setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));
+                            Toast.makeText(getApplicationContext(), "수정 완료", Toast.LENGTH_LONG).show();
                         }
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
@@ -255,12 +256,9 @@ public class EditSingerActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_EditSinger_backImage)
     public void clickBack()
     {
-        String content = "저장을 누르지 않으시면 원래 상태로 돌아갑니다 \n 돌아가시겠습니까";
+        String content = "만약 저장을 누르지 않으시면 원래 상태로 돌아갑니다 \n돌아가시겠습니까";
         customDialog = new CustomDialog(this, content, leftListener, rightListener);
         customDialog.show();
-
-
-
 
     }
 

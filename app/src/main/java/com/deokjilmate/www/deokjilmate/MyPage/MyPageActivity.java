@@ -62,6 +62,9 @@ public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.mypage_My_TextView_Id)
     TextView mypageNickname;
 
+    @BindView(R.id.mypage_total_vote)
+    TextView mypageTotalVote;
+
 
     private RequestManager requestManager_singer;
     private RequestManager requestManager_rank;
@@ -85,6 +88,9 @@ public class MyPageActivity extends AppCompatActivity {
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private String firebaseToken;
     private ArrayList<UserDataSumm> userDataSumms;
+    private int totalVote;
+
+    private Context context;
 
 
     //ArrayList<MyPageSingerList> myPageSingerList;
@@ -102,7 +108,8 @@ public class MyPageActivity extends AppCompatActivity {
        // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.topbar_chgasu).into(plusSub);
         Glide.with(this).load(R.drawable.profile_change).into(editProfile);
-
+        context = this;
+        totalVote = 2000;
         init();
 
 
@@ -122,12 +129,39 @@ public class MyPageActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         subSingerrecyclerView.setHasFixedSize(true);
         subSingerrecyclerView.setLayoutManager(linearLayoutManager);
-
+        mypageTotalVote.setText(String.valueOf(totalVote));
 
 
         //TODO : 맨 처음에 정보를 받아 온다면 아래 부분 바꾸어야 함 작성 당시 필요해서 적어놓긴 했음
         //TODO : 이 부분은 해당 토큰에 맞는 가수 정보 불러오는 거 근데 작동하는 지 테스트 못함
         //TODO : 그도 그럴 것이 닉넴 체크가 바뀐 것 같은데 어케 바뀐 건지 모르겠음.
+
+//        userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
+//        for(int i = 0; i<userAllSingerDatas.size(); i++)
+//        {
+//            if(i==0 && userAllSingerDatas.get(0)!=null)
+//            {
+//                Log.v("MyPage", "메인 들어옴");
+//                myPageHeadItemData = new MyPageHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
+//                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
+//                        userAllSingerDatas.get(i).getChoice_count());
+//                //ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+//                //SharedPrefrernceController.setMost(MyPageActivity.this, userAllSingerDatas.get(i).getSinger_id());
+//            }
+//            else
+//            {
+//                myPageItemDatas.add(new MyPageItemData(userAllSingerDatas.get(i).getSinger_img(),
+//                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
+//                        userAllSingerDatas.get(i).getChoice_count()));
+//            }
+//            userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+//                    userAllSingerDatas.get(i).getSinger_img()));
+//        }
+//        Log.v("MyPage", "이제 어댑터로");
+//        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+//        myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData, context);
+//        subSingerrecyclerView.setAdapter(myPageAdapter);
+
         firebaseToken = SharedPrefrernceController.getFirebaseToken(MyPageActivity.this);
         Log.v("MyPage", firebaseToken);
         final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
@@ -152,7 +186,7 @@ public class MyPageActivity extends AppCompatActivity {
                         {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
                                 Log.v("MyPage", "메인 들어옴");
                                 myPageHeadItemData = new MyPageHeadItemData(userAllSingerDatas.get(i).getSinger_img(),
-                                        R.drawable.badge_newbie, userAllSingerDatas.get(i).getSinger_name(),
+                                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
                                         userAllSingerDatas.get(i).getChoice_count());
                                 ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
                                 SharedPrefrernceController.setMost(MyPageActivity.this, userAllSingerDatas.get(i).getSinger_id());
@@ -160,7 +194,7 @@ public class MyPageActivity extends AppCompatActivity {
                         else
                         {
                                 myPageItemDatas.add(new MyPageItemData(userAllSingerDatas.get(i).getSinger_img(),
-                                        R.drawable.badge_newbie, userAllSingerDatas.get(i).getSinger_name(),
+                                        myRank(), userAllSingerDatas.get(i).getSinger_name(),
                                         userAllSingerDatas.get(i).getChoice_count()));
                         }
                         userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
@@ -168,7 +202,7 @@ public class MyPageActivity extends AppCompatActivity {
                     }
                     Log.v("MyPage", "이제 어댑터로");
                     ApplicationController.getInstance().setUserDataSumms(userDataSumms);
-                    myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData);
+                    myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData, context);
                     subSingerrecyclerView.setAdapter(myPageAdapter);
                 } else{
                     Toast.makeText(MyPageActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG);
@@ -233,6 +267,22 @@ public class MyPageActivity extends AppCompatActivity {
     public void toEditProfile(){
         Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
         startActivity(intent);
+    }
+
+    public int myRank(){
+        if(totalVote<10){
+            return R.drawable.badge_muggle;
+        } else if(totalVote>=10 && totalVote<100){
+            return R.drawable.badge_newbie;
+        } else if(totalVote>=100 && totalVote<500){
+            return R.drawable.badge_ilco;
+
+        } else if(totalVote>=500 && totalVote <1000){
+            return R.drawable.badge_duckwho;
+
+        } else{
+            return R.drawable.badge_sungduck;
+        }
     }
 
 }

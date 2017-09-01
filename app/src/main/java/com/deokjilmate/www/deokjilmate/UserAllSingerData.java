@@ -12,7 +12,7 @@ public class UserAllSingerData {
     String singer_img;
     String album_img;
     int choice_count;
-    boolean new_flag;
+    String new_flag;
     public String getSinger_name() {
         return singer_name;
     }
@@ -41,7 +41,7 @@ public class UserAllSingerData {
         return choice_count;
     }
 
-    public boolean isNew_flag() {
+    public String getNew_flag() {
         return new_flag;
     }
 }

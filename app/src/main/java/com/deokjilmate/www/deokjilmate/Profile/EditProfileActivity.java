@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
@@ -52,6 +53,7 @@ public class EditProfileActivity extends AppCompatActivity {
     final int REQ_CODE_SELECT_IMAGE = 100;
     private NetworkService networkService;
     private Uri data;
+    private String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(editP_profileImage);
 
-        String nickname;
+        //String nickname;
         nickname = SharedPrefrernceController.getUserNickname(this);
         editP_nickname.setText(nickname);
     }
@@ -123,31 +125,36 @@ public class EditProfileActivity extends AppCompatActivity {
     @OnClick(R.id.EditProfile_save)
     public void editSave(){
         SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
-        Call<SetProfileResult> setProfileResult = networkService.setProfileResult(editP_nickname.getText().toString());
-        setProfileResult.enqueue(new Callback<SetProfileResult>() {
-            @Override
-            public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
-                if (!response.body().result) {
-                    //이건 중복 되었다는 이야기
-                    Toast.makeText(EditProfileActivity.this,"존재하는 닉네임입니다", Toast.LENGTH_LONG);
+        if (!editP_nickname.getText().toString().equals(nickname)) {
+            Call<SetProfileResult> setProfileResult = networkService.setProfileResult(editP_nickname.getText().toString());
+            setProfileResult.enqueue(new Callback<SetProfileResult>() {
+                @Override
+                public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
+                    if (!response.body().result) {
+                        //이건 중복 되었다는 이야기
+                        Toast.makeText(EditProfileActivity.this, "존재하는 닉네임입니다", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
+                        //Toast.makeText(EditProfileActivity.this, "변경 되었습니다", Toast.LENGTH_LONG).show();
+                    }
 
                 }
-                else{
-                    SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
-                    Toast.makeText(EditProfileActivity.this,"변경 되었습니다", Toast.LENGTH_LONG);
+
+                @Override
+                public void onFailure(Call<SetProfileResult> call, Throwable t) {
+
                 }
-
-            }
-            @Override
-            public void onFailure(Call<SetProfileResult> call, Throwable t) {
-
-            }
-        });
+            });
+        }
+        Toast.makeText(EditProfileActivity.this, "변경 되었습니다", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.EditProfile_backImage)
     public void editBack(){
         //TODO : 뒤로 가는 것.
+        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+        startActivity(intent);
         finish();
     }
 

@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,6 +79,7 @@ public class SetSingerActivity extends AppCompatActivity {
     private String member_name;
     private int type;
     private String login_type;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,7 @@ public class SetSingerActivity extends AppCompatActivity {
         setSingerItemDatas = new ArrayList<SetSingerItemData>();
         allSingerList = new ArrayList<SetSingerItemData>();
         allSingerDetails = new ArrayList<AllSingerDetails>();
+        progressDialog = new ProgressDialog(this);
 
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
         setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
@@ -154,6 +157,7 @@ public class SetSingerActivity extends AppCompatActivity {
                 public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
                     if(response.body().result)
                     {
+                        makeDialog("처리중입니다.");
                         RegisterData registerData = response.body().data;
 
                         final int most = ApplicationController.getInstance().getMost();
@@ -255,7 +259,25 @@ public class SetSingerActivity extends AppCompatActivity {
     @OnClick(R.id.SetSinger_backImage)
     public void ClickBack()
     {
+
         Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+        switch (type){
+            case 1://커스텀 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("member_email", member_email);
+                intent.putExtra("notSns", true);
+                intent.putExtra("member_passwd", member_passwd);
+                intent.putExtra("member_name", member_name);
+                break;
+            default://sns 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("notSns", false);
+                intent.putExtra("member_name", member_name);
+                break;
+        }
+        intent.putExtra("type", type);
+
+
         startActivity(intent);
     }
 
@@ -328,5 +350,17 @@ public class SetSingerActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void makeDialog(String message) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            //cv_flank.setValueAnimated(fTime, 300);
+//            fTime = cv_flank.getDelayMillis();
+//            cv_flank.stopSpinning();
+        }
     }
 }
