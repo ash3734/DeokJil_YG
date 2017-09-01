@@ -15,7 +15,7 @@
         android:background="@drawable/add_singer_list_frame">
 
         <RelativeLayout
-            android:layout_width="20dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:background="@drawable/add_singer_rank_frame">
 

@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private Matcher email_Match;
     private Matcher pwd_Match;
     private final String LOG = "LOG::Sign";
+    private ProgressDialog progressDialog;
    // private FirebaseUser user;
 
     @Override
@@ -145,6 +147,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mfirebaseAuth = FirebaseAuth.getInstance();
 
+        progressDialog = new ProgressDialog(this);
 
 
     }
@@ -233,16 +236,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     }
                 }
                 break;
-        }
-    }
-    private void handleSignInResult(GoogleSignInResult result) {
-        //Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-        } else {
-            // Signed out, show unauthenticated UI.
-            updateUI(false);
         }
     }
     private void signOut() {
@@ -334,6 +327,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOG, "signInWithEmail:success");
+
+                    makeDialog("처리중입니다.");
                     FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
                     Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
@@ -345,7 +340,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     intent.putExtra("member_passwd", pwd);
                     intent.putExtra("type", 1);
                     startActivity(intent);
-
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(LOG, "signInWithEmail:failure", task.getException());
@@ -376,6 +370,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             Toast.makeText(SignActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
+                        makeDialog("처리중입니다.");
 
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
@@ -400,6 +395,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCredential:success");
+                            makeDialog("처리중입니다.");
+
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
                             Toast.makeText(SignActivity.this, "Authentication suceess.",
                                     Toast.LENGTH_SHORT).show();
@@ -446,6 +443,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                                     Toast.LENGTH_SHORT).show();
                         }
 
+                        makeDialog("처리중입니다.");
+
                         //TODO : 가입의 경우 굳이 다이얼로그가 있을 필요는 없음
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
@@ -485,5 +484,17 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void makeDialog(String message) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            //cv_flank.setValueAnimated(fTime, 300);
+//            fTime = cv_flank.getDelayMillis();
+//            cv_flank.stopSpinning();
+        }
     }
 }
