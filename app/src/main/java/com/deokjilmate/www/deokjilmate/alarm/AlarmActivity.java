@@ -106,7 +106,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         v = this;
         flagCount= 0; // flag 배열 개수 구분 하기 위해
         firebaseToken = SharedPrefrernceController.getFirebaseToken(AlarmActivity.this);
-        firebaseToken2 = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzMXkxT3BCZTNUZXV3Z09wdzBSZmp3Q2kxZHEyIiwiaWF0IjoxNTAzOTQ3MzY1LCJleHAiOjE1MDM5NTA5NjUsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoiZmlyZWJhc2UtYWRtaW5zZGstdXlnY3VAZGVva2ppbG1hdGUtOTRjODcuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay11eWdjdUBkZW9ramlsbWF0ZS05NGM4Ny5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSJ9.pH_QQcGvjDfybAbMqMe6qPUiG8G0nrRAZY3jGqYoz-7w14vn8cr3PMqOIguc2jPeigR-Hi_xP08O6Gc29ScFHFKyPEkdfvkeaxMeNsSxV2T6L0cwiOpiml5zMqjpPMGMlDHO_pWCrDl3kV7eIHZHkn6_Gu1MjS7yZ4Pfjgoba30v50qaELqmeDx5fusOwPM0fcRzKx_cPb12CPTz-Odm8QwhCW9N1bwRo7-EtRGpqGfw2urCc_JpsdAqYSBKAgogir_gWeSiPT6b6ojC1ltXNlyJqlARGbfXioBJpxnTU4-tKZfNo4Q9KJxsFRdAnUtm58tA8kzEZqXuXLwGnBQYeg";
+        firebaseToken2 = "qwerty";
         fcmToken = FirebaseInstanceId.getInstance().getToken();
 
         Log.d("fcm",fcmToken);
@@ -421,6 +421,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                 mBaseExpandableAdapter.notifyDataSetChanged();
                 break;
             }
+
         }
 
         todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -432,39 +433,48 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
             }
         });
 
-        updateNetwork();
+        if (state)
+            updateNetwork();
+        else
+            updateNetwork();
+
     }
 
     @Override
     public void updateNetwork() {
+
+        zero_flag.clear();
+        one_flag.clear();
+        two_flag.clear();
+        three_flag.clear();
 
         for(int m=0; m<mGroupList.size(); m++){
             switch(m){
                 case 0:
                     for(int z=0;z<=2;z++){
                         if(mChildList.get(mGroupList.get(m)).get(z).state) zero_flag.add(z);
-                        else break;
+                        else continue;
                     }
                     break;
 
                 case 1:
                     for(int z=0;z<=2;z++){
                         if(mChildList.get(mGroupList.get(m)).get(z).state) one_flag.add(z);
-                        else break;
+                        else continue;
                     }
                     break;
 
                 case 2:
                     for(int z=0;z<=2;z++){
                         if(mChildList.get(mGroupList.get(m)).get(z).state) two_flag.add(z);
-                        else break;
+                        else continue;
                     }
                     break;
 
                 case 3:
                     for(int z=0;z<=2;z++){
                         if(mChildList.get(mGroupList.get(m)).get(z).state) three_flag.add(z);
-                        else break;
+                        else continue;
                     }
                     break;
 
@@ -474,7 +484,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
             }
         }
 
-
         requestName(todayAlarmState,zero_flag,one_flag,two_flag,three_flag);
 
     }
@@ -483,16 +492,13 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     @Override
     public void requestName(int todayAlarmState,ArrayList<Integer> zero_flag,ArrayList<Integer> one_flag,ArrayList<Integer> two_flag,ArrayList<Integer> three_flag) {
 
-
         retrofit2.Call<NoticePostResult> postAlarm = service.postAlarm(new NoticePostData(firebaseToken2,fcmToken,todayAlarmState,zero_flag,one_flag,two_flag,three_flag));
         postAlarm.enqueue(new Callback<NoticePostResult>() {
             @Override
             public void onResponse(retrofit2.Call<NoticePostResult> call, Response<NoticePostResult> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().result.equals("create")) {
                         Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "등록실패", Toast.LENGTH_SHORT).show();
                 }

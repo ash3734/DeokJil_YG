@@ -19,6 +19,7 @@ import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDelete;
 import com.deokjilmate.www.deokjilmate.MyPage.EditSinger.EditSingerDeleteResponse;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageCheckMainSub;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageSingerList;
+import com.deokjilmate.www.deokjilmate.Setting.Break.BreakPostResult;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
@@ -66,6 +67,10 @@ public interface NetworkService {
     // 알람 보내기
     @POST("alarm")
     Call<NoticePostResult> postAlarm(@Body NoticePostData noticePostData);
+
+    // 회원 탈퇴
+    @HTTP(method = "DELETE", path = "memberDelete", hasBody = false)
+    Call<BreakPostResult> postBreak(@Query("firebaseToken") String firebaseToken);
 
 
 
