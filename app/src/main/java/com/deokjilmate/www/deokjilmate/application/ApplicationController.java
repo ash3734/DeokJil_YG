@@ -87,6 +87,10 @@ public class ApplicationController extends Application{
 
     private String firebaseToken;
 
+
+
+    private String loginState;
+
     public NetworkService getNetworkService() {
         return networkService;
     }
@@ -168,5 +172,13 @@ public class ApplicationController extends Application{
 
     public void setUserDataSumms(ArrayList<UserDataSumm> userDataSumms) {
         this.userDataSumms = userDataSumms;
+    }
+
+    public String getLoginState() {
+        return loginState;
+    }
+
+    public void setLoginState(String loginState) {
+        this.loginState = loginState;
     }
 }

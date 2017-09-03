@@ -169,6 +169,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
                 if(response.body().result){
+                    ApplicationController.getInstance().setLoginState("l");
                     userAllSingerDatas = response.body().data;
                     int count = userAllSingerDatas.size();
                     ApplicationController.getInstance().setTotalSingerCount(count);

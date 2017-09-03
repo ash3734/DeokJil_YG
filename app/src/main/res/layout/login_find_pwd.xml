@@ -38,6 +38,10 @@
         android:id="@+id/FindPwd_email"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:includeFontPadding="false"
+        android:textSize="16dp"
+        android:textColor="#8A000000"
+        android:textColorHint="#8A000000"
         android:hint="메일주소"/>
         <TextView
             android:layout_width="match_parent"
@@ -45,9 +49,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="비밀번호를 찾으려면 메일 주소를 입력해주세요"
-            android:textColor="#000000"
-            android:textSize="16dp"
-            android:layout_marginTop="88dp"
+            android:textColor="#DE000000"
+            android:textSize="14dp"
+            android:layout_marginTop="106dp"
             />
         <TextView
             android:layout_width="match_parent"
@@ -55,9 +59,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="버튼을 누르면 등록된 메일주소로 비밀번호가 전송됩니다"
-            android:textColor="#000000"
-            android:textSize="16dp"
-            android:layout_marginTop="72dp"
+            android:textColor="#de000000"
+            android:textSize="14dp"
+            android:layout_marginTop="62dp"
             />
     <TextView
         android:layout_width="wrap_content"

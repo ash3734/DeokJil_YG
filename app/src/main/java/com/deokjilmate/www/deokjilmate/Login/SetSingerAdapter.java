@@ -113,10 +113,11 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                 public void onClick(View view) {
                     switch (clicked){
                         case 0:
-                            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-                            ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                            requestManagerSel.load(searchSingerList.get(position).singer_most).into(holder.singer_most);
+                            ApplicationController.getInstance().setMost(searchSingerList.get(position).singer_id);
                             clickedPosition = position;
                             clicked = 1;
+                            Log.v("SingerAdap", String.valueOf(searchSingerList.get(position).singer_id));
                             break;
                         case 1:
                             if(clickedPosition == position) {
@@ -126,7 +127,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                                 clicked = 0;
                             }else{
                                 requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                                ApplicationController.getInstance().setMost(searchSingerList.get(position).singer_id);
                                 clickedPosition = position;
                                 clicked = 1;
                             }

@@ -6,6 +6,7 @@ import com.deokjilmate.www.deokjilmate.Login.FindPwdResponse;
 import com.deokjilmate.www.deokjilmate.Login.LoginPost;
 import com.deokjilmate.www.deokjilmate.Login.LoginResponseResult;
 import com.deokjilmate.www.deokjilmate.Login.LoginSnsPost;
+import com.deokjilmate.www.deokjilmate.Login.LoginUidCheck;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.RegisterSnsResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
@@ -116,6 +117,9 @@ public interface NetworkService {
 
     @GET("register")
     Call<SetProfileResult> setProfileResult(@Query("member_name") String member_name);
+
+    @GET("register/id")
+    Call<LoginUidCheck> loginResult(@Query("uid") String uid);
 
     //비번 찾기
     @POST("findpassword")

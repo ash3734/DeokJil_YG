@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
-import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
@@ -61,6 +60,8 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.edit_profile);
         ButterKnife.bind(this);
         networkService = ApplicationController.getInstance().getNetworkService();
+        Glide.with(this).load(R.drawable.profile_default).into(editP_profileImage);
+
         init();
 
     }
@@ -153,8 +154,8 @@ public class EditProfileActivity extends AppCompatActivity {
     @OnClick(R.id.EditProfile_backImage)
     public void editBack(){
         //TODO : 뒤로 가는 것.
-        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+//        startActivity(intent);
         finish();
     }
 
