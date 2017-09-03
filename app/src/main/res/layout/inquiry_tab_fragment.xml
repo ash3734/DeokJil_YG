@@ -75,12 +75,4 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/sing_login_check_button"/>
 
-    <Button
-    android:id="@+id/show_token"
-    android:layout_width="300dp"
-    android:layout_height="30dp"
-    android:layout_gravity="center"
-    android:layout_marginTop="2dp"
-    android:text="SHOW TOKEN"/>
-
 </LinearLayout>
