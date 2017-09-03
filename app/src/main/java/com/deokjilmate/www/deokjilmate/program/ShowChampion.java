@@ -20,7 +20,7 @@ public class ShowChampion implements Program{
     public static final String name = "쇼챔피언";
     public static final String preVoteWay = "아이돌챔프 앱에서 투표";
     public static final String preVoteTime= "매주 화요일 00:00~일요일 23:59";
-    public static final int iamge= R.drawable.showchampion;
+    public static final int image = R.drawable.showchampion;
 
     //todo 아이돌 챔프 url 찾기
     public static final String idolUrl = "com.nwz.ichampclient";
@@ -37,6 +37,17 @@ public class ShowChampion implements Program{
         }
 
     }
+
+    @Override
+    public int getImage() {
+        return image;
+    }
+
+    @Override
+    public String getPreVoteWay() {
+        return preVoteWay;
+    }
+
     public boolean getPackageList(Context context) {
         boolean isExist = false;
 

@@ -49,7 +49,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof HeaderViewHolder){
             final HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-            mRequestManager.load(mainResult.vote_data.singer_img).into(headerHolder.imageViewSinger);
+            mRequestManager.load(mainResult.chart_data.album_img).into(headerHolder.imageViewSinger);
             headerHolder.textViewsingerName.setText(mainResult.vote_data.singer_name);
             headerHolder.textViewSong.setText(mainResult.chart_data.song_name);
             headerHolder.textViewAlbum.setText(mainResult.chart_data.album_name);
@@ -57,12 +57,24 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else if(holder instanceof RankViewHolder){
             final RankViewHolder rankHolder = (RankViewHolder) holder;
             rankHolder.textViewrank.setText(itemDatas.get(position-1).rank+"위");
-            if (itemDatas.get(position-1).isUp==true)
+            if (itemDatas.get(position-1).isUp==true) {
                 rankHolder.imageViewIsup.setImageResource(R.drawable.chart_up);
-            else
+            }else if(itemDatas.get(position-1).isUp==false){
+                rankHolder.imageViewIsup.setImageResource(R.drawable.chart_stay);
+            } else
                 rankHolder.imageViewIsup.setImageResource(R.drawable.chart_down);
             if (itemDatas.get(position-1).chartName.equals("멜론"))
             rankHolder.imageViewChartName.setImageResource(R.drawable.chart_melon);
+            else if(itemDatas.get(position-1).chartName.equals("지니"))
+                rankHolder.imageViewChartName.setImageResource(R.drawable.chart_genie);
+            else if(itemDatas.get(position-1).chartName.equals("벅스"))
+                rankHolder.imageViewChartName.setImageResource(R.drawable.chart_bugs);
+            else if(itemDatas.get(position-1).chartName.equals("엠넷"))
+                rankHolder.imageViewChartName.setImageResource(R.drawable.chart_mnet);
+            else if(itemDatas.get(position-1).chartName.equals("네이버"))
+                rankHolder.imageViewChartName.setImageResource(R.drawable.chart_naver);
+            else if(itemDatas.get(position-1).chartName.equals("소리바다"))
+                rankHolder.imageViewChartName.setImageResource(R.drawable.chart_soribada);
         }
     }
 

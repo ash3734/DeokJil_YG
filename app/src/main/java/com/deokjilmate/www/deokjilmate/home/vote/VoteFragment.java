@@ -19,11 +19,8 @@ import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreData;
 import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreRecyclerViewAdapter;
-import com.deokjilmate.www.deokjilmate.program.Ingigayo;
-import com.deokjilmate.www.deokjilmate.program.MCountDown;
-import com.deokjilmate.www.deokjilmate.program.MusicBank;
-import com.deokjilmate.www.deokjilmate.program.ShowChampion;
-import com.deokjilmate.www.deokjilmate.program.TheShow;
+import com.deokjilmate.www.deokjilmate.program.Program;
+import com.deokjilmate.www.deokjilmate.program.ProgramFactory;
 
 import java.util.ArrayList;
 
@@ -44,9 +41,11 @@ public class VoteFragment extends Fragment {
     TextView textViewCurProgram;
     RecyclerView preRecyclerView;
     ArrayList<PreData> preDatas;
+    TextView textViewCurNull;
     MainResult mainResult;
     LinearLayoutManager preLinearLayoutManager;
     PreRecyclerViewAdapter preRecyclerViewAdapter;
+    Program program;
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -70,18 +69,14 @@ public class VoteFragment extends Fragment {
         textViewVoteCount.setText("투표 | "+mainResult.vote_data.choice_count);
         textViewCurProgram.setText(mainResult.program_data.cure_data.getProgram_name()+"\n"+mainResult.program_data.cure_data.getProgram_data());
         //mainResult.program_data.cure_data
-        
+
+        program= ProgramFactory.create(mainResult.program_data.cure_data.getProgram_name());
         //// TODO: 2017-08-14 리펙토링 해야함 스멜이나는 지역
-        if(mainResult.program_data.cure_data.getProgram_name().equals(Ingigayo.name))
-            imageViewCurProgram.setImageResource(Ingigayo.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(MCountDown.name))
-            imageViewCurProgram.setImageResource(MCountDown.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(MusicBank.name))
-            imageViewCurProgram.setImageResource(MusicBank.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(ShowChampion.name))
-            imageViewCurProgram.setImageResource(ShowChampion.iamge);
-        else if(mainResult.program_data.cure_data.getProgram_name().equals(TheShow.name))
-            imageViewCurProgram.setImageResource(TheShow.iamge);
+        if(mainResult.program_data.cure_data.getProgram_name().equals("")){
+            textViewCurNull.setText("진행중인 투표가 없습니다.");
+        }else{
+            imageViewCurProgram.setImageResource(program.getImage());
+        }
 
         imageViewCurProgram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +105,7 @@ public class VoteFragment extends Fragment {
         textViewVoteCount = (TextView)(frag.findViewById(R.id.home_fragment_textview_vote_count));
         imageViewCurProgram = (ImageView)(frag.findViewById(R.id.home_list_imageview_cur_program));
         textViewCurProgram = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program));
+        textViewCurNull = (TextView)(frag.findViewById(R.id.home_fragment_textview_no_cur));
         return frag;
     }
     public void setLayoutSize(){

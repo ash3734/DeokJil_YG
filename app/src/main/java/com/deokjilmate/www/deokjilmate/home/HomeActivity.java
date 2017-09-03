@@ -1,6 +1,7 @@
 package com.deokjilmate.www.deokjilmate.home;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.home.nevigation.NaviFragment;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,6 +117,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {

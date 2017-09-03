@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class DialogActivity extends AppCompatActivity {
     private int position;
     private Context context;
     private TextView closeTextView;
+    PreData preData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +52,13 @@ public class DialogActivity extends AppCompatActivity {
         closeTextView = (TextView)findViewById(R.id.dialog_text_end);
         mainResult = ApplicationController.getInstance().mainResult;
         preDatas = new ArrayList<PreData>();
-        PreData preData = new PreData(mainResult.program_data.cure_data.getProgram_name(),mainResult.program_data.cure_data.getProgram_data());
-        preDatas = mainResult.program_data.pre_data;
+        //실시간 투표 현황도 넣는다.
+        preData = new PreData(mainResult.program_data.cure_data.getProgram_name(),mainResult.program_data.cure_data.getProgram_data());
+        for(int i=0;i<mainResult.program_data.pre_data.size();i++){
+            preDatas.add(mainResult.program_data.pre_data.get(i));
+        }
+
+        Log.d("mainResultSize", String.valueOf(ApplicationController.getInstance().mainResult.program_data.pre_data.size()));
         preDatas.add(preData);
 
         mViewPager = (SCViewPager) findViewById(R.id.viewpager_main_activity);
@@ -61,6 +68,8 @@ public class DialogActivity extends AppCompatActivity {
         mPageAdapter = new MPagerAdapter(getSupportFragmentManager(),preDatas);
         mPageAdapter.setNumberOfPage(preDatas.size());
         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
+        //// TODO: 2017-08-25 페이지 설정하기 가능하지는 모르겟음 
+        //mViewPager.setCurrentItem(mPageAdapter.getCount());
         mViewPager.setAdapter(mPageAdapter);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -76,8 +85,6 @@ public class DialogActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
             }
-
-
         });
         closeTextView.setOnClickListener(new View.OnClickListener() {
             @Override

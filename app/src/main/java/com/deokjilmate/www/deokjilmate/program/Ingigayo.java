@@ -18,8 +18,7 @@ public class Ingigayo implements Program{
     public static final String name = "인기가요";
     public static final String preVoteWay = "멜론 아지톡 앱에서 투표\n";
     public static final String preVoteTime= "매주 월요일 12:00~토요일 23:59";
-    public static final int iamge= R.drawable.ingigayo;
-
+    public static final int image = R.drawable.ingigayo;
     //todo 이지톡 url 찾기
     public static final String melonUrl = "com.iloen.aztalk";
     public void goVote(Context context,String singerName){
@@ -34,6 +33,17 @@ public class Ingigayo implements Program{
         }
 
     }
+
+    @Override
+    public int getImage() {
+        return image;
+    }
+
+    @Override
+    public String getPreVoteWay() {
+        return preVoteWay;
+    }
+
     public boolean getPackageList(Context context) {
         boolean isExist = false;
 
