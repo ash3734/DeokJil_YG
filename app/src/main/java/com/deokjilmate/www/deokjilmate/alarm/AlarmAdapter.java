@@ -13,20 +13,22 @@ import android.widget.TextView;
 import com.deokjilmate.www.deokjilmate.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class AlarmAdapter extends BaseExpandableListAdapter{
     private ArrayList<String> groupList = null;
+    private HashMap<String,ArrayList<ChildListContent>> childList = null;
 
     //private ArrayList<ArrayList<ChildStateObject>> childList = null;
 
-    private ArrayList<ArrayList<String>> childList = null;
+//    private ArrayList<ArrayList<String>> childList = null;
     private LayoutInflater inflater = null;
     private ViewHolder viewHolder = null;
     MainView view;
 
     public AlarmAdapter(Context c, ArrayList<String> groupList,
-                                 ArrayList<ArrayList<String>> childList) {
+                        HashMap<String,ArrayList<ChildListContent>> childList, MainView view) {
         super();
         this.view = view;
         this.inflater = LayoutInflater.from(c);
@@ -86,12 +88,12 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
     }
 
     @Override
-    public String getChild(int groupPosition, int childPosition) {
-        return childList.get(groupPosition).get(childPosition);
+    public ChildListContent getChild(int groupPosition, int childPosition) {
+        return this.childList.get(this.groupList.get(groupPosition)).get(childPosition);
     }
     @Override
     public int getChildrenCount(int groupPosition) {
-        return childList.get(groupPosition).size();
+        return this.childList.get(this.groupList.get(groupPosition)).size();
     }
 
     @Override
@@ -104,7 +106,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         View v = convertView;
         Boolean state = null;
 
-        Log.d("방송이름확인",getChild(groupPosition,childPosition));
+        Log.d("방송이름확인",getChild(groupPosition,childPosition).getMp_name());
 
 
         if(v==null){
@@ -121,13 +123,11 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         }
 
         viewHolder.singerTextView.setTag(getGroup(groupPosition));
-        viewHolder.singerTextView.setText("ㅋㅋ");
-        viewHolder.aSwitch.setChecked(true);
+        viewHolder.singerTextView.setText(getChild(groupPosition,childPosition).getMp_name());
+//        viewHolder.aSwitch.setChecked(true);
 
-//        viewHolder.singerTextView.setText(getChild(groupPosition,childPosition));
+        viewHolder.aSwitch.setChecked(getChild(groupPosition,childPosition).isState());
 
-
-       // viewHolder.aSwitch.setChecked(getChild(groupPosition,childPosition).state);
 
         viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -135,12 +135,12 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
                 if(b==true){
                     ViewGroup viewGroup = (ViewGroup)compoundButton.getParent();
                     TextView temp = (TextView)viewGroup.getChildAt(0);
-                 //   view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
+                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
                 else{
                     ViewGroup viewGroup = (ViewGroup)compoundButton.getParent();
                     TextView temp = (TextView)viewGroup.getChildAt(0);
-                  //  view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
+                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
 
             }
