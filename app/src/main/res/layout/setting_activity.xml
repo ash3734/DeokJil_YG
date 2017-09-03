@@ -7,21 +7,6 @@
     android:orientation="vertical">
 
 
-   <!-- <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#DCDCDC">
-
-
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="20dip"
-            android:background="#DCDCDC" />
-    </LinearLayout>-->
-
-
     <ListView
         android:id="@+id/basicListview"
         android:layout_width="wrap_content"
