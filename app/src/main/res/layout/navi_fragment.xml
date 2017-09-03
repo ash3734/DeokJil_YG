@@ -95,7 +95,6 @@
                 android:id="@+id/drawer_layout_1"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#80FEF4DC"
                 android:orientation="horizontal">
 
                 <TextView
@@ -132,7 +131,6 @@
                 android:id="@+id/drawer_layout_2"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#80FEF4DC"
                 android:orientation="horizontal">
 
                 <TextView
@@ -156,7 +154,6 @@
                 android:id="@+id/drawer_layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#80FEF4DC"
                 android:orientation="horizontal">
 
                 <TextView
@@ -179,7 +176,6 @@
                 android:id="@+id/drawer_layout_4"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#80FEF4DC"
                 android:orientation="horizontal">
 
                 <TextView

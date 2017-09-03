@@ -33,7 +33,7 @@ public class ApplicationController extends Application{
     }
 
     private Context context;
-    public String singerName = "빅스";
+    public int preDataSize;
 
     public int getSinger_id() {
         return singer_id;
@@ -181,4 +181,5 @@ public class ApplicationController extends Application{
     public void setLoginState(String loginState) {
         this.loginState = loginState;
     }
+
 }

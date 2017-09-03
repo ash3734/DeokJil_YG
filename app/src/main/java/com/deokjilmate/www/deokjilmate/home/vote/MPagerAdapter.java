@@ -31,4 +31,5 @@ public class MPagerAdapter extends SCViewPagerAdapter {
     public Fragment getItem(int position) {
         return PageFragment.create(datas,position);
     }
+
 }

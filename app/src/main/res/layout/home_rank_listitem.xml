@@ -9,13 +9,12 @@
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/gather_spread"
         />
     <TextView
         android:id="@+id/home_list_textview_rank"
-        android:text="1위"
-        android:layout_marginLeft="2dp"
-        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@+id/home_list_iamgeview_updown"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
         android:textSize="16sp"
         android:textColor="@color/darkgrey"
         android:layout_width="wrap_content"

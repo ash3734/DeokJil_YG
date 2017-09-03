@@ -258,7 +258,7 @@ public class SetProfileActivity extends AppCompatActivity {
                     }
                     intent.putExtra("type", type);
 
-
+                    //TODO : 디폴트 이미지를 박든지 말든지.
                     SharedPrefrernceController.setUserImage(SetProfileActivity.this, data.toString());
                     SharedPrefrernceController.setUserNickname(SetProfileActivity.this, nickname);
                     startActivity(intent);
