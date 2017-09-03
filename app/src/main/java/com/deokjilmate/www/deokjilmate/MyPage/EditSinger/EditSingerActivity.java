@@ -113,28 +113,6 @@ public class EditSingerActivity extends AppCompatActivity {
         //TODO : Edit의 경우 일단 모든 정보는 불러올 필요가 있음. 피엠이 말하길 수정 완료 되면 그대로 머물게 있게 하라고..
         setLists();
 
-//        CustomDialog customDialog = new CustomDialog(this);
-//        customDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialogInterface) {
-//                Log.v("EditActi", "보여줌");
-//            }
-//        });
-//        customDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//            @Override
-//            public void onDismiss(DialogInterface dialogInterface) {
-//                Log.v("EditActi", "사라짐");
-//
-//            }
-//        });
-//        customDialog.show();
-//        if(customDialog.isClickedState()){
-//            Log.v("EditActi", "확인 누름");
-//            //customDialog.dismiss();
-//        }else{
-//            Log.v("EditActi", "취소 누름");
-//
-//        }
 
 
 
@@ -227,30 +205,14 @@ public class EditSingerActivity extends AppCompatActivity {
     public void save()
     {
 
-        //changeLists();
         //TODO : 이 부분이 수정 후 저장하는 부분
-       // NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService);
-//        NetworkThreadDelete networkThreadDelete = new NetworkThreadDelete(networkService, firebaseToken);
-//        //deleteSinger();
-//
-//        networkThreadDelete.start();
-//        Log.v("EditAct", "수정중...");
-//        try {
-//            networkThreadDelete.join(500);
-//
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        NetworkThreadEdit networkThreadEdit = new NetworkThreadEdit(networkService, firebaseToken);
-//        networkThreadEdit.start();
-//
-//        Log.v("EditAct", "수정 완료...");
-          deleteLists();
 
-//        finish();
-//        startActivity(getIntent());
-        // setLists();
+        if(userDataSumms.get(0).getSinger_name().equals("")){
+            Toast.makeText(this, "메인 가수는 반드시 있어야 합니다", Toast.LENGTH_LONG).show();
+        }else{
+            deleteLists();
+        }
+
     }
 
     @OnClick(R.id.MyPage_EditSinger_backImage)
@@ -276,13 +238,9 @@ public class EditSingerActivity extends AppCompatActivity {
 
     private View.OnClickListener rightListener = new View.OnClickListener() {
         public void onClick(View v) {
-            //arSrc.remove(position);
-            //arSrc.add(position, new ItemData(temp_singer, temp_name, R.drawable.popup_heart));
 
-            // SingerAdapter adapter = new SingerAdapter(dataSet, clickEvent, dataSet2);
-            //recyclerView.setAdapter(SingerAdapter.this);
             customDialog.dismiss();
-            // mCustomDialog.
+
         }
     };
 
@@ -311,29 +269,6 @@ public class EditSingerActivity extends AppCompatActivity {
         recyclerView.setAdapter(editSingerAdpater);
     }
 
-    public void deleteSinger(){
-//        for(int i = 0; i<ApplicationController.getInstance().getDeleteList().size(); i++) {
-//            Call<Void> deleteSinger = networkService.deleteSinger(new EditSingerDelete(
-//                    1, firebaseToken));
-//
-//            deleteSinger.enqueue(new Callback<Void>() {
-//                @Override
-//                public void onResponse(Call<Void> call, Response<Void> response) {
-//                    if (response.isSuccessful()) {
-//                        Log.v(TAG, "삭제 성공");
-//                        //해당 아이디에 맞는 애를 마이페이지에 추가
-//                    } else {
-//                        Log.v(TAG, "삭제 실패");
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<Void> call, Throwable t) {
-//                    Log.e(TAG, "통신 실패");
-//                }
-//            });
-//        }
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

@@ -1,11 +1,11 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
 /**
- * Created by 2yg on 2017. 5. 29..
+ * Created by 2yg on 2017. 9. 3..
  */
 
-public class LoginResponseResult {
+public class LoginUidCheck {
     boolean result;
     String msg;
-    LoginResponse data;
+    String data;
 }

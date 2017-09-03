@@ -194,7 +194,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#dedede"
+            android:background="@color/tw__transparent"
             android:checked="false"
             android:id="@+id/Sign_agree"/>
         <TextView

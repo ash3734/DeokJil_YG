@@ -1,9 +1,13 @@
 package com.deokjilmate.www.deokjilmate;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -17,6 +21,8 @@ import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -48,18 +54,18 @@ public class SplashActivity extends AppCompatActivity {
                 setContentView(R.layout.splash);
                 ButterKnife.bind(this);
 //                Glide.with(this).load(R.drawable.splash).into(background);
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo("com.deokjilmate.www.deokjilmate", PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.deokjilmate.www.deokjilmate", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
 
                 TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
@@ -140,6 +146,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(Call<MainResult> call, final Response<MainResult> response) {
                 if(response.body().result){
                     ApplicationController.getInstance().setMainResult(response.body());
+                    SharedPrefrernceController.setUserNickname(SplashActivity.this, response.body().nevi_data.member_name);
                     getMySingerDatas();
 
                 }else{
@@ -199,6 +206,8 @@ public class SplashActivity extends AppCompatActivity {
                             @Override
                             public void run()
                             {
+                                SharedPrefrernceController.setLoginType(SplashActivity.this, "l");
+                                ApplicationController.getInstance().setLoginState("l");
                                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                                 finish();
                             }

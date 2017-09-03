@@ -119,8 +119,6 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
                             holder.add_singer.setVisibility(GONE);
 
-                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
-                                    selectSingerNum, firebaseToken));
                             Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
                             notifyDataSetChanged();
 

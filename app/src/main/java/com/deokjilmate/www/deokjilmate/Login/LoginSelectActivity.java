@@ -14,7 +14,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.deokjilmate.www.deokjilmate.CustomDialog;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
+import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -49,6 +54,7 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import butterknife.BindView;
@@ -70,6 +76,12 @@ public class LoginSelectActivity extends AppCompatActivity implements
     private FirebaseAuth.AuthStateListener authStateListener;
     private NetworkService networkService;
     private final String LOG = "LOG::Login";
+    private CustomDialog customDialog;
+    private Context context;
+
+    private ArrayList<UserAllSingerData> userAllSingerDatas;
+    private ArrayList<UserDataSumm> userDataSumms;
+    private int most;
 
 
     @BindView(R.id.LoginSelect_backImage)
@@ -137,15 +149,23 @@ public class LoginSelectActivity extends AppCompatActivity implements
         Log.v("구글", mGoogleApiClient.toString());
 
         mfirebaseAuth = FirebaseAuth.getInstance();
+        context = this;
 
 
     }
 
-    @OnClick(R.id.LoginSelect_findPwd)
-    public void FindPwdEvent()
+    @OnClick(R.id.LoginSelect_toFindPwd)
+    public void toFindPwd()
     {
         startActivity(new Intent(getApplicationContext(), FindPwdActivity.class));
     }
+
+    @OnClick(R.id.LoginSelect_toSign)
+    public void toSign()
+    {
+        startActivity(new Intent(getApplicationContext(), SignActivity.class));
+    }
+
     private void handleFacebookAccessToken(AccessToken token) {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -154,20 +174,27 @@ public class LoginSelectActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
                             Toast.makeText(LoginSelectActivity.this, "Authentication suceess.",
                                     Toast.LENGTH_SHORT).show();
 
                             Log.v(LOG, user.getUid());
-                            Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
-                            intent.putExtra("uid", user.getUid());
-                            intent.putExtra("notSns", false);
-                            intent.putExtra("type", 2);
-                            startActivity(intent);
 
-                            //updateUI(user);
+                            Call<LoginUidCheck> loginUidCheck = networkService.loginResult(user.getUid());
+                            loginUidCheck.enqueue(new Callback<LoginUidCheck>() {
+                                @Override
+                                public void onResponse(Call<LoginUidCheck> call, Response<LoginUidCheck> response) {
+                                    if(response.body().result){
+                                        successGetToken(response.body().data);
+                                    }else{
+                                        failGetToken();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<LoginUidCheck> call, Throwable t) {
+
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -175,10 +202,6 @@ public class LoginSelectActivity extends AppCompatActivity implements
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
-
-                        // [START_EXCLUDE]
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
     }
@@ -196,13 +219,6 @@ public class LoginSelectActivity extends AppCompatActivity implements
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-
-
-               //TODO : 여기서 가입 정보 없으면 회원가입 페이지로 넘어가게끔. 유도
-                //TODO : if 정보 있음이면 다음 페이지
-
-
-                //TODO : if 정보 없음이면 밑에 다이얼로그
 
 
                 handleFacebookAccessToken(loginResult.getAccessToken());
@@ -257,10 +273,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        //Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
-        //showProgressDialog();
-        // [END_EXCLUDE]
+
         Log.v(LOG, acct.getIdToken().toString());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
@@ -277,11 +290,24 @@ public class LoginSelectActivity extends AppCompatActivity implements
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
                         Log.v(LOG, user.getUid());
-                        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
-                        intent.putExtra("uid", user.getUid());
-                        intent.putExtra("notSns", false);
-                        intent.putExtra("type", 4);
-                        startActivity(intent);
+
+                        Call<LoginUidCheck> loginUidCheck = networkService.loginResult(user.getUid());
+                        loginUidCheck.enqueue(new Callback<LoginUidCheck>() {
+                            @Override
+                            public void onResponse(Call<LoginUidCheck> call, Response<LoginUidCheck> response) {
+                                if(response.body().result){
+                                    successGetToken(response.body().data);
+                                }else{
+                                    failGetToken();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<LoginUidCheck> call, Throwable t) {
+
+                            }
+                        });
+
+
                     }
                 });
     }
@@ -334,17 +360,22 @@ public class LoginSelectActivity extends AppCompatActivity implements
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
 
                         Log.v(LOG, user.getUid());
-                        Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
-                        intent.putExtra("uid", user.getUid());
-                        intent.putExtra("notSns", false);
-                        intent.putExtra("type", 3);
 
-                        //Call<RegisterSnsResult> singUpSns = networkService.registerResultSns(new SignSnsPost(uid, member_name, notSns));
+                        Call<LoginUidCheck> loginUidCheck = networkService.loginResult(user.getUid());
+                        loginUidCheck.enqueue(new Callback<LoginUidCheck>() {
+                            @Override
+                            public void onResponse(Call<LoginUidCheck> call, Response<LoginUidCheck> response) {
+                                if(response.body().result){
+                                    successGetToken(response.body().data);
+                                }else{
+                                    failGetToken();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<LoginUidCheck> call, Throwable t) {
 
-
-                        startActivity(intent);
-
-
+                            }
+                        });
 
 
                         //이걸 보내면 됨.
@@ -360,13 +391,11 @@ public class LoginSelectActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
                 //if(response.body().) {
-                Log.v("들들들", "들들들");
-                    Log.v("멤버", String.valueOf(response.body().result.member_id));
-                    Log.v("멤버", String.valueOf(response.body().result.b_vote_count));
-                    Log.v("멤버", String.valueOf(response.body().result.singer_info.album_img));
-                    Log.v("멤버", String.valueOf(response.body().result.singer_info.choice_count));
-                    Log.v("멤버", String.valueOf(response.body().result.singer_info.singer_name));
-
+                if(response.body().result){
+                    successGetToken(response.body().data.firebaseToken);
+                } else{
+                    failGetToken();
+                }
             }
             @Override
             public void onFailure(Call<LoginResponseResult> call, Throwable t) {
@@ -452,8 +481,12 @@ public class LoginSelectActivity extends AppCompatActivity implements
         requestMainResult.enqueue(new Callback<MainResult>() {
             @Override
             public void onResponse(Call<MainResult> call, Response<MainResult> response) {
-                if(response.isSuccessful()){
+                if(response.body().result){
                     ApplicationController.getInstance().setMainResult(response.body());
+                    SharedPrefrernceController.setUserNickname(LoginSelectActivity.this, response.body().nevi_data.member_name);
+                    SharedPrefrernceController.setLoginType(LoginSelectActivity.this, "l");
+                    ApplicationController.getInstance().setLoginState("l");
+
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }else{
@@ -472,4 +505,76 @@ public class LoginSelectActivity extends AppCompatActivity implements
             }
         });
     }
+
+    public void successGetToken(final String firebaseToken){
+        userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
+
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
+        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
+            @Override
+            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                if(response.body().result){
+                    userAllSingerDatas = response.body().data;
+                    int count = userAllSingerDatas.size();
+                    ApplicationController.getInstance().setTotalSingerCount(count);
+                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+
+                    for(int i = 0; i<userAllSingerDatas.size(); i++)
+                    {
+                        if(i==0 && userAllSingerDatas.get(0)!=null)
+                        {
+
+                            ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+                            most = userAllSingerDatas.get(i).getSinger_id();
+                            SharedPrefrernceController.setMost(LoginSelectActivity.this, most);
+                            SharedPrefrernceController.setSelected(LoginSelectActivity.this, most);
+
+                        }
+                        userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+                                userAllSingerDatas.get(i).getSinger_img()));
+                    }
+
+                    if(userDataSumms.size() == userAllSingerDatas.size()){
+                        SharedPrefrernceController.setFirebaseToken(LoginSelectActivity.this, firebaseToken);
+                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+                        setHomeData(firebaseToken, most);
+                    }
+                } else{
+                    Toast.makeText(LoginSelectActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    public void failGetToken(){
+        String content = "존재하지 않은 계정입니다. \n가입부터 하시겠습니까?";
+        customDialog = new CustomDialog(context, content, leftListener, rightListener);
+        customDialog.show();
+    }
+
+    private View.OnClickListener leftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            Intent intent = new Intent(getApplicationContext(), SignActivity.class);
+            startActivity(intent);
+            finish();
+            customDialog.dismiss();
+            //setSingerActivity.SetComplete(ApplicationController.getInstance().getNumberSingerSet().get(temp_name));
+
+        }
+    };
+
+    private View.OnClickListener rightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            customDialog.dismiss();
+        }
+    };
 }
