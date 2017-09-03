@@ -8,4 +8,6 @@ import android.content.Context;
 
 public interface Program {
     public void goVote(Context context, String singerName);
+    public int getImage();
+    public String getPreVoteWay();
 }

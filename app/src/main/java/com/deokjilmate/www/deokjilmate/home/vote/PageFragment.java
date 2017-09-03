@@ -59,7 +59,9 @@ public class PageFragment extends Fragment {
         mDatas = (ArrayList<PreData>) getArguments().getSerializable("preDatas");
         position = getArguments().getInt("position");
         textViewProgramName.setText(mDatas.get(position).getProgram_name());
-        textViewPeriod.setText(mDatas.get(position).getProgram_data()+"사전투표");
+        if(position==mDatas.size()-1)
+            textViewPeriod.setText(mDatas.get(position).getProgram_data()+" 실시간 투표");
+        else textViewPeriod.setText(mDatas.get(position).getProgram_data()+" 사전 투표");
         //진행 예정 진행중 가리기
 
         // 현재시간을 msec 으로 구한다.
@@ -76,6 +78,9 @@ public class PageFragment extends Fragment {
             textViewState.setText("진행예정");
         }
         program= ProgramFactory.create(mDatas.get(position).getProgram_name());
+        imageView.setImageResource(program.getImage());
+        textViewVoteMethod.setText(program.getPreVoteWay());
+        //text
 
 
 
@@ -86,7 +91,7 @@ public class PageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                program.goVote(getContext(), ApplicationController.getInstance().singerName);
+                program.goVote(getContext(), ApplicationController.getInstance().mainResult.vote_data.singer_name);
                 Log.d("ash3734","govote?");
                 button.setText("투표 완료");
                 button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.govote_button));
@@ -104,6 +109,8 @@ public class PageFragment extends Fragment {
         textViewPeriodDetail = (TextView)rootView.findViewById(R.id.dialog_textview_voteday);
         textViewVoteMethod = (TextView)rootView.findViewById(R.id.dialog_textview_voteway);
         button = (Button)rootView.findViewById(R.id.dialog_button_govote);
+        imageView = (ImageView)rootView.findViewById(R.id.dialog_imageview);
+
         /*imageView = (ImageView) rootView.findViewById(R.id.dialog_imageview);
         textViewProgramName = (TextView) rootView.findViewById(R.id.dialog_textview_program);
         textViewPeriod = (TextView) rootView.findViewById(R.id.dialog_textview_week);

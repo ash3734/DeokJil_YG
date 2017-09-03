@@ -2,14 +2,22 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.tsengvn.typekit.TypekitContextWrapper;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +49,18 @@ public class MainLoginActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.splash_logo).into(background);
         Glide.with(this).load(R.drawable.splash_login).into(mainLoginBtn);
         Glide.with(this).load(R.drawable.splash_signin).into(mainLoginSign);
-
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.deokjilmate.www.deokjilmate", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         //logoImage = (ImageView)findViewById(R.id.MainLogin_logo);
         //Glide.with(this).load(R.drawable.output).into(logoImage);
     }

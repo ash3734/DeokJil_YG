@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="navi_singer_bg">#80FEF4DC</color>
 
     <color name="neviTop">#50FFCD54</color>
     <color name="tabSeleted">#ffffff</color>
