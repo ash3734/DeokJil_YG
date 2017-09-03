@@ -16,10 +16,15 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/sub_singers_frame">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/splash_half">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginRight="4dp"
+            android:background="@drawable/splash_half"
             android:id="@+id/MyPage_mainSingerBackground"
             />
         <LinearLayout
@@ -83,6 +88,9 @@
                     android:layout_toRightOf="@+id/MyPageRecycle_vote"/>
             </RelativeLayout>
         </LinearLayout>
+            </RelativeLayout>
+
+
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

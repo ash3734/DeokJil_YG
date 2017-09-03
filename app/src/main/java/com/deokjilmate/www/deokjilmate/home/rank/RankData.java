@@ -7,9 +7,9 @@ package com.deokjilmate.www.deokjilmate.home.rank;
 public class RankData {
     String chartName;
     int rank;
-    int isUp;
+    boolean isUp;
 
-    public RankData(String chartName, int rank, int isUp) {
+    public RankData(String chartName, int rank, boolean isUp) {
         this.chartName = chartName;
         this.rank = rank;
         this.isUp = isUp;

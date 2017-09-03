@@ -33,7 +33,7 @@ public class ApplicationController extends Application{
     }
 
     private Context context;
-    public String singerName = "빅스";
+    public int preDataSize;
 
     public int getSinger_id() {
         return singer_id;
@@ -86,6 +86,10 @@ public class ApplicationController extends Application{
 
 
     private String firebaseToken;
+
+
+
+    private String loginState;
 
     public NetworkService getNetworkService() {
         return networkService;
@@ -168,5 +172,13 @@ public class ApplicationController extends Application{
 
     public void setUserDataSumms(ArrayList<UserDataSumm> userDataSumms) {
         this.userDataSumms = userDataSumms;
+    }
+
+    public String getLoginState() {
+        return loginState;
+    }
+
+    public void setLoginState(String loginState) {
+        this.loginState = loginState;
     }
 }

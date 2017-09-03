@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ import com.deokjilmate.www.deokjilmate.MyPage.AddSinger.SingerAddResponse;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.SingerList;
+import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -78,6 +82,11 @@ public class SetSingerActivity extends AppCompatActivity {
     private String member_name;
     private int type;
     private String login_type;
+    private ProgressDialog progressDialog;
+
+    private ArrayList<UserAllSingerData> userAllSingerDatas;
+    private ArrayList<UserDataSumm> userDataSumms;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +110,7 @@ public class SetSingerActivity extends AppCompatActivity {
         setSingerItemDatas = new ArrayList<SetSingerItemData>();
         allSingerList = new ArrayList<SetSingerItemData>();
         allSingerDetails = new ArrayList<AllSingerDetails>();
+        progressDialog = new ProgressDialog(this);
 
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
         setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
@@ -154,6 +164,7 @@ public class SetSingerActivity extends AppCompatActivity {
                 public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
                     if(response.body().result)
                     {
+                        makeDialog("처리중입니다.");
                         RegisterData registerData = response.body().data;
 
                         final int most = ApplicationController.getInstance().getMost();
@@ -255,7 +266,25 @@ public class SetSingerActivity extends AppCompatActivity {
     @OnClick(R.id.SetSinger_backImage)
     public void ClickBack()
     {
+
         Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
+        switch (type){
+            case 1://커스텀 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("member_email", member_email);
+                intent.putExtra("notSns", true);
+                intent.putExtra("member_passwd", member_passwd);
+                intent.putExtra("member_name", member_name);
+                break;
+            default://sns 로그인
+                intent.putExtra("uid", uid);
+                intent.putExtra("notSns", false);
+                intent.putExtra("member_name", member_name);
+                break;
+        }
+        intent.putExtra("type", type);
+
+
         startActivity(intent);
     }
 
@@ -298,7 +327,7 @@ public class SetSingerActivity extends AppCompatActivity {
         Log.v("SetSinger", uid);
     }
 
-    public void setHomeData(String firebaseToken, int singer_id){
+    public void setHomeData(final String firebaseToken, int singer_id){
         Call<MainResult> requestMainResult = networkService.requestMain(firebaseToken,singer_id);
 
         requestMainResult.enqueue(new Callback<MainResult>() {
@@ -306,8 +335,10 @@ public class SetSingerActivity extends AppCompatActivity {
             public void onResponse(Call<MainResult> call, Response<MainResult> response) {
                 if(response.isSuccessful()){
                     ApplicationController.getInstance().setMainResult(response.body());
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    finish();
+                    SharedPrefrernceController.setLoginType(SetSingerActivity.this, "s");
+                    ApplicationController.getInstance().setLoginState("s");
+                    getMySingerDatas();
+                    //finish();
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -328,5 +359,66 @@ public class SetSingerActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void makeDialog(String message) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            //cv_flank.setValueAnimated(fTime, 300);
+//            fTime = cv_flank.getDelayMillis();
+//            cv_flank.stopSpinning();
+        }
+    }
+
+    public void getMySingerDatas(){
+
+        userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
+
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(SetSingerActivity.this));
+        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
+            @Override
+            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                if(response.body().result){
+                    userAllSingerDatas = response.body().data;
+                    int count = userAllSingerDatas.size();
+                    ApplicationController.getInstance().setTotalSingerCount(count);
+                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+                    Log.v("MyPage", userAllSingerDatas.get(0).getSinger_name());
+                    Log.v("MyPage", "전체 = " + String.valueOf(userAllSingerDatas.size()));
+
+                    for(int i = 0; i<userAllSingerDatas.size(); i++)
+                    {
+                        if(i==0 && userAllSingerDatas.get(0)!=null)
+                        {//myAllSingerArray.indexOf(myAllSingerArray.get(0))
+                            Log.v("MyPage", "메인 들어옴");
+                            ApplicationController.getInstance().setMost(userAllSingerDatas.get(i).getSinger_id());
+                        }
+                        userDataSumms.add(new UserDataSumm(userAllSingerDatas.get(i).getSinger_id(), userAllSingerDatas.get(i).getSinger_name(),
+                                userAllSingerDatas.get(i).getSinger_img()));
+                    }
+                    Log.v("MyPage", "이제 어댑터로");
+                    ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+                    if(userDataSumms.size() == userAllSingerDatas.size()){
+
+                                SharedPrefrernceController.setLoginType(SetSingerActivity.this, "l");
+                                ApplicationController.getInstance().setLoginState("l");
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finish();
+                    }
+                } else{
+                    Toast.makeText(SetSingerActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

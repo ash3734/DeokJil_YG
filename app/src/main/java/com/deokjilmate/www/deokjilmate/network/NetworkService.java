@@ -6,6 +6,7 @@ import com.deokjilmate.www.deokjilmate.Login.FindPwdResponse;
 import com.deokjilmate.www.deokjilmate.Login.LoginPost;
 import com.deokjilmate.www.deokjilmate.Login.LoginResponseResult;
 import com.deokjilmate.www.deokjilmate.Login.LoginSnsPost;
+import com.deokjilmate.www.deokjilmate.Login.LoginUidCheck;
 import com.deokjilmate.www.deokjilmate.Login.RegisterResult;
 import com.deokjilmate.www.deokjilmate.Login.RegisterSnsResult;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
@@ -22,6 +23,7 @@ import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.alarm.NoticePostData;
 import com.deokjilmate.www.deokjilmate.alarm.NoticePostResult;
 import com.deokjilmate.www.deokjilmate.alarm.NoticeResult;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -54,16 +56,17 @@ public interface NetworkService {
     Call<BoardNotice> getNotice();
 
     //문의하기
-    @POST("/question")
+    @POST("question")
     Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
 
     // 알람 가져오기
-    @GET("/alarm")
+    @GET("alarm")
     Call<NoticeResult> getAlarm(@Query("firebaseToken") String firebaseToken);
 
     // 알람 보내기
-    @POST("/alarm")
-    Call<NoticePostResult> postAlarm(@Body NoticePostResult noticePostResult);
+    @POST("alarm")
+    Call<NoticePostResult> postAlarm(@Body NoticePostData noticePostData);
+
 
 
 
@@ -116,6 +119,9 @@ public interface NetworkService {
 
     @GET("register")
     Call<SetProfileResult> setProfileResult(@Query("member_name") String member_name);
+
+    @GET("register/id")
+    Call<LoginUidCheck> loginResult(@Query("uid") String uid);
 
     //비번 찾기
     @POST("findpassword")

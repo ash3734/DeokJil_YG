@@ -9,5 +9,6 @@ import java.util.ArrayList;
 public class RankNetworkData {
     public String song_name;
     public String album_name;
+    public String album_img;
     public ArrayList<RankListNetworkData> melonchart;
 }

@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 public class NoticeData {
 
-  //  public String firebaseToken;
-    //public int today_alarm; // 오늘의 알림 on,off -> 0,1
-    //public int member_id;
     ArrayList<Integer> zero_flag;
     ArrayList<Integer> one_flag;
     ArrayList<Integer> two_flag;
