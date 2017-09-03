@@ -181,4 +181,5 @@ public class ApplicationController extends Application{
     public void setLoginState(String loginState) {
         this.loginState = loginState;
     }
+
 }

@@ -95,6 +95,7 @@ public class SetSingerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
         getValues();
+        ApplicationController.getInstance().setMost(-1);
         recyclerView.setHasFixedSize(true);
         //recyclerView.get
         linearLayoutManager = new LinearLayoutManager(this);
@@ -157,109 +158,112 @@ public class SetSingerActivity extends AppCompatActivity {
 
     @OnClick(R.id.Setsinger_next)
     public void clickNext(){
-        if(login_type.equals("c")){
-            Call<RegisterResult> singUp = networkService.registerResult(new SignPost(uid, member_name, notSns, member_email, member_passwd));
-            singUp.enqueue(new Callback<RegisterResult>() {
-                @Override
-                public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-                    if(response.body().result)
-                    {
-                        makeDialog("처리중입니다.");
-                        RegisterData registerData = response.body().data;
+        if(ApplicationController.getInstance().getMost()<0){
+            Toast.makeText(this,"한 명의 메인 가수를 선택해주세요", Toast.LENGTH_LONG).show();
+        }else {
+            if (login_type.equals("c")) {
+                Call<RegisterResult> singUp = networkService.registerResult(new SignPost(uid, member_name, notSns, member_email, member_passwd));
+                singUp.enqueue(new Callback<RegisterResult>() {
+                    @Override
+                    public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                        if (response.body().result) {
+                            makeDialog("처리중입니다.");
+                            RegisterData registerData = response.body().data;
 
-                        final int most = ApplicationController.getInstance().getMost();
+                            final int most = ApplicationController.getInstance().getMost();
 
-                        SharedPrefrernceController.setMost(SetSingerActivity.this, most);
-                        SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
+                            SharedPrefrernceController.setMost(SetSingerActivity.this, most);
+                            SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
 
-                        final String firebaseToken = response.body().data.firebasToken;
-                        SharedPrefrernceController.setUserEmail(SetSingerActivity.this, member_email);
-                        SharedPrefrernceController.setPasswd(SetSingerActivity.this, member_passwd);
+                            final String firebaseToken = response.body().data.firebasToken;
+                            SharedPrefrernceController.setUserEmail(SetSingerActivity.this, member_email);
+                            SharedPrefrernceController.setPasswd(SetSingerActivity.this, member_passwd);
 
-                        SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
-                        SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
+                            SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
+                            SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
 
-                        Log.v("SetSinger", String.valueOf(most));
-                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
-                                most, firebaseToken));
-                        addSinger.enqueue(new Callback<SingerAddResponse>() {
-                            @Override
-                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                                if (response.body().result) {
-                                    Log.v("추가", "성공");
-                                    //여기서 토큰 추가
-                                    ApplicationController.getInstance().setFirebaseToken(firebaseToken);
-                                    setHomeData(firebaseToken, most);
-                                } else {
-                                    Log.v("추가", response.body().message);
-                                    Toast.makeText(SetSingerActivity.this, response.body().message, Toast.LENGTH_LONG);
+                            Log.v("SetSinger", String.valueOf(most));
+                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
+                                    most, firebaseToken));
+                            addSinger.enqueue(new Callback<SingerAddResponse>() {
+                                @Override
+                                public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+                                    if (response.body().result) {
+                                        Log.v("추가", "성공");
+                                        //여기서 토큰 추가
+                                        ApplicationController.getInstance().setFirebaseToken(firebaseToken);
+                                        setHomeData(firebaseToken, most);
+                                    } else {
+                                        Log.v("추가", response.body().message);
+                                        Toast.makeText(SetSingerActivity.this, response.body().message, Toast.LENGTH_LONG);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-                                Log.v("추가", "통신 실패");
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+                                    Log.v("추가", "통신 실패");
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 등록된 uid", Toast.LENGTH_LONG);
+                        }
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"이미 등록된 uid", Toast.LENGTH_LONG);
+
+                    @Override
+                    public void onFailure(Call<RegisterResult> call, Throwable t) {
                     }
-                }
-                @Override
-                public void onFailure(Call<RegisterResult> call, Throwable t) {
-                }
-            });
-        } else{
-            Call<RegisterSnsResult> singUpSns = networkService.registerResultSns(new SignSnsPost(uid, member_name, notSns));
-            singUpSns.enqueue(new Callback<RegisterSnsResult>() {
-                @Override
-                public void onResponse(Call<RegisterSnsResult> call, Response<RegisterSnsResult> response) {
-                    if(response.body().result)
-                    {
-                        //RegisterData registerData = response.body().data;
-                        final int most = ApplicationController.getInstance().getMost();
-                        SharedPrefrernceController.setMost(SetSingerActivity.this, most);
-                        SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
+                });
+            } else {
+                Call<RegisterSnsResult> singUpSns = networkService.registerResultSns(new SignSnsPost(uid, member_name, notSns));
+                singUpSns.enqueue(new Callback<RegisterSnsResult>() {
+                    @Override
+                    public void onResponse(Call<RegisterSnsResult> call, Response<RegisterSnsResult> response) {
+                        if (response.body().result) {
+                            //RegisterData registerData = response.body().data;
+                            final int most = ApplicationController.getInstance().getMost();
+                            SharedPrefrernceController.setMost(SetSingerActivity.this, most);
+                            SharedPrefrernceController.setSelected(SetSingerActivity.this, most);
 
-                        final String firebaseToken = response.body().data;
-                        Log.v("SetSinger", firebaseToken);
+                            final String firebaseToken = response.body().data;
+                            Log.v("SetSinger", firebaseToken);
 
-                        SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
-                        SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
+                            SharedPrefrernceController.setFirebaseToken(SetSingerActivity.this, firebaseToken);
+                            SharedPrefrernceController.setLoginType(SetSingerActivity.this, login_type);
 
-                        Log.v("SetSinger", String.valueOf(most));
-                        Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
-                                most, firebaseToken));
-                        addSinger.enqueue(new Callback<SingerAddResponse>() {
-                            @Override
-                            public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
-                                if (response.body().result) {
-                                    Log.v("SetSinger", "성공");
-                                    //여기서 토큰 추가
-                                    ApplicationController.getInstance().setFirebaseToken(firebaseToken);
-                                    setHomeData(firebaseToken, most);
+                            Log.v("SetSinger", String.valueOf(most));
+                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(0,
+                                    most, firebaseToken));
+                            addSinger.enqueue(new Callback<SingerAddResponse>() {
+                                @Override
+                                public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
+                                    if (response.body().result) {
+                                        Log.v("SetSinger", "성공");
+                                        //여기서 토큰 추가
+                                        ApplicationController.getInstance().setFirebaseToken(firebaseToken);
+                                        setHomeData(firebaseToken, most);
 
 
 //
 //                                    Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
 //                                    startActivity(intent);
-                                } else {
-                                    Log.v("SetSinger", "실패");
+                                    } else {
+                                        Log.v("SetSinger", "실패");
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<SingerAddResponse> call, Throwable t) {
-                                Log.v("추가", "통신 실패");
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<SingerAddResponse> call, Throwable t) {
+                                    Log.v("추가", "통신 실패");
+                                }
+                            });
+                        }
                     }
-                }
-                @Override
-                public void onFailure(Call<RegisterSnsResult> call, Throwable t) {
-                }
-            });
+
+                    @Override
+                    public void onFailure(Call<RegisterSnsResult> call, Throwable t) {
+                    }
+                });
+            }
         }
     }
 

@@ -3,6 +3,8 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -110,6 +112,12 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.login_sign);
         ButterKnife.bind(this);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
         callbackManager = CallbackManager.Factory.create();
 
         Glide.with(this).load(R.drawable.topbar_back).into(backButton);
@@ -174,7 +182,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
             @Override
             public void onError(FacebookException error) {
-
+                Toast.makeText(SignActivity.this, error.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -421,6 +429,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         //hideProgressDialog();
                         // [END_EXCLUDE]
                     }
+
                 });
     }
 

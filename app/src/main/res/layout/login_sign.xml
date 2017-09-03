@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:includeFontPadding="false"
+            android:textColor="#ffffff"
             android:text="회원가입"/>
 
     </RelativeLayout>
@@ -244,6 +245,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/sing_login_check_button"
             android:id="@+id/Sign_next"
+            android:textColor="#ffffff"
             android:text="다음 단계로" />
     </RelativeLayout>
         </LinearLayout>
