@@ -5,5 +5,7 @@ package com.deokjilmate.www.deokjilmate.Login;
  */
 
 public class LoginResponseResult {
-    LoginResponse result;
+    boolean result;
+    String msg;
+    LoginResponse data;
 }

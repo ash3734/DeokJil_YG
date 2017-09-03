@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -75,6 +76,7 @@ public class SetProfileActivity extends AppCompatActivity {
     private MultipartBody.Part profile_img;
     private RequestManager requestManager;
     private final String LOG = "LOG::SetProfile";
+    private ProgressDialog progressDialog;
 
 
 
@@ -114,6 +116,7 @@ public class SetProfileActivity extends AppCompatActivity {
                 break;
         }
         Log.v(LOG, uid);
+        progressDialog = new ProgressDialog(this);
 
     }
 
@@ -231,6 +234,8 @@ public class SetProfileActivity extends AppCompatActivity {
 
                 }
                 else{
+                    //makeDialog("처리중입니다.");
+
                     checkReturn = 1;
                     //이건 중복 안 되었다는 이야기
                     Toast.makeText(SetProfileActivity.this,"사용 가능한 닉네임입니다", Toast.LENGTH_LONG);
@@ -274,5 +279,17 @@ public class SetProfileActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void makeDialog(String message) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            //cv_flank.setValueAnimated(fTime, 300);
+//            fTime = cv_flank.getDelayMillis();
+//            cv_flank.stopSpinning();
+        }
     }
 }

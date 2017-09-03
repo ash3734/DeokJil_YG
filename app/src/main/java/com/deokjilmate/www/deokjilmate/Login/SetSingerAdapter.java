@@ -45,6 +45,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
 
         this.singerPNData = new HashMap<String, String>();
         this.singerPNData.putAll(singerPNData);
+        setHasStableIds(true);
 
     }
 
@@ -74,6 +75,10 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                             requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
                             ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                             clickedPosition = position;
+                            Log.v("포지션", String.valueOf(clickedPosition));
+                            Log.v("포지션", String.valueOf(position));
+
+                            Log.v("포지션", String.valueOf(setSingerItemDatas.get(position).singer_id));
                             clicked = 1;
                             break;
                         case 1:
@@ -102,16 +107,17 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             requestManager.load(searchSingerList.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
             //holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
-            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
+            //requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
             holder.singer_most.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     switch (clicked){
                         case 0:
-                            requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-                            ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                            requestManagerSel.load(searchSingerList.get(position).singer_most).into(holder.singer_most);
+                            ApplicationController.getInstance().setMost(searchSingerList.get(position).singer_id);
                             clickedPosition = position;
                             clicked = 1;
+                            Log.v("SingerAdap", String.valueOf(searchSingerList.get(position).singer_id));
                             break;
                         case 1:
                             if(clickedPosition == position) {
@@ -121,7 +127,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                                 clicked = 0;
                             }else{
                                 requestManagerSel.load("").into(holder.singer_most);
-                                ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
+                                ApplicationController.getInstance().setMost(searchSingerList.get(position).singer_id);
                                 clickedPosition = position;
                                 clicked = 1;
                             }
@@ -185,11 +191,21 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                 }
                 else {
                     Log.v(TAG, "레알 불일치");
-                    search = false;
+                    //search = false;
                 }
             }
         }
         //입력한 데이터가 있을 경우에는 일치하는 항목들만 찾아 출력해줍니다.
         notifyDataSetChanged();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

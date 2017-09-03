@@ -46,6 +46,8 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     private String firebaseToken;
     public boolean search = false;
     private ArrayList<UserDataSumm> userDataSumms;
+    private Context context;
+
 
 
 
@@ -70,6 +72,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.firebaseToken = firebaseToken;
         this.userDataSumms = new ArrayList<UserDataSumm>();
         this.userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        this.context = context;
     }
 
     @Override
@@ -84,7 +87,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(AddSingerViewHolder holder, final int position) {
+    public void onBindViewHolder(final AddSingerViewHolder holder, final int position) {
 
 
         if(search == false) {
@@ -107,21 +110,21 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     if (checkHave(selectSingerNum)) {
                         //Log.v("내 가수들", myPageAllSingerNumberses.toString());
                         Log.v("EditAdap", "이미 있음");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_SHORT);
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG).show();
                     } else {
                         if (totalSingerCount < 4) {//전체 가수 length.
 
                             userDataSumms.add(new UserDataSumm(addSingerItemDatas.get(position).singer_id, addSingerItemDatas.get(position).singer_name,
                                     addSingerItemDatas.get(position).singer_image));
                             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+                            holder.add_singer.setVisibility(GONE);
 
-                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
-                                    selectSingerNum, firebaseToken));
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_SHORT);
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
+                            notifyDataSetChanged();
 
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_SHORT);
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -146,7 +149,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     if (checkHave(selectSingerNum)) {
                         //Log.v("내 가수들", myPageAllSingerNumberses.toString());
                         Log.v("EditAdap", "이미 있음");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG);
+                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG).show();
                     } else {
                         if (totalSingerCount < 4) {//전체 가수 length.
 
@@ -156,11 +159,14 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
                             Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
                                     selectSingerNum, firebaseToken));
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG);
+                            holder.add_singer.setVisibility(GONE);
+                            notifyDataSetChanged();
+
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
 
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG);
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
