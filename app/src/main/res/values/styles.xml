@@ -1,7 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -46,4 +47,7 @@
         <item name="android:listPreferredItemPaddingStart">48dp</item>
         <item name="android:listPreferredItemPaddingEnd">48dp</item>
     </style>
+
+
+
 </resources>

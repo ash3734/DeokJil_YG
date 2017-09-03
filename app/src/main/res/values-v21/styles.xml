@@ -20,4 +20,8 @@
         <item name="android:listPreferredItemPaddingStart">48dp</item>
         <item name="android:listPreferredItemPaddingEnd">48dp</item>
     </style>
+
+
+
+
 </resources>
