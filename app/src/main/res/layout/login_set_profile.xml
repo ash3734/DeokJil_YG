@@ -107,6 +107,8 @@
                 android:id="@+id/nickname"
                 android:gravity="center"
                 android:includeFontPadding="false"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:background="@null"/>
 
         </LinearLayout>

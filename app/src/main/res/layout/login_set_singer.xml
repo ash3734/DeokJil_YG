@@ -71,8 +71,10 @@
                         android:layout_width="256dp"
                         android:layout_height="40dp"
                         android:hint="좋아하는 가수를 검색해보세요"
+                        android:includeFontPadding="false"
                         android:textSize="14dp"
                         android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
                         android:id="@+id/SetSinger_search"
                         android:singleLine="true"
                         android:imeOptions="actionSearch"
@@ -91,7 +93,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/SetSinger_listText">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

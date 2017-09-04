@@ -138,6 +138,8 @@
             android:paddingLeft="8dp"
             android:hint="이메일"
             android:includeFontPadding="false"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -153,6 +155,9 @@
             android:paddingLeft="8dp"
             android:hint="비밀번호"
             android:includeFontPadding="false"
+            android:imeOptions="actionNext"
+            android:password="true"
+            android:singleLine="true"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -168,6 +173,9 @@
             android:paddingLeft="8dp"
             android:hint="비밀번호 확인"
             android:includeFontPadding="false"
+            android:imeOptions="actionDone"
+            android:password="true"
+            android:singleLine="true"
             android:textColorHint="#8A000000"/>
         <RelativeLayout
             android:layout_width="match_parent"
