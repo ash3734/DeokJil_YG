@@ -129,36 +129,36 @@ public class NaviFragment extends Fragment {
 
         init();
         //myBadge =
-        switch (mainResult.nevi_data.singer.size()) {
-            case 4:
-                if (mainResult.nevi_data.singer.get(3).singer_name != null)
-                    singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
-                if (mainResult.nevi_data.singer.get(3).new_flag != null)
-                    new4.setImageResource(R.drawable.menu_new);
-                relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
-            case 3:
-                Log.v("3", "3");
-                if (mainResult.nevi_data.singer.get(2).singer_name != null)
-                    singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
-                if (mainResult.nevi_data.singer.get(2).new_flag != null)
-                    new3.setImageResource(R.drawable.menu_new);
-                relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
-            case 2:
-                if (mainResult.nevi_data.singer.get(1).singer_name != null)
-                    singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
-                if (mainResult.nevi_data.singer.get(1).new_flag != null)
-                    new2.setImageResource(R.drawable.menu_new);
-                relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
-            case 1:
-                if (mainResult.nevi_data.singer.get(0).singer_name != null)
-                    singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
-                if (mainResult.nevi_data.singer.get(0).new_flag != null)
-                    new1.setImageResource(R.drawable.menu_new);
-                relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
-                break;
-            default:
-                break;
-        }
+//        switch (mainResult.nevi_data.singer.size()) {
+//            case 4:
+//                if (mainResult.nevi_data.singer.get(3).singer_name != null)
+//                    singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
+//                if (mainResult.nevi_data.singer.get(3).new_flag != null)
+//                    new4.setImageResource(R.drawable.menu_new);
+//                relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+//            case 3:
+//                Log.v("3", "3");
+//                if (mainResult.nevi_data.singer.get(2).singer_name != null)
+//                    singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
+//                if (mainResult.nevi_data.singer.get(2).new_flag != null)
+//                    new3.setImageResource(R.drawable.menu_new);
+//                relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+//            case 2:
+//                if (mainResult.nevi_data.singer.get(1).singer_name != null)
+//                    singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
+//                if (mainResult.nevi_data.singer.get(1).new_flag != null)
+//                    new2.setImageResource(R.drawable.menu_new);
+//                relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+//            case 1:
+//                if (mainResult.nevi_data.singer.get(0).singer_name != null)
+//                    singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
+//                if (mainResult.nevi_data.singer.get(0).new_flag != null)
+//                    new1.setImageResource(R.drawable.menu_new);
+//                relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
+//                break;
+//            default:
+//                break;
+//        }
 
         //myBadge =
         if (ApplicationController.getInstance().getLoginState().equals("s")) {
@@ -168,22 +168,26 @@ public class NaviFragment extends Fragment {
                         singer4.setText(mainResult.nevi_data.singer.get(3).singer_name);
                     if (mainResult.nevi_data.singer.get(3).new_flag != null)
                         new4.setImageResource(R.drawable.menu_new);
+                    relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 3:
                     Log.v("3", "3");
                     if (mainResult.nevi_data.singer.get(2).singer_name != null)
                         singer3.setText(mainResult.nevi_data.singer.get(2).singer_name);
                     if (mainResult.nevi_data.singer.get(2).new_flag != null)
                         new3.setImageResource(R.drawable.menu_new);
+                    relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 2:
                     if (mainResult.nevi_data.singer.get(1).singer_name != null)
                         singer2.setText(mainResult.nevi_data.singer.get(1).singer_name);
                     if (mainResult.nevi_data.singer.get(1).new_flag != null)
                         new2.setImageResource(R.drawable.menu_new);
+                    relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 1:
                     if (mainResult.nevi_data.singer.get(0).singer_name != null)
                         singer1.setText(mainResult.nevi_data.singer.get(0).singer_name);
                     if (mainResult.nevi_data.singer.get(0).new_flag != null)
                         new1.setImageResource(R.drawable.menu_new);
+                    relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                     break;
                 default:
                     break;
@@ -195,22 +199,26 @@ public class NaviFragment extends Fragment {
                         singer4.setText(userAllSingerDatas.get(3).getSinger_name());
                     if (userAllSingerDatas.get(3).getNew_flag() != null)
                         new4.setImageResource(R.drawable.menu_new);
+                    relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 3:
                     Log.v("3", "3");
                     if (userAllSingerDatas.get(2).getSinger_name() != null)
                         singer3.setText(userAllSingerDatas.get(2).getSinger_name());
                     if (userAllSingerDatas.get(2).getNew_flag() != null)
                         new3.setImageResource(R.drawable.menu_new);
+                    relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 2:
                     if (userAllSingerDatas.get(1).getSinger_name() != null)
                         singer2.setText(userAllSingerDatas.get(1).getSinger_name());
                     if (userAllSingerDatas.get(1).getNew_flag() != null)
                         new2.setImageResource(R.drawable.menu_new);
+                    relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 1:
                     if (userAllSingerDatas.get(0).getSinger_name() != null)
                         singer1.setText(userAllSingerDatas.get(0).getSinger_name());
                     if (userAllSingerDatas.get(0).getNew_flag() != null)
                         new1.setImageResource(R.drawable.menu_new);
+                    relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                     break;
                 default:
                     break;
@@ -301,6 +309,7 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditSingerActivity.class));
+                ApplicationController.getInstance().setFromHome(true);
             }
         });
 
@@ -368,6 +377,5 @@ public class NaviFragment extends Fragment {
         myNickName.setText(name);
 
     }
-
 
 }

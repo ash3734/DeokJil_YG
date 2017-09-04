@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.RequestManager;
+import com.deokjilmate.www.deokjilmate.CustomDialog;
 import com.deokjilmate.www.deokjilmate.Login.SetSingerNameData;
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.R;
@@ -19,8 +20,6 @@ import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-
-import retrofit2.Call;
 
 import static android.view.View.GONE;
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
@@ -47,21 +46,22 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     public boolean search = false;
     private ArrayList<UserDataSumm> userDataSumms;
     private Context context;
+    private CustomDialog customDialog;
+    private int clickedPosition = -1;
+    private int mainSinger = -1;
 
 
 
 
     public AddsingerAdapter(Context addSingerActivity, RequestManager requestManager, ArrayList<AddSingerItemData> allSingerList,
-                            HashMap<String, String> singerPNData, NetworkService networkService, String firebaseToken, ArrayList<AddSingerItemData> addSingerItemDatas) {
+                            HashMap<String, String> singerPNData, NetworkService networkService, String firebaseToken,
+                            ArrayList<AddSingerItemData> addSingerItemDatas, Context context) {
         this.requestManager = requestManager;
         this.addSingerItemDatas = addSingerItemDatas;//이건 추천목록
         this.searchSingerList = allSingerList;
         this.allSingerList = new ArrayList<AddSingerItemData>();
         this.allSingerList.addAll(allSingerList);
         Log.v("전체", String.valueOf(this.allSingerList.size()));
-
-
-
 
         this.addSingerActivity = addSingerActivity;
         //this.singerPNData = new HashMap<String, String>();
@@ -72,7 +72,10 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         this.firebaseToken = firebaseToken;
         this.userDataSumms = new ArrayList<UserDataSumm>();
         this.userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        this.mainSinger = userDataSumms.get(0).getSinger_id();
         this.context = context;
+        setHasStableIds(true);
+
     }
 
     @Override
@@ -94,12 +97,20 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
             holder.singer_rank.setText(String.valueOf(addSingerItemDatas.get(position).getSinger_rank()));
             requestManager.load(addSingerItemDatas.get(position).singer_image).into(holder.singer_Image);
             holder.singer_Name.setText(addSingerItemDatas.get(position).singer_name);
+
+            //이거 기본 세팅
             if (!checkHave(addSingerItemDatas.get(position).singer_id)) {
                 holder.add_singer.setImageResource(addSingerItemDatas.get(position).add_singer);
-                //selectSingerNum = addSingerItemDatas.get(position).singer_id;
-            } else
-                holder.add_singer.setVisibility(GONE);
+            } else{
+                if(addSingerItemDatas.get(position).singer_id == mainSinger) {
+                    Log.v("포지션",  String.valueOf(position));
+                    holder.add_singer.setVisibility(GONE);
+                }
+                else
+                    holder.add_singer.setImageResource(addSingerItemDatas.get(position).cancel_add);
+            }
 
+            //이건 클릭했을 때
             holder.add_singer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -109,19 +120,14 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     //;
                     if (checkHave(selectSingerNum)) {
                         //Log.v("내 가수들", myPageAllSingerNumberses.toString());
+                        //TODO : 여기서 삭제 여부를 물어봐야 함.
+                        clickedPosition = position;
+                        deleteCheck();
                         Log.v("EditAdap", "이미 있음");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG).show();
                     } else {
-                        if (totalSingerCount < 4) {//전체 가수 length.
-
-                            userDataSumms.add(new UserDataSumm(addSingerItemDatas.get(position).singer_id, addSingerItemDatas.get(position).singer_name,
-                                    addSingerItemDatas.get(position).singer_image));
-                            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
-                            holder.add_singer.setVisibility(GONE);
-
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
-                            notifyDataSetChanged();
-
+                        if (userDataSumms.size() < 4) {//전체 가수 length.
+                            clickedPosition = position;
+                            addCheck();
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
                             Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG).show();
@@ -136,8 +142,14 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
             if (!checkHave(searchSingerList.get(position).singer_id)) {
                 holder.add_singer.setImageResource(searchSingerList.get(position).add_singer);
                 //selectSingerNum = searchSingerList.get(position).singer_id;
-            } else
-                holder.add_singer.setVisibility(GONE);
+            } else{
+                if(searchSingerList.get(position).singer_id == mainSinger) {
+                    Log.v("포지션", String.valueOf(position));
+                    holder.add_singer.setVisibility(GONE);
+                }
+                else
+                    holder.add_singer.setImageResource(searchSingerList.get(position).cancel_add);
+            }
 
             holder.add_singer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,21 +160,25 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                     //;
                     if (checkHave(selectSingerNum)) {
                         //Log.v("내 가수들", myPageAllSingerNumberses.toString());
+                        clickedPosition = position;
+                        deleteCheck();
                         Log.v("EditAdap", "이미 있음");
-                        Toast.makeText(addSingerActivity.getApplicationContext(), "이미 있음", Toast.LENGTH_LONG).show();
                     } else {
-                        if (totalSingerCount < 4) {//전체 가수 length.
+                        if (userDataSumms.size() < 4) {//전체 가수 length.
+                            clickedPosition = position;
+                            Log.v("포지션 add", String.valueOf(clickedPosition));
+                            addCheck();
 
-                            userDataSumms.add(new UserDataSumm(searchSingerList.get(position).singer_id, searchSingerList.get(position).singer_name,
-                                    searchSingerList.get(position).singer_image));
-                            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
-
-                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
-                                    selectSingerNum, firebaseToken));
-                            holder.add_singer.setVisibility(GONE);
-                            notifyDataSetChanged();
-
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
+//                            userDataSumms.add(new UserDataSumm(searchSingerList.get(position).singer_id, searchSingerList.get(position).singer_name,
+//                                    searchSingerList.get(position).singer_image));
+//                            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+//
+//                            Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(totalSingerCount,
+//                                    selectSingerNum, firebaseToken));
+//                            holder.add_singer.setVisibility(GONE);
+//                            notifyDataSetChanged();
+//
+//                            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
 
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
@@ -184,6 +200,16 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         }else {
             return (searchSingerList != null) ? searchSingerList.size() : 0;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public boolean checkHave(int selectNum){
@@ -243,4 +269,91 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
         notifyDataSetChanged();
     }
 
+    public void addCheck(){
+        String content = "가수목록에 추가하시겠습니까?";
+        customDialog = new CustomDialog(context, content, addLeftListener, addRightListener, "취소", "추가");
+        customDialog.show();
+    }
+
+    private View.OnClickListener addLeftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+
+
+            customDialog.dismiss();
+            //setSingerActivity.SetComplete(ApplicationController.getInstance().getNumberSingerSet().get(temp_name));
+
+        }
+    };
+
+    private View.OnClickListener addRightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            if(!search) {
+                userDataSumms.add(new UserDataSumm(addSingerItemDatas.get(clickedPosition).singer_id, addSingerItemDatas.get(clickedPosition).singer_name,
+                        addSingerItemDatas.get(clickedPosition).singer_image));
+            }
+            else{
+                userDataSumms.add(new UserDataSumm(searchSingerList.get(clickedPosition).singer_id, searchSingerList.get(clickedPosition).singer_name,
+                        searchSingerList.get(clickedPosition).singer_image));
+            }
+            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
+            notifyDataSetChanged();
+            customDialog.dismiss();
+
+        }
+    };
+
+    public void deleteCheck(){
+        String content = "가수목록에서 삭제하시겠습니까?";
+        customDialog = new CustomDialog(context, content, deleteLeftListener, deleteRightListener, "취소", "삭제");
+        customDialog.show();
+    }
+
+    private View.OnClickListener deleteLeftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            customDialog.dismiss();
+        }
+    };
+
+    private View.OnClickListener deleteRightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            int singerId = -1;
+            if(!search) {
+                singerId = addSingerItemDatas.get(clickedPosition).singer_id;
+            }
+            else{
+                singerId = searchSingerList.get(clickedPosition).singer_id;
+            }
+
+            Log.v("싱어 아이디", String.valueOf(singerId));
+
+            int index = -1;
+            for(int i = 0; i<userDataSumms.size(); i++){
+                if(userDataSumms.get(i).getSinger_id() == singerId) {
+                    index = i;
+                    break;
+                }
+            }
+
+            switch (index){
+                case 0:
+                    userDataSumms.get(0).setSinger_id(-1);
+                    userDataSumms.get(0).setSinger_img("");
+                    userDataSumms.get(0).setSinger_name("");
+                    ApplicationController.getInstance().setMainExist(false);
+                    break;
+                default:
+                    userDataSumms.remove(index);
+                    break;
+            }
+
+            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+
+            Toast.makeText(addSingerActivity.getApplicationContext(), "삭제하였습니다", Toast.LENGTH_LONG).show();
+            notifyDataSetChanged();
+            customDialog.dismiss();
+        }
+    };
 }

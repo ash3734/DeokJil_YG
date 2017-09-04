@@ -68,6 +68,7 @@ public class AddSingerActivity extends AppCompatActivity {
     private NetworkService networkService;
     private SingerList singerList;
     private String firebaseToken;
+    private Context context;
 
 
     @Override
@@ -91,6 +92,7 @@ public class AddSingerActivity extends AppCompatActivity {
         allSingerDetails = new ArrayList<AllSingerDetails>();
         //singerList = new SingerList();
         firebaseToken = SharedPrefrernceController.getFirebaseToken(AddSingerActivity.this);
+        context = this;
 
         Call<AllSingerRanking> setSingerRankingCall = networkService.setSingerRanking();
         setSingerRankingCall.enqueue(new Callback<AllSingerRanking>() {
@@ -101,12 +103,12 @@ public class AddSingerActivity extends AppCompatActivity {
                     for(int i = 0; i<allSingerDetails.size(); i++)
                     {
                         allSingerList.add(new AddSingerItemData(i+1, allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
-                                allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add));
+                                allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add, R.drawable.my_maingasu));
                         addSingerItemDatas.add(new AddSingerItemData(i+1, allSingerDetails.get(i).getSinger_id(), allSingerDetails.get(i).getSinger_img(),
-                                allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add));
+                                allSingerDetails.get(i).getSinger_name(), R.drawable.addgasu_add, R.drawable.my_maingasu));
                     }
                     addsingerAdapter = new AddsingerAdapter(getApplicationContext(), requestManager, allSingerList, SingerList.getList(),
-                            networkService, firebaseToken, addSingerItemDatas);
+                            networkService, firebaseToken, addSingerItemDatas, context);
                     recyclerView.setAdapter(addsingerAdapter);
 
                 }

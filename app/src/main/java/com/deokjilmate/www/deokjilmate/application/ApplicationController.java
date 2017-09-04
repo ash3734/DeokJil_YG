@@ -2,7 +2,6 @@ package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.net.Uri;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
@@ -69,27 +68,26 @@ public class ApplicationController extends Application{
     private MyPageAllSingerNumbers myPageAllSingerNumberses;
     private ArrayList<UserAllSingerData> userAllSingerDatas;
 
-
-
     private ArrayList<UserDataSumm> userDataSumms;
     private int most;
 
-    public Uri getProfile_uri() {
-        return profile_uri;
-    }
+//    public Uri getProfile_uri() {
+//        return profile_uri;
+//    }
+//
+//    public void setProfile_uri(Uri profile_uri) {
+//        this.profile_uri = profile_uri;
+//    }
 
-    public void setProfile_uri(Uri profile_uri) {
-        this.profile_uri = profile_uri;
-    }
-
-    private Uri profile_uri;
-
+ //   private Uri profile_uri;
 
     private String firebaseToken;
 
-
-
     private String loginState;
+
+    private boolean mainExist;
+
+    private boolean fromHome;
 
     public NetworkService getNetworkService() {
         return networkService;
@@ -180,6 +178,23 @@ public class ApplicationController extends Application{
 
     public void setLoginState(String loginState) {
         this.loginState = loginState;
+    }
+
+    public boolean isMainExist() {
+        return mainExist;
+    }
+
+    public void setMainExist(boolean mainExist) {
+        this.mainExist = mainExist;
+    }
+
+
+    public boolean isFromHome() {
+        return fromHome;
+    }
+
+    public void setFromHome(boolean fromHome) {
+        this.fromHome = fromHome;
     }
 
 }

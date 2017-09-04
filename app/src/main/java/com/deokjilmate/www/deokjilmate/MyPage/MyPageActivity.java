@@ -112,7 +112,6 @@ public class MyPageActivity extends AppCompatActivity {
         totalVote = 2000;
         init();
 
-
        // Glide.with(this).load(R.drawable.meta).into(backImage);
 
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -229,6 +228,7 @@ public class MyPageActivity extends AppCompatActivity {
     @OnClick(R.id.MyPage_editSinger)
     public void plusSub()
     {
+        ApplicationController.getInstance().setFromHome(false);
         Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
     }

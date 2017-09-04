@@ -27,8 +27,8 @@
                 android:textSize="14dp"
                 android:textColor="#8a000000"
                 android:text="aaaaaaaaaaa"
+                android:layout_gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:layout_marginTop="12dp"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/dlg_content"
                 />
