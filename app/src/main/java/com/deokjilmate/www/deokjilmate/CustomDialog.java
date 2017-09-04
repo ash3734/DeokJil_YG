@@ -26,6 +26,8 @@ public class CustomDialog extends Dialog {
 
     private boolean clickedState = false;
     private String mContent;
+    private String rightText;
+    private String leftText;
 
 
     @Override
@@ -38,6 +40,9 @@ public class CustomDialog extends Dialog {
 
         setContentView(R.layout.custom_dialog);
         ButterKnife.bind(this);
+
+        btn_left.setText(leftText);
+        btn_right.setText(rightText);
 
         if (mLeftClickListener != null && mRightClickListener != null) {
             btn_left.setOnClickListener(mLeftClickListener);
@@ -53,11 +58,13 @@ public class CustomDialog extends Dialog {
     }
     public CustomDialog(Context context,
                                 String content, View.OnClickListener leftListener,
-                                View.OnClickListener rightListener) {
+                                View.OnClickListener rightListener, String left, String right) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.mContent = content;
         this.mLeftClickListener = leftListener;
         this.mRightClickListener = rightListener;
+        this.rightText = right;
+        this.leftText = left;
     }
 
 }

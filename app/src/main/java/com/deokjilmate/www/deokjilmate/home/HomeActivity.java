@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.nevigation.NaviFragment;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -52,6 +53,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
+        ApplicationController.getInstance().setMainExist(true);
 
         //네비게이션 바 안에 정보 받아오기기
 

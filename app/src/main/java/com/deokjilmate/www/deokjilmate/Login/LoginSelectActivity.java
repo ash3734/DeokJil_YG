@@ -556,7 +556,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     public void failGetToken(){
         String content = "존재하지 않은 계정입니다. \n가입부터 하시겠습니까?";
-        customDialog = new CustomDialog(context, content, leftListener, rightListener);
+        customDialog = new CustomDialog(context, content, leftListener, rightListener,"확인", "취소");
         customDialog.show();
     }
 

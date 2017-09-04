@@ -17,13 +17,7 @@
         android:layout_height="52dp"
         android:id="@+id/MyPage_EditSinger_top"
         android:background="@drawable/maingradation">
-        <ImageButton
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/topbar_check"
-            android:layout_alignParentRight="true"
-            android:id="@+id/MyPage_EditSinger_save"/>
+
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"

@@ -39,6 +39,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.deleteList = new ArrayList<Integer>();
         this.userDataSumms = new ArrayList<UserDataSumm>();
         this.userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        this.mainExist = ApplicationController.getInstance().isMainExist();
     }
 
     @Override
@@ -130,6 +131,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         editSingerItemDatas.add(tempEditSingerItemData);
 
+                        userDataSumms.get(0).setSinger_id(-1);
                         userDataSumms.get(0).setSinger_img("");
                         userDataSumms.get(0).setSinger_name("");
 
@@ -156,6 +158,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         mainExist = false;
 
+                        userDataSumms.get(0).setSinger_id(-1);
                         userDataSumms.get(0).setSinger_img("");
                         userDataSumms.get(0).setSinger_name("");
 
@@ -251,101 +254,5 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         notifyDataSetChanged();
-    }
-
-    public UserDataSumm changeOrder(UserDataSumm userDataSumm){
-
-        return userDataSumm;
-    }
-
-    public void sortList(int position){
-        switch (position){
-            case 1:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger0_id(
-                        ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger1_id());
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger1_id(
-                        ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger2_id());
-               //ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger2_id((Integer)null);
-                break;
-            case 2:
-                ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger1_id(
-                        ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger2_id());
-               // ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger2_id((Integer)null);
-                break;
-            case 3:
-               // ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger2_id((Integer)null);
-                break;
-        }
-    }
-
-    public void checkType(ArrayList<Integer> deleteList){
-        int size = deleteList.size();
-
-        switch(size){
-            case 0:
-
-                break;
-            case 1:
-                if(deleteList.get(0)==0){
-                    //메인을 지움
-
-                }
-                else if(deleteList.get(0) == 1){
-                    ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger0_id(
-                            ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger1_id());
-                    ApplicationController.getInstance().getMyPageAllSingerNumberses().setSinger1_id(
-                            ApplicationController.getInstance().getMyPageAllSingerNumberses().getSinger2_id());
-                      deleteList.clear();
-                    deleteList.add(3);
-                    //하나짜리는 마지막만 지우는 것으로
-                    //나머지는 새로 덮어쓴다고 생각.
-                    ApplicationController.getInstance().setDeleteList(deleteList);
-
-                }
-                else if(deleteList.get(0)==2){
-                    //서브 2지움
-                }
-                else{
-                    //서브 3지움
-                }
-                break;
-            case 2:
-                if(deleteList.contains(0) && deleteList.contains(1)){
-
-                }
-                else if(deleteList.contains(0) && deleteList.contains(2)){
-
-                }
-                else if(deleteList.contains(0) && deleteList.contains(3)){
-
-                }
-                else if(deleteList.contains(1) && deleteList.contains(2)){
-
-                }
-                else if(deleteList.contains(1) && deleteList.contains(3)){
-
-                }
-                else if(deleteList.contains(2) && deleteList.contains(3)){
-
-                }
-                break;
-            case 3:
-                if(deleteList.contains(0) && deleteList.contains(1) && deleteList.contains(2)){
-
-                }
-                else if(deleteList.contains(0) && deleteList.contains(1) && deleteList.contains(3)){
-
-                }
-                else if(deleteList.contains(0) && deleteList.contains(2) && deleteList.contains(3)){
-
-                }
-                else if(deleteList.contains(1) && deleteList.contains(2) && deleteList.contains(3)){
-
-                }
-                break;
-            case 4:
-                break;
-        }
-
     }
 }
