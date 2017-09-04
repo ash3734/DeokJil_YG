@@ -1,5 +1,6 @@
 package com.deokjilmate.www.deokjilmate.Login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -110,6 +111,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseUser user;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -150,6 +152,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
         mfirebaseAuth = FirebaseAuth.getInstance();
         context = this;
+        progressDialog = new ProgressDialog(this);
 
 
     }
@@ -167,7 +170,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-
+        makeDialog("잠시만 기다려주세요");
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -274,6 +277,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
+        makeDialog("잠시만 기다려주세요");
+
         Log.v(LOG, acct.getIdToken().toString());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
@@ -342,6 +347,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
     private void handleTwitterSession(final TwitterSession session) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
+        makeDialog("잠시만 기다려주세요");
+
         final AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
@@ -386,6 +393,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     @OnClick(R.id.LoginSelect_customLogin)
     public void clickCustom(){
+        makeDialog("잠시만 기다려주세요");
+
         Call<LoginResponseResult> setSingerRankingCall = networkService.login(new LoginPost(email.getText().toString(), pwd.getText().toString()));
         setSingerRankingCall.enqueue(new Callback<LoginResponseResult>() {
             @Override
@@ -555,6 +564,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
     }
 
     public void failGetToken(){
+        progressDialog.dismiss();
         String content = "존재하지 않은 계정입니다. \n가입부터 하시겠습니까?";
         customDialog = new CustomDialog(context, content, leftListener, rightListener,"확인", "취소");
         customDialog.show();
@@ -577,4 +587,14 @@ public class LoginSelectActivity extends AppCompatActivity implements
             customDialog.dismiss();
         }
     };
+
+    public void makeDialog(String message) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+    }
+
 }

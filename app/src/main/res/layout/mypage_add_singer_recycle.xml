@@ -20,18 +20,18 @@
             android:background="@drawable/add_singer_rank_frame">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:text="R"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
                 android:id="@+id/mypage_add_singer_recycle_rank"
                 />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
             android:orientation="horizontal">
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_width="48dp"

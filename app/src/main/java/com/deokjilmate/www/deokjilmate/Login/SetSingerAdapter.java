@@ -75,10 +75,6 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                             requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
                             ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                             clickedPosition = position;
-                            Log.v("포지션", String.valueOf(clickedPosition));
-                            Log.v("포지션", String.valueOf(position));
-
-                            Log.v("포지션", String.valueOf(setSingerItemDatas.get(position).singer_id));
                             clicked = 1;
                             break;
                         case 1:
@@ -166,33 +162,23 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
         }
         else
         {//검색하면 전체로부터 가져오기.
-            Log.v(TAG, String.valueOf(allSingerList.size()));
 
             for (int i = 0; i < allSingerList.size() ; i++)
             {
-                Log.v(TAG, "들어옴");
-                Log.v(TAG, charText);
-
                 String wp = allSingerList.get(i).getSinger_name();//실제 서버단에 저장된 가수 이름.AOA
                 //실질적 비교를 위해서는 에이오에이라고 치면 이것이 AOA가 되어야 함.
                 //해쉬 내에서 wp를 키로하는 애들의 value가 charText를 포함.
-                Log.v(TAG, wp);
-                Log.v(TAG, singerPNData.toString());
-                Log.v(TAG, singerPNData.get(wp));
                // Log.v("가수", singerPNData.)
                 if (wp.toLowerCase(Locale.getDefault()).contains(charText))
                 {//실제 가수 이름이 charText를 갖고 있다면!.
                     searchSingerList.add(allSingerList.get(i));
-                    Log.v(TAG, "일치");
                     search = true;
                 }
                 else if(singerPNData.get(wp).toLowerCase(Locale.getDefault()).contains(charText)) {
-                    Log.v(TAG, "불일치");
                     searchSingerList.add(allSingerList.get(i));
                     search = true;
                 }
                 else {
-                    Log.v(TAG, "레알 불일치");
                     //search = false;
                 }
             }

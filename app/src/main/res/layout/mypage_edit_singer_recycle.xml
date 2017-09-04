@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="192dp"
         android:layout_gravity="center"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -15,8 +15,7 @@
         android:background="@drawable/sub_singers_frame">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:layout_marginTop="8dp">
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="144dp"
@@ -28,6 +27,7 @@
                 android:layout_marginTop="16dp"
                 android:id="@+id/mypage_edit_singer_recycle_subImage"/>
             <TextView
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -35,7 +35,6 @@
                 android:text="WANNAONE"
                 android:textSize="16dp"
                 android:textColor="#de000000"
-                android:layout_marginTop="8dp"
                 android:layout_below="@+id/mypage_edit_singer_recycle_subImage"
                 android:id="@+id/mypage_edit_singer_recycle_subName"
                 />
@@ -46,10 +45,9 @@
                 android:layout_marginTop="11dp"
                 android:layout_marginRight="11dp"
                 android:id="@+id/mypage_edit_singer_recycle_delete"
-                android:background="@drawable/chgasu_x"/>
+                android:src="@drawable/chgasu_x"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/mypage_edit_singer_head_mainView"

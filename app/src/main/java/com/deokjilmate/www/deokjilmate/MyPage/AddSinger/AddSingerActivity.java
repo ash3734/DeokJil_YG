@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -52,6 +53,9 @@ public class AddSingerActivity extends AppCompatActivity {
 
     @BindView(R.id.MyPage_AddSinger_clear)
     ImageView clear;
+
+    @BindView(R.id.MyPage_AddSinger_favoriteText)
+    TextView favorite;
     //ArrayList<AddSingerItemData> addSingerItemDatas;
     //@BindView(R.id.)
 
@@ -133,7 +137,9 @@ public class AddSingerActivity extends AppCompatActivity {
                 if(text.length() == 0) {
                     addsingerAdapter.search = false;
                     clear.setVisibility(View.GONE);
+                    favorite.setVisibility(View.VISIBLE);
                 }else{
+                    favorite.setVisibility(View.GONE);
                     clear.setVisibility(View.VISIBLE);
                 }
                 addsingerAdapter.filter(text);
