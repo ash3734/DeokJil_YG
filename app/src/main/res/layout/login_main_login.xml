@@ -65,13 +65,20 @@
 
 
     <RelativeLayout
+        android:layout_width="306dp"
+        android:layout_height="58dp"
+        android:background="@drawable/main_login_button_shadow"
+        android:layout_above="@+id/MainLogin_sign"
+        android:layout_centerHorizontal="true"
+
+        >
+    <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:text="Login"
         android:id="@+id/MainLogin_login"
-        android:layout_above="@+id/MainLogin_sign"
         android:layout_marginBottom="8dp"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:background="@drawable/main_login_button_style">
         <ImageView
             android:layout_width="120dp"
@@ -79,11 +86,13 @@
             android:id="@+id/MainLogin_loginBtn"
             android:layout_centerInParent="true"/>
         </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:text="회원가입"
+        android:layout_marginTop="8dp"
         android:background="@drawable/main_login_button_style"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="48dp"
