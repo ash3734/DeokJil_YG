@@ -138,6 +138,8 @@
             android:paddingLeft="8dp"
             android:hint="이메일"
             android:includeFontPadding="false"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -151,8 +153,11 @@
             android:focusable="true"
             android:background="@drawable/edit_text_background"
             android:paddingLeft="8dp"
-            android:hint="비밀번호"
+            android:hint="비밀번호(영문,숫자,특수문자 포함 6자 이상)"
             android:includeFontPadding="false"
+            android:imeOptions="actionNext"
+            android:password="true"
+            android:singleLine="true"
             android:textColorHint="#8A000000"/>
         <EditText
             android:textSize="16dp"
@@ -168,6 +173,9 @@
             android:paddingLeft="8dp"
             android:hint="비밀번호 확인"
             android:includeFontPadding="false"
+            android:imeOptions="actionDone"
+            android:password="true"
+            android:singleLine="true"
             android:textColorHint="#8A000000"/>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -178,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:text="6자 이상 문자, 숫자, 특수문자 사용"
+                android:text="비밀번호는 영문, 숫자, 특수문자를 포함한 6자리 이상입니다."
                 android:textColor="#52000000"
                 android:includeFontPadding="false"
                 android:id="@+id/LoginSelect_findPwd"/>

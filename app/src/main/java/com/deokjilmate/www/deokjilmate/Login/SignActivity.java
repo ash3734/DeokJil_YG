@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -117,6 +118,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             // 21 버전 이상일 때
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -234,7 +236,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                     if (result.isSuccess()) {
                         Log.v(LOG, "googleSuccess");
-
                         // Google Sign In was successful, authenticate with Firebase
                         GoogleSignInAccount account = result.getSignInAccount();
                         Log.v(LOG, account.toString());
@@ -300,14 +301,16 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if(!agree.callOnClick()){
-//            Toast.makeText(this, "이용약관에 체크해주세요!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if(!agree.isChecked()){
+            Toast.makeText(this, "이용약관에 동의해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         createAcctount(email.getText().toString(), pwd.getText().toString());
 
     }
     public void createAcctount(final String email, final String pwd){
+        makeDialog("잠시만 기다려주세요");
         mfirebaseAuth.createUserWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -318,6 +321,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             singWithEmailPassword(email, pwd);
                         } else {
                             // If sign in fails, display a message to the user.
+                            singWithEmailPassword(email, pwd);
                             Log.w(LOG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(SignActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -366,6 +370,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
+        makeDialog("잠시만 기다려주세요");
         Log.v(LOG, acct.getIdToken().toString());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
@@ -394,6 +399,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void handleFacebookAccessToken(AccessToken token) {
 
+        makeDialog("잠시만 기다려주세요");
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mfirebaseAuth.signInWithCredential(credential)
@@ -437,7 +443,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private void handleTwitterSession(final TwitterSession session) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
-
+        makeDialog("잠시만 기다려주세요");
         final AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
@@ -470,7 +476,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public boolean isPasswordValid(final String raw) {
-        String Passwrod_PATTERN = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-])(?=.*[0-9]+).{6,16}$";
+        String Passwrod_PATTERN = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^&()'/?><,.|*+=-]*)(?=.*[0-9]+).{6,16}$";
         Pattern pattern = Pattern.compile(Passwrod_PATTERN);
         Matcher matcher = pattern.matcher(raw);
         return matcher.matches();
@@ -501,9 +507,6 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             progressDialog.setMessage(message);
             progressDialog.setCancelable(false);
             progressDialog.show();
-            //cv_flank.setValueAnimated(fTime, 300);
-//            fTime = cv_flank.getDelayMillis();
-//            cv_flank.stopSpinning();
         }
     }
 }

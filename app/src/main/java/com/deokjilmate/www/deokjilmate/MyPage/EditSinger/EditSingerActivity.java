@@ -26,8 +26,10 @@ import com.deokjilmate.www.deokjilmate.MyPage.MyPageSelectedSinger;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
 import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
@@ -45,9 +47,6 @@ public class EditSingerActivity extends AppCompatActivity {
 
     @BindView(R.id.MyPage_EditSinger_backImage)
     ImageButton back;
-
-    @BindView(R.id.MyPage_EditSinger_save)
-    ImageButton save;
 
     @BindView(R.id.MyPage_EditSinger_recycle)
     RecyclerView recyclerView;
@@ -185,6 +184,7 @@ public class EditSingerActivity extends AppCompatActivity {
                         Log.v("추가", "성공");
                         count++;
                         if(count == userDataSumms.size()){
+
                             setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));
                             Toast.makeText(getApplicationContext(), "수정 완료", Toast.LENGTH_LONG).show();
                         }
@@ -201,36 +201,29 @@ public class EditSingerActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.MyPage_EditSinger_save)
-    public void save()
+
+
+    @OnClick(R.id.MyPage_EditSinger_backImage)
+    public void clickBack()
     {
-
-        //TODO : 이 부분이 수정 후 저장하는 부분
-
         if(userDataSumms.get(0).getSinger_name().equals("")){
-            Toast.makeText(this, "메인 가수는 반드시 있어야 합니다", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요", Toast.LENGTH_LONG).show();
         }else{
             deleteLists();
         }
 
     }
 
-    @OnClick(R.id.MyPage_EditSinger_backImage)
-    public void clickBack()
-    {
-        String content = "만약 저장을 누르지 않으시면 원래 상태로 돌아갑니다 \n돌아가시겠습니까";
-        customDialog = new CustomDialog(this, content, leftListener, rightListener);
-        customDialog.show();
-
-    }
-
     private View.OnClickListener leftListener = new View.OnClickListener() {
         public void onClick(View v) {
             //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-            startActivity(intent);
-            finish();
-            customDialog.dismiss();
+
+            if(userDataSumms.get(0).getSinger_name().equals("")){
+                Toast.makeText(EditSingerActivity.this, "메인 가수는 반드시 있어야 합니다", Toast.LENGTH_LONG).show();
+            }else{
+                deleteLists();
+            }
+
             //setSingerActivity.SetComplete(ApplicationController.getInstance().getNumberSingerSet().get(temp_name));
 
         }
@@ -284,6 +277,17 @@ public class EditSingerActivity extends AppCompatActivity {
                 if(response.body().result){
                     Log.v("EditActivity", "퍼스트");
                     ApplicationController.getInstance().setMainResult(response.body());
+                   // Intent intent;
+                    if(ApplicationController.getInstance().isFromHome()) {
+                        resetLists();
+                        //intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    }
+                    else {
+                        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                        startActivity(intent);
+                        // customDialog.dismiss();
+                        finish();
+                    }
 
                 }else{
                     Log.v("여기로 뜸", "여기로 뜸");
@@ -302,4 +306,40 @@ public class EditSingerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(userDataSumms.get(0).getSinger_name().equals("")){
+            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요", Toast.LENGTH_LONG).show();
+        }else{
+            deleteLists();
+        }
+    }
+
+    public void resetLists(){
+        //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(firebaseToken);
+        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
+            @Override
+            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                if(response.body().result) {
+                    ApplicationController.getInstance().setLoginState("l");
+                    userAllSingerDatas = response.body().data;
+                    int count = userAllSingerDatas.size();
+                    ApplicationController.getInstance().setTotalSingerCount(count);
+                    ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+
+            }
+        });
+    }
 }

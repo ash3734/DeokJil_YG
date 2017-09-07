@@ -11,10 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -59,6 +61,9 @@ public class SetSingerActivity extends AppCompatActivity {
 
     @BindView(R.id.Setsinger_next)
     Button next;
+
+    @BindView(R.id.SetSinger_listText)
+    RelativeLayout listText;
 
     //RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -147,7 +152,11 @@ public class SetSingerActivity extends AppCompatActivity {
                 setSingerAdapter.search = true;
                 String text = search.getText().toString().toLowerCase(Locale.getDefault());
                 if(text.length() == 0) {
+                    listText.setVisibility(View.VISIBLE);
                     setSingerAdapter.search = false;
+                }else{
+                    listText.setVisibility(View.GONE);
+
                 }
                 setSingerAdapter.filter(text);
             }
@@ -167,7 +176,7 @@ public class SetSingerActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
                         if (response.body().result) {
-                            makeDialog("처리중입니다.");
+                            makeDialog("잠시만 기다려주세요");
                             RegisterData registerData = response.body().data;
 
                             final int most = ApplicationController.getInstance().getMost();
@@ -219,6 +228,7 @@ public class SetSingerActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RegisterSnsResult> call, Response<RegisterSnsResult> response) {
                         if (response.body().result) {
+                            makeDialog("잠시만 기다려주세요");
                             //RegisterData registerData = response.body().data;
                             final int most = ApplicationController.getInstance().getMost();
                             SharedPrefrernceController.setMost(SetSingerActivity.this, most);

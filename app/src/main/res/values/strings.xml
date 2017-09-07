@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DeokJilMate</string>
+    <string name="app_name">덕질메이트</string>
     <string name="server_client_id">232808135415-uklm7ktck9ooeagpprd9tn4t1602315i.apps.googleusercontent.com</string>
     <string name="facebook_app_id">728378137330576</string>
     <string name="title_activity_setting">SettingActivity</string>

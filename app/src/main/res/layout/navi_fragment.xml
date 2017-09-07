@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/drawer_myimage"
+                android:includeFontPadding="false"
                 android:layout_centerInParent="true" />
 
             <ImageView
@@ -64,6 +65,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="16dp"
                     android:text="내 가수 목록"
+                    android:includeFontPadding="false"
                     android:textColor="@color/darkgrey"
                     android:textSize="16sp" />
 
@@ -87,6 +89,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="14dp"
                     android:text="메인 가수"
+                    android:includeFontPadding="false"
                     android:textColor="@color/lightgrey"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -103,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
+                    android:includeFontPadding="false"
                     android:textSize="16dp" />
 
                 <ImageView
@@ -123,6 +127,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="16dp"
                     android:text="서브가수"
+                    android:includeFontPadding="false"
                     android:textColor="@color/lightgrey"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -139,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
+                    android:includeFontPadding="false"
                     android:textColor="@color/darkgrey"
                     android:textSize="16dp" />
 
@@ -162,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
                     android:textColor="@color/darkgrey"
+                    android:includeFontPadding="false"
                     android:textSize="16dp" />
 
                 <ImageView
@@ -184,6 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
                     android:textColor="@color/darkgrey"
+                    android:includeFontPadding="false"
                     android:textSize="16dp" />
 
                 <ImageView

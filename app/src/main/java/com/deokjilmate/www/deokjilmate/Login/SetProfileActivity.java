@@ -229,12 +229,12 @@ public class SetProfileActivity extends AppCompatActivity {
                 if (!response.body().result) {
                     checkReturn = 0;
                     //이건 중복 되었다는 이야기
-                    Toast.makeText(SetProfileActivity.this,"존재하는 닉네임입니다", Toast.LENGTH_LONG);
+                    Toast.makeText(SetProfileActivity.this,"존재하는 닉네임입니다", Toast.LENGTH_LONG).show();
                     Log.v(LOG, "중복");
 
                 }
                 else{
-                    //makeDialog("처리중입니다.");
+                    makeDialog("잠시만 기다려주세요.");
 
                     checkReturn = 1;
                     //이건 중복 안 되었다는 이야기

@@ -56,7 +56,7 @@
                     android:layout_centerHorizontal="true"
                     android:id="@+id/mypage_edit_singer_head_mainImage"/>
                 <TextView
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
