@@ -50,7 +50,6 @@ public class SettingActivity extends AppCompatActivity {
         listview= (ListView)findViewById(R.id.basicListview);
         adapter= new SettingAdapter(getLayoutInflater() , datas);
         logoutBtn = (Button)findViewById(R.id.setting_logout);
-//        listview.setAdapter(adapter);
         listview.setAdapter(adapter);
 
         intent_inquiry = new Intent(this,InquiryActivity.class);

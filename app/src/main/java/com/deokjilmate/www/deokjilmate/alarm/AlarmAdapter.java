@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -68,19 +69,15 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         else{
             viewHolder = (ViewHolder)v.getTag();
         }
-/*/////
+
         ImageView view = (ImageView)v.findViewById(R.id.alarm_arrow);
         TextView textView = (TextView)v.findViewById(R.id.alram_textview_singer);
 
         if(isExpanded){
-            view.setImageResource(R.drawable.alarm_arrow_down);
-            textView.setTextColor(0xFFFF7D8F);
+            view.setImageResource(R.drawable.gather_spread);
         }else{
-            view.setImageResource(R.drawable.alarm_arrow);
-            textView.setTextColor(0xFF000000);
+            view.setImageResource(R.drawable.gather_fold);
         }
-
-//////*/
 
         viewHolder.singerTextView.setText(getGroup(groupPosition));
 

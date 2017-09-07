@@ -93,8 +93,6 @@ public class InquiryFragment extends Fragment {
 
                                 Log.d("inquiry","success");
 
-                                //Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
-                                //finish();
                                 AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(getActivity());
 
                                 alertDialogBuilder2
@@ -242,18 +240,6 @@ public class InquiryFragment extends Fragment {
         return inflater.inflate(R.layout.inquiry_tab_fragment, container, false);
 
     }
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.inquiry_tab_fragment);
-//
-//
-//
-//
-//    }
-
-
-
 
 
 }
