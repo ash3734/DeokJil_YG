@@ -27,26 +27,25 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="25dp"></View>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginLeft="15dp"
-        android:text="탈퇴하려면 비밀번호를 입력해주세요."/>
-    <EditText
-        android:id="@+id/break_pwd"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_background"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="5dp"
-        android:hint="비밀번호 확인"
-        android:textSize="15dp"
-        />
-
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:text="탈퇴하려면 비밀번호를 입력해주세요."/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/break_pwd"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="12dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@drawable/edit_text_background"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingBottom="5dp"-->
+        <!--android:hint="비밀번호 확인"-->
+        <!--android:textSize="15dp"-->
+        <!--/>-->
 
     <Button
         android:id="@+id/button_break"

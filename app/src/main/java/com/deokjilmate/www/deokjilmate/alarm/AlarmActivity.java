@@ -51,17 +51,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     ArrayList<Integer> two_flag = null;
     ArrayList<Integer> three_flag = null;
 
-
-//    private ArrayList<ArrayList<String>> mChildList = null;
-//    private ArrayList<String> mChildListContent = null;
-//    private ArrayList<String> mChildListContent2 = null;
-//    private ArrayList<String> mChildListContent3 = null;
-//    private ArrayList<String> mChildListContent4 = null;
-//    private ArrayList<ArrayList<ChildStateObject>> mChildList = null;
-//    private ArrayList<ChildStateObject> mChildListContent = null;
-//    private ArrayList<ChildStateObject> mChildListContent2 = null;
-//    private ArrayList<ChildStateObject> mChildListContent3 = null;
-
     AlarmAdapter mBaseExpandableAdapter = null;
     private ExpandableListView mListView;
 
@@ -112,28 +101,11 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         Log.d("fcm",fcmToken);
 
         zero_flag = new ArrayList<Integer>();
-//        zero_flag.add(0);
-//        zero_flag.add(1);
-//        zero_flag.add(2);
-
         one_flag = new ArrayList<Integer>();
-//        one_flag.add(0);
-//        one_flag.add(1);
-//        one_flag.add(2);
-
         two_flag = new ArrayList<Integer>();
-//        two_flag.add(0);
-//        two_flag.add(1);
-//        two_flag.add(2);
-
         three_flag = new ArrayList<Integer>();
-//        three_flag.add(0);
-//        three_flag.add(1);
-//        three_flag.add(2);
 
         todaySwitch = (Switch)findViewById(R.id.alarm_today);
-
-
 
         alarm_today_info = (ImageView) findViewById(R.id.alarm_today_info);
         alarm_today_info.setOnClickListener(new View.OnClickListener() {
@@ -166,20 +138,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
             }
         });
 
-
-           /*
-        show_token = (Button)view.findViewById(show_token);
-        show_token.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String token = FirebaseInstanceId.getInstance().getToken();
-                Log.d(TAG,"Token: "+token);
-                //Toast.makeText(InquiryActivity.this,token,Toast.LENGTH_SHORT).show();
-            }
-        });
-
-*/
-
         service = ApplicationController.getInstance().getNetworkService();
 
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
@@ -191,19 +149,12 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
             @Override
             public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
-
-                Log.v("firebaseToken",firebaseToken);
-                Log.d("통신연결","성공");
-                Log.d("result값",String.valueOf(response.body().result));
-
-
                 if(response.body().result){
                     for(UserAllSingerData data : response.body().data){
                         Log.d("가수명확인",data.getSinger_name());
                         mGroupList.add(data.getSinger_name());
                     }
                 }
-
 
                 Call<NoticeResult> getAlarm = service.getAlarm(firebaseToken2);
                 getAlarm.enqueue(new Callback<NoticeResult>() {
@@ -214,7 +165,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
                         if(response.isSuccessful()){
                             Log.d("알람","가져오기 성공");
-
+                            Log.d("firebase",firebaseToken);
                             todayAlarmState = response.body().data.today_alarm;
 
                             if(todayAlarmState==1) todaySwitch.setChecked(true);
@@ -376,42 +327,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                 break;
             }
         }
-
-//        for(int m=0; m<mGroupList.size(); m++){
-//            switch(m){
-//                case 0:
-//                    for(int z=0;z<=2;z++){
-//                        if(mChildList.get(mGroupList.get(m)).get(z).state) zero_flag.add(z);
-//                        else break;
-//                    }
-//                    break;
-//
-//                case 1:
-//                    for(int z=0;z<=2;z++){
-//                        if(mChildList.get(mGroupList.get(m)).get(z).state) one_flag.add(z);
-//                        else break;
-//                    }
-//                    break;
-//
-//                case 2:
-//                    for(int z=0;z<=2;z++){
-//                        if(mChildList.get(mGroupList.get(m)).get(z).state) two_flag.add(z);
-//                        else break;
-//                    }
-//                    break;
-//
-//                case 3:
-//                    for(int z=0;z<=2;z++){
-//                        if(mChildList.get(mGroupList.get(m)).get(z).state) three_flag.add(z);
-//                        else break;
-//                    }
-//                    break;
-//
-//                default:
-//                    break;
-//
-//            }
-//        }
 
         for (int j = 0; j < mChildList.get(mGroupList.get(groupIndex)).size(); j++) {
 

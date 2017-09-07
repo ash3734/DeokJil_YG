@@ -24,10 +24,6 @@ public class InquiryActivity extends AppCompatActivity{
 
         setContentView(R.layout.inquiry_activity);
 
-        // Adding Toolbar to the activity
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.inquiry_tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("문의하기"));
