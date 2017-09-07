@@ -129,7 +129,7 @@ public class SplashActivity extends AppCompatActivity {
         else{
             ApplicationController.getInstance().setSinger_id(SharedPrefrernceController.getSelected(SplashActivity.this));
             setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
-                    SharedPrefrernceController.getSelected(SplashActivity.this));
+                    SharedPrefrernceController.getMost(SplashActivity.this));
 
             //startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
 

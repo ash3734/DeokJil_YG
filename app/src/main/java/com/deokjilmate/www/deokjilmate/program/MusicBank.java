@@ -18,7 +18,7 @@ public class MusicBank implements Program
     public static final int image = R.drawable.musicbank;
 
     public void goVote(Context context,String singername){
-        Uri uri = Uri.parse("http://blog.wimy.com");
+        Uri uri = Uri.parse("http://survey.kbs.co.kr");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }

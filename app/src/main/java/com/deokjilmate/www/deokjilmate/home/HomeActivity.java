@@ -44,8 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @BindView(R.id.home_mypage_btn)
     ImageView mypage;
-
-
+    private BackPressCloseHandler backPressCloseHandler;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -54,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.home_activity);
         ButterKnife.bind(this);
         ApplicationController.getInstance().setMainExist(true);
-
+        backPressCloseHandler = new BackPressCloseHandler(this);
         //네비게이션 바 안에 정보 받아오기기
 
 
@@ -130,7 +129,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            backPressCloseHandler.onBackPressed();
         }
     }
 

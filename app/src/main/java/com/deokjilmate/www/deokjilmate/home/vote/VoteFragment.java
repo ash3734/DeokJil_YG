@@ -35,6 +35,7 @@ public class VoteFragment extends Fragment {
 
     TextView textViewsingerName;
     ImageView imageViewSinger;
+    ImageView imageViewBage;
     TextView textViewFanCount;
     TextView textViewVoteCount;
     ImageView imageViewCurProgram;
@@ -67,12 +68,23 @@ public class VoteFragment extends Fragment {
         Glide.with(this).load(mainResult.vote_data.singer_img).into(imageViewSinger);
         textViewFanCount.setText("팬 | " + mainResult.vote_data.b_vote_count);
         textViewVoteCount.setText("투표 | "+mainResult.vote_data.choice_count);
+        if(mainResult.vote_data.b_vote_count<10)
+            imageViewBage.setImageResource(R.drawable.badge_muggle);
+        else if(10<=mainResult.vote_data.b_vote_count&&mainResult.vote_data.b_vote_count<100)
+            imageViewBage.setImageResource(R.drawable.badge_newbie);
+        else if(100<=mainResult.vote_data.b_vote_count&&mainResult.vote_data.b_vote_count<500)
+            imageViewBage.setImageResource(R.drawable.badge_ilco);
+        else if(500<=mainResult.vote_data.b_vote_count&&mainResult.vote_data.b_vote_count<1000)
+            imageViewBage.setImageResource(R.drawable.badge_duckwho);
+        else
+            imageViewBage.setImageResource(R.drawable.badge_sungduck);
         textViewCurProgram.setText(mainResult.program_data.cure_data.getProgram_name()+"\n"+mainResult.program_data.cure_data.getProgram_data());
         //mainResult.program_data.cure_data
 
         program= ProgramFactory.create(mainResult.program_data.cure_data.getProgram_name());
         //// TODO: 2017-08-14 리펙토링 해야함 스멜이나는 지역
-        if(mainResult.program_data.cure_data.getProgram_name().equals("")){
+        if(mainResult.program_data
+                .cure_data.getProgram_name().equals("")){
             textViewCurNull.setText("진행중인 투표가 없습니다.");
         }else{
             imageViewCurProgram.setImageResource(program.getImage());
@@ -94,6 +106,7 @@ public class VoteFragment extends Fragment {
         }
     };
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,6 +119,7 @@ public class VoteFragment extends Fragment {
         imageViewCurProgram = (ImageView)(frag.findViewById(R.id.home_list_imageview_cur_program));
         textViewCurProgram = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program));
         textViewCurNull = (TextView)(frag.findViewById(R.id.home_fragment_textview_no_cur));
+        imageViewBage = (ImageView)(frag.findViewById(R.id.home_fragment_imageview_bage));
         return frag;
     }
     public void setLayoutSize(){

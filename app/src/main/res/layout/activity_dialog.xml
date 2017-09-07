@@ -17,11 +17,11 @@
         android:layout_height="wrap_content">
 
     </com.dev.sacot41.scviewpager.SCViewPager>
+    <!--android:text="투표완료 취소"-->
         <TextView
             android:id="@+id/dialog_text_done_vote"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="12dp"
-            android:text="투표완료 취소"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

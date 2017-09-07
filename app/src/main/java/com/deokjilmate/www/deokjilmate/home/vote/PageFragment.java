@@ -58,10 +58,16 @@ public class PageFragment extends Fragment {
         super.onStart();
         mDatas = (ArrayList<PreData>) getArguments().getSerializable("preDatas");
         position = getArguments().getInt("position");
-        textViewProgramName.setText(mDatas.get(position).getProgram_name());
-        if(position==mDatas.size()-1)
-            textViewPeriod.setText(mDatas.get(position).getProgram_data()+" 실시간 투표");
-        else textViewPeriod.setText(mDatas.get(position).getProgram_data()+" 사전 투표");
+        String text;
+        text = mDatas.get(position).getProgram_name();
+
+        if(position==mDatas.size()-1) {
+            text += "\n" + mDatas.get(position).getProgram_data() + " 실시간 투표";
+            textViewProgramName.setText(text);
+        } else{
+            text += "\n" + mDatas.get(position).getProgram_data() + " 사전 투표";
+            textViewProgramName.setText(text);
+        }
         //진행 예정 진행중 가리기
 
         // 현재시간을 msec 으로 구한다.
@@ -72,11 +78,18 @@ public class PageFragment extends Fragment {
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         // nowDate 변수에 값을 저장한다.
         String formatDate = sdfNow.format(date);
-        if('7' == formatDate.indexOf(13)) {
+        Log.d("cur",formatDate);
+        if(position==mDatas.size()-1){
             textViewState.setText("진행중");
         }else{
-            textViewState.setText("진행예정");
+            if('7' == formatDate.indexOf(13)) {
+                textViewState.setText("진행중");
+            }else{
+                Log.d("cur", String.valueOf(formatDate.indexOf(13)));
+                textViewState.setText("진행예정");
+            }
         }
+
         program= ProgramFactory.create(mDatas.get(position).getProgram_name());
         imageView.setImageResource(program.getImage());
         textViewVoteMethod.setText(program.getPreVoteWay());
@@ -94,6 +107,11 @@ public class PageFragment extends Fragment {
                 program.goVote(getContext(), ApplicationController.getInstance().mainResult.vote_data.singer_name);
                 Log.d("ash3734","govote?");
                 button.setText("투표 완료");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.govote_button));
             }
         });
@@ -104,7 +122,7 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.dialog_fragment, container, false);
         textViewProgramName = (TextView) rootView.findViewById(R.id.dialog_textview_program);
-        textViewPeriod = (TextView)rootView.findViewById(R.id.dialog_textview_week);
+        //textViewPeriod = (TextView)rootView.findViewById(R.id.dialog_textview_week);
         textViewState = (TextView)rootView.findViewById(R.id.dialog_textview_state);
         textViewPeriodDetail = (TextView)rootView.findViewById(R.id.dialog_textview_voteday);
         textViewVoteMethod = (TextView)rootView.findViewById(R.id.dialog_textview_voteway);

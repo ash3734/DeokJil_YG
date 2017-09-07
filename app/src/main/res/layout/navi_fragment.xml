@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@color/neviTop">
@@ -30,7 +31,6 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 />
-
             <TextView
                 android:id="@+id/drawer_nickname"
                 android:layout_width="wrap_content"
@@ -38,7 +38,6 @@
                 android:layout_below="@+id/drawer_myimage"
                 android:includeFontPadding="false"
                 android:layout_centerInParent="true" />
-
             <ImageView
                 android:id="@+id/drawer_badge"
                 android:layout_width="36dp"
@@ -114,6 +113,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="16dp" />
             </RelativeLayout>
 
@@ -152,6 +152,7 @@
                     android:id="@+id/drawer_new_2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp" />
             </RelativeLayout>
@@ -166,6 +167,7 @@
                     android:id="@+id/drawer_singer_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
                     android:textColor="@color/darkgrey"
                     android:includeFontPadding="false"
@@ -175,6 +177,7 @@
                     android:id="@+id/drawer_new_3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp" />
             </RelativeLayout>
@@ -189,6 +192,7 @@
                     android:id="@+id/drawer_singer_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
                     android:textColor="@color/darkgrey"
                     android:includeFontPadding="false"
@@ -198,6 +202,7 @@
                     android:id="@+id/drawer_new_4"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp" />
             </RelativeLayout>
