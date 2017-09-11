@@ -15,10 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="240dp">
 
+
             <ImageView
                 android:id="@+id/home_fragment_imageview_singer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <ImageView
+                android:id="@+id/home_fragment_imageview_bage"
+                android:src="@drawable/badge_muggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"/>
 
             <TextView
                 android:id="@+id/home_fragment_textview_singer_name"
@@ -32,9 +44,9 @@
                 android:id="@+id/home_fragment_textview_vote_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/home_fragment_imageview_bage"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="투표 | "
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
@@ -45,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
                 android:layout_marginRight="16dp"
                 android:text="팬 | "
                 android:textColor="#ffffff"
@@ -76,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="16dp"
                 android:layout_marginBottom="16dp"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
         <View
@@ -145,6 +157,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="160dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="스페셜 투표"
+                    android:layout_centerVertical="true"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+            </RelativeLayout>
             <TextView
                 android:layout_centerInParent="true"
                 android:textSize="16sp"

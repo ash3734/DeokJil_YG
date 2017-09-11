@@ -18,6 +18,7 @@ import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreData;
 import com.dev.sacot41.scviewpager.DotsView;
 import com.dev.sacot41.scviewpager.SCViewAnimationUtil;
 import com.dev.sacot41.scviewpager.SCViewPager;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 
@@ -93,5 +94,9 @@ public class DialogActivity extends AppCompatActivity {
             }
         });
         final Point size = SCViewAnimationUtil.getDisplaySize(this);
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 }
