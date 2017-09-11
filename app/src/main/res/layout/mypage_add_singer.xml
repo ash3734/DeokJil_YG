@@ -16,7 +16,6 @@
         <ImageButton
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginLeft="16dp"
             android:background="@color/tw__transparent"
             android:id="@+id/MyPage_AddSinger_backImage"/>
         <TextView
