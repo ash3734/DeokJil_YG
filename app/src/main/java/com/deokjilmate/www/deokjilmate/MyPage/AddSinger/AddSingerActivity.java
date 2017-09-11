@@ -166,4 +166,13 @@ public class AddSingerActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
+        startActivity(intent);
+    }
+
+
 }
