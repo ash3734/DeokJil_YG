@@ -58,7 +58,6 @@
         <activity
             android:name=".Login.SignActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
             />
 
         <activity

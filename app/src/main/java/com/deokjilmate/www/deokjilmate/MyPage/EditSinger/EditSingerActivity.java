@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.MyPage.EditSinger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,6 +81,18 @@ public class EditSingerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_edit_singer);
         ButterKnife.bind(this);
@@ -207,7 +222,7 @@ public class EditSingerActivity extends AppCompatActivity {
     public void clickBack()
     {
         if(userDataSumms.get(0).getSinger_name().equals("")){
-            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요.", Toast.LENGTH_LONG).show();
         }else{
             deleteLists();
         }
@@ -219,7 +234,7 @@ public class EditSingerActivity extends AppCompatActivity {
             //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 
             if(userDataSumms.get(0).getSinger_name().equals("")){
-                Toast.makeText(EditSingerActivity.this, "메인 가수는 반드시 있어야 합니다", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditSingerActivity.this, "메인 가수는 반드시 있어야 합니다.", Toast.LENGTH_LONG).show();
             }else{
                 deleteLists();
             }
@@ -299,7 +314,7 @@ public class EditSingerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MainResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
@@ -310,7 +325,7 @@ public class EditSingerActivity extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
         if(userDataSumms.get(0).getSinger_name().equals("")){
-            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요.", Toast.LENGTH_LONG).show();
         }else{
             deleteLists();
         }

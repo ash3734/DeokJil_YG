@@ -2,9 +2,12 @@ package com.deokjilmate.www.deokjilmate.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +33,17 @@ public class FindPwdActivity extends AppCompatActivity {
     private NetworkService networkService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_find_pwd);
         ButterKnife.bind(this);
@@ -55,14 +69,12 @@ public class FindPwdActivity extends AppCompatActivity {
             public void onResponse(Call<FindPwdResponse> call, Response<FindPwdResponse> response) {
                 Log.v("메일", findPwdbyEmail.getText().toString());
                 if(response.isSuccessful()) {
-                    Log.v("메일로 보냄", "메일로 보냄");
-                    Toast.makeText(getApplicationContext(), "메일로 보냄", Toast.LENGTH_SHORT);
-                }
-                else
-                {
-                    Log.v("메일 확인ㄱ", "메일 확인ㄱ");
 
-                    Toast.makeText(getApplicationContext(), "메일 확인 ㄱ", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "메일로 전송하였습니다.", Toast.LENGTH_LONG).show();
+                }
+                else {
+
+                    Toast.makeText(getApplicationContext(), "메일을 확인해주세요.", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
