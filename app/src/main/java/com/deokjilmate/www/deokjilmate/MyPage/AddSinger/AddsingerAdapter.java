@@ -298,7 +298,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
             }
             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
-            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다", Toast.LENGTH_LONG).show();
+            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다.", Toast.LENGTH_LONG).show();
             notifyDataSetChanged();
             customDialog.dismiss();
 
@@ -351,7 +351,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
-            Toast.makeText(addSingerActivity.getApplicationContext(), "삭제하였습니다", Toast.LENGTH_LONG).show();
+            Toast.makeText(addSingerActivity.getApplicationContext(), "삭제하였습니다.", Toast.LENGTH_LONG).show();
             notifyDataSetChanged();
             customDialog.dismiss();
         }
