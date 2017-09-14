@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.deokjilmate.www.deokjilmate.Login.FindPwdActivity;
 import com.deokjilmate.www.deokjilmate.Login.MainLoginActivity;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
@@ -117,12 +116,12 @@ public class SplashActivity extends AppCompatActivity {
 
         }
         else{
-            startActivity(new Intent(getApplicationContext(), FindPwdActivity.class));
-            finish();
+//            startActivity(new Intent(getApplicationContext(), FindPwdActivity.class));
+//            finish();
 
-//            ApplicationController.getInstance().setSinger_id(SharedPrefrernceController.getSelected(SplashActivity.this));
-//            setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
-//                    SharedPrefrernceController.getMost(SplashActivity.this));
+            ApplicationController.getInstance().setSinger_id(SharedPrefrernceController.getSelected(SplashActivity.this));
+            setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
+                    SharedPrefrernceController.getMost(SplashActivity.this));
 
             //startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
 
