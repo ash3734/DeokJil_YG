@@ -16,4 +16,5 @@
     <color name="button">#ffffff</color>
     <color name="lightgrey">#32000000</color>
     <color name="verylightgrey">#32000000</color>
+    <color name="statusbar">#ca7456</color>
 </resources>
