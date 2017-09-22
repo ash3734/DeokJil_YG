@@ -201,7 +201,7 @@ public class EditSingerActivity extends AppCompatActivity {
                         if(count == userDataSumms.size()){
 
                             setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));
-                            Toast.makeText(getApplicationContext(), "수정 완료", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "수정 완료", Toast.LENGTH_SHORT).show();
                         }
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
@@ -300,6 +300,7 @@ public class EditSingerActivity extends AppCompatActivity {
                     else {
                         Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                         startActivity(intent);
+
                         // customDialog.dismiss();
                         finish();
                     }

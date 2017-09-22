@@ -47,6 +47,7 @@
                 android:layout_toRightOf="@id/home_fragment_imageview_bage"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="8dp"
+                android:includeFontPadding="false"
                 android:text="투표 | "
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
@@ -59,9 +60,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
                 android:text="팬 | "
+                android:includeFontPadding="false"
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
         </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,8 +81,24 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:text="사전 투표"
+                    android:includeFontPadding="false"
                     android:textColor="#000000"
                     android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/home_fragment_no_process"
+                android:visibility="gone">
+            <TextView
+                android:id="@+id/home_fragment_textview_no_process"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:includeFontPadding="false"
+                android:textColor="@color/lightgrey"
+                android:text="진행중인 투표가 없습니다."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -90,6 +109,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="16dp"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
+
+
         <View
             android:background="@color/lightgrey"
             android:layout_marginRight="16dp"
@@ -107,10 +128,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
+                    android:id="@+id/home_fragment_curNone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="실시간투표"
+                    android:includeFontPadding="false"
                     android:layout_centerVertical="true"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -121,15 +144,19 @@
                 <TextView
                     android:id="@+id/home_fragment_textview_no_cur"
                     android:textSize="16sp"
+                    android:text="진행중인 투표가 없습니다."
+                    android:includeFontPadding="false"
                     android:textColor="@color/lightgrey"
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <RelativeLayout
                     android:background="@drawable/main_list_shape"
                     android:layout_marginLeft="16dp"
                     android:layout_width="130dp"
                     android:layout_height="160dp">
+
                     <ImageView
                         android:id="@+id/home_list_imageview_cur_program"
                         android:layout_width="wrap_content"
@@ -141,6 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:includeFontPadding="false"
                         android:textColor="@color/white" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -165,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="스페셜 투표"
+                    android:includeFontPadding="false"
                     android:layout_centerVertical="true"
                     android:textColor="#000000"
                     android:textSize="16sp" />
@@ -172,6 +201,7 @@
             <TextView
                 android:layout_centerInParent="true"
                 android:textSize="16sp"
+                android:includeFontPadding="false"
                 android:textColor="@color/lightgrey"
                 android:text="진행중인 투표가 없습니다."
                 android:layout_width="wrap_content"

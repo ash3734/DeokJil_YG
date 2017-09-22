@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="16dp"
-                    android:text="서브가수"
+                    android:text="서브 가수"
                     android:includeFontPadding="false"
                     android:textColor="@color/lightgrey"
                     android:textSize="14sp" />
