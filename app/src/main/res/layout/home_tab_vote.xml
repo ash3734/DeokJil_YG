@@ -133,7 +133,6 @@
                     android:layout_marginLeft="16dp"
                     android:text="실시간투표"
                     android:includeFontPadding="false"
-                    android:layout_centerVertical="true"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -155,7 +154,6 @@
 
                 <RelativeLayout
                     android:layout_width="130dp"
-                    android:layout_height="160dp">
                     android:layout_height="160dp"
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/main_list_shape">
@@ -203,15 +201,16 @@
                     android:layout_marginLeft="16dp"
                     android:text="스페셜 투표"
                     android:includeFontPadding="false"
-                    android:layout_centerVertical="true"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </RelativeLayout>
 
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="진행중인 투표가 없습니다."
+                android:includeFontPadding="false"
                 android:textColor="@color/lightgrey"
                 android:textSize="16sp" />
         </RelativeLayout>
