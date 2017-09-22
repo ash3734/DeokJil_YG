@@ -185,6 +185,7 @@ public class AddSingerActivity extends AppCompatActivity {
         //super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

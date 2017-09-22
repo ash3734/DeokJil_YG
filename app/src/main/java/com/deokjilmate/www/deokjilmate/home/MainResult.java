@@ -16,4 +16,5 @@ public class MainResult {
     public ProgramData program_data;
     public RankNetworkData chart_data;
     public NaviData nevi_data;
+
 }
