@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 흰색 부분 다이얼로그-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@drawable/border_dialog"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="156dp">
+
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/dialog_imageview"
-            android:src="@drawable/aoa"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="32dp"
-            android:layout_centerVertical="true"
-            />
+            android:src="@drawable/aoa" />
+
+        <RelativeLayout
+            android:layout_toRightOf="@id/dialog_imageview"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp">
             <TextView
                 android:id="@+id/dialog_textview_program"
-                android:textSize="20dp"
-                android:layout_toRightOf="@id/dialog_imageview"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:textColor="@color/darkgrey"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="14dp"
+                android:textColor="@color/darkgrey"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
 
     </RelativeLayout>
     <RelativeLayout
@@ -36,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="2dp"
+            android:layout_height="4dp"
             android:layout_gravity="center"
             android:background="#FF7973" />
         <TextView
@@ -45,38 +54,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="진행중"
+            android:text="진행 중"
             android:textSize="20dp"
-            android:textColor="#FF7D8F"/>
+            android:textColor="#FF7973"/>
         <View
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="2dp"
+            android:layout_height="4dp"
             android:layout_gravity="center"
             android:background="#FF7973" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <TextView
             android:id="@+id/vote_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginLeft="24dp"
             android:textColor="@color/darkgrey"
+            android:includeFontPadding="false"
             android:textSize="16dp"
             android:text="투표기간" />
         <TextView
             android:id="@+id/dialog_textview_voteday"
-            android:layout_below="@+id/vote_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vote_time"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="24dp"
+            android:textSize="16dp"
+            android:includeFontPadding="false"
             android:textColor="@color/lightgrey"
             android:text="1월1일자정~6일 11시 59분"
             />
@@ -84,10 +96,12 @@
             android:id="@+id/vote_way"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
             android:layout_below="@id/dialog_textview_voteday"
             android:text="투표방법"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="16dp"
+            android:textSize="16dp"
+            android:includeFontPadding="false"
+            android:layout_marginLeft="24dp"
             android:textColor="@color/darkgrey"
             />
 
@@ -95,32 +109,28 @@
             android:id="@+id/dialog_textview_voteway"
             android:layout_below="@id/vote_way"
             android:text="트위터 해시태그 #더쇼 #가수이름"
+            android:layout_marginTop="16dp"
+            android:includeFontPadding="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="24dp"
             android:textColor="@color/lightgrey"
             android:textSize="16dp"
             />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <Button
             android:id="@+id/dialog_button_govote"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="18dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_gravity="bottom"
             android:elevation="0dp"
             android:background="@drawable/gradation_button"
             android:text="투표 하러 가기"
             android:textColor="@color/white" />
 
     </RelativeLayout>
+
 
 </LinearLayout>
