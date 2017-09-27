@@ -24,6 +24,7 @@ import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryObject;
 import com.deokjilmate.www.deokjilmate.Setting.Inquiry.InquiryResult;
 import com.deokjilmate.www.deokjilmate.Setting.Notice.BoardNotice;
 import com.deokjilmate.www.deokjilmate.UserAllSingerResponse;
+import com.deokjilmate.www.deokjilmate.alarm.FirstAlarmResult;
 import com.deokjilmate.www.deokjilmate.alarm.NoticePostData;
 import com.deokjilmate.www.deokjilmate.alarm.NoticePostResult;
 import com.deokjilmate.www.deokjilmate.alarm.NoticeResult;
@@ -59,6 +60,10 @@ public interface NetworkService {
     //문의하기
     @POST("question")
     Call<InquiryResult> inquiryRegister(@Body InquiryObject getObject);
+
+    //첫 알람 가수 정보들 가져오기
+    @GET("alarm/input")
+    Call<FirstAlarmResult> getfirstAlarm(@Query("singer_id") int singer_id);
 
     // 알람 가져오기
     @GET("alarm")
