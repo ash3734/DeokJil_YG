@@ -80,6 +80,11 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     String fcmToken;
     int flagCount;
 
+    // 처음으로 알람을 받아올 때
+    boolean isFirstAlarm = true;
+    ArrayList<Integer> singerID = null;
+    int getFirstAlarmCount;
+
     ImageView alarm_today_info;
 
 
@@ -97,6 +102,16 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         firebaseToken = SharedPrefrernceController.getFirebaseToken(AlarmActivity.this);
         firebaseToken2 = "qwerty";
         fcmToken = FirebaseInstanceId.getInstance().getToken();
+
+
+        singerID = new ArrayList<Integer>();
+
+//        SharedPreferences FirstAlarm = getSharedPreferences("FirstAlarm", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = FirstAlarm.edit();
+//        editor.putString("FirstAlarm", "true"); //First라는 key값으로 infoFirst 데이터를 저장한다.
+//        editor.commit(); //완료한다.
+//        isFirstAlarm = FirstAlarm.getString("FirstAlarm", "false");
+
 
         Log.d("fcm",fcmToken);
 
@@ -145,108 +160,115 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         mChildList = new HashMap<String,ArrayList<ChildListContent>>();
 
 
-        Call<UserAllSingerResponse> userAllSingerResponse = service.userAllSinger(firebaseToken2);
-        userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
-            @Override
-            public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
-                if(response.body().result){
-                    for(UserAllSingerData data : response.body().data){
-                        Log.d("가수명확인",data.getSinger_name());
-                        mGroupList.add(data.getSinger_name());
-                    }
-                }
 
-                Call<NoticeResult> getAlarm = service.getAlarm(firebaseToken2);
-                getAlarm.enqueue(new Callback<NoticeResult>() {
-                    @Override
-                    public void onResponse(Call<NoticeResult> call, Response<NoticeResult> response) {
+        if(isFirstAlarm){
+            Log.d("myTag","첫번째 알람이다!");
+            Call<UserAllSingerResponse> userAllSingerResponseCall = service.userAllSinger(firebaseToken2);
+            userAllSingerResponseCall.enqueue(new Callback<UserAllSingerResponse>(){
+                @Override
+                public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                    Log.d("response!!",String.valueOf(response.body().result));
 
-                        Log.d("알람가져오기",String.valueOf(response.isSuccessful()));
+                    if (response.body().result) {
+                        for (UserAllSingerData data : response.body().data) {
+                            Log.d("가수명확인", String.valueOf(data.getSinger_id()));
+                            singerID.add(data.getSinger_id());
+                            mGroupList.add(data.getSinger_name());
+                        }
+                        for(int logcount=0;logcount<singerID.size();logcount++){
+                            Log.d("singer이름확인",String.valueOf(mGroupList.get(logcount)));
+                        }
 
-                        if(response.isSuccessful()){
-                            Log.d("알람","가져오기 성공");
-                            Log.d("firebase",firebaseToken);
-                            todayAlarmState = response.body().data.today_alarm;
 
-                            if(todayAlarmState==1) todaySwitch.setChecked(true);
-                            else todaySwitch.setChecked(false);
 
-                                for(flagCount=0;flagCount<mGroupList.size();flagCount++){
-                                    switch (flagCount){
-                                        case 0: // zero_flag
+                        for(getFirstAlarmCount=0;getFirstAlarmCount<singerID.size();getFirstAlarmCount++){
+                            Log.d("씽어아이디배열확인",String.valueOf(singerID.get(getFirstAlarmCount).getClass()));
+                            Call<FirstAlarmResult> getFirstAlarm = service.getfirstAlarm(singerID.get(getFirstAlarmCount).intValue());
+                            getFirstAlarm.enqueue(new Callback<FirstAlarmResult>() {
+                                @Override
+                                public void onResponse(Call<FirstAlarmResult> call, Response<FirstAlarmResult> response) {
+
+                                    Log.d("알람첫배열받기","hhi onrespose들어옴");
+                                    Log.d("알람사이즈",String.valueOf(response.body().alarm_array.size()));
+                                    for(int logcount=0;logcount<response.body().alarm_array.size();logcount++){
+                                        Log.d("알람배열확인",String.valueOf(response.body().alarm_array.get(logcount)));
+                                    }
+                                    switch (getFirstAlarmCount) {
+                                        case 0:
+                                            Log.d("onResponse반응?","반응함");
                                             mChildListContent = new ArrayList<ChildListContent>();
-                                            for(int j=0;j<=2;j++){
-                                                if(j==0 && response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("엠카운트다운",true));
-                                                else if(j==0 && !response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("엠카운트다운",false));
-                                                else if(j==1 && response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심",true));
-                                                else if(j==1 && !response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심",false));
-                                                else if(j==2 && response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("더 쇼",true));
-                                                else if(j==2 && !response.body().data.zero_flag.contains(j))
-                                                    mChildListContent.add(new ChildListContent("더 쇼",false));
+                                            for(int x=0;x<response.body().alarm_array.size();x++){
+                                                if (x == 0 && response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("엠카운트다운", true));
+                                                else if (x == 0 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("엠카운트다운", false));
+                                                else if (x == 1 && response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (x == 1 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (x == 2 && response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("더 쇼", true));
+                                                else if (x == 2 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent.add(new ChildListContent("더 쇼", false));
                                             }
-                                            mChildList.put(mGroupList.get(flagCount),mChildListContent);
+                                            mChildList.put(mGroupList.get(getFirstAlarmCount), mChildListContent);
                                             break;
 
-                                        case 1: // one_flag
+                                        case 1:
                                             mChildListContent2 = new ArrayList<ChildListContent>();
-                                            for(int j=0;j<=2;j++){
-                                                if(j==0 && response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("엠카운트다운",true));
-                                                else if(j==0 && !response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("엠카운트다운",false));
-                                                else if(j==1 && response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심",true));
-                                                else if(j==1 && !response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심",false));
-                                                else if(j==2 && response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("더 쇼",true));
-                                                else if(j==2 && !response.body().data.one_flag.contains(j))
-                                                    mChildListContent2.add(new ChildListContent("더 쇼",false));
+                                            for(int x=0;x<response.body().alarm_array.size();x++){
+                                                if (x == 0 && response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("엠카운트다운", true));
+                                                else if (x == 0 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("엠카운트다운", false));
+                                                else if (x == 1 && response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (x == 1 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (x == 2 && response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("더 쇼", true));
+                                                else if (x == 2 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent2.add(new ChildListContent("더 쇼", false));
                                             }
-                                            mChildList.put(mGroupList.get(flagCount),mChildListContent2);
+                                            mChildList.put(mGroupList.get(getFirstAlarmCount), mChildListContent2);
                                             break;
 
-                                        case 2: // two_flag
+                                        case 2:
                                             mChildListContent3 = new ArrayList<ChildListContent>();
-                                            for(int j=0;j<=2;j++){
-                                                if(j==0 && response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("엠카운트다운",true));
-                                                else if(j==0 && !response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("엠카운트다운",false));
-                                                else if(j==1 && response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심",true));
-                                                else if(j==1 && !response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심",false));
-                                                else if(j==2 && response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("더 쇼",true));
-                                                else if(j==2 && !response.body().data.two_flag.contains(j))
-                                                    mChildListContent3.add(new ChildListContent("더 쇼",false));
+                                            for(int x=0;x<response.body().alarm_array.size();x++){
+                                                if (x == 0 && response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("엠카운트다운", true));
+                                                else if (x == 0 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("엠카운트다운", false));
+                                                else if (x == 1 && response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (x == 1 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (x == 2 && response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("더 쇼", true));
+                                                else if (x == 2 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent3.add(new ChildListContent("더 쇼", false));
                                             }
-                                            mChildList.put(mGroupList.get(flagCount),mChildListContent3);
+                                            mChildList.put(mGroupList.get(getFirstAlarmCount), mChildListContent3);
                                             break;
 
-                                        case 3: // three_flag
+                                        case 3:
                                             mChildListContent4 = new ArrayList<ChildListContent>();
-                                            for(int j=0;j<=2;j++){
-                                                if(j==0 && response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("엠카운트다운",true));
-                                                else if(j==0 && !response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("엠카운트다운",false));
-                                                else if(j==1 && response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심",true));
-                                                else if(j==1 && !response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심",false));
-                                                else if(j==2 && response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("더 쇼",true));
-                                                else if(j==2 && !response.body().data.three_flag.contains(j))
-                                                    mChildListContent4.add(new ChildListContent("더 쇼",false));
+                                            for(int x=0;x<response.body().alarm_array.size();x++){
+                                                if (x == 0 && response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("엠카운트다운", true));
+                                                else if (x == 0 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("엠카운트다운", false));
+                                                else if (x == 1 && response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (x == 1 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (x == 2 && response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("더 쇼", true));
+                                                else if (x == 2 && !response.body().alarm_array.contains(x))
+                                                    mChildListContent4.add(new ChildListContent("더 쇼", false));
                                             }
-                                            mChildList.put(mGroupList.get(flagCount),mChildListContent4);
+                                            mChildList.put(mGroupList.get(getFirstAlarmCount), mChildListContent4);
                                             break;
 
                                         default:
@@ -254,27 +276,164 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                     }
                                 }
 
-                                mBaseExpandableAdapter = new AlarmAdapter(c, mGroupList, mChildList,v);
-                                mListView.setAdapter(mBaseExpandableAdapter);
+                                @Override
+                                public void onFailure(Call<FirstAlarmResult> call, Throwable t) {
+                                    Log.d("알람첫배열받기","no...onfail들어옴");
+                                }
+                            });
 
+                        }
+                        isFirstAlarm = false;
+                        mBaseExpandableAdapter = new AlarmAdapter(c, mGroupList, mChildList, v);
+                        mListView.setAdapter(mBaseExpandableAdapter);
+
+                        for(int logcount=0;logcount<singerID.size();logcount++){
+                            for(int logcount2=0;logcount2<mChildList.size();logcount2++){
+                                Log.d("singer방송확인",String.valueOf(mChildList.get(logcount).get(logcount2).getMp_name()));
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+                        Log.d("response!!","failllll");
+                }
+
+            });
+        }
+        else {
+            Log.d("myTag","첫번째 알람이 아님!!");
+            Call<UserAllSingerResponse> userAllSingerResponse = service.userAllSinger(firebaseToken2);
+            userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
+                @Override
+                public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {
+                    if (response.body().result) {
+                        for (UserAllSingerData data : response.body().data) {
+                            Log.d("가수명확인", data.getSinger_name());
+                            mGroupList.add(data.getSinger_name());
                         }
                     }
 
-                    @Override
-                    public void onFailure(Call<NoticeResult> call, Throwable t) {
-                        Log.d("getAlarm통신연결","실패");
-                    }
-                });
+                    Call<NoticeResult> getAlarm = service.getAlarm(firebaseToken2);
+                    getAlarm.enqueue(new Callback<NoticeResult>() {
+                        @Override
+                        public void onResponse(Call<NoticeResult> call, Response<NoticeResult> response) {
+
+                            Log.d("알람가져오기", String.valueOf(response.isSuccessful()));
+
+                            if (response.isSuccessful()) {
+                                Log.d("알람", "가져오기 성공");
+                                Log.d("firebase", firebaseToken);
+                                todayAlarmState = response.body().data.today_alarm;
+
+                                if (todayAlarmState == 1) todaySwitch.setChecked(true);
+                                else todaySwitch.setChecked(false);
+
+                                for (flagCount = 0; flagCount < mGroupList.size(); flagCount++) {
+                                    switch (flagCount) {
+                                        case 0: // zero_flag
+                                            mChildListContent = new ArrayList<ChildListContent>();
+                                            for (int j = 0; j <= 2; j++) {
+                                                if (j == 0 && response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("엠카운트다운", true));
+                                                else if (j == 0 && !response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("엠카운트다운", false));
+                                                else if (j == 1 && response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (j == 1 && !response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (j == 2 && response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("더 쇼", true));
+                                                else if (j == 2 && !response.body().data.zero_flag.contains(j))
+                                                    mChildListContent.add(new ChildListContent("더 쇼", false));
+                                            }
+                                            mChildList.put(mGroupList.get(flagCount), mChildListContent);
+                                            break;
+
+                                        case 1: // one_flag
+                                            mChildListContent2 = new ArrayList<ChildListContent>();
+                                            for (int j = 0; j <= 2; j++) {
+                                                if (j == 0 && response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("엠카운트다운", true));
+                                                else if (j == 0 && !response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("엠카운트다운", false));
+                                                else if (j == 1 && response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (j == 1 && !response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (j == 2 && response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("더 쇼", true));
+                                                else if (j == 2 && !response.body().data.one_flag.contains(j))
+                                                    mChildListContent2.add(new ChildListContent("더 쇼", false));
+                                            }
+                                            mChildList.put(mGroupList.get(flagCount), mChildListContent2);
+                                            break;
+
+                                        case 2: // two_flag
+                                            mChildListContent3 = new ArrayList<ChildListContent>();
+                                            for (int j = 0; j <= 2; j++) {
+                                                if (j == 0 && response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("엠카운트다운", true));
+                                                else if (j == 0 && !response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("엠카운트다운", false));
+                                                else if (j == 1 && response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (j == 1 && !response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (j == 2 && response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("더 쇼", true));
+                                                else if (j == 2 && !response.body().data.two_flag.contains(j))
+                                                    mChildListContent3.add(new ChildListContent("더 쇼", false));
+                                            }
+                                            mChildList.put(mGroupList.get(flagCount), mChildListContent3);
+                                            break;
+
+                                        case 3: // three_flag
+                                            mChildListContent4 = new ArrayList<ChildListContent>();
+                                            for (int j = 0; j <= 2; j++) {
+                                                if (j == 0 && response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("엠카운트다운", true));
+                                                else if (j == 0 && !response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("엠카운트다운", false));
+                                                else if (j == 1 && response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심", true));
+                                                else if (j == 1 && !response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("쇼! 음악중심", false));
+                                                else if (j == 2 && response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("더 쇼", true));
+                                                else if (j == 2 && !response.body().data.three_flag.contains(j))
+                                                    mChildListContent4.add(new ChildListContent("더 쇼", false));
+                                            }
+                                            mChildList.put(mGroupList.get(flagCount), mChildListContent4);
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                }
+
+                                mBaseExpandableAdapter = new AlarmAdapter(c, mGroupList, mChildList, v);
+                                mListView.setAdapter(mBaseExpandableAdapter);
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<NoticeResult> call, Throwable t) {
+                            Log.d("getAlarm통신연결", "실패");
+                        }
+                    });
 
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
-                Log.d("통신연결","실패");
-            }
-        });
-
+                @Override
+                public void onFailure(Call<UserAllSingerResponse> call, Throwable t) {
+                    Log.d("통신연결", "실패");
+                }
+            });
+        }
 
 
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
