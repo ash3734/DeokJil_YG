@@ -47,15 +47,31 @@ public class RankFragment extends Fragment {
         Glide.with(this).load(mainResult.vote_data.singer_img).into(imageViewSinger);*/
         rankDatas = new ArrayList<RankData>();
         boolean flag=false;
-        if(mainResult.chart_data.melonchart.get(0).is_up==1)
-            flag=true;
-        rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
-        recyclerView.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        rankAdapter = new RankAdapter(rankDatas,mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
-        recyclerView.setAdapter(rankAdapter);
+
+        if (!mainResult.chart_data.melonchart.isEmpty()) {
+            if (mainResult.chart_data.melonchart.get(0).is_up == 1)
+                flag = true;
+            rankDatas.add(new RankData("멜론", mainResult.chart_data.melonchart.get(0).idx, flag));
+        }
+            recyclerView.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            rankAdapter = new RankAdapter(rankDatas, mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
+            recyclerView.setAdapter(rankAdapter);
+
+// =======
+//         if(mainResult.chart_data.melonchart.get(0).is_up==1)
+//             flag=true;
+//         rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
+
+//         recyclerView.setHasFixedSize(true);
+//         linearLayoutManager = new LinearLayoutManager(getActivity());
+//         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//         recyclerView.setLayoutManager(linearLayoutManager);
+//         rankAdapter = new RankAdapter(rankDatas,mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
+//         recyclerView.setAdapter(rankAdapter);
+// >>>>>>> master
     }
 
     @Override

@@ -3,22 +3,24 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.ResourcesUtil;
+import com.deokjilmate.www.deokjilmate.Setting.Terms.TermsActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -87,6 +89,12 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     @BindView(R.id.Sign_agree)
     CheckBox agree;
 
+    @BindView(R.id.Sign_provision)
+    TextView provision;
+
+    @BindView(R.id.Sign_privacy)
+    TextView privacy;
+
     private String t_email;
     private String t_pwd;
     private String t_pwdCheck;
@@ -109,16 +117,22 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_sign);
         ButterKnife.bind(this);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            // 21 버전 이상일 때
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -351,6 +365,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     intent.putExtra("notSns", true);
                     intent.putExtra("member_passwd", pwd);
                     intent.putExtra("type", 1);
+                    progressDialog.dismiss();
                     startActivity(intent);
                 } else {
                     // If sign in fails, display a message to the user.
@@ -392,6 +407,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
                         intent.putExtra("type", 4);
+                        progressDialog.dismiss();
                         startActivity(intent);
                     }
                 });
@@ -420,6 +436,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             intent.putExtra("uid", user.getUid());
                             intent.putExtra("notSns", false);
                             intent.putExtra("type", 2);
+                            progressDialog.dismiss();
                             startActivity(intent);
 
                             //updateUI(user);
@@ -468,6 +485,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
                         intent.putExtra("type", 3);
+                        progressDialog.dismiss();
                         startActivity(intent);
                         //이걸 보내면 됨.
                         //credential.getProvider()
@@ -508,5 +526,17 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
+    }
+
+    @OnClick(R.id.Sign_provision)
+    public void clickProvision(){
+        Intent intent = new Intent(getApplicationContext(), TermsActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.Sign_privacy)
+    public void clickPrivacy(){
+        Intent intent = new Intent(getApplicationContext(), TermsActivity.class);
+        startActivity(intent);
     }
 }

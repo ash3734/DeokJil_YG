@@ -20,6 +20,7 @@ import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.Setting.SettingActivity;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
+import com.deokjilmate.www.deokjilmate.UserDataSumm;
 import com.deokjilmate.www.deokjilmate.alarm.AlarmActivity;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
@@ -59,7 +60,7 @@ public class NaviFragment extends Fragment {
     ImageView singerChange;
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
-
+    private ArrayList<UserDataSumm> userDataSumms;
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -73,6 +74,8 @@ public class NaviFragment extends Fragment {
 
         //네비게이션바 필요할지 몰라서 살려둠
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
+        userDataSumms = new ArrayList<UserDataSumm>();
+        userDataSumms = ApplicationController.getInstance().getUserDataSumms();
         userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
         //네비게이션바
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -159,7 +162,7 @@ public class NaviFragment extends Fragment {
 //            default:
 //                break;
 //        }
-
+        //userDataSumms
         //myBadge =
         if (ApplicationController.getInstance().getLoginState().equals("s")) {
             switch (mainResult.nevi_data.singer.size()) {
@@ -262,7 +265,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 2;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 2) {
-                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(1).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(1).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }
@@ -275,7 +278,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 3;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 3) {
-                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(2).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(2).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }
@@ -289,7 +292,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 4;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 4) {
-                    ApplicationController.getInstance().setSinger_id(ApplicationController.getInstance().getUserDataSumms().get(3).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(3).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }

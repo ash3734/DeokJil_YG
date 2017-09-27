@@ -134,6 +134,9 @@ public interface NetworkService {
     Call<LoginUidCheck> loginResult(@Query("uid") String uid);
 
     //비번 찾기
+//    @POST("findpassword")
+//    Call<FindPwdResponse> findPwd(@Body String member_email);
+
     @POST("findpassword")
     Call<FindPwdResponse> findPwd(@Body FindPwdPost findPwdPost);
 

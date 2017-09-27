@@ -3,12 +3,15 @@ package com.deokjilmate.www.deokjilmate.MyPage;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -101,6 +104,16 @@ public class MyPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_main);
         ButterKnife.bind(this);
@@ -108,6 +121,7 @@ public class MyPageActivity extends AppCompatActivity {
        // Glide.with(this).load(R.drawable.toolbar).into(toolbarImage);
         Glide.with(this).load(R.drawable.topbar_chgasu).into(plusSub);
         Glide.with(this).load(R.drawable.profile_change).into(editProfile);
+        Log.v("token", SharedPrefrernceController.getFirebaseToken(MyPageActivity.this));
         context = this;
         totalVote = 2000;
         init();
@@ -205,7 +219,7 @@ public class MyPageActivity extends AppCompatActivity {
                     myPageAdapter = new MyPageAdapter(requestManager_singer, requestManager_rank, myPageItemDatas, myPageHeadItemData, context);
                     subSingerrecyclerView.setAdapter(myPageAdapter);
                 } else{
-                    Toast.makeText(MyPageActivity.this, "정보 불러오는 데에 실패하였습니다", Toast.LENGTH_LONG);
+                    Toast.makeText(MyPageActivity.this, "정보 불러오는 데에 실패하였습니다.", Toast.LENGTH_LONG).show();
                 }
             }
 

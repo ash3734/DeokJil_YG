@@ -1,6 +1,7 @@
 package com.deokjilmate.www.deokjilmate.home.vote;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -50,6 +51,10 @@ public class DialogActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_dialog);
+
+        Intent intent = getIntent();
+        int curPgae = intent.getIntExtra("curPage",1);
+
         closeTextView = (TextView)findViewById(R.id.dialog_text_end);
         mainResult = ApplicationController.getInstance().mainResult;
         preDatas = new ArrayList<PreData>();
@@ -66,12 +71,13 @@ public class DialogActivity extends AppCompatActivity {
         mDotsView = (DotsView) findViewById(R.id.dotsview_main);
         mDotsView.setDotRessource(R.drawable.circle_full, R.drawable.circle_empty);
         mDotsView.setNumberOfPage(preDatas.size());
+        mDotsView.selectDot(curPgae);
         mPageAdapter = new MPagerAdapter(getSupportFragmentManager(),preDatas);
         mPageAdapter.setNumberOfPage(preDatas.size());
         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
         //// TODO: 2017-08-25 페이지 설정하기 가능하지는 모르겟음 
-        //mViewPager.setCurrentItem(mPageAdapter.getCount());
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setCurrentItem(curPgae);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
