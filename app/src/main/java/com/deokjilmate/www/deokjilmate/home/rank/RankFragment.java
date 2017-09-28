@@ -50,6 +50,9 @@ public class RankFragment extends Fragment {
         if(mainResult.chart_data.melonchart.get(0).is_up==1)
             flag=true;
         rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
+        if(mainResult.chart_data.geniechart.get(0).is_up==1)
+            flag=true;
+        rankDatas.add(new RankData("지니",mainResult.chart_data.geniechart.get(0).idx,flag));
 
         recyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity());
