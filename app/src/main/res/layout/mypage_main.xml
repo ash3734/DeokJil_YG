@@ -75,6 +75,8 @@
                         android:layout_height="120dp"
                         android:src="@drawable/profile_default"
                         android:layout_centerInParent="true"
+                        app:civ_border="true"
+                        app:civ_border_color="#ff7d8f"
                         android:background="@drawable/mypage_profile_frame"
                         />
                     <RelativeLayout

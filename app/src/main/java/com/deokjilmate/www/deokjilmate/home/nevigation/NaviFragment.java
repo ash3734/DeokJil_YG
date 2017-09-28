@@ -80,8 +80,8 @@ public class NaviFragment extends Fragment {
         //네비게이션바
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
-        if (mainResult.nevi_data.member_img != null)
-            Glide.with(getActivity()).load(mainResult.nevi_data.member_img).into(myImage);
+//        if (mainResult.nevi_data.member_img != null)
+//            Glide.with(getActivity()).load(mainResult.nevi_data.member_img).into(myImage);
         if (mainResult.nevi_data.member_name != null)
             myNickName.setText(mainResult.nevi_data.member_name);
         //myBadge = 벳지는 현재 놔둠
@@ -305,6 +305,7 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditProfileActivity.class));
+                getActivity().finish();
             }
         });
 
@@ -313,6 +314,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditSingerActivity.class));
                 ApplicationController.getInstance().setFromHome(true);
+                getActivity().finish();
             }
         });
 
@@ -320,6 +322,7 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+                getActivity().finish();
 
             }
         });
@@ -328,6 +331,7 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AlarmActivity.class));
+                getActivity().finish();
 
             }
         });
@@ -371,10 +375,12 @@ public class NaviFragment extends Fragment {
         data = Uri.parse(SharedPrefrernceController.getUserImage(getActivity()));
 
         //  data = SharedPrefrernceController.getUserImage(getActivity());
-        Glide.with(myImage.getContext())
-                .load(data)
-                .bitmapTransform(new CropCircleTransformation(getActivity().getApplicationContext()))
-                .into(myImage);
+        if(!data.toString().equals("")) {
+            Glide.with(myImage.getContext())
+                    .load(data)
+                    .bitmapTransform(new CropCircleTransformation(getActivity().getApplicationContext()))
+                    .into(myImage);
+        }
 
         String name = SharedPrefrernceController.getUserNickname(getActivity());
         myNickName.setText(name);
