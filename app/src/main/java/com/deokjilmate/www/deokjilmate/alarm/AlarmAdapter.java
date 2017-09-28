@@ -64,7 +64,6 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
             v = inflater.inflate(R.layout.alarm_parent,parent,false);
             viewHolder.singerTextView = (TextView)v.findViewById(R.id.alram_textview_singer);
             v.setTag(viewHolder);
-
         }
         else{
             viewHolder = (ViewHolder)v.getTag();
