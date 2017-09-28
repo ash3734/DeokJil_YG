@@ -67,7 +67,8 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
             //holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
-            holder.singer_most.setOnClickListener(new View.OnClickListener() {
+
+            holder.singer_list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     switch (clicked){
@@ -105,7 +106,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             holder.singer_name.setText(searchSingerList.get(position).singer_name);
             //holder.singer_most.setImageResource(searchSingerList.get(position).singer_most);
             //requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
-            holder.singer_most.setOnClickListener(new View.OnClickListener() {
+            holder.singer_list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     switch (clicked){

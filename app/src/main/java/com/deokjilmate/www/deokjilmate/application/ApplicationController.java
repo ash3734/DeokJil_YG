@@ -69,6 +69,9 @@ public class ApplicationController extends Application{
     private ArrayList<UserAllSingerData> userAllSingerDatas;
 
     private ArrayList<UserDataSumm> userDataSumms;
+
+
+    private ArrayList<UserDataSumm> preUserDataSumms;
     private int most;
 
 //    public Uri getProfile_uri() {
@@ -196,5 +199,14 @@ public class ApplicationController extends Application{
     public void setFromHome(boolean fromHome) {
         this.fromHome = fromHome;
     }
+
+    public ArrayList<UserDataSumm> getPreUserDataSumms() {
+        return preUserDataSumms;
+    }
+
+    public void setPreUserDataSumms(ArrayList<UserDataSumm> preUserDataSumms) {
+        this.preUserDataSumms = preUserDataSumms;
+    }
+
 
 }
