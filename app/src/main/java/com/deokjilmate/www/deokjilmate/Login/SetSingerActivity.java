@@ -94,6 +94,7 @@ public class SetSingerActivity extends AppCompatActivity {
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private ArrayList<UserDataSumm> userDataSumms;
+    private ArrayList<UserDataSumm> preUserDataSumms;
 
 
     @Override
@@ -405,6 +406,7 @@ public class SetSingerActivity extends AppCompatActivity {
 
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
         userDataSumms = new ArrayList<UserDataSumm>();
+        preUserDataSumms = new ArrayList<UserDataSumm>();
 
         final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(SetSingerActivity.this));
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
@@ -429,7 +431,9 @@ public class SetSingerActivity extends AppCompatActivity {
                                 userAllSingerDatas.get(i).getSinger_img()));
                     }
                     Log.v("MyPage", "이제 어댑터로");
+                    preUserDataSumms.addAll(userDataSumms);
                     ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+                    ApplicationController.getInstance().setPreUserDataSumms(preUserDataSumms);
 
                     if(userDataSumms.size() == userAllSingerDatas.size()){
 

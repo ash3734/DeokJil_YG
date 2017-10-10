@@ -13,6 +13,10 @@ public class UserAllSingerData {
     String album_img;
     int choice_count;
     String new_flag;
+
+
+  //  ArrayList<Integer> alarm_array;
+
     public String getSinger_name() {
         return singer_name;
     }
@@ -44,4 +48,9 @@ public class UserAllSingerData {
     public String getNew_flag() {
         return new_flag;
     }
+
+//    public ArrayList<Integer> getAlarm_array() {
+//        return alarm_array;
+//    }
+
 }

@@ -189,11 +189,7 @@ public class MyPageActivity extends AppCompatActivity {
                     ApplicationController.getInstance().setUserAllSingerDatas(userAllSingerDatas);
                     Log.v("MyPage", userAllSingerDatas.get(0).getSinger_name());
                     Log.v("MyPage", "전체 = " + String.valueOf(userAllSingerDatas.size()));
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                     for(int i = 0; i<userAllSingerDatas.size(); i++)
                     {
                         if(i==0 && userAllSingerDatas.get(0)!=null)
@@ -245,6 +241,7 @@ public class MyPageActivity extends AppCompatActivity {
         ApplicationController.getInstance().setFromHome(false);
         Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void setLayoutSize(){
@@ -256,8 +253,8 @@ public class MyPageActivity extends AppCompatActivity {
 
     @OnClick(R.id.MyPage_profileImage)
     public void reset(){
-        finish();
-        startActivity(getIntent());
+//        finish();
+//        startActivity(getIntent());
     }
 
     @Override
@@ -268,10 +265,12 @@ public class MyPageActivity extends AppCompatActivity {
     public void init(){
         Uri data;
         data = Uri.parse(SharedPrefrernceController.getUserImage(this));
-        Glide.with(profileImage.getContext())
-                .load(data)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .into(profileImage);
+        if(!data.toString().equals("")) {
+            Glide.with(profileImage.getContext())
+                    .load(data)
+                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                    .into(profileImage);
+        }
 
         String nickname;
         nickname = SharedPrefrernceController.getUserNickname(this);
@@ -282,6 +281,15 @@ public class MyPageActivity extends AppCompatActivity {
     public void toEditProfile(){
         Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public int myRank(){
@@ -291,10 +299,8 @@ public class MyPageActivity extends AppCompatActivity {
             return R.drawable.badge_newbie;
         } else if(totalVote>=100 && totalVote<500){
             return R.drawable.badge_ilco;
-
         } else if(totalVote>=500 && totalVote <1000){
             return R.drawable.badge_duckwho;
-
         } else{
             return R.drawable.badge_sungduck;
         }

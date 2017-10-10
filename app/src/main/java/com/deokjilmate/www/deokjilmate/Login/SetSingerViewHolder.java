@@ -3,6 +3,7 @@ package com.deokjilmate.www.deokjilmate.Login;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deokjilmate.www.deokjilmate.R;
@@ -16,10 +17,12 @@ public class SetSingerViewHolder extends RecyclerView.ViewHolder{
     ImageView singer_image;
     TextView singer_name;
     ImageView singer_most;
+    LinearLayout singer_list;
     public SetSingerViewHolder(View itemView) {
         super(itemView);
         singer_image = (ImageView)itemView.findViewById(R.id.SetSingerRecycle_singerImg);
         singer_name = (TextView)itemView.findViewById(R.id.SetSingerRecycle_singerName);
         singer_most = (ImageView)itemView.findViewById(R.id.SetSingerRecycle_most);
+        singer_list = (LinearLayout)itemView.findViewById(R.id.SetSingerRecycle_list);
     }
 }
