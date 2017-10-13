@@ -8,11 +8,30 @@
     tools:context="com.deokjilmate.www.deokjilmate.alarm.AlarmActivity">
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/maingradation"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@color/tw__transparent"
+            android:id="@+id/alarm_backImage"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffff"
+            android:includeFontPadding="false"
+            android:text="투표 알림"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-
 
         <TextView
             android:layout_width="80dp"

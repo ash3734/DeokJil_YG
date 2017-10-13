@@ -20,6 +20,7 @@ import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
+import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
@@ -153,9 +154,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     } else {
                         SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
-                        //Toast.makeText(EditProfileActivity.this, "변경 되었습니다", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-
                 }
 
                 @Override
@@ -164,7 +166,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             });
         }
-        Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_LONG).show();
+
+        Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.EditProfile_backImage)

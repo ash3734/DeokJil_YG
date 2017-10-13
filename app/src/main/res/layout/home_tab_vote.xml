@@ -13,7 +13,6 @@
 
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="240dp">
             <ImageView
@@ -34,7 +33,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="18dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/badge_muggle" />
 
@@ -46,6 +45,7 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@id/home_fragment_imageview_bage"
+                android:includeFontPadding="false"
                 android:text="투 | "
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
@@ -59,19 +59,20 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginRight="16dp"
                 android:text="팬 | "
+                android:includeFontPadding="false"
                 android:textColor="#ffffff"
                 android:textSize="14sp" />
         </RelativeLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="216dp"
-            android:orientation="vertical">
+            android:layout_height="216dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:id="@+id/home_fragment_pre_text">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -103,10 +104,10 @@
                 android:id="@+id/home_fragment_recyclerview_prevote"
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
-                android:layout_centerInParent="true"
                 android:layout_marginBottom="16dp"
+                android:layout_below="@+id/home_fragment_pre_text"
                 android:layout_marginLeft="16dp"></android.support.v7.widget.RecyclerView>
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -139,7 +140,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
               
                 <TextView
                     android:id="@+id/home_fragment_textview_no_cur"

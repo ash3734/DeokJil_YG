@@ -48,11 +48,22 @@ public class RankFragment extends Fragment {
         rankDatas = new ArrayList<RankData>();
         boolean flag=false;
 
-        if (!mainResult.chart_data.melonchart.isEmpty()) {
+        if (mainResult.chart_data.melonchart.get(0).idx!=-1) {
             if (mainResult.chart_data.melonchart.get(0).is_up == 1)
                 flag = true;
             rankDatas.add(new RankData("멜론", mainResult.chart_data.melonchart.get(0).idx, flag));
         }
+        if(mainResult.chart_data.geniechart.get(0).idx!=-1){
+            if(mainResult.chart_data.geniechart.get(0).is_up==1)
+                flag = true;
+            rankDatas.add(new RankData("지니", mainResult.chart_data.geniechart.get(0).idx, flag));
+        }
+        if(mainResult.chart_data.soribadachart.get(0).idx!=-1){
+            if(mainResult.chart_data.soribadachart.get(0).is_up==1)
+                flag = true;
+            rankDatas.add(new RankData("지니", mainResult.chart_data.soribadachart.get(0).idx, flag));
+        }
+
             recyclerView.setHasFixedSize(true);
             linearLayoutManager = new LinearLayoutManager(getActivity());
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

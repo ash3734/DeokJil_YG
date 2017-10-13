@@ -199,6 +199,7 @@ public class EditSingerActivity extends AppCompatActivity {
                         Log.v("추가", "성공");
                         count++;
                         if(count == userDataSumms.size()){
+                            SharedPrefrernceController.setAlarm(EditSingerActivity.this, true);
                             ApplicationController.getInstance().setPreUserDataSumms(userDataSumms);
                             Toast.makeText(getApplicationContext(), "수정 완료.", Toast.LENGTH_SHORT).show();
                             setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));

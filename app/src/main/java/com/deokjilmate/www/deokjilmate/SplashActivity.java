@@ -124,7 +124,7 @@ public class SplashActivity extends AppCompatActivity {
             setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
                     SharedPrefrernceController.getMost(SplashActivity.this));
 
-            //startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+            //startActivity(new Intent(getApplicationContext(), AlarmActivity.class));
 
         }
     }
