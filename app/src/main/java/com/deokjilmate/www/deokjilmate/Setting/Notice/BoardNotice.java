@@ -7,5 +7,7 @@ import java.util.ArrayList;
  */
 
 public class BoardNotice {
-    public ArrayList<BoardNoticeData> result;
+    public boolean result;
+    public String msg;
+    public ArrayList<BoardNoticeData> data;
 }

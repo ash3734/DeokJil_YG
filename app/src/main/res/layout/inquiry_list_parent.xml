@@ -17,15 +17,12 @@
         android:orientation="horizontal"
         >
 
-
         <TextView
             android:id="@+id/inquiry_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textColor="#5D5F5E"/>
-
-
 
         <TextView
             android:id="@+id/inquiry_time"
@@ -35,6 +32,13 @@
             android:text="2017/07/19"
             android:textSize="15dp"
             />
+
+        <ImageView
+            android:id="@+id/inquiry_gather"
+            android:src="@drawable/gather_fold"
+            android:layout_marginLeft="200dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 

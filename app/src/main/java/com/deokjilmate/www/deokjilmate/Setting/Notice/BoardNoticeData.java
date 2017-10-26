@@ -8,12 +8,10 @@ public class BoardNoticeData {
     public int notice_id;
     public String notice_title;
     public String notice_main;
-    public String notice_time;
 
-    public BoardNoticeData(int notice_id, String notice_title, String notice_main, String notice_time) {
+    public BoardNoticeData(int notice_id, String notice_title, String notice_main) {
         this.notice_id = notice_id;
         this.notice_title = notice_title;
         this.notice_main = notice_main;
-        this.notice_time = notice_time;
     }
 }
