@@ -153,7 +153,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
                 // AlertDialog 셋팅
                 alertDialogBuilder
-                        .setMessage("어쩌고 저쩌고")
+                        .setMessage("오늘의 알림입니다.")
                         .setCancelable(false)
                         .setNeutralButton("확인",
                                 new DialogInterface.OnClickListener() {

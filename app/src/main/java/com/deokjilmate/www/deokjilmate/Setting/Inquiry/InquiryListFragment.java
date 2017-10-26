@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,9 +128,12 @@ public class InquiryListFragment extends Fragment {
         private List<String> _listDataHeader; // header titles
         // child data in format of header title, child title
         private HashMap<String, List<String>> _listDataChild;
+        private LayoutInflater inflater = null;
+
 
         public ExpandableListAdapter(Activity context, List<String> listDataHeader,
                                      HashMap<String, List<String>> listChildData) {
+            this.inflater = LayoutInflater.from(context);
             this._context = context;
             this._listDataHeader = listDataHeader;
             this._listDataChild = listChildData;
@@ -171,9 +175,7 @@ public class InquiryListFragment extends Fragment {
                 }
             }
 
-//            TextView inquiry_answer_content = (TextView) convertView.findViewById(R.id.inquiry_answer_content);
-//
-//            inquiry_answer_content.setText(childText);
+
             return convertView;
         }
 
@@ -201,7 +203,9 @@ public class InquiryListFragment extends Fragment {
         @Override
         public View getGroupView(int groupPosition, boolean isExpanded,
                                  View convertView, ViewGroup parent) {
+            View v = inflater.inflate(R.layout.inquiry_list_parent, parent, false);
             String headerTitle = (String) getGroup(groupPosition);
+            ImageView inquiryArrow = (ImageView)v.findViewById(R.id.inquiry_gather);
             if (convertView == null) {
 
                 Log.d("ming!~~~~~~~~!", String.valueOf(groupPosition));
@@ -221,9 +225,12 @@ public class InquiryListFragment extends Fragment {
                 }
             }
 
-//            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-//            lblListHeader.setTypeface(null, Typeface.BOLD);
-//            lblListHeader.setText(headerTitle);
+
+            if(isExpanded){
+                inquiryArrow.setImageResource(R.drawable.gather_spread);
+            }else{
+                inquiryArrow.setImageResource(R.drawable.gather_fold);
+            }
 
             return convertView;
         }

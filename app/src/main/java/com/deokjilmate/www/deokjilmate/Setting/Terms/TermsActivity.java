@@ -1,8 +1,11 @@
 package com.deokjilmate.www.deokjilmate.Setting.Terms;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 
 import com.deokjilmate.www.deokjilmate.R;
@@ -33,6 +36,16 @@ public class TermsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terms_activity);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+
+        }
 
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
