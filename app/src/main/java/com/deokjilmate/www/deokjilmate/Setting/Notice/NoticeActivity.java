@@ -30,7 +30,6 @@ public class NoticeActivity extends AppCompatActivity {
     private ExpandableListView mListView;
 
     private NoticeAdapter mBaseExpandableAdapter;
-    int i=0;
     int size;
     Context c = this;
 
@@ -51,17 +50,11 @@ public class NoticeActivity extends AppCompatActivity {
         }
 
         service = ApplicationController.getInstance().getNetworkService();
-
-
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
-
-
-
-
 
         Call<BoardNotice> getNotice = service.getNotice();
         getNotice.enqueue(new Callback<BoardNotice>() {
@@ -72,13 +65,13 @@ public class NoticeActivity extends AppCompatActivity {
                     size = 0;
                     Log.d("밍구밍구","여기들어오나?");
                     for(BoardNoticeData notice : response.body().data){
-                        mGroupList.add(notice.notice_title);
+                        mGroupList.add(notice.title);
 
-                        Log.d("밍구",notice.notice_title);
+                        Log.d("밍구",notice.title);
 
-                        mChildListContent.add(size,notice.notice_main);
+                        mChildListContent.add(size,notice.main);
 
-                        Log.d("밍구",notice.notice_main);
+                        Log.d("밍구",notice.main);
 
                         mChildList.add(size,mChildListContent);
                         size++;
@@ -86,7 +79,7 @@ public class NoticeActivity extends AppCompatActivity {
                     mBaseExpandableAdapter = new NoticeAdapter(c,mGroupList,mChildList);
                     mListView.setAdapter(mBaseExpandableAdapter);
 
-                    Toast.makeText(getApplicationContext(),"성공~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"성공", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -94,9 +87,9 @@ public class NoticeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BoardNotice> call, Throwable t) {
-                Log.d("밍구밍구","여기 실패로 들어오나?");
-                Log.d("밍구밍구",t.getMessage());
-                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.d("밍구밍구","여기 실패로 들어오나?");
+//                Log.d("밍구밍구",t.getMessage());
+//                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -149,18 +142,5 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
-     * Layout
-
-    private ExpandableListView mListView;
-
-    private void setLayout(){
-        mListView = (ExpandableListView) findViewById(R.id.elv_list);
-    }
-
-    */
-
-
 
 }
