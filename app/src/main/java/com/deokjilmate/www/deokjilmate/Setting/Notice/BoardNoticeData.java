@@ -5,13 +5,13 @@ package com.deokjilmate.www.deokjilmate.Setting.Notice;
  */
 
 public class BoardNoticeData {
-    public int notice_id;
-    public String notice_title;
-    public String notice_main;
+    public int id;
+    public String title;
+    public String main;
 
-    public BoardNoticeData(int notice_id, String notice_title, String notice_main) {
-        this.notice_id = notice_id;
-        this.notice_title = notice_title;
-        this.notice_main = notice_main;
+    public BoardNoticeData(int id, String title, String main) {
+        this.id = id;
+        this.title = title;
+        this.main = main;
     }
 }
