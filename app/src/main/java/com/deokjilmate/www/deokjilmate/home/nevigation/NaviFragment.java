@@ -322,7 +322,6 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SettingActivity.class));
-                getActivity().finish();
 
             }
         });
@@ -331,7 +330,6 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AlarmActivity.class));
-                getActivity().finish();
 
             }
         });
