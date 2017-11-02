@@ -129,6 +129,7 @@ public class PageFragment extends Fragment {
         button = (Button)rootView.findViewById(R.id.dialog_button_govote);
         imageView = (ImageView)rootView.findViewById(R.id.dialog_imageview);
 
+
         /*imageView = (ImageView) rootView.findViewById(R.id.dialog_imageview);
         textViewProgramName = (TextView) rootView.findViewById(R.id.dialog_textview_program);
         textViewPeriod = (TextView) rootView.findViewById(R.id.dialog_textview_week);
