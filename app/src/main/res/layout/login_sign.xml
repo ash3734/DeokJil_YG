@@ -36,6 +36,7 @@
             android:layout_centerInParent="true"
             android:includeFontPadding="false"
             android:textColor="#ffffff"
+            android:textSize="20dp"
             android:text="회원가입"/>
 
     </RelativeLayout>
@@ -253,6 +254,9 @@
             android:background="@drawable/sing_login_check_button"
             android:id="@+id/Sign_next"
             android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textAlignment="center"
             android:text="다음 단계로" />
     </RelativeLayout>
         </LinearLayout>
