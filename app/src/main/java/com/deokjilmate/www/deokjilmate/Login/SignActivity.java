@@ -14,11 +14,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.ResourcesUtil;
+import com.deokjilmate.www.deokjilmate.Setting.Terms.TermsActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -86,6 +88,12 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @BindView(R.id.Sign_agree)
     CheckBox agree;
+
+    @BindView(R.id.Sign_provision)
+    TextView provision;
+
+    @BindView(R.id.Sign_privacy)
+    TextView privacy;
 
     private String t_email;
     private String t_pwd;
@@ -357,6 +365,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     intent.putExtra("notSns", true);
                     intent.putExtra("member_passwd", pwd);
                     intent.putExtra("type", 1);
+                    progressDialog.dismiss();
                     startActivity(intent);
                 } else {
                     // If sign in fails, display a message to the user.
@@ -398,6 +407,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
                         intent.putExtra("type", 4);
+                        progressDialog.dismiss();
                         startActivity(intent);
                     }
                 });
@@ -426,6 +436,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             intent.putExtra("uid", user.getUid());
                             intent.putExtra("notSns", false);
                             intent.putExtra("type", 2);
+                            progressDialog.dismiss();
                             startActivity(intent);
 
                             //updateUI(user);
@@ -474,6 +485,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         intent.putExtra("uid", user.getUid());
                         intent.putExtra("notSns", false);
                         intent.putExtra("type", 3);
+                        progressDialog.dismiss();
                         startActivity(intent);
                         //이걸 보내면 됨.
                         //credential.getProvider()
@@ -514,5 +526,17 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
+    }
+
+    @OnClick(R.id.Sign_provision)
+    public void clickProvision(){
+        Intent intent = new Intent(getApplicationContext(), TermsActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.Sign_privacy)
+    public void clickPrivacy(){
+        Intent intent = new Intent(getApplicationContext(), TermsActivity.class);
+        startActivity(intent);
     }
 }

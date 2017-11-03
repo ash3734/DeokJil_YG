@@ -19,6 +19,8 @@ import com.deokjilmate.www.deokjilmate.home.MainResult;
 
 import java.util.ArrayList;
 
+import static android.media.CamcorderProfile.get;
+
 /**
  * Created by ash on 2017-02-06.
  * 홈화면 두번재 탭 가수 랭크 현황을 표시하기로 한다.
@@ -47,19 +49,47 @@ public class RankFragment extends Fragment {
         Glide.with(this).load(mainResult.vote_data.singer_img).into(imageViewSinger);*/
         rankDatas = new ArrayList<RankData>();
         boolean flag=false;
-        if(mainResult.chart_data.melonchart.get(0).is_up==1)
-            flag=true;
-        rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
-        if(mainResult.chart_data.geniechart.get(0).is_up==1)
-            flag=true;
-        rankDatas.add(new RankData("지니",mainResult.chart_data.geniechart.get(0).idx,flag));
+        if(!mainResult.chart_data.melonchart.equals(null)){
+            if(mainResult.chart_data.melonchart.get(0).is_up.equals("1"))
+                flag=true;
+            rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
+            flag=false;
+        }
 
-        recyclerView.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        rankAdapter = new RankAdapter(rankDatas,mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
-        recyclerView.setAdapter(rankAdapter);
+        //// TODO: 2017-09-28 지니 확인좀 해주세요 
+   /*     if(!mainResult.chart_data.geniechart.equals(null)){
+            if(mainResult.chart_data.geniechart.get(0).is_up.equals("1"))
+                flag=true;
+            rankDatas.add(new RankData("지니",mainResult.chart_data.geniechart.get(0).idx,flag));
+            flag=false;
+        }
+*/
+        if(!mainResult.chart_data.soribadachart.equals(null)){
+            if(mainResult.chart_data.soribadachart.get(0).is_up.equals("1"))
+                flag=true;
+            rankDatas.add(new RankData("소리바다",mainResult.chart_data.soribadachart.get(0).idx,flag));
+        }
+
+
+            recyclerView.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            rankAdapter = new RankAdapter(rankDatas, mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
+            recyclerView.setAdapter(rankAdapter);
+
+// =======
+//         if(mainResult.chart_data.melonchart.get(0).is_up==1)
+//             flag=true;
+//         rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
+
+//         recyclerView.setHasFixedSize(true);
+//         linearLayoutManager = new LinearLayoutManager(getActivity());
+//         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//         recyclerView.setLayoutManager(linearLayoutManager);
+//         rankAdapter = new RankAdapter(rankDatas,mGlideRequestManager);//클릭이벤트, 글라이드도 넣자
+//         recyclerView.setAdapter(rankAdapter);
+// >>>>>>> master
     }
 
     @Override

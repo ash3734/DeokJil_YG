@@ -88,7 +88,6 @@ public class AddSingerActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
             //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
             //window.setBackgroundDrawable(background);
-
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mypage_add_singer);
@@ -168,6 +167,7 @@ public class AddSingerActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.MyPage_AddSinger_clear)
@@ -185,6 +185,7 @@ public class AddSingerActivity extends AppCompatActivity {
         //super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), EditSingerActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

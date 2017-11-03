@@ -83,10 +83,12 @@ public class EditProfileActivity extends AppCompatActivity {
     public void init(){
         Uri data;
         data = Uri.parse(SharedPrefrernceController.getUserImage(this));
-        Glide.with(editP_profileImage.getContext())
-                .load(data)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .into(editP_profileImage);
+        if(!data.toString().equals("")) {
+            Glide.with(editP_profileImage.getContext())
+                    .load(data)
+                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                    .into(editP_profileImage);
+        }
 
         //String nickname;
         nickname = SharedPrefrernceController.getUserNickname(this);
@@ -147,7 +149,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 public void onResponse(Call<SetProfileResult> call, Response<SetProfileResult> response) {
                     if (!response.body().result) {
                         //이건 중복 되었다는 이야기
-                        Toast.makeText(EditProfileActivity.this, "존재하는 닉네임입니다", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditProfileActivity.this, "존재하는 닉네임입니다.", Toast.LENGTH_LONG).show();
 
                     } else {
                         SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
@@ -162,7 +164,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             });
         }
-        Toast.makeText(EditProfileActivity.this, "변경 되었습니다", Toast.LENGTH_LONG).show();
+        Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.EditProfile_backImage)

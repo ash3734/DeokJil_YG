@@ -179,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void toMyPage(){
         Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
-

@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private String firebaseToken;
     private ArrayList<UserDataSumm> userDataSumms;
-
+    private ArrayList<UserDataSumm> preUserDataSumms;
 
     @BindView(R.id.splash_gasa)
     TextView textViewGasa;
@@ -48,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -167,6 +168,7 @@ public class SplashActivity extends AppCompatActivity {
 
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
         userDataSumms = new ArrayList<UserDataSumm>();
+        preUserDataSumms = new ArrayList<UserDataSumm>();
 
         final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(SplashActivity.this));
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
@@ -192,7 +194,9 @@ public class SplashActivity extends AppCompatActivity {
                                 userAllSingerDatas.get(i).getSinger_img()));
                     }
                     Log.v("MyPage", "이제 어댑터로");
+                    preUserDataSumms.addAll(userDataSumms);
                     ApplicationController.getInstance().setUserDataSumms(userDataSumms);
+                    ApplicationController.getInstance().setPreUserDataSumms(preUserDataSumms);
 
                     if(userDataSumms.size() == userAllSingerDatas.size()){
                         Handler handler = new Handler();

@@ -12,4 +12,5 @@ public class RankNetworkData {
     public String album_img;
     public ArrayList<RankListNetworkData> melonchart;
     public ArrayList<RankListNetworkData> geniechart;
+    public ArrayList<RankListNetworkData> soribadachart;
 }
