@@ -346,14 +346,19 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                         Log.d("firebase", firebaseToken);
                         todayAlarmState = response.body().data.today_alarm;
 
-                        if (todayAlarmState.equals("1")) todaySwitch.setChecked(true);
-                        else todaySwitch.setChecked(false);
+                        if (todayAlarmState!=null) {
+                            if (todayAlarmState.equals("1"))
+                                todaySwitch.setChecked(true);
+                            else todaySwitch.setChecked(false);
+                        }
 
                         for (flagCount = 0; flagCount < mGroupList.size(); flagCount++) {
                             switch (flagCount) {
                                 case 0: // zero_flag
                                     mChildListContent = new ArrayList<ChildListContent>();
-                                    if(response.body().data.zero_flag.isEmpty()){
+                                    if(response.body().data.zero_flag==null){
+                                            mChildListContent.add(new ChildListContent("출연 방송이 없습니다", false));
+                                    }else if(response.body().data.zero_flag.isEmpty()){
                                         mChildListContent.add(new ChildListContent("출연 방송이 없습니다", false));
                                     }
                                     else {
@@ -377,7 +382,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
                                 case 1: // one_flag
                                     mChildListContent2 = new ArrayList<ChildListContent>();
-                                    if(response.body().data.one_flag.isEmpty()){
+                                    if(response.body().data.one_flag==null){
+                                        mChildListContent2.add(new ChildListContent("출연 방송이 없습니다", false));
+                                    }else if(response.body().data.one_flag.isEmpty()){
                                         mChildListContent2.add(new ChildListContent("출연 방송이 없습니다", false));
                                     }
                                     else {
@@ -401,7 +408,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
                                 case 2: // two_flag
                                     mChildListContent3 = new ArrayList<ChildListContent>();
-                                    if(response.body().data.two_flag.isEmpty()){
+                                    if(response.body().data.two_flag==null){
+                                        mChildListContent3.add(new ChildListContent("출연 방송이 없습니다", false));
+                                    }else if(response.body().data.two_flag.isEmpty()){
                                         mChildListContent3.add(new ChildListContent("출연 방송이 없습니다", false));
                                     }
                                     else {
@@ -425,7 +434,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
                                 case 3: // three_flag
                                     mChildListContent4 = new ArrayList<ChildListContent>();
-                                    if(response.body().data.three_flag.isEmpty()){
+                                    if(response.body().data.three_flag==null){
+                                        mChildListContent4.add(new ChildListContent("출연 방송이 없습니다", false));
+                                    }else if(response.body().data.three_flag.isEmpty()){
                                         mChildListContent4.add(new ChildListContent("출연 방송이 없습니다", false));
                                     }
                                     else {
@@ -451,6 +462,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                     break;
                             }
                         }
+
                         mBaseExpandableAdapter = new AlarmAdapter(c, mGroupList, mChildList, v);
                         mListView.setAdapter(mBaseExpandableAdapter);
 
@@ -803,16 +815,20 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
     public String arrayToString(ArrayList<Integer> array){
         String returnString = "";
-        if(array.isEmpty())
+        if(array == null)
             returnString = "";
-        else{
-            returnString = "[";
-            for(int i = 0; i<array.size(); i++){
-                returnString+=array.get(i).toString();
-                if(i<(array.size()-1))
-                    returnString+=",";
+        else {
+            if (array.isEmpty())
+                returnString = "";
+            else {
+                returnString = "[";
+                for (int i = 0; i < array.size(); i++) {
+                    returnString += array.get(i).toString();
+                    if (i < (array.size() - 1))
+                        returnString += ",";
+                }
+                returnString += "]";
             }
-            returnString+="]";
         }
         return returnString;
     }

@@ -75,6 +75,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.edit_profile);
         ButterKnife.bind(this);
         networkService = ApplicationController.getInstance().getNetworkService();
+        data = Uri.parse(SharedPrefrernceController.getUserImage(EditProfileActivity.this));
         Glide.with(this).load(R.drawable.profile_default).into(editP_profileImage);
 
         init();
