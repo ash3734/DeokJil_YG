@@ -140,6 +140,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
                         userDataSumms.add(tempUserData);
+                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
 
                         notifyDataSetChanged();
@@ -162,6 +163,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
                         userDataSumms.get(0).setSinger_img("");
                         userDataSumms.get(0).setSinger_name("");
 
+                        ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
                         editSingerHeadItemData.singer_Name = "";
                         editSingerHeadItemData.singer_Image = "";
@@ -240,6 +242,7 @@ public class EditSingerAdpater extends RecyclerView.Adapter<RecyclerView.ViewHol
             userDataSumms.set(0, userDataSumms.get(selectedSubPos+1));
             userDataSumms.set(selectedSubPos+1, tempUserDataSumm);
             userDataSumms.remove(selectedSubPos+1);
+            ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
             //editSingerItemDatas.get(selectedSubPos).singer_Name = userDataSumms.get(selectedSubPos+1).getSinger_name();
             editSingerHeadItemData.singer_Name = userDataSumms.get(0).getSinger_name();

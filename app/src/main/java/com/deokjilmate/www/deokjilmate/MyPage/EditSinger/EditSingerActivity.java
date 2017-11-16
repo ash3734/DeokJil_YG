@@ -75,6 +75,7 @@ public class EditSingerActivity extends AppCompatActivity {
 
     private ArrayList<UserAllSingerData> userAllSingerDatas;
     private ArrayList<UserDataSumm> userDataSumms;
+    private ArrayList<UserDataSumm> preUserDataSumms;
     private String firebaseToken;
     private int baseTotal;
     private int count;
@@ -118,9 +119,11 @@ public class EditSingerActivity extends AppCompatActivity {
         //userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
         userAllSingerDatas = new ArrayList<UserAllSingerData>();
         userDataSumms = new ArrayList<UserDataSumm>();
+        preUserDataSumms = new ArrayList<UserDataSumm>();
 
         userAllSingerDatas = ApplicationController.getInstance().getUserAllSingerDatas();
         userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+        preUserDataSumms = ApplicationController.getInstance().getPreUserDataSumms();
         //firebaseToken = ApplicationController.getInstance().getFirebaseToken();
         firebaseToken = SharedPrefrernceController.getFirebaseToken(EditSingerActivity.this);
 
@@ -133,10 +136,10 @@ public class EditSingerActivity extends AppCompatActivity {
     }
 
     public void deleteLists(){
-            final ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
+            final ArrayList<UserDataSumm> tempUserDataSumms = ApplicationController.getInstance().getUserDataSumms();
             Log.v("토큰", firebaseToken);
-            Log.v("전체 길이", String.valueOf(userDataSumms.size()));
-            final int listLength = userDataSumms.size();
+            Log.v("전체 길이", String.valueOf(tempUserDataSumms.size()));
+            final int listLength = tempUserDataSumms.size();
             baseTotal = 3;
             count = 0;
             if(listLength<4) {
@@ -186,23 +189,27 @@ public class EditSingerActivity extends AppCompatActivity {
 
     public void addLists(){
         count = 0;
-        final ArrayList<UserDataSumm> userDataSumms = ApplicationController.getInstance().getUserDataSumms();
-        for(int i = 0; i<userDataSumms.size(); i++)
+        final ArrayList<UserDataSumm> userDataSummsTemp = ApplicationController.getInstance().getUserDataSumms();
+        for(int i = 0; i<userDataSummsTemp.size(); i++)
         {
             Call<SingerAddResponse> addSinger = networkService.addSinger(new SingerAddPost(i,
-                    userDataSumms.get(i).getSinger_id(), firebaseToken));
-            Log.v(String.valueOf(i)+"번째", String.valueOf(userDataSumms.get(i).getSinger_id()));
+                    userDataSummsTemp.get(i).getSinger_id(), firebaseToken));
+            Log.v(String.valueOf(i)+"번째", String.valueOf(userDataSummsTemp.get(i).getSinger_id()));
             addSinger.enqueue(new Callback<SingerAddResponse>() {
                 @Override
                 public void onResponse(Call<SingerAddResponse> call, Response<SingerAddResponse> response) {
                     if (response.body().result) {
                         Log.v("추가", "성공");
                         count++;
-                        if(count == userDataSumms.size()){
+                        if(count == userDataSummsTemp.size()){
                             SharedPrefrernceController.setAlarm(EditSingerActivity.this, true);
-                            ApplicationController.getInstance().setPreUserDataSumms(userDataSumms);
+                            preUserDataSumms.addAll(userDataSummsTemp);
+                            Log.v("유저3", preUserDataSumms.get(0).getSinger_name());
+                            ApplicationController.getInstance().setPreUserDataSumms(preUserDataSumms);
                             Toast.makeText(getApplicationContext(), "수정 완료.", Toast.LENGTH_SHORT).show();
-                            setHomeData(firebaseToken, SharedPrefrernceController.getSelected(EditSingerActivity.this));
+                            SharedPrefrernceController.setMost(EditSingerActivity.this, userDataSummsTemp.get(0).getSinger_id());
+                            SharedPrefrernceController.setSelected(EditSingerActivity.this, userDataSummsTemp.get(0).getSinger_id());
+                            setHomeData(firebaseToken, userDataSummsTemp.get(0).getSinger_id());
                         }
                         //해당 아이디에 맞는 애를 마이페이지에 추가
                     } else {
@@ -217,19 +224,25 @@ public class EditSingerActivity extends AppCompatActivity {
         }
     }
 
-
-
     @OnClick(R.id.MyPage_EditSinger_backImage)
     public void clickBack()
     {
-        if(userDataSumms.get(0).getSinger_name().equals("")){
+        ArrayList<UserDataSumm> userDataSummsTemp;
+        userDataSummsTemp = new ArrayList<UserDataSumm>();
+        userDataSummsTemp.addAll(ApplicationController.getInstance().getUserDataSumms());
+
+
+
+        if(userDataSummsTemp.get(0).getSinger_name().equals("")){
             Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요.", Toast.LENGTH_LONG).show();
         }else if(checkArrayEqual()){
             if(ApplicationController.getInstance().isFromHome()) {
+                Log.v(TAG, "home");
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
             }else{
+                Log.v(TAG, "my");
                 Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                 startActivity(intent);
                 finish();
@@ -237,12 +250,11 @@ public class EditSingerActivity extends AppCompatActivity {
         }else{
             deleteLists();
         }
-
     }
 
     private View.OnClickListener leftListener = new View.OnClickListener() {
         public void onClick(View v) {
-            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            //startActivity(new Intent(getApplicationContext(), tivity.class));
 
             if(userDataSumms.get(0).getSinger_name().equals("")){
                 Toast.makeText(EditSingerActivity.this, "메인 가수는 반드시 있어야 합니다.", Toast.LENGTH_LONG).show();
@@ -336,7 +348,16 @@ public class EditSingerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(userDataSumms.get(0).getSinger_name().equals("")){
+        ArrayList<UserDataSumm> userDataSummsTemp;
+        userDataSummsTemp = new ArrayList<UserDataSumm>();
+        userDataSummsTemp.addAll(ApplicationController.getInstance().getUserDataSumms());
+
+
+
+        Log.v("유저", userDataSumms.get(0).getSinger_name());
+        Log.v("프리유저", ApplicationController.getInstance().getPreUserDataSumms().get(0).getSinger_name());
+
+        if(userDataSummsTemp.get(0).getSinger_name().equals("")){
             Toast.makeText(EditSingerActivity.this, "한 명의 메인 가수를 설정해주세요.", Toast.LENGTH_LONG).show();
         }else if(checkArrayEqual()){
             if(ApplicationController.getInstance().isFromHome()) {
@@ -381,18 +402,22 @@ public class EditSingerActivity extends AppCompatActivity {
     }
 
     public boolean checkArrayEqual(){
-        ArrayList<UserDataSumm> userDataSummsTemp = ApplicationController.getInstance().getUserDataSumms();
-        ArrayList<UserDataSumm> preUserDataSummsTemp = ApplicationController.getInstance().getPreUserDataSumms();
+        ArrayList<UserDataSumm> userDataSummsTemp;
+        userDataSummsTemp = new ArrayList<UserDataSumm>();
+        userDataSummsTemp.addAll(ApplicationController.getInstance().getUserDataSumms());
 
-        if(userDataSummsTemp.size()!=preUserDataSummsTemp.size())
+        ArrayList<UserDataSumm> preUserDataSummsTemp = ApplicationController.getInstance().getPreUserDataSumms();
+        Log.v("유저2", userDataSummsTemp.get(0).getSinger_name());
+        Log.v("프리유저2", preUserDataSummsTemp.get(0).getSinger_name());
+
+        if(userDataSummsTemp.size()!=preUserDataSumms.size())
             return false;//길이 다를 땐 일단 false
         else{
             for(int i = 0; i<userDataSummsTemp.size(); i++){
-                if (userDataSummsTemp.get(i).getSinger_id()!= preUserDataSummsTemp.get(i).getSinger_id())
+                if (userDataSummsTemp.get(i).getSinger_id()!= preUserDataSumms.get(i).getSinger_id())
                     return false;
             }
         }
-
         return true;
     }
 }
