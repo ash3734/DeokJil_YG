@@ -62,11 +62,11 @@ public class RankFragment extends Fragment {
         }else{
             rankDatas.add(new RankData("지니", "", 0));
         }
-        if(mainResult.chart_data.soribadachart.get(0).idx!=-1){
-            rankDatas.add(new RankData("소리바다", mainResult.chart_data.soribadachart.get(0).idx+"위",
-                    mainResult.chart_data.soribadachart.get(0).is_up));
+        if(mainResult.chart_data.bugschart.get(0).idx!=-1){
+            rankDatas.add(new RankData("벅스", mainResult.chart_data.bugschart.get(0).idx+"위",
+                    mainResult.chart_data.bugschart.get(0).is_up));
         }else{
-            rankDatas.add(new RankData("소리바다", "", 0));
+            rankDatas.add(new RankData("벅스", "", 0));
         }
         if(mainResult.chart_data.mnetchart.get(0).idx!=-1){
             rankDatas.add(new RankData("엠넷", mainResult.chart_data.mnetchart.get(0).idx+"위",
@@ -74,12 +74,13 @@ public class RankFragment extends Fragment {
         }else{
             rankDatas.add(new RankData("엠넷", "", 0));
         }
-        if(mainResult.chart_data.bugschart.get(0).idx!=-1){
-            rankDatas.add(new RankData("벅스", mainResult.chart_data.bugschart.get(0).idx+"위",
-                    mainResult.chart_data.bugschart.get(0).is_up));
+        if(mainResult.chart_data.soribadachart.get(0).idx!=-1){
+            rankDatas.add(new RankData("소리바다", mainResult.chart_data.soribadachart.get(0).idx+"위",
+                    mainResult.chart_data.soribadachart.get(0).is_up));
         }else{
-            rankDatas.add(new RankData("벅스", "", 0));
+            rankDatas.add(new RankData("소리바다", "", 0));
         }
+
 //        if(mainResult.chart_data.naver.get(0).idx!=-1){
 //            if(mainResult.chart_data.soribadachart.get(0).is_up==1)
 //                flag = true;

@@ -324,7 +324,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
     public void createAcctount(final String email, final String pwd){
-        makeDialog("잠시만 기다려주세요");
+        makeDialog("잠시만 기다려주세요.");
         mfirebaseAuth.createUserWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -337,7 +337,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                             // If sign in fails, display a message to the user.
                             singWithEmailPassword(email, pwd);
                             Log.w(LOG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                            Toast.makeText(SignActivity.this, "존재하는 계정입니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -370,7 +370,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(LOG, "signInWithEmail:failure", task.getException());
-                    Toast.makeText(SignActivity.this, "Authentication failed.",
+                    Toast.makeText(SignActivity.this, "존재하는 계정입니다.",
                             Toast.LENGTH_SHORT).show();
                 }
 
@@ -385,7 +385,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
-        makeDialog("잠시만 기다려주세요");
+        makeDialog("잠시만 기다려주세요.");
         Log.v(LOG, acct.getIdToken().toString());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mfirebaseAuth.signInWithCredential(credential)
@@ -395,7 +395,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                            Toast.makeText(SignActivity.this, "존재하는 계정입니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
                        // makeDialog("처리중입니다.");
@@ -415,7 +415,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void handleFacebookAccessToken(AccessToken token) {
 
-        makeDialog("잠시만 기다려주세요");
+        makeDialog("잠시만 기다려주세요.");
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mfirebaseAuth.signInWithCredential(credential)
@@ -428,8 +428,8 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                            // makeDialog("처리중입니다.");
 
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
-                            Toast.makeText(SignActivity.this, "Authentication suceess.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SignActivity.this, "Authentication suceess.",
+//                                    Toast.LENGTH_SHORT).show();
 
                             Log.v(LOG, user.getUid());
                             Intent intent = new Intent(getApplicationContext(), SetProfileActivity.class);
@@ -443,7 +443,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                            Toast.makeText(SignActivity.this, "존재하는 계정입니다.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
@@ -460,7 +460,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
     private void handleTwitterSession(final TwitterSession session) {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
-        makeDialog("잠시만 기다려주세요");
+        makeDialog("잠시만 기다려주세요.");
         final AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
@@ -471,7 +471,7 @@ public class SignActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignActivity.this, "Authentication failed.",
+                            Toast.makeText(SignActivity.this, "존재하는 계정입니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
