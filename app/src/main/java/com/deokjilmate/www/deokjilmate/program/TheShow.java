@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.program;
 
 import android.content.Context;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.deokjilmate.www.deokjilmate.R;
@@ -17,9 +18,9 @@ public class TheShow implements Program{
     public static final int image = R.drawable.theshow;
 
     @Override
-    public void goVote(Context context, String singerName) {
+    public void goCurVote(Context context, String singerName) {
 
-        String phoneNum = "01030577991";
+        String phoneNum = "01093624553";//#1119
         String message = singerName;
 
         SmsManager smsManager = SmsManager.getDefault();
@@ -30,12 +31,23 @@ public class TheShow implements Program{
     }
 
     @Override
+    public void goPreVote(Context context) {
+        Log.d("ash3734","사전투표 존재하지 않음");
+    }
+
+    @Override
     public int getImage() {
         return image;
     }
 
     @Override
     public String getPreVoteWay() {
+        Log.d("ash3734","사전투표 존재하지 않음");
         return null;
+    }
+
+    @Override
+    public String getCurVoteWay() {
+        return curVoteWay;
     }
 }

@@ -20,8 +20,8 @@ public class MCountDown implements Program{
     public static final String preVoteTime= "매주 금요일 14:00~월요일 09:00";
     public static final int image = R.drawable.mcountdown;
 
-    public void goVote(Context context,String singerName){
-        String phoneNum = "01030577991";
+    public void goCurVote(Context context,String singerName){
+        String phoneNum = "01093624553";//#2336
         String message = singerName;
 
         SmsManager smsManager = SmsManager.getDefault();
@@ -39,6 +39,11 @@ public class MCountDown implements Program{
     @Override
     public String getPreVoteWay() {
         return preVoteWay;
+    }
+
+    @Override
+    public String getCurVoteWay() {
+        return curVoteWay;
     }
 
     public void goPreVote(Context context){

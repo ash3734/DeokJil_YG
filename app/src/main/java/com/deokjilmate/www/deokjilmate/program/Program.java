@@ -7,7 +7,9 @@ import android.content.Context;
  */
 
 public interface Program {
-    public void goVote(Context context, String singerName);
+    public void goCurVote(Context context, String singerName);
+    public void goPreVote(Context context);
     public int getImage();
     public String getPreVoteWay();
+    public String getCurVoteWay();
 }

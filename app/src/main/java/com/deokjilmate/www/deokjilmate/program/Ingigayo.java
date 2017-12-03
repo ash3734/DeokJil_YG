@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.util.Log;
 
 import com.deokjilmate.www.deokjilmate.R;
 
@@ -21,7 +22,13 @@ public class Ingigayo implements Program{
     public static final int image = R.drawable.ingigayo;
     //todo 이지톡 url 찾기
     public static final String melonUrl = "com.iloen.aztalk";
-    public void goVote(Context context,String singerName){
+    @Override
+    public void goCurVote(Context context, String singerName) {
+        Log.d("ash3734","실시간투표 존재하지 않음");
+    }
+
+    @Override
+    public void goPreVote(Context context) {
         if (getPackageList(context)){
             Intent intent = context.getPackageManager().getLaunchIntentForPackage(melonUrl);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -31,7 +38,6 @@ public class Ingigayo implements Program{
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(i);
         }
-
     }
 
     @Override
@@ -42,6 +48,12 @@ public class Ingigayo implements Program{
     @Override
     public String getPreVoteWay() {
         return preVoteWay;
+    }
+
+    @Override
+    public String getCurVoteWay() {
+        Log.d("ash3734","실시간투표 존재하지 않음");
+        return null;
     }
 
     public boolean getPackageList(Context context) {

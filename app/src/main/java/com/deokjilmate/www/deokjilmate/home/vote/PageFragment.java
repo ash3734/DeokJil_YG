@@ -92,7 +92,12 @@ public class PageFragment extends Fragment {
 
         program= ProgramFactory.create(mDatas.get(position).getProgram_name());
         imageView.setImageResource(program.getImage());
-        textViewVoteMethod.setText(program.getPreVoteWay());
+        if(position==mDatas.size()-1) { //실시간 투표
+            textViewVoteMethod.setText(program.getCurVoteWay());
+        } else{ //사전 투표
+            textViewVoteMethod.setText(program.getPreVoteWay());
+        }
+
         //text
 
 
@@ -104,7 +109,13 @@ public class PageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                program.goVote(getContext(), ApplicationController.getInstance().mainResult.vote_data.singer_name);
+
+                if(position==mDatas.size()-1) { //실시간 투표
+                    program.goCurVote(getContext(), ApplicationController.getInstance().mainResult.vote_data.singer_name);
+                } else{ //사전 투표
+                    program.goPreVote(getContext());
+                }
+
                 Log.d("ash3734","govote?");
                 button.setText("투표 완료");
                 try {
@@ -128,52 +139,6 @@ public class PageFragment extends Fragment {
         textViewVoteMethod = (TextView)rootView.findViewById(R.id.dialog_textview_voteway);
         button = (Button)rootView.findViewById(R.id.dialog_button_govote);
         imageView = (ImageView)rootView.findViewById(R.id.dialog_imageview);
-
-        /*imageView = (ImageView) rootView.findViewById(R.id.dialog_imageview);
-        textViewProgramName = (TextView) rootView.findViewById(R.id.dialog_textview_program);
-        textViewPeriod = (TextView) rootView.findViewById(R.id.dialog_textview_week);
-        textViewDDay = (TextView) rootView.findViewById(R.id.dialog_textview_dday);
-        textViewPeriodDetail = (TextView) rootView.findViewById(R.id.dialog_textview_voteday);
-        textViewVoteMethod = (TextView) rootView.findViewById(R.id.dialog_textview_voteway);
-        imageView2 = (ImageView) rootView.findViewById(R.id.dialog_button_govote);
-        *//*
-        options = new BitmapFactory.Options();
-        options.inSampleSize = 3;
-        bitmapImage = BitmapFactory.decodeResource(rootView.getResources(), image, options);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.image);
-        imageView.setImageBitmap(bitmapImage);*//*
-
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                programName = textViewProgramName.getText().toString();
-                Log.v("여기", textViewProgramName.getText().toString());
-                if(programName.equals("인기가요"))
-                {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-3643-9714"));
-                    startActivity(intent);
-                    //전화연결
-                }
-                else if(programName.equals("엠카운트다운"))
-                {
-                    Log.v(programName, programName);
-                    String dialogtitle = "확인을 누르면 문자로 \n 취소를 누르면 링크로 연결됩니다.";
-                    String dialogcontext = " ";
-
-                    customDialogActivity = new CustomDialogActivity(ApplicationController.getInstance().getContext(),
-                            dialogtitle, // 제목
-                            dialogcontext, // 내용
-                            leftListener, // 왼쪽 버튼 이벤트
-                            rightListener); // 오른쪽 버튼 이벤트
-                    customDialogActivity.show();
-                }
-                else
-                {
-                    openApp();
-
-                }
-            }
-        });*/
         return rootView;
     }
 }
