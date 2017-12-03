@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
@@ -59,6 +60,7 @@
         <activity
             android:name=".Login.SignActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             />
 
         <activity
@@ -87,8 +89,8 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".Setting.Inquiry.InquiryActivity"
-            android:screenOrientation="portrait"
-            />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -107,15 +109,19 @@
             />
         <activity android:name=".Setting.Notice.NoticeActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".Setting.Terms.TermsActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".Setting.Break.BreakActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".alarm.AlarmActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
 
         <service android:name=".alarm.MyFirebaseMessagingService">

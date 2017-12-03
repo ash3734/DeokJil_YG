@@ -17,19 +17,19 @@
         android:orientation="horizontal"
         >
 
-
         <TextView
             android:id="@+id/terms_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#DE000000"/>
 
         <ImageView
             android:id="@+id/terms_order_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="180dp"
+            android:layout_marginLeft="330dp"
             />
 
 

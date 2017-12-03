@@ -265,7 +265,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 2;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 2) {
-                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(1).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userDataSumms.get(1).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }
@@ -278,7 +278,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 3;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 3) {
-                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(2).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userDataSumms.get(2).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }
@@ -292,7 +292,7 @@ public class NaviFragment extends Fragment {
             public void onClick(View v) {
                 //ApplicationController.getInstance().singer_id = 4;
                 if (ApplicationController.getInstance().getUserDataSumms().size() >= 4) {
-                    ApplicationController.getInstance().setSinger_id(userAllSingerDatas.get(3).getSinger_id());
+                    ApplicationController.getInstance().setSinger_id(userDataSumms.get(3).getSinger_id());
                     startActivity(new Intent(getActivity(), ProgressDialogActivity.class));
                     getActivity().finish();
                 }
@@ -322,7 +322,6 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SettingActivity.class));
-                getActivity().finish();
 
             }
         });
@@ -331,7 +330,6 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AlarmActivity.class));
-                getActivity().finish();
 
             }
         });

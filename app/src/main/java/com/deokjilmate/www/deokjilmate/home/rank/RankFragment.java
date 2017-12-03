@@ -49,29 +49,48 @@ public class RankFragment extends Fragment {
         Glide.with(this).load(mainResult.vote_data.singer_img).into(imageViewSinger);*/
         rankDatas = new ArrayList<RankData>();
         boolean flag=false;
-        if(!mainResult.chart_data.melonchart.equals(null)){
-            if(mainResult.chart_data.melonchart.get(0).is_up.equals("1"))
-                flag=true;
-            rankDatas.add(new RankData("멜론",mainResult.chart_data.melonchart.get(0).idx,flag));
-            flag=false;
+        if (mainResult.chart_data.melonchart.get(0).idx!=-1) {
+            // if (mainResult.chart_data.melonchart.get(0).is_up == 1)
+            //    flag = true;
+            rankDatas.add(new RankData("멜론", mainResult.chart_data.melonchart.get(0).idx+"위",
+                    mainResult.chart_data.melonchart.get(0).is_up));
+        }else{
+            rankDatas.add(new RankData("멜론", "", 0));
         }
-
-        //// TODO: 2017-09-28 지니 확인좀 해주세요 
-   /*     if(!mainResult.chart_data.geniechart.equals(null)){
-            if(mainResult.chart_data.geniechart.get(0).is_up.equals("1"))
-                flag=true;
-            rankDatas.add(new RankData("지니",mainResult.chart_data.geniechart.get(0).idx,flag));
-            flag=false;
+        if(mainResult.chart_data.geniechart.get(0).idx!=-1){
+            rankDatas.add(new RankData("지니", mainResult.chart_data.geniechart.get(0).idx+"위",
+                    mainResult.chart_data.geniechart.get(0).is_up));
+        }else{
+            rankDatas.add(new RankData("지니", "", 0));
         }
-*/
-        if(!mainResult.chart_data.soribadachart.equals(null)){
-            if(mainResult.chart_data.soribadachart.get(0).is_up.equals("1"))
-                flag=true;
-            rankDatas.add(new RankData("소리바다",mainResult.chart_data.soribadachart.get(0).idx,flag));
+        if(mainResult.chart_data.bugschart.get(0).idx!=-1){
+            rankDatas.add(new RankData("벅스", mainResult.chart_data.bugschart.get(0).idx+"위",
+                    mainResult.chart_data.bugschart.get(0).is_up));
+        }else{
+            rankDatas.add(new RankData("벅스", "", 0));
         }
+        if(mainResult.chart_data.mnetchart.get(0).idx!=-1){
+            rankDatas.add(new RankData("엠넷", mainResult.chart_data.mnetchart.get(0).idx+"위",
+                    mainResult.chart_data.mnetchart.get(0).is_up));
+        }else{
+            rankDatas.add(new RankData("엠넷", "", 0));
+        }
+        if(mainResult.chart_data.soribadachart.get(0).idx!=-1){
+            rankDatas.add(new RankData("소리바다", mainResult.chart_data.soribadachart.get(0).idx+"위",
+                    mainResult.chart_data.soribadachart.get(0).is_up));
+        }else{
+            rankDatas.add(new RankData("소리바다", "", 0));
+        }
+//        if(mainResult.chart_data.naver.get(0).idx!=-1){
+//            if(mainResult.chart_data.soribadachart.get(0).is_up==1)
+//                flag = true;
+//            rankDatas.add(new RankData("소리바다", mainResult.chart_data.soribadachart.get(0).idx, flag));
+//        }
 
 
-            recyclerView.setHasFixedSize(true);
+
+
+        recyclerView.setHasFixedSize(true);
             linearLayoutManager = new LinearLayoutManager(getActivity());
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(linearLayoutManager);

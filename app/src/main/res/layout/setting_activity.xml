@@ -5,21 +5,38 @@
     android:layout_height="match_parent"
     tools:context="com.deokjilmate.www.deokjilmate.Setting.SettingActivity"
     android:orientation="vertical"
+    android:background="#FFFFFF"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/maingradation"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@color/tw__transparent"
+            android:id="@+id/setting_backImage"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffff"
+            android:includeFontPadding="false"
+            android:text="설정"/>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/basicListview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
 
 
     </ListView>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dip"
-        android:background="#DCDCDC" />
 
     <Button
         android:id="@+id/setting_logout"
@@ -28,9 +45,16 @@
         android:text="로그아웃"
         android:textColor="#f4f4f4"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/logout_border_button_background"
         />
 
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/duckmateLogo"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/setting_twitter"/>
 
 </LinearLayout>

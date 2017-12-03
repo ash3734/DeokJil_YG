@@ -1,10 +1,13 @@
 package com.deokjilmate.www.deokjilmate.Setting.Notice;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -27,7 +30,6 @@ public class NoticeActivity extends AppCompatActivity {
     private ExpandableListView mListView;
 
     private NoticeAdapter mBaseExpandableAdapter;
-    int i=0;
     int size;
     Context c = this;
 
@@ -38,19 +40,21 @@ public class NoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice_activity);
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.statusbar));
+            //window.setNavigationBarColor(this.getResources().getColor(R.color.tw__transparent));
+            //window.setBackgroundDrawable(background);
+        }
 
         service = ApplicationController.getInstance().getNetworkService();
-
-
         mListView = (ExpandableListView) findViewById(R.id.elv_list);
 
         mGroupList = new ArrayList<String>();
         mChildList = new ArrayList<ArrayList<String>>();
         mChildListContent = new ArrayList<String>();
-
-
-
-
 
         Call<BoardNotice> getNotice = service.getNotice();
         getNotice.enqueue(new Callback<BoardNotice>() {
@@ -60,28 +64,22 @@ public class NoticeActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     size = 0;
                     Log.d("밍구밍구","여기들어오나?");
-                    for(BoardNoticeData notice : response.body().result){
-                        mGroupList.add(notice.notice_title+" "+notice.notice_time);
+                    for(BoardNoticeData notice : response.body().data){
+                        mGroupList.add(notice.title);
 
-                        Log.d("밍구",notice.notice_title);
-                        Log.d("밍구",notice.notice_time);
+                        Log.d("밍구",notice.title);
 
-//                        mChildListContent.add(notice.notice_main);
-                        mChildListContent.add(size,notice.notice_main);
+                        mChildListContent.add(size,notice.main);
 
-                        Log.d("밍구",notice.notice_main);
-
-                       // mChildList.add(mChildListContent);
+                        Log.d("밍구",notice.main);
 
                         mChildList.add(size,mChildListContent);
                         size++;
-
-
                     }
                     mBaseExpandableAdapter = new NoticeAdapter(c,mGroupList,mChildList);
                     mListView.setAdapter(mBaseExpandableAdapter);
 
-                    Toast.makeText(getApplicationContext(),"성공~!!!!!!!!!!!!!!!!!!!!!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"성공", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -89,9 +87,9 @@ public class NoticeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BoardNotice> call, Throwable t) {
-                Log.d("밍구밍구","여기 실패로 들어오나?");
-                Log.d("밍구밍구",t.getMessage());
-                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.d("밍구밍구","여기 실패로 들어오나?");
+//                Log.d("밍구밍구",t.getMessage());
+//                Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -144,18 +142,5 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
-     * Layout
-
-    private ExpandableListView mListView;
-
-    private void setLayout(){
-        mListView = (ExpandableListView) findViewById(R.id.elv_list);
-    }
-
-    */
-
-
 
 }

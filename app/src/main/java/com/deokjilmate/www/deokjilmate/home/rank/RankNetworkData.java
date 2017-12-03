@@ -13,4 +13,6 @@ public class RankNetworkData {
     public ArrayList<RankListNetworkData> melonchart;
     public ArrayList<RankListNetworkData> geniechart;
     public ArrayList<RankListNetworkData> soribadachart;
+    public ArrayList<RankListNetworkData> mnetchart;
+    public ArrayList<RankListNetworkData> bugschart;
 }

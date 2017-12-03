@@ -67,6 +67,11 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
             requestManager.load(setSingerItemDatas.get(position).singer_image).into(holder.singer_image);
             holder.singer_name.setText(setSingerItemDatas.get(position).singer_name);
             //holder.singer_most.setImageResource(setSingerItemDatas.get(position).singer_most);
+//            if(position!=clickedPosition)
+//                requestManagerSel.load("").into(holder.singer_most);
+//            if(position!=clickedPosition)
+//                holder.singer_most.refreshDrawableState();
+
 
             holder.singer_list.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +90,10 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                                 clickedPosition = -1;
                                 clicked = 0;
                             }else{
-                                requestManagerSel.load("").into(holder.singer_most);
+                                SetSingerItemData tempData = setSingerItemDatas.get(clickedPosition);
+                                setSingerItemDatas.remove(clickedPosition);
+                                setSingerItemDatas.add(clickedPosition, tempData);
+                                notifyItemChanged(clickedPosition);
                                 requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
                                 ApplicationController.getInstance().setMost(setSingerItemDatas.get(position).singer_id);
                                 clickedPosition = position;
@@ -98,6 +106,7 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                     }
                 }
             });
+
         }
         else{
             Log.v(TAG, "검색 true");
@@ -124,7 +133,10 @@ public class SetSingerAdapter extends RecyclerView.Adapter<SetSingerViewHolder>{
                                 clickedPosition = -1;
                                 clicked = 0;
                             }else{
-                                requestManagerSel.load("").into(holder.singer_most);
+                                SetSingerItemData tempData = searchSingerList.get(clickedPosition);
+                                searchSingerList.remove(clickedPosition);
+                                searchSingerList.add(clickedPosition, tempData);
+                                notifyItemChanged(clickedPosition);
                                 requestManagerSel.load(setSingerItemDatas.get(position).singer_most).into(holder.singer_most);
                                 ApplicationController.getInstance().setMost(searchSingerList.get(position).singer_id);
                                 clickedPosition = position;

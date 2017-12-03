@@ -201,6 +201,8 @@ public class SetProfileActivity extends AppCompatActivity {
 
 
 
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -224,7 +226,7 @@ public class SetProfileActivity extends AppCompatActivity {
     public void ClickNext()
     {
         member_name = tvnickName.getText().toString();
-        if(member_name == null)
+        if(member_name.equals(""))
             Toast.makeText(this, "닉네임을 입력하세요", Toast.LENGTH_SHORT);
         else {
             checkNickname(member_name);

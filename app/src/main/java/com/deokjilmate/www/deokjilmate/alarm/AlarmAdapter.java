@@ -89,6 +89,10 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
     }
     @Override
     public int getChildrenCount(int groupPosition) {
+        //
+         Log.d("AlarmAdap1", groupList.toString());
+        Log.d("AlarmAdap1", childList.toString());
+
         return this.childList.get(this.groupList.get(groupPosition)).size();
     }
 
@@ -122,23 +126,38 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         viewHolder.singerTextView.setText(getChild(groupPosition,childPosition).getMp_name());
 //        viewHolder.aSwitch.setChecked(true);
 
-        viewHolder.aSwitch.setChecked(getChild(groupPosition,childPosition).isState());
+//        if(viewHolder.singerTextView.getText().toString().contains("출연"))
+//            viewHolder.aSwitch.setVisibility(View.GONE);
+//        else
+//            viewHolder.aSwitch.setChecked(getChild(groupPosition,childPosition).isState());
+         if(getChild(groupPosition, childPosition).getMp_name().contains("출연"))
+             viewHolder.aSwitch.setVisibility(View.GONE);
+         else {
+             viewHolder.aSwitch.setVisibility(View.VISIBLE);
+             viewHolder.aSwitch.setChecked(getChild(groupPosition, childPosition).isState());//
+         }
 
 
-        viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b==true){
+                    //얘는 아니었던 애가 true로 눌렸을 때
+                    Log.d("AlarmAdap", "true");
                     ViewGroup viewGroup = (ViewGroup)compoundButton.getParent();
                     TextView temp = (TextView)viewGroup.getChildAt(0);
+                    Log.d("AlarmAdap", temp.getText().toString());
+                    //태그는 방송 이름
                     view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
                 else{
+                    //얘는 맞았던 애가 false로 눌렸을 때
+                    Log.d("AlarmAdap", "false");
                     ViewGroup viewGroup = (ViewGroup)compoundButton.getParent();
                     TextView temp = (TextView)viewGroup.getChildAt(0);
+                    Log.d("AlarmAdap", temp.getText().toString());
                     view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
-
             }
         });
 
@@ -157,4 +176,3 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
         return true;
     }
 }
-

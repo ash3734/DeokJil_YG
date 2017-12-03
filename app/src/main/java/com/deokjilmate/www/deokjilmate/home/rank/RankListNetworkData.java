@@ -6,5 +6,5 @@ package com.deokjilmate.www.deokjilmate.home.rank;
 
 public class RankListNetworkData {
     public int idx;
-    public String is_up;
+    public int is_up;
 }

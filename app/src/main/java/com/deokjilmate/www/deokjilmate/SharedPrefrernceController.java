@@ -17,6 +17,7 @@ public class SharedPrefrernceController {
     private static final String IMAGE = "image";
     private static final String MOST = "most";
     private static final String SELETED = "seleted";
+    private static final String ALARM = "alarm";
 
 
     public static void setLoginType(Context context, String loginType){
@@ -112,6 +113,18 @@ public class SharedPrefrernceController {
     public static int getSelected(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
         return pref.getInt(SELETED, -1);
+    }
+
+    public static void setAlarm(Context context, boolean alarm){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(ALARM, alarm);
+        editor.commit();
+    }
+
+    public static boolean getAlarm(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getBoolean(ALARM, true);
     }
 
 }
