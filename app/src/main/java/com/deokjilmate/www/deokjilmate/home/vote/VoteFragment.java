@@ -109,6 +109,7 @@ public class VoteFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), DialogActivity.class);
+                    intent.putExtra("curVote", true);
                     startActivity(intent);
                 }
             });

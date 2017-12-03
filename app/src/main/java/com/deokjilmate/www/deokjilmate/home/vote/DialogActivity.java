@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
+import com.deokjilmate.www.deokjilmate.home.vote.curVote.CurData;
 import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreData;
 import com.dev.sacot41.scviewpager.DotsView;
 import com.dev.sacot41.scviewpager.SCViewAnimationUtil;
@@ -39,7 +40,9 @@ public class DialogActivity extends AppCompatActivity {
     private int position;
     private Context context;
     private TextView closeTextView;
+    private boolean curVote = false;
     PreData preData;
+    CurData curData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,19 +56,26 @@ public class DialogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dialog);
 
         Intent intent = getIntent();
-        int curPgae = intent.getIntExtra("curPage",1);
-
+        int curPgae = intent.getIntExtra("curPage",0);
+        curVote = intent.getBooleanExtra("curVote", false);
         closeTextView = (TextView)findViewById(R.id.dialog_text_end);
         mainResult = ApplicationController.getInstance().mainResult;
         preDatas = new ArrayList<PreData>();
         //실시간 투표 현황도 넣는다.
         preData = new PreData(mainResult.program_data.cure_data.getProgram_name(),mainResult.program_data.cure_data.getProgram_data());
-        for(int i=0;i<mainResult.program_data.pre_data.size();i++){
-            preDatas.add(mainResult.program_data.pre_data.get(i));
+        if(curVote){
+            preDatas.add(mainResult.program_data.pre_data.get(0));
+            /**실시간 투표는 하나 밖에 없으니 일단 하나만 받을 수 있게끔 근데 사전 투표에서 빼온 거라 바꿔야 함*/
+        }
+        else {
+            for (int i = 0; i < mainResult.program_data.pre_data.size(); i++) {
+                preDatas.add(mainResult.program_data.pre_data.get(i));
+
+            }
         }
 
         Log.d("mainResultSize", String.valueOf(ApplicationController.getInstance().mainResult.program_data.pre_data.size()));
-        preDatas.add(preData);
+      //  preDatas.add(preData);
 
         mViewPager = (SCViewPager) findViewById(R.id.viewpager_main_activity);
         mDotsView = (DotsView) findViewById(R.id.dotsview_main);
