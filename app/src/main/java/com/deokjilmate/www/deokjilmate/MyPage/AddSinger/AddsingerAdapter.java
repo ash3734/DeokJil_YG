@@ -130,7 +130,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
                             addCheck();
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG).show();
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "더 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -182,7 +182,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
                         } else {
                             Log.v("EditAdap", "가수는 4명까지");
-                            Toast.makeText(addSingerActivity.getApplicationContext(), "가수는 4명까지", Toast.LENGTH_LONG).show();
+                            Toast.makeText(addSingerActivity.getApplicationContext(), "더 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -298,7 +298,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
             }
             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
-            Toast.makeText(addSingerActivity.getApplicationContext(), "추가하였습니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(addSingerActivity.getApplicationContext(), "서브 가수로 추가되었습니다.", Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
             customDialog.dismiss();
 
@@ -351,7 +351,7 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
 
             ApplicationController.getInstance().setUserDataSumms(userDataSumms);
 
-            Toast.makeText(addSingerActivity.getApplicationContext(), "삭제하였습니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(addSingerActivity.getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
             customDialog.dismiss();
         }

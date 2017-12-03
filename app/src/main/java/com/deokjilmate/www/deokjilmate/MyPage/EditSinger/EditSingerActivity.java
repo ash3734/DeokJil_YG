@@ -206,7 +206,7 @@ public class EditSingerActivity extends AppCompatActivity {
                             preUserDataSumms.addAll(userDataSummsTemp);
                             Log.v("유저3", preUserDataSumms.get(0).getSinger_name());
                             ApplicationController.getInstance().setPreUserDataSumms(preUserDataSumms);
-                            Toast.makeText(getApplicationContext(), "수정 완료.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "수정 완료.", Toast.LENGTH_SHORT).show();
                             SharedPrefrernceController.setMost(EditSingerActivity.this, userDataSummsTemp.get(0).getSinger_id());
                             SharedPrefrernceController.setSelected(EditSingerActivity.this, userDataSummsTemp.get(0).getSinger_id());
                             setHomeData(firebaseToken, userDataSummsTemp.get(0).getSinger_id());
