@@ -642,12 +642,15 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
     @Override
     public void requestName(String todayAlarmState, String zero_flag, String one_flag, String two_flag, String three_flag) {
 
+
         retrofit2.Call<NoticePostResult> postAlarm = service.postAlarm(new NoticePostData(firebaseToken,fcmToken,todayAlarmState,zero_flag,one_flag,two_flag,three_flag));
         postAlarm.enqueue(new Callback<NoticePostResult>() {
             @Override
             public void onResponse(retrofit2.Call<NoticePostResult> call, Response<NoticePostResult> response) {
                 if (response.isSuccessful()) {
 //                    Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
+                    Log.d("fcmtokenCheck",fcmToken);
+                    Log.d("firebasetokenCheck",firebaseToken);
 
                 } else {
 //                    Toast.makeText(getApplicationContext(), "등록실패", Toast.LENGTH_SHORT).show();
