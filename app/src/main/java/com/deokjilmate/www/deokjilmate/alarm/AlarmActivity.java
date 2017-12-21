@@ -534,7 +534,7 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
 
     @Override
-    public void updateStateCheck(String sname, String voteName, boolean state, boolean todayState) {
+    public void updateStateCheck(String sname, String voteName, boolean state) {
         Log.d("AlarmAct", "upDate");
 
         int groupIndex = 0;
@@ -557,9 +557,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
             }
 
         }
-
-        if(todayState) todayAlarmState="1";
-        else todayAlarmState="0";
 
         updateNetwork();
     }

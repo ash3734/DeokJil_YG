@@ -117,8 +117,6 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
 
             viewHolder.aSwitch = (Switch)v.findViewById(R.id.alram_switch_);
 
-            viewHolder.todaySwitch = (Switch)v.findViewById(R.id.alarm_today);
-
             v.setTag(viewHolder);
         }
         else{
@@ -151,7 +149,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
                     TextView temp = (TextView)viewGroup.getChildAt(0);
                     Log.d("AlarmAdap", temp.getText().toString());
                     //태그는 방송 이름
-                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b, viewHolder.todaySwitch.isChecked());
+                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
                 else{
                     //얘는 맞았던 애가 false로 눌렸을 때
@@ -159,19 +157,19 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
                     ViewGroup viewGroup = (ViewGroup)compoundButton.getParent();
                     TextView temp = (TextView)viewGroup.getChildAt(0);
                     Log.d("AlarmAdap", temp.getText().toString());
-                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b, viewHolder.todaySwitch.isChecked());
+                    view.updateStateCheck(temp.getTag().toString(),temp.getText().toString(),b);
                 }
             }
         });
 
-        viewHolder.todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //이 부분이 상단에 알림 켜는 곳
-                if(b==true) view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
-                else view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
-            }
-        });
+//        viewHolder.todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                //이 부분이 상단에 알림 켜는 곳
+//                if(b==true) view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
+//                else view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
+//            }
+//        });
 
 
         return v;

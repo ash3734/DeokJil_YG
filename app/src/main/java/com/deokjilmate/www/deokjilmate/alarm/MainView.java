@@ -5,7 +5,7 @@ package com.deokjilmate.www.deokjilmate.alarm;
  */
 
 public interface MainView {
-    void updateStateCheck(String sname,String voteName, boolean state, boolean todayState);
+    void updateStateCheck(String sname,String voteName, boolean state);
     void requestName(String todayAlarmState, String zero_flag, String one_flag,
                      String two_flag, String three_flag);
 
