@@ -162,8 +162,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                         dialog.cancel();
                                     }
                                 });
-
-
                 // 다이얼로그 생성
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -323,15 +321,10 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                 Log.d("singer방송확인",String.valueOf(mChildList.get(logcount).get(logcount2).getMp_name()));
                             }
                         }
+
         }
         else {
             Log.d("myTag", "첫번째 알람이 아님!!");
-
-//            for (UserDataSumm data : userDataSumms) {
-//                Log.d("가수명확인", String.valueOf(data.getSinger_id()));
-//                singerID.add(data.getSinger_id());
-//                mGroupList.add(data.getSinger_name());
-//            }
 
             Call<NoticeResult> getAlarm = service.getAlarm(firebaseToken);
             getAlarm.enqueue(new Callback<NoticeResult>() {
@@ -344,6 +337,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                         Log.d("알람", "가져오기 성공");
                         Log.d("firebase", firebaseToken);
                         todayAlarmState = response.body().data.today_alarm;
+
+                        Log.d("todayAlarm",todayAlarmState);
+
 
                         if (todayAlarmState!=null) {
                             if (todayAlarmState.equals("1"))
@@ -497,7 +493,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                     Log.d("getAlarm통신연결", "실패");
                 }
             });
+
         }
+
 
 
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -527,17 +525,16 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         mListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-
-
             }
 
-
         });
+
+
     }
 
 
     @Override
-    public void updateStateCheck(String sname, String voteName, boolean state) {
+    public void updateStateCheck(String sname, String voteName, boolean state, boolean todayState) {
         Log.d("AlarmAct", "upDate");
 
         int groupIndex = 0;
@@ -561,22 +558,10 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
         }
 
-        todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //이 부분이 상단에 알림 켜는 곳
-                if(b==true) todayAlarmState="1";
-                else todayAlarmState="0";
-                Log.d("오늘의알림check",todayAlarmState);
-                Log.d("AlarmAct", "oncheckChanged");
-                updateNetwork();
-            }
-        });
+        if(todayState) todayAlarmState="1";
+        else todayAlarmState="0";
 
         updateNetwork();
-
-            //updateNetwork();
-
     }
 
     @Override
