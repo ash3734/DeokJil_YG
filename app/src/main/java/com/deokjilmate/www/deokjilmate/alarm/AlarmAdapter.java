@@ -41,6 +41,7 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
     class ViewHolder {
         public TextView singerTextView;
         public Switch aSwitch;
+        public Switch todaySwitch;
     }
     @Override
     public String getGroup(int groupPosition) {
@@ -160,6 +161,15 @@ public class AlarmAdapter extends BaseExpandableListAdapter{
                 }
             }
         });
+
+//        viewHolder.todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                //이 부분이 상단에 알림 켜는 곳
+//                if(b==true) view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
+//                else view.updateStateCheck(viewHolder.aSwitch.getTag().toString(),viewHolder.aSwitch.getText().toString(),viewHolder.aSwitch.isChecked(), b);
+//            }
+//        });
 
 
         return v;
