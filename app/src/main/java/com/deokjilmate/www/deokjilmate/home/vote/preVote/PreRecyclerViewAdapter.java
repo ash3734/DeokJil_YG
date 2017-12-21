@@ -34,8 +34,8 @@ public class PreRecyclerViewAdapter extends RecyclerView.Adapter<PreViewHolder>{
     //현재 이미지 미구현 상태
     @Override
     public void onBindViewHolder(PreViewHolder holder, int position) {
-        holder.textViewProgramName.setText(itemDatas.get(position).program_name+
-                "\n"+itemDatas.get(position).program_data);
+        holder.textViewProgramName.setText(itemDatas.get(position).program_name);
+        holder.textViewPrgramDate.setText(itemDatas.get(position).program_data);
         if(itemDatas.get(position).program_name.equals("인기가요")){
             holder.imageViewProgram.setImageResource(R.drawable.ingigayo);
         }else if(itemDatas.get(position).program_name.equals("쇼챔피언")){
