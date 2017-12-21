@@ -38,7 +38,8 @@ public class VoteFragment extends Fragment {
     TextView textViewFanCount;
     TextView textViewVoteCount;
     ImageView imageViewCurProgram;
-    TextView textViewCurProgram;
+    TextView textViewCurProgramName;
+    TextView textViewCurProgramDate;
     RecyclerView preRecyclerView;
     ArrayList<PreData> preDatas;
     TextView textViewCurNull;
@@ -92,7 +93,8 @@ public class VoteFragment extends Fragment {
             imageViewBage.setImageResource(R.drawable.badge_sungduck);
 
         if ((mainResult.program_data.cure_data != null) && (!mainResult.program_data.pre_data.isEmpty())) {
-            textViewCurProgram.setText(mainResult.program_data.cure_data.getProgram_name() + "\n" + mainResult.program_data.cure_data.getProgram_data());
+            textViewCurProgramName.setText(mainResult.program_data.cure_data.getProgram_name());
+            textViewCurProgramDate.setText(mainResult.program_data.cure_data.getProgram_data());
             //mainResult.program_data.cure_data
 
             program = ProgramFactory.create(mainResult.program_data.cure_data.getProgram_name());
@@ -143,7 +145,9 @@ public class VoteFragment extends Fragment {
         textViewFanCount = (TextView)(frag.findViewById(R.id.home_fragment_textview_fan_count));
         textViewVoteCount = (TextView)(frag.findViewById(R.id.home_fragment_textview_vote_count));
         imageViewCurProgram = (ImageView)(frag.findViewById(R.id.home_list_imageview_cur_program));
-        textViewCurProgram = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program));
+
+        textViewCurProgramName = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program_name));
+        textViewCurProgramDate = (TextView)(frag.findViewById(R.id.home_list_textview_cur_program_date));
         textViewCurNull = (TextView)(frag.findViewById(R.id.home_fragment_textview_no_cur));
         textViewProcessNull = (TextView)(frag.findViewById(R.id.home_fragment_textview_no_process));
         imageViewBage = (ImageView)(frag.findViewById(R.id.home_fragment_imageview_bage));

@@ -14,10 +14,12 @@ import com.deokjilmate.www.deokjilmate.R;
 
 public class PreViewHolder extends RecyclerView.ViewHolder{
     TextView textViewProgramName;
+    TextView textViewPrgramDate;
     ImageView imageViewProgram;
     public PreViewHolder(View itemView) {
         super(itemView);
-        textViewProgramName = (TextView) itemView.findViewById(R.id.home_list_textview_program);
+        textViewProgramName = (TextView) itemView.findViewById(R.id.home_list_textview_program_name);
+        textViewPrgramDate = (TextView) itemView.findViewById(R.id.home_list_textview_program_date);
         imageViewProgram = (ImageView)itemView.findViewById(R.id.home_list_imageview_program);
     }
 }

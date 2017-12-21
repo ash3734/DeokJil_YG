@@ -63,11 +63,15 @@ public class DialogActivity extends AppCompatActivity {
         preDatas = new ArrayList<PreData>();
         //실시간 투표 현황도 넣는다.
         preData = new PreData(mainResult.program_data.cure_data.getProgram_name(),mainResult.program_data.cure_data.getProgram_data());
+      //  curData = mainResult.program_data.cure_data
+
         if(curVote){
-            preDatas.add(mainResult.program_data.pre_data.get(0));
+            //실시간
+            preDatas.add(preData);
             /**실시간 투표는 하나 밖에 없으니 일단 하나만 받을 수 있게끔 근데 사전 투표에서 빼온 거라 바꿔야 함*/
         }
         else {
+            //사전
             for (int i = 0; i < mainResult.program_data.pre_data.size(); i++) {
                 preDatas.add(mainResult.program_data.pre_data.get(i));
 
@@ -85,7 +89,7 @@ public class DialogActivity extends AppCompatActivity {
         mPageAdapter = new MPagerAdapter(getSupportFragmentManager(),preDatas);
         mPageAdapter.setNumberOfPage(preDatas.size());
         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
-        //// TODO: 2017-08-25 페이지 설정하기 가능하지는 모르겟음 
+        //// TODO: 2017-08-25 페이지 설정하기 가능하지는 모르겟음
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setCurrentItem(curPgae);
 
