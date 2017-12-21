@@ -140,6 +140,27 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         three_flag = new ArrayList<Integer>();
 
         todaySwitch = (Switch)findViewById(R.id.alarm_today);
+        todaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) todayAlarmState="1";
+                else todayAlarmState="0";
+                Log.d("오늘의알람", "!!");
+                Log.d("그룹리스트",String.valueOf(mGroupList.size()));
+                Log.d("차일드리스트",String.valueOf(mChildList.size()));
+                if(mGroupList.size()==0){
+                    for (UserDataSumm data : userDataSumms) {
+                        Log.d("가수명확인", String.valueOf(data.getSinger_id()));
+                        singerID.add(data.getSinger_id());
+                        mGroupList.add(data.getSinger_name());
+                    }
+                }
+                else{
+                    updateNetwork();
+                }
+
+            }
+        });
 
         alarm_today_info = (ImageView) findViewById(R.id.alarm_today_info);
         alarm_today_info.setOnClickListener(new View.OnClickListener() {
@@ -176,11 +197,11 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
         mGroupList = new ArrayList<String>();
         mChildList = new HashMap<String,ArrayList<ChildListContent>>();
 
-        for (UserDataSumm data : userDataSumms) {
-            Log.d("가수명확인", String.valueOf(data.getSinger_id()));
-            singerID.add(data.getSinger_id());
-            mGroupList.add(data.getSinger_name());
-        }
+//        for (UserDataSumm data : userDataSumms) {
+//            Log.d("가수명확인", String.valueOf(data.getSinger_id()));
+//            singerID.add(data.getSinger_id());
+//            mGroupList.add(data.getSinger_name());
+//        }
 
         if(isFirstAlarm){
             Log.d("myTag","첫번째 알람이다!");
@@ -496,8 +517,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
 
         }
 
-
-
         mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
@@ -505,7 +524,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                 return false;
             }
         });
-
 
         mListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -528,7 +546,6 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
             }
 
         });
-
 
     }
 
