@@ -406,14 +406,14 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                     mChildListContent2 = new ArrayList<ChildListContent>();
                                     if(response.body().data.one_flag==null){
 //                                        mChildListContent2.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent2.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent2.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent2.add(new ChildListContent("더 쇼", false));
                                     }else if(response.body().data.one_flag.isEmpty()){
 //                                        mChildListContent2.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent2.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent2.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent2.add(new ChildListContent("더 쇼", false));
                                     }
                                     else {
                                         for (int j = 0; j <= 2; j++) {
@@ -438,14 +438,14 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                     mChildListContent3 = new ArrayList<ChildListContent>();
                                     if(response.body().data.two_flag==null){
 //                                        mChildListContent3.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent3.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent3.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent3.add(new ChildListContent("더 쇼", false));
                                     }else if(response.body().data.two_flag.isEmpty()){
 //                                        mChildListContent3.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent3.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent3.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent3.add(new ChildListContent("더 쇼", false));
                                     }
                                     else {
                                         for (int j = 0; j <= 2; j++) {
@@ -470,14 +470,14 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                                     mChildListContent4 = new ArrayList<ChildListContent>();
                                     if(response.body().data.three_flag==null){
 //                                        mChildListContent4.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent4.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent4.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent4.add(new ChildListContent("더 쇼", false));
                                     }else if(response.body().data.three_flag.isEmpty()){
 //                                        mChildListContent4.add(new ChildListContent("출연 방송이 없습니다", false));
-                                        mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                                        mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                                        mChildListContent.add(new ChildListContent("더 쇼", false));
+                                        mChildListContent4.add(new ChildListContent("엠카운트다운", false));
+                                        mChildListContent4.add(new ChildListContent("쇼! 음악중심", false));
+                                        mChildListContent4.add(new ChildListContent("더 쇼", false));
                                     }
                                     else {
                                         for (int j = 0; j <= 2; j++) {
@@ -745,9 +745,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                            mChildListContent2 = new ArrayList<ChildListContent>();
                            if(alarmArray.get(0)==-1){
 //                               mChildListContent2.add(new ChildListContent("출연 방송이 없습니다", false));
-                               mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                               mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                               mChildListContent.add(new ChildListContent("더 쇼", false));
+                               mChildListContent2.add(new ChildListContent("엠카운트다운", false));
+                               mChildListContent2.add(new ChildListContent("쇼! 음악중심", false));
+                               mChildListContent2.add(new ChildListContent("더 쇼", false));
                            }else {
                                for (int x = 0; x < alarmArray.size(); x++) {
                                    if (x == 0 && alarmArray.contains(x))
@@ -773,9 +773,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                            mChildListContent3 = new ArrayList<ChildListContent>();
                            if(alarmArray.get(0)==-1){
 //                               mChildListContent3.add(new ChildListContent("출연 방송이 없습니다", false));
-                               mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                               mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                               mChildListContent.add(new ChildListContent("더 쇼", false));
+                               mChildListContent3.add(new ChildListContent("엠카운트다운", false));
+                               mChildListContent3.add(new ChildListContent("쇼! 음악중심", false));
+                               mChildListContent3.add(new ChildListContent("더 쇼", false));
                            }
                            else {
                                for (int x = 0; x < alarmArray.size(); x++) {
@@ -802,9 +802,9 @@ public class AlarmActivity extends AppCompatActivity implements MainView{
                            mChildListContent4 = new ArrayList<ChildListContent>();
                            if(alarmArray.get(0)==-1){
 //                               mChildListContent4.add(new ChildListContent("출연 방송이 없습니다", false));
-                               mChildListContent.add(new ChildListContent("엠카운트다운", false));
-                               mChildListContent.add(new ChildListContent("쇼! 음악중심", false));
-                               mChildListContent.add(new ChildListContent("더 쇼", false));
+                               mChildListContent4.add(new ChildListContent("엠카운트다운", false));
+                               mChildListContent4.add(new ChildListContent("쇼! 음악중심", false));
+                               mChildListContent4.add(new ChildListContent("더 쇼", false));
                            }else {
                                for (int x = 0; x < alarmArray.size(); x++) {
                                    if (x == 0 && alarmArray.contains(x))
