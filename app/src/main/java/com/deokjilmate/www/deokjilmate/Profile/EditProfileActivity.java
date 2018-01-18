@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.deokjilmate.www.deokjilmate.Login.SetProfileResult;
+import com.deokjilmate.www.deokjilmate.MyPage.MyPageActivity;
 import com.deokjilmate.www.deokjilmate.R;
 import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
@@ -60,7 +62,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             //Drawable background = this.getResources().getDrawable(R.drawable.gradation);
@@ -70,28 +71,29 @@ public class EditProfileActivity extends AppCompatActivity {
             //window.setBackgroundDrawable(background);
 
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
         ButterKnife.bind(this);
         networkService = ApplicationController.getInstance().getNetworkService();
         data = Uri.parse(SharedPrefrernceController.getUserImage(EditProfileActivity.this));
         Glide.with(this).load(R.drawable.profile_default).into(editP_profileImage);
+        //Glide.with(this).load(data).into(editP_profileImage);
 
         init();
-
     }
 
     public void init(){
         Uri data;
         data = Uri.parse(SharedPrefrernceController.getUserImage(this));
+        //ImageView image = (ImageView)findViewById(R.id.editProfile_profileImage);
+        //Uri data = ApplicationController.getInstance().getProfileData();
         if(!data.toString().equals("")) {
+            Log.v("edit", data.toString());
             Glide.with(editP_profileImage.getContext())
                     .load(data)
                     .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                     .into(editP_profileImage);
         }
-
         //String nickname;
         nickname = SharedPrefrernceController.getUserNickname(this);
         editP_nickname.setText(nickname);
@@ -134,6 +136,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .into(editP_profileImage);
 
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -143,7 +147,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.EditProfile_save)
     public void editSave(){
-        SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
+        //SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
         if (!editP_nickname.getText().toString().equals(nickname)) {
             Call<SetProfileResult> setProfileResult = networkService.setProfileResult(editP_nickname.getText().toString());
             setProfileResult.enqueue(new Callback<SetProfileResult>() {
@@ -154,10 +158,20 @@ public class EditProfileActivity extends AppCompatActivity {
                         Toast.makeText(EditProfileActivity.this, "존재하는 닉네임입니다.", Toast.LENGTH_LONG).show();
 
                     } else {
+                        SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
                         SharedPrefrernceController.setUserNickname(EditProfileActivity.this, editP_nickname.getText().toString());
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                        if(ApplicationController.getInstance().isFromHome()){
+                            ApplicationController.getInstance().setFromHome(false);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
                 }
 
@@ -166,20 +180,42 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 }
             });
+        }else{
+            SharedPrefrernceController.setUserImage(EditProfileActivity.this, data.toString());
+            Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            //startActivity(intent);
+            finish();
         }
-
-        Toast.makeText(EditProfileActivity.this, "변경 되었습니다.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @OnClick(R.id.EditProfile_backImage)
     public void editBack(){
         //TODO : 뒤로 가는 것.
-//        Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-//        startActivity(intent);
-        finish();
+        if(ApplicationController.getInstance().isFromHome()){
+            ApplicationController.getInstance().setFromHome(false);
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(ApplicationController.getInstance().isFromHome()){
+            ApplicationController.getInstance().setFromHome(false);
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

@@ -225,7 +225,6 @@ public class AddsingerAdapter extends RecyclerView.Adapter<AddSingerViewHolder>{
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
 
-
         searchSingerList.clear();
         //입력한 데이터가 없을 경우에는 추천목록
         if (charText.length() == 0) {

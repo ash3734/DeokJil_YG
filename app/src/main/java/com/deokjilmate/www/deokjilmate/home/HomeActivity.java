@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -73,6 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("투표"));
         tabLayout.addTab(tabLayout.newTab().setText("차트"));
+        reduceTabMarigns(tabLayout, 100);
         tabLayout.setTabTextColors(getResources().getColor(R.color.tabUnSeleted), getResources().getColor(R.color.tabSeleted));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -182,4 +184,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         finish();
     }
 
+    public void reduceTabMarigns(TabLayout tabLayout, int margin){
+        View tabStrip = tabLayout.getChildAt(0);
+        if (tabStrip instanceof ViewGroup) {
+            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
+            for (int i = 0; i < ((ViewGroup) tabStrip).getChildCount(); i++) {
+                View tabView = tabStripGroup.getChildAt(i);
+                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ((ViewGroup.MarginLayoutParams) tabView.getLayoutParams()).leftMargin = margin;
+                    ((ViewGroup.MarginLayoutParams) tabView.getLayoutParams()).rightMargin = margin;
+                }
+            }
+            tabLayout.requestLayout();
+        }
+    }
 }

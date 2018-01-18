@@ -2,6 +2,7 @@ package com.deokjilmate.www.deokjilmate.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 
 import com.deokjilmate.www.deokjilmate.MyPage.MyPageAllSingerNumbers;
 import com.deokjilmate.www.deokjilmate.UserAllSingerData;
@@ -73,6 +74,10 @@ public class ApplicationController extends Application{
 
     private ArrayList<UserDataSumm> preUserDataSumms;
     private int most;
+
+
+
+    private Uri profileData = null;
 
 //    public Uri getProfile_uri() {
 //        return profile_uri;
@@ -207,6 +212,12 @@ public class ApplicationController extends Application{
     public void setPreUserDataSumms(ArrayList<UserDataSumm> preUserDataSumms) {
         this.preUserDataSumms = preUserDataSumms;
     }
+    public Uri getProfileData() {
+        return profileData;
+    }
 
+    public void setProfileData(Uri profileData) {
+        this.profileData = profileData;
+    }
 
 }

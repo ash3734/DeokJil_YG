@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textSize="20dp"
             android:text="비밀번호 찾기"/>
     </RelativeLayout>
 
@@ -79,6 +80,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="48dp"
             android:layout_alignParentBottom="true"
+            android:textSize="18dp"
             android:background="@drawable/sing_login_check_button"
             android:id="@+id/FindPwd_check"
             android:text="비밀번호 메일로 보내기"/>

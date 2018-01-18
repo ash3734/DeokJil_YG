@@ -200,26 +200,29 @@ public class NaviFragment extends Fragment {
                 case 4:
                     if (userAllSingerDatas.get(3).getSinger_name() != null)
                         singer4.setText(userAllSingerDatas.get(3).getSinger_name());
-                    if (userAllSingerDatas.get(3).getNew_flag() != null)
+                    if (userAllSingerDatas.get(3).getNew_flag() != null &&
+                            !userAllSingerDatas.get(3).getNew_flag().equals("0"))
                         new4.setImageResource(R.drawable.menu_new);
                     relativeLayout4.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 3:
-                    Log.v("3", "3");
                     if (userAllSingerDatas.get(2).getSinger_name() != null)
                         singer3.setText(userAllSingerDatas.get(2).getSinger_name());
-                    if (userAllSingerDatas.get(2).getNew_flag() != null)
+                    if (userAllSingerDatas.get(2).getNew_flag() != null &&
+                            !userAllSingerDatas.get(2).getNew_flag().equals("0"))
                         new3.setImageResource(R.drawable.menu_new);
                     relativeLayout3.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 2:
                     if (userAllSingerDatas.get(1).getSinger_name() != null)
                         singer2.setText(userAllSingerDatas.get(1).getSinger_name());
-                    if (userAllSingerDatas.get(1).getNew_flag() != null)
+                    if (userAllSingerDatas.get(1).getNew_flag() != null &&
+                            !userAllSingerDatas.get(1).getNew_flag().equals("0"))
                         new2.setImageResource(R.drawable.menu_new);
                     relativeLayout2.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                 case 1:
                     if (userAllSingerDatas.get(0).getSinger_name() != null)
                         singer1.setText(userAllSingerDatas.get(0).getSinger_name());
-                    if (userAllSingerDatas.get(0).getNew_flag() != null)
+                    if (userAllSingerDatas.get(0).getNew_flag() != null &&
+                            !userAllSingerDatas.get(0).getNew_flag().equals("0"))
                         new1.setImageResource(R.drawable.menu_new);
                     relativeLayout1.setBackgroundColor(getContext().getResources().getColor(R.color.navi_singer_bg));
                     break;
@@ -305,6 +308,7 @@ public class NaviFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditProfileActivity.class));
+                ApplicationController.getInstance().setFromHome(true);
                 getActivity().finish();
             }
         });
@@ -371,7 +375,8 @@ public class NaviFragment extends Fragment {
         Uri data;
         // data = ApplicationController.getInstance().getProfile_uri();
         data = Uri.parse(SharedPrefrernceController.getUserImage(getActivity()));
-
+        ApplicationController.getInstance().setProfileData(data);
+        Log.v("NaviFrag", data.toString());
         //  data = SharedPrefrernceController.getUserImage(getActivity());
         if(!data.toString().equals("")) {
             Glide.with(myImage.getContext())

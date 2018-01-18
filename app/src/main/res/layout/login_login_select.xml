@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:text="로그인"/>
         </RelativeLayout>
@@ -132,6 +133,7 @@
             android:background="@drawable/edit_text_background"
             android:layout_marginTop="8dp"
             android:id="@+id/LoginSelect_pwd"
+            android:inputType="textPassword"
             android:hint="비밀번호"
             android:includeFontPadding="false"
             android:textColorHint="#8A000000"
@@ -170,6 +172,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/sing_login_check_button"
+        android:textSize="18dp"
+        android:textColor="@color/white"
         android:id="@+id/LoginSelect_customLogin"
         android:textStyle="bold"
         android:text="로그인하기" />
