@@ -185,6 +185,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
     private void handleFacebookAccessToken(AccessToken token) {
         makeDialog("잠시만 기다려주세요");
+        Log.v(LOG, token.getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mfirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -204,6 +205,7 @@ public class LoginSelectActivity extends AppCompatActivity implements
                                     if(response.body().result){
                                         successGetToken(response.body().data);
                                     }else{
+                                        Log.v(LOG, "problem1");
                                         failGetToken();
                                     }
                                 }
@@ -213,11 +215,11 @@ public class LoginSelectActivity extends AppCompatActivity implements
                                 }
                             });
                         } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
                             //updateUI(null);
+                            Log.v(LOG, "problem2");
+                            failGetToken();
                         }
                     }
                 });
@@ -302,8 +304,9 @@ public class LoginSelectActivity extends AppCompatActivity implements
 
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+                            failGetToken();
                         }
 
                         FirebaseUser user = mfirebaseAuth.getCurrentUser();
@@ -373,8 +376,9 @@ public class LoginSelectActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginSelectActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+                            failGetToken();
                         }
 
                         //TODO : 가입의 경우 굳이 다이얼로그가 있을 필요는 없음

@@ -44,12 +44,12 @@
         <!-- <activity android:name=".alarm.AlarmActivity" /> -->
         <activity
             android:name=".Login.MainLoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             />
         <activity
             android:name=".Login.LoginSelectActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             />
         <activity
@@ -59,7 +59,7 @@
             />
         <activity
             android:name=".Login.SignActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             />
 
@@ -140,7 +140,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".MyPage.RankDialog"></activity>
     </application>
 
 </manifest>

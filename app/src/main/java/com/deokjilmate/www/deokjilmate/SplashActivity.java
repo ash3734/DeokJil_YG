@@ -46,6 +46,8 @@ public class SplashActivity extends AppCompatActivity {
 //    @BindView(R.id.Splash_background)
 //    ImageView background;
 
+    private String tempToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIwT3pZaXg5QXJUWmJYMUFxYjlYdzJuSTVCTEgzIiwiaWF0IjoxNTA5NTk2NDk1LCJleHAiOjE1MDk2MDAwOTUsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoiZmlyZWJhc2UtYWRtaW5zZGstdXlnY3VAZGVva2ppbG1hdGUtOTRjODcuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay11eWdjdUBkZW9ramlsbWF0ZS05NGM4Ny5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSJ9.g6U0nFhSctBYDVf5WUnRXaF6Ukde7FPdbf3O5hTA9r6n-euAaXwELwdNxXoAbMFTq4oHZkX6EsrBjbd9rlmIUEuw4mzXrFKMVG0p8aBhMvNd_--7XcGpUrdBit4RSVcx5Yi5JIEYqgHTNEzYuK34S3PumfG40X5vz7oUVXTnjVL_1op8DcwXplEZwocWVcIGNmLNMgJ_B9-QNbE9ueJOSJoToi747b9nFcIMueUVTYGNlGQB4RKjjcykhIp5jaafOo9oq56tPG3n0gqSPEdBhRe4TZgFcef5aCVbf7XJv5ytuUB6dswGyR3o-IcEBCg4CVJw_ODnlIUNtbU_Exdjow";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,6 +61,11 @@ public class SplashActivity extends AppCompatActivity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.splash);
                 ButterKnife.bind(this);
+
+                ////나중에 지울 것
+//                SharedPrefrernceController.setFirebaseToken(this, tempToken);
+//                SharedPrefrernceController.setMost(this, 37);
+//                SharedPrefrernceController.setSelected(this, 37);
 
                 TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
                 Fabric.with(this, new Twitter(authConfig));
@@ -123,6 +130,11 @@ public class SplashActivity extends AppCompatActivity {
             setHomeData(SharedPrefrernceController.getFirebaseToken(SplashActivity.this),
                     SharedPrefrernceController.getMost(SplashActivity.this));
 
+//            ApplicationController.getInstance().setSinger_id(37);
+//            setHomeData(tempToken, 37);
+
+
+
             //startActivity(new Intent(getApplicationContext(), AlarmActivity.class));
 
         }
@@ -169,7 +181,7 @@ public class SplashActivity extends AppCompatActivity {
         userDataSumms = new ArrayList<UserDataSumm>();
         preUserDataSumms = new ArrayList<UserDataSumm>();
 
-        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(SplashActivity.this));
+        final Call<UserAllSingerResponse> userAllSingerResponse = networkService.userAllSinger(SharedPrefrernceController.getFirebaseToken(this));
         userAllSingerResponse.enqueue(new Callback<UserAllSingerResponse>() {
             @Override
             public void onResponse(Call<UserAllSingerResponse> call, Response<UserAllSingerResponse> response) {

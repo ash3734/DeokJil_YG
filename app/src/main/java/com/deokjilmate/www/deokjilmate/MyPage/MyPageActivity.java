@@ -266,12 +266,13 @@ public class MyPageActivity extends AppCompatActivity {
         Uri data;
         data = Uri.parse(SharedPrefrernceController.getUserImage(this));
         if(!data.toString().equals("")) {
-            Glide.with(profileImage.getContext())
+            Log.v("MyPage", "initImage");
+            Glide.with(this)
                     .load(data)
                     .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                     .into(profileImage);
         }
-
+        Log.v("MyPage", "initImageFail");
         String nickname;
         nickname = SharedPrefrernceController.getUserNickname(this);
         mypageNickname.setText(nickname);

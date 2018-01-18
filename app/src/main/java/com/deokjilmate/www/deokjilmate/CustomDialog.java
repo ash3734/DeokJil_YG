@@ -29,7 +29,6 @@ public class CustomDialog extends Dialog {
     private String rightText;
     private String leftText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
