@@ -193,8 +193,8 @@ public class LoginSelectActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mfirebaseAuth.getCurrentUser();
-                            Toast.makeText(LoginSelectActivity.this, "Authentication suceess.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginSelectActivity.this, "Authentication suceess.",
+//                                    Toast.LENGTH_SHORT).show();
 
                             Log.v(LOG, user.getUid());
 

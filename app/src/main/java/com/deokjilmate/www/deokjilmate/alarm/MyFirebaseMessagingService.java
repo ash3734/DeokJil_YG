@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.home.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -31,7 +32,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //Check if the message contains notification
         if(remoteMessage.getNotification()!=null){
             Log.d(TAG,"Message body:"+remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getBody());
+            Log.v("오늘의 알림 YG in Firebase", SharedPrefrernceController.getTodayAlarm(this));
+            if(!SharedPrefrernceController.getTodayAlarm(this).equals("1"))
+                sendNotification(remoteMessage.getNotification().getBody());
         }
     }
 
@@ -43,6 +46,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notifiBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.launcher01)
+                .setShowWhen(true)
                 .setContentTitle("덕질메이트")
                 .setContentText(body)
                 .setAutoCancel(true)

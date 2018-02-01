@@ -29,6 +29,8 @@ import com.deokjilmate.www.deokjilmate.alarm.NoticePostData;
 import com.deokjilmate.www.deokjilmate.alarm.NoticePostResult;
 import com.deokjilmate.www.deokjilmate.alarm.NoticeResult;
 import com.deokjilmate.www.deokjilmate.home.MainResult;
+import com.deokjilmate.www.deokjilmate.home.vote.VotePost;
+import com.deokjilmate.www.deokjilmate.home.vote.VotePostResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -168,5 +170,8 @@ public interface NetworkService {
 //    Response getMyThing(
 //            @Query("param1") String param1,
 //            @Query("param2") String param2);
+
+    @POST("vote")
+    Call<VotePostResponse> userVote(@Body VotePost votePost);
 
 }
