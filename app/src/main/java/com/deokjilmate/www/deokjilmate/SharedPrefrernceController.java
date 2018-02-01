@@ -18,6 +18,7 @@ public class SharedPrefrernceController {
     private static final String MOST = "most";
     private static final String SELETED = "seleted";
     private static final String ALARM = "alarm";
+    private static final String TODAY_ALARM = "todayAlarm";
 
 
     public static void setLoginType(Context context, String loginType){
@@ -125,6 +126,18 @@ public class SharedPrefrernceController {
     public static boolean getAlarm(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
         return pref.getBoolean(ALARM, true);
+    }
+
+    public static void setTodayAlarm(Context context, String todayAlarm){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(TODAY_ALARM, todayAlarm);
+        editor.commit();
+    }
+
+    public static String getTodayAlarm(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getString(TODAY_ALARM, "1");
     }
 
 }

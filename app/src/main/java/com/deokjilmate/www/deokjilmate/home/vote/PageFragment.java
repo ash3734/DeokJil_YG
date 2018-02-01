@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deokjilmate.www.deokjilmate.R;
+import com.deokjilmate.www.deokjilmate.SharedPrefrernceController;
 import com.deokjilmate.www.deokjilmate.application.ApplicationController;
 import com.deokjilmate.www.deokjilmate.home.vote.preVote.PreData;
+import com.deokjilmate.www.deokjilmate.network.NetworkService;
 import com.deokjilmate.www.deokjilmate.program.Program;
 import com.deokjilmate.www.deokjilmate.program.ProgramFactory;
 
@@ -40,6 +42,8 @@ public class PageFragment extends Fragment {
     private ImageView imageView2;
     private String programName;
     private Program program;
+    private NetworkService networkService;
+    private String firebaseToken;
 
 
     public static PageFragment create(ArrayList<PreData> datas, int position) {
@@ -113,6 +117,7 @@ public class PageFragment extends Fragment {
                     e.printStackTrace();
                 }
                 button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.govote_button));
+                //networkService.userVote(new VotePost(firebaseToken, "3"));
             }
         });
     }
@@ -128,8 +133,8 @@ public class PageFragment extends Fragment {
         textViewVoteMethod = (TextView)rootView.findViewById(R.id.dialog_textview_voteway);
         button = (Button)rootView.findViewById(R.id.dialog_button_govote);
         imageView = (ImageView)rootView.findViewById(R.id.dialog_imageview);
-
-
+        networkService = ApplicationController.getInstance().getNetworkService();
+        firebaseToken = SharedPrefrernceController.getFirebaseToken(ApplicationController.getInstance().getContext());
         /*imageView = (ImageView) rootView.findViewById(R.id.dialog_imageview);
         textViewProgramName = (TextView) rootView.findViewById(R.id.dialog_textview_program);
         textViewPeriod = (TextView) rootView.findViewById(R.id.dialog_textview_week);
